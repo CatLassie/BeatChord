@@ -1,0 +1,9 @@
+# .idea/
+# venv/
+# data/
+.ipynb_checkpoints/
+# __pycache__/
+# *.flac
+# *.onsets
+# *.beats
+# *.bpm
