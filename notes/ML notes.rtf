@@ -1,0 +1,46 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww22840\viewh13880\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 - CUDA needed to speed up NN performance, to use GPU instead of CPU, probably cause gpu is better at linear algebra (matrix computations)\
+- tensors are multidimensional array data structures that are fast on GPUs and have other cool properties that make it easy to work with NNs\
+\
+\
+\
+- 1 forward pass calculates all predictions with current weights (parameters)\
+- then loss function is calculated (MSE for regression, cross entropy for classification) (real and prediction params are plotted against error to get a surface, we wanna find a small value of error)\
+- the gradient of the loss function is calculated with automatic differentiation (autograd).\
+\
+\
+\
+- e.g. optimisers like SGD (stochastic gradient descent), where w1 = w1 - learningRate*gradient, or Adam w1 = w1 - (momentumCoef + learningRate*gradient)\
+to speed up convergence (Adam = Adaptive Moment Evaluation).\
+- optimiser.zero_grad() -> loss.backward() -> optimiser.step(): reset current gradients, compute new ones, adjust params based on new gradients (do this for each iteration)\
+\
+\
+\
+- dropout: deactivate random neutrons during training to prevent overfitting (better generalisation)\
+\
+\
+\
+- going through once through all training data is -> 1 Epoch\
+	- we can feed all data at once (batch gradient descent): parameter adjustment after each epoch\
+	- we can feed 1 feature at a time (SGD): param adjustment after each feature (# features adjustments / epoch)\
+	- we can feed n (1 < n < All Data) features at a time (mini-batch): param adjustment after each mini batch (const number adjustments / epoch)\
+1 epoch can have many batches, gradient adjustment happens after each batch\
+NOTE: don\'92t confuse SGD optimiser with SGD batching method, I think its separate stuff\
+CODE: TensorDataset can be initialised with your training tensors and passed to loader = DataLoader(tensor, batch_size=100, shuffle=True) to regulate batch size\
+and then use a python iterator to get batches and feed them into whatever: iter(loader).next() <- is gonna be 1 batch\
+\
+\
+\
+- batch normalisation brings stuff to mean 0 and std. dev. to 1, can be used before or after activation function of a layer (depends on the activation function), maybe\
+not suitable for use with dropout layers (BE CAREFUL!)\
+\
+\
+\
+NOTE: switch to model.eval() during prediction (as opposed to model.train()) cause this will deactivate dropout and batch normalisation for example (stuff tags you only want during training)\
+NOTE: install the hidden layer whatever library to visualise your NN architecture}
