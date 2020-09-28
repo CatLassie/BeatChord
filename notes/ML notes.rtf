@@ -39,8 +39,30 @@ and then use a python iterator to get batches and feed them into whatever: iter(
 \
 - batch normalisation brings stuff to mean 0 and std. dev. to 1, can be used before or after activation function of a layer (depends on the activation function), maybe\
 not suitable for use with dropout layers (BE CAREFUL!)\
+- batch norm. allows for faster convergence (nicer, smoother gradients), as a side effect they reduce overfitting which is cool  and also allows to have larger learning rates\
 \
 \
 \
 NOTE: switch to model.eval() during prediction (as opposed to model.train()) cause this will deactivate dropout and batch normalisation for example (stuff tags you only want during training)\
-NOTE: install the hidden layer whatever library to visualise your NN architecture}
+NOTE: install the hidden layer whatever library to visualise your NN architecture\
+\
+\
+\
+- its cool to visualize features with matplot lib after conv. and pooling layers and put the pretty picture into the thesis (for maybe 1 feature for true/false beat and each chord; the calculated feature not the feature map! maybe also the feature maps (weight matrix) ?)\
+- also useful to plot the loss change \
+\
+\
+\
+\
+\
+\
+\
+SILLY IDEAS:\
+- spectrograms are 2D, images have color channels so 3D,\
+what if you take the same spectrogram and stack it 3-5-whatever times but shift it every time by a time value (like hop size or window size?)\
+to have the temporal data in the third dimension\
+\
+- since we have a more fine grained input feature shape for beats than for chords, we could feed the beat features into the system and at some point use GAP (global average pooling)\
+to average a few features into 1 chord feature ? (not GAP really but like local average pooling :D)\
+\
+- can GANs be used for something ? (Generative Adversarial Networks)}
