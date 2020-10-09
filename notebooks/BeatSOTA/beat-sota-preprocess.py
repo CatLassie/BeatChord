@@ -43,7 +43,7 @@ VERBOSE = args.verbose
 
 if VERBOSE:
     print('\n---- EXECUTION STARTED ----\n')
-    print('Comman line arguments:\n\n', args)
+    print('Comman line arguments:\n\n', args, '\n')
 
 
 # In[ ]:
@@ -84,13 +84,17 @@ def pre_process(filename, **kwargs):
 feat_ext = '.feat.npy'
 audio_paths = search_files(AUDIO_PATH, AUDIO_FORMAT)
 
-for path in audio_paths:
+for i, path in enumerate(audio_paths):
     spec = pre_process(path)
 
     base_path, name = os.path.split(path)
     base_name, ext = os.path.splitext(name)
     feat_path = os.path.join(FEATURE_PATH, base_name + feat_ext)
-    np.save(feat_path, spec)    
+    np.save(feat_path, spec)
+
+    if VERBOSE and (i + 1) % 50 == 0:
+        print(i+1, ' features have been computed...')
+
 
 
 # In[ ]:
