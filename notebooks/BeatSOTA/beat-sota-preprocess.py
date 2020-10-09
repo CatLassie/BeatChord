@@ -18,6 +18,15 @@ import argparse
 # In[ ]:
 
 
+CURRENT_PATH = os.getcwd()
+DEFAULT_AUDIO_FORMAT = '.flac'
+DEFAULT_AUDIO_PATH = os.path.join(CURRENT_PATH, 'audio')
+DEFAULT_FEATURE_PATH = os.path.join(CURRENT_PATH, 'features')
+
+
+# In[ ]:
+
+
 # command line args
 parser = argparse.ArgumentParser()
 parser.add_argument('-v', '--verbose', action='store_true', help='output additional information')
@@ -25,24 +34,24 @@ parser.add_argument('sr', type=int, help='sampling rate')
 parser.add_argument('frame_size', type=int, help='number of samples per frame')
 parser.add_argument('fps', type=int, help='number of frames per second')
 parser.add_argument('num_bands', type=int, help='number of mel bins')
+parser.add_argument('--audio_format', help='audio file format', default=DEFAULT_AUDIO_FORMAT)
+parser.add_argument('--audio_path', help='relative path to aduio files folder', default=DEFAULT_AUDIO_PATH)
+parser.add_argument('--feature_path', help='relative path to computed feature files folder', default=DEFAULT_FEATURE_PATH)
 args = parser.parse_args()
 
 VERBOSE = args.verbose
-SR = args.sr
-FRAME_SIZE = args.frame_size
-FPS = args.fps
-NUM_BANDS = args.num_bands
+
 if VERBOSE:
-    print('Comman line arguments: ', args)
+    print('\n---- EXECUTION STARTED ----\n')
+    print('Comman line arguments:\n\n', args)
 
 
 # In[ ]:
 
 
-audio_paths = search_files('../../../datasets/beat_boeck', '.flac')
-
-CURRENT_PATH = os.getcwd()
-FEATURE_PATH = os.path.join(CURRENT_PATH, 'features')
+AUDIO_FORMAT = args.audio_format
+AUDIO_PATH = args.audio_path # '../../../datasets/beat_boeck'
+FEATURE_PATH = args.feature_path
 
 if not os.path.exists(FEATURE_PATH):
     os.makedirs(FEATURE_PATH)  
@@ -73,6 +82,7 @@ def pre_process(filename, **kwargs):
 
 
 feat_ext = '.feat.npy'
+audio_paths = search_files(AUDIO_PATH, AUDIO_FORMAT)
 
 for path in audio_paths:
     spec = pre_process(path)
@@ -84,6 +94,7 @@ for path in audio_paths:
 
 
 # In[ ]:
+
 
 if VERBOSE:
     print('\n---- EXECUTION FINISHED ----\n')
