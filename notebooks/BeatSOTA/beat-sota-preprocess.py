@@ -21,7 +21,7 @@ import argparse
 CURRENT_PATH = os.getcwd()
 DEFAULT_AUDIO_FORMAT = '.flac'
 DEFAULT_AUDIO_PATH = os.path.join(CURRENT_PATH, 'audio')
-DEFAULT_FEAT_EXT = '.feat.npy'
+DEFAULT_FEATURE_EXT = '.feat.npy'
 DEFAULT_FEATURE_PATH = os.path.join(CURRENT_PATH, 'features')
 
 
@@ -89,7 +89,7 @@ for i, path in enumerate(audio_paths):
 
     base_path, name = os.path.split(path)
     base_name, ext = os.path.splitext(name)
-    feat_path = os.path.join(FEATURE_PATH, base_name + DEFAULT_FEAT_EXT)
+    feat_path = os.path.join(FEATURE_PATH, base_name + DEFAULT_FEATURE_EXT)
     np.save(feat_path, spec)
 
     if VERBOSE and (i + 1) % 50 == 0:
