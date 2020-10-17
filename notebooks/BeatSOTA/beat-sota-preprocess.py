@@ -44,7 +44,7 @@ VERBOSE = args.verbose
 
 if VERBOSE:
     print('\n---- EXECUTION STARTED ----\n')
-    print('Comman line arguments:\n\n', args, '\n')
+    print('Command line arguments:\n\n', args, '\n')
 
 
 # In[ ]:
