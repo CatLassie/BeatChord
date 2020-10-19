@@ -5,7 +5,16 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww22840\viewh13880\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\b\fs24 \cf0 Concepts to read about:
+\f0\b\fs24 \cf0 How to proceed:\
+
+\f1\b0 TCN has to return same dimensions as it got (whatever 200 on time axis, 1 (squeezed) freq. and 16 channels), that has to somehow (dense layer ? 1x200 conv layer to simulate dense ?) be fed\
+into a peak picker from madmom (for starters). madmom peak picker is easier and simpler than the Hidden Markov Model postprocessing. so its ok for now.\
+\
+Top Secret tip from Sebastian: chord recognition should be done with a simple network (2 conv layer and maybe 2 fully connected layer should be enough), it gives good results.\
+BUT data preprocessing needs to be good, be smart about what exactly you feed into the network (frame sizes and etc ?)
+\f0\b \
+\
+Concepts to read about:
 \f1\b0 \
 \
 CNN - Convolutional Neural Network\
