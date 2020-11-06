@@ -51,7 +51,7 @@ if not os.path.exists(MODEL_PATH):
 FEATURE_EXT = '.feat.npy'
 FEATURE_PATH = os.path.join(CURRENT_PATH, 'features')
 ANNOTATION_EXT = '.beats'
-ANNOTATION_PATH = '../../../datasets/beat_boeck'
+ANNOTATION_PATH = os.path.join(CURRENT_PATH, 'annotations')
 
 # feature parameters
 # SR = 44100 # samping rate
