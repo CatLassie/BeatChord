@@ -5,6 +5,6 @@
 # __pycache__/
 # *.flac
 # *.onsets
-# *.beats
+*.beats
 # *.bpm
 *.feat.npy
