@@ -172,17 +172,17 @@ cnn_dropout_rate = 0.1
 
 # TCN
 
+tcn_layer_num = 11
+
 # filters
 tcn_h_size = 16
 
 # kernels
 tcn_k_size = 5
-tcn_init_padding = 2
-tcn_init_dilation = 1
+tcn_dilations = [2**x for x in range(0, tcn_layer_num)]
+tcn_paddings = [2*x for x in tcn_dilations]
 
 tcn_dropout_rate = 0.1
-
-tcn_layer_num = 11
 
 # FULLY CONNECTED (by using a 1d convolutional. layer)
 
@@ -235,7 +235,82 @@ class BeatNet(nn.Module):
             nn.Dropout2d(p = cnn_dropout_rate)
         )
         
-        self.ld = self.init_dilated_layers()
+        self.ld1 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[0], dilation=tcn_dilations[0]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld2 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[1], dilation=tcn_dilations[1]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld3 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[2], dilation=tcn_dilations[2]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld4 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[3], dilation=tcn_dilations[3]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld5 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[4], dilation=tcn_dilations[4]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld6 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[5], dilation=tcn_dilations[5]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld7 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[6], dilation=tcn_dilations[6]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld8 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[7], dilation=tcn_dilations[7]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld9 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[8], dilation=tcn_dilations[8]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld10 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[9], dilation=tcn_dilations[9]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld11 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[10], dilation=tcn_dilations[10]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
         
         self.lfc = nn.Sequential(
             nn.Conv1d(fc_h_size, fc_out_size, fc_k_size),
@@ -258,8 +333,17 @@ class BeatNet(nn.Module):
         out.squeeze_(-1)
         # print(out.shape)
         
-        for i in range(tcn_layer_num):
-            out = self.ld[i](out)
+        out = self.ld1(out)
+        out = self.ld2(out)
+        out = self.ld3(out)
+        out = self.ld4(out)
+        out = self.ld5(out)
+        out = self.ld6(out)
+        out = self.ld7(out)
+        out = self.ld8(out)
+        out = self.ld9(out)
+        out = self.ld10(out)
+        out = self.ld11(out)
         # print(out.shape)
         
         out = self.lfc(out)
@@ -270,27 +354,6 @@ class BeatNet(nn.Module):
 
         return out
     
-    # create a list containing dilated convolutional layers
-    def init_dilated_layers(self):
-        layers = []
-        dilation = tcn_init_dilation
-        padding = tcn_init_padding
-        
-        for i in range(tcn_layer_num):
-            next_layer = nn.Sequential(
-                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=padding, dilation=dilation),
-                nn.BatchNorm1d(tcn_h_size),
-                nn.ELU(),
-                nn.Dropout(p = tcn_dropout_rate)
-            )
-            layers.append(next_layer)
-            
-            dilation = dilation*2
-            padding = tcn_init_padding * dilation
-        #print('TCN', self.ld)
-        
-        return layers
-
 
 
 # Dataset for DataLoader (items are pairs of 5x81 (time x freq.) spectrogram snippets and 0-1 (0.5) target values)
