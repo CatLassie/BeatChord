@@ -264,18 +264,29 @@ fc_h_size = 16
 fc_out_size = 1
 
 # kernels
-fc_k_size = 513
+fc_k_size = 1
 
 # alternatively a dense layer with in size 8193*16 and out size 1 ?
 
+
+# In[ ]:
+
+
+# TRAINING PARAMETERS
+
 # number of epochs
-num_epochs = 1 #10
+num_epochs = 50 #1 10 25 ?
 
 # learning rate
 lr = 0.001 # reduce by a factor of five whenever <condition from paper> is reached
+# lr = 0.01 ?
 
-# context for 1 feature (4096 frames on either side)
-feature_context = 513
+# context for 1 feature (e.g. 4096 frames on either side, that would be 8193)
+feature_context = 1000
+traininig_hop_size = 100
+
+batch_size = 1
+patience = 4
 
 
 # In[ ]:
@@ -393,33 +404,37 @@ class BeatNet(nn.Module):
         out = self.lfc(out)
         # print(out.shape)
         
-        out = out.reshape(-1)
+        out = out.squeeze(1)
         # print(out.shape)
 
         return out
     
 
 
-# Dataset for DataLoader (items are pairs of 5x81 (time x freq.) spectrogram snippets and 0-1 (0.5) target values)
+# Dataset for DataLoader (items are pairs of Context x 81 (time x freq.) spectrogram snippets and 0-1 (0.5) target values)
 class BeatSet(Dataset):
-    def __init__(self, feat_list, targ_list, context):
+    def __init__(self, feat_list, targ_list, context, hop_size):
         self.features = feat_list
         self.targets = targ_list
         self.context = context
-        self.side = int((context-1)/2)
+        self.hop_size = hop_size
+ 
         # list with snippet count per track
         self.snip_cnt = []
         # overall snippet count
         total_snip_cnt = 0
         # calculate overall number of snippets we can get from our data
         for feat in feat_list:
-            cur_len = int(np.ceil(feat.shape[0] - self.side*2))
-            
-            # GUARD TO AVOID NEGATIVE SNIPPER COUNT!
-            # cur_len = cur_len if cur_len > 0 else 1
-            
-            self.snip_cnt.append(cur_len)
-            total_snip_cnt += cur_len
+            if feat.shape[0]- self.context > 0:
+                cur_len = int(np.floor((feat.shape[0] - self.context)/hop_size) + 1)
+                self.snip_cnt.append(cur_len)
+                total_snip_cnt += cur_len
+            else:
+                cur_len = 0
+                self.snip_cnt.append(cur_len)
+                total_snip_cnt += cur_len 
+                print("warning: skipped 1 example, shape", feat.shape[0])
+
         self.length = int(total_snip_cnt)
         super(BeatSet, self).__init__()
 
@@ -439,15 +454,12 @@ class BeatSet(Dataset):
 
         # calculate the position of the snippet within the track nr. [idx]
         position = index-overal_pos
-        position += self.side
+        position *= self.hop_size
 
         # get snippet and target
         
-        # GUARD TO AVOID NEGATIVE STARTING INDEX!
-        # left = position-self.side if position-self.side < 0 else 0
-        
-        sample = self.features[idx][(position-self.side):(position+self.side+1)]
-        target = self.targets[idx][position]
+        sample = self.features[idx][position : position+self.context]
+        target = self.targets[idx][position : position+self.context]
         # convert to PyTorch tensor and return (unsqueeze is for extra dimension, asarray is cause target is scalar)
         return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(target))
 
@@ -556,13 +568,14 @@ def run_training():
 
     # parameters for NN training
     args = Args()
-    args.batch_size = 1 #64
-    args.max_epochs = 1 #25 #1000
-    args.patience = 4
-    args.lr = 0.01 # 0.001, 0.0001
+    args.batch_size = batch_size #1 #64
+    args.max_epochs = num_epochs #25 #1000
+    args.patience = patience #4
+    args.lr = lr # 0.001, 0.0001
     args.momentum = 0.5 #UNUSED
     args.log_interval = 100 #100
     args.context = feature_context #5
+    args.hop_size = traininig_hop_size
 
     # setup pytorch
     torch.manual_seed(SEED)
@@ -573,11 +586,11 @@ def run_training():
 
     # setup our datasets for training, evaluation and testing
     kwargs = {'num_workers': 4, 'pin_memory': True} if USE_CUDA else {'num_workers': 4}
-    train_loader = torch.utils.data.DataLoader(BeatSet(train_f, train_t, args.context),
+    train_loader = torch.utils.data.DataLoader(BeatSet(train_f, train_t, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=True, **kwargs)
-    valid_loader = torch.utils.data.DataLoader(BeatSet(valid_f, valid_t, args.context),
+    valid_loader = torch.utils.data.DataLoader(BeatSet(valid_f, valid_t, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=False, **kwargs)
-    test_loader = torch.utils.data.DataLoader(BeatSet(test_f, test_t, args.context),
+    test_loader = torch.utils.data.DataLoader(BeatSet(test_f, test_t, args.context, args.hop_size),
                                               batch_size=args.batch_size, shuffle=False, **kwargs)
 
     # main training loop
