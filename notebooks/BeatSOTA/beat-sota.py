@@ -77,7 +77,7 @@ VALIDATION_SPLIT_POINT = 0.85
 
 # TODO:
 
-TRAIN = True
+TRAIN = False
 PREDICT = False
 VERBOSE = True # args.verbose
 COMPLETE_DISPLAY_INTERVAL = 5 # desired completion dislpay frequency in percentage
@@ -284,11 +284,11 @@ lr = 0.001 # reduce by a factor of five whenever <condition from paper> is reach
 # lr = 0.01 ?
 
 # context for 1 feature (e.g. 4096 frames on either side, that would be 8193)
-feature_context = 1000
-traininig_hop_size = 100
+feature_context = 800 #1000
+traininig_hop_size = 40 #100
 
 batch_size = 1
-patience = 4
+patience = 9999 #4
 
 
 # In[ ]:
@@ -673,7 +673,7 @@ picked_beats = []
 
 if PREDICT:
     # beat_picker = BeatTrackingProcessor(fps=FPS) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
-    beat_picker = OnsetPeakPickingProcessor(fps=FPS, threshold=0.15, pre_avg=2.0, post_avg=2.0, pre_max=0.0, post_max=0.0) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
+    beat_picker = OnsetPeakPickingProcessor(fps=FPS, threshold=0.12, pre_avg=2.0, post_avg=2.0, pre_max=0.0, post_max=0.0) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
     
     # predict beats
     if VERBOSE:
