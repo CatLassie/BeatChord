@@ -17,8 +17,8 @@ import numpy as np
 
 import madmom
 from madmom.utils import search_files
-# from madmom.features.onsets import OnsetPeakPickingProcessor
-from madmom.features.beats import BeatTrackingProcessor
+from madmom.features.onsets import OnsetPeakPickingProcessor
+# from madmom.features.beats import BeatTrackingProcessor
 from madmom.evaluation.beats import BeatEvaluation
 from madmom.evaluation.beats import BeatMeanEvaluation
 
@@ -211,6 +211,8 @@ valid_t = targets_rand[first_idx : second_idx]
 test_f = features_rand[second_idx :]
 test_t = targets_rand[second_idx :]
 
+train_anno = annotations_rand[: first_idx]
+valid_anno = annotations_rand[first_idx : second_idx]
 test_anno = annotations_rand[second_idx :]
 
 if VERBOSE:
@@ -670,7 +672,8 @@ predicted = None
 picked_beats = []
 
 if PREDICT:
-    beat_picker = BeatTrackingProcessor(fps=FPS) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
+    # beat_picker = BeatTrackingProcessor(fps=FPS) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
+    beat_picker = OnsetPeakPickingProcessor(fps=FPS, threshold=0.15, pre_avg=2.0, post_avg=2.0, pre_max=0.0, post_max=0.0) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
     
     # predict beats
     if VERBOSE:
@@ -683,7 +686,7 @@ if PREDICT:
         set_current_display(len(predicted))
         
     for i, pred in enumerate(predicted):
-        picked = beat_picker(pred)
+        picked = beat_picker(pred.squeeze(0)) # squeeze cause the dimensions are (1, frame_num)!!!
         picked_beats.append(picked)
         
         if VERBOSE:
