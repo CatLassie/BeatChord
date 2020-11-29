@@ -158,7 +158,7 @@ assert len(features) == len(targets)
 
 
 
-######## FILTER SHORTER THAN 10 SEC TRACKS and SHUFFLE ########
+######## (optionally FILTER SHORTER THAN 10 SEC TRACKS) and SHUFFLE ########
 
 # get sort indices by length
 feture_lengths = [len(x) for x in features]
@@ -169,10 +169,12 @@ features_sort = [features[i] for i in sort_idxs]
 targets_sort = [targets[i] for i in sort_idxs]
 annotations_sort = [annotations[i] for i in sort_idxs]
 
+   ######## optionally filter out tracks of length less than <length> ########
 # filter out 12 shortes tracks (>10sec)
 features_sort = features_sort[12:]
 targets_sort = targets_sort[12:]
 annotations_sort = annotations_sort[12:]
+   ###########################################################################
 
 # print(sort_idxs)
 # print(features_sort[164][0][:5])
@@ -288,7 +290,7 @@ feature_context = 800 #1000
 traininig_hop_size = 40 #100
 
 batch_size = 1
-patience = 9999 #4
+patience = 4 #9999
 
 
 # In[ ]:
@@ -660,7 +662,7 @@ def run_prediction(test_features):
         
         # run the inference method
         result = predict(model, DEVICE, cur_test_feat, args.context)
-        results_cnn[test_idx] = result.numpy()
+        results_cnn[test_idx] = result.cpu().numpy()
 
     return results_cnn
 
@@ -686,7 +688,7 @@ if PREDICT:
         set_current_display(len(predicted))
         
     for i, pred in enumerate(predicted):
-        picked = beat_picker(pred.squeeze(0)) # squeeze cause the dimensions are (1, frame_num)!!!
+        picked = beat_picker(pred.squeeze(0)) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
         picked_beats.append(picked)
         
         if VERBOSE:
