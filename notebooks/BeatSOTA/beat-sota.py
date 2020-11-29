@@ -181,6 +181,9 @@ annotations_sort = annotations_sort[12:]
 # print(targets_sort[164][:50])
 # print(annotations_sort[164][:5])
 
+print('shortest track is:', len(features_sort[0]), 'frames at', FPS, 'FPS')
+print('longest track is:', len(features_sort[len(features_sort)-1]), 'frames at', FPS, 'FPS')
+
 # get sort indices by length again
 feture_lengths = [len(x) for x in features_sort]
 sort_idxs = np.argsort(feture_lengths)
