@@ -1,0 +1,1 @@
+ F-measure: 0.700 P-score: 0.681 Cemgil: 0.691 Goto: 0.360 CMLc: 0.247 CMLt: 0.411 AMLc: 0.314 AMLt: 0.522 D: 2.694 Dg: 1.506
