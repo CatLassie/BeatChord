@@ -158,7 +158,7 @@ assert len(features) == len(targets)
 
 
 
-######## FILTER SHORTER THAN 10 SEC TRACKS and SHUFFLE ########
+######## (optionally FILTER SHORTER THAN 10 SEC TRACKS) and SHUFFLE ########
 
 # get sort indices by length
 feture_lengths = [len(x) for x in features]
@@ -169,10 +169,12 @@ features_sort = [features[i] for i in sort_idxs]
 targets_sort = [targets[i] for i in sort_idxs]
 annotations_sort = [annotations[i] for i in sort_idxs]
 
+   ######## optionally filter out tracks of length less than <length> ########
 # filter out 12 shortes tracks (>10sec)
-features_sort = features_sort[12:]
-targets_sort = targets_sort[12:]
-annotations_sort = annotations_sort[12:]
+# features_sort = features_sort[12:]
+# targets_sort = targets_sort[12:]
+# annotations_sort = annotations_sort[12:]
+   ###########################################################################
 
 # print(sort_idxs)
 # print(features_sort[164][0][:5])
@@ -247,7 +249,7 @@ cnn_dropout_rate = 0.1
 
 # TCN
 
-tcn_layer_num = 7
+tcn_layer_num = 11 #7
 
 # filters
 tcn_h_size = 16
@@ -284,11 +286,11 @@ lr = 0.001 # reduce by a factor of five whenever <condition from paper> is reach
 # lr = 0.01 ?
 
 # context for 1 feature (e.g. 4096 frames on either side, that would be 8193)
-feature_context = 800 #1000
-traininig_hop_size = 40 #100
+feature_context = 8193 #800 #1000
+traininig_hop_size = 512 #40 #100
 
 batch_size = 1
-patience = 9999 #4
+patience = 4 #9999
 
 
 # In[ ]:
@@ -373,6 +375,34 @@ class BeatNet(nn.Module):
                 nn.Dropout(p = tcn_dropout_rate)
         )
         
+        self.ld8 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[7], dilation=tcn_dilations[7]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld9 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[8], dilation=tcn_dilations[8]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld10 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[9], dilation=tcn_dilations[9]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld11 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[10], dilation=tcn_dilations[10]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
         self.lfc = nn.Sequential(
             nn.Conv1d(fc_h_size, fc_out_size, fc_k_size),
             nn.Sigmoid()
@@ -401,6 +431,10 @@ class BeatNet(nn.Module):
         out = self.ld5(out)
         out = self.ld6(out)
         out = self.ld7(out)
+        out = self.ld8(out)
+        out = self.ld9(out)
+        out = self.ld10(out)
+        out = self.ld11(out)
         # print(out.shape)
         
         out = self.lfc(out)
@@ -660,7 +694,7 @@ def run_prediction(test_features):
         
         # run the inference method
         result = predict(model, DEVICE, cur_test_feat, args.context)
-        results_cnn[test_idx] = result.numpy()
+        results_cnn[test_idx] = result.cpu().numpy()
 
     return results_cnn
 
@@ -686,7 +720,7 @@ if PREDICT:
         set_current_display(len(predicted))
         
     for i, pred in enumerate(predicted):
-        picked = beat_picker(pred.squeeze(0)) # squeeze cause the dimensions are (1, frame_num)!!!
+        picked = beat_picker(pred.squeeze(0)) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
         picked_beats.append(picked)
         
         if VERBOSE:
