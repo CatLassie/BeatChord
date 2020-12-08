@@ -3,6 +3,9 @@
 
 # # Beat SOTA Preprocess
 
+# EXAMPLE ARGUMENTS:
+# 44100 2048 100 81 -v --audio_format .wav --audio_path ../../../datasets/gtzan/audio --feature_path ../../../datasets/gtzan/features
+
 # In[ ]:
 
 
