@@ -497,7 +497,7 @@ class BeatSet(Dataset):
         total_snip_cnt = 0
         # calculate overall number of snippets we can get from our data
         for feat in feat_list:
-            if feat.shape[0]- self.context > 0:
+            if feat.shape[0]- self.context >= 0: # !!! WARNING: was > previously !!!
                 cur_len = int(np.floor((feat.shape[0] - self.context)/hop_size) + 1)
                 self.snip_cnt.append(cur_len)
                 total_snip_cnt += cur_len
