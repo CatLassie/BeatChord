@@ -78,12 +78,33 @@ VALIDATION_SPLIT_POINT = 0.85
 # In[ ]:
 
 
+# TRAINING PARAMETERS
+
+# number of epochs
+num_epochs = 50 #1 10 25 ?
+
+# learning rate
+lr = 0.001 # reduce by a factor of five whenever <condition from paper> is reached
+# lr = 0.01 ?
+
+# context for 1 feature (e.g. 4096 frames on either side, that would be 8193)
+feature_context = 8193 #800 #1000
+traininig_hop_size = 512 #40 #100
+
+batch_size = 1
+patience = 4 #9999
+
+
+# In[ ]:
+
+
 # COMMAND LINE SUPPORT
 
 # TODO:
 
 TRAIN = False
 PREDICT = False
+ZERO_PAD = True
 VERBOSE = True # args.verbose
 COMPLETE_DISPLAY_INTERVAL = 5 # desired completion dislpay frequency in percentage
 
@@ -115,10 +136,29 @@ def display_progress(idx):
 # In[ ]:
 
 
-# LOAD FEATURES AND ANNOTATIONS, COMPUTE TARGETS
+# HELPER FUNCTIONS FOR FEATURES AND TARGETS
 
 # compute a target array for 1 feature (1 (0.5 on neighbouring frames) for beat, 0 for non-beat in each frame)
 # NOTE: if there is an annotation that is after the last frame, ignore it
+
+def zero_pad_short_features(feat_list):
+    # 0 pad features to start from frame 1
+    feat_list_padded = []
+    for feat in feat_list:
+
+        if len(feat) < feature_context:
+            diff = feature_context - len(feat)
+            left = int(np.floor(diff/2))
+            right = int(np.ceil(diff/2))
+            
+            feat_padded = np.zeros((feat.shape[0] + diff, feat.shape[1]), np.float32)
+            feat_padded[left : feat.shape[0] + left, : feat.shape[1]] = feat
+            feat_list_padded.append(feat_padded)
+        else:
+            feat_list_padded.append(feat)
+            
+    return feat_list_padded
+
 def compute_target(times, num_frames):
     """
     if len(times) > 0 and np.max(times) * FPS > num_frames and VERBOSE:
@@ -148,6 +188,10 @@ def init_targets(annos, feats):
     return targs
 
 
+# In[ ]:
+
+
+# LOAD FEATURES AND ANNOTATIONS, COMPUTE TARGETS
 
 # load and initialize feature data
 feat_paths = search_files(FEATURE_PATH, FEATURE_EXT)
@@ -162,6 +206,10 @@ targets = init_targets(annotations, features)
 assert len(features) == len(targets)
 
 
+######## 0 pad features that are shorter than 8193 frames ########
+
+if ZERO_PAD:
+    features = zero_pad_short_features(features)
 
 ######## (optionally FILTER SHORTER THAN 10 SEC TRACKS) and SHUFFLE ########
 
@@ -279,26 +327,6 @@ fc_out_size = 1
 fc_k_size = 1
 
 # alternatively a dense layer with in size 8193*16 and out size 1 ?
-
-
-# In[ ]:
-
-
-# TRAINING PARAMETERS
-
-# number of epochs
-num_epochs = 50 #1 10 25 ?
-
-# learning rate
-lr = 0.001 # reduce by a factor of five whenever <condition from paper> is reached
-# lr = 0.01 ?
-
-# context for 1 feature (e.g. 4096 frames on either side, that would be 8193)
-feature_context = 8193 #800 #1000
-traininig_hop_size = 512 #40 #100
-
-batch_size = 1
-patience = 4 #9999
 
 
 # In[ ]:
