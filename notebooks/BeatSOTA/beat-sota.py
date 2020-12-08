@@ -159,6 +159,24 @@ def zero_pad_short_features(feat_list):
             
     return feat_list_padded
 
+def zero_pad_short_targets(target_list):
+    # 0 pad targets to start from frame 1
+    target_list_padded = []
+    for target in target_list:
+
+        if len(target) < feature_context:
+            diff = feature_context - len(target)
+            left = int(np.floor(diff/2))
+            right = int(np.ceil(diff/2))
+            
+            target_padded = np.zeros((target.shape[0] + diff), np.float32)
+            target_padded[left : target.shape[0] + left] = target
+            target_list_padded.append(target_padded)
+        else:
+            target_list_padded.append(target)
+            
+    return target_list_padded
+
 def compute_target(times, num_frames):
     """
     if len(times) > 0 and np.max(times) * FPS > num_frames and VERBOSE:
@@ -210,6 +228,7 @@ assert len(features) == len(targets)
 
 if ZERO_PAD:
     features = zero_pad_short_features(features)
+    targets = zero_pad_short_targets(targets)
 
 ######## (optionally FILTER SHORTER THAN 10 SEC TRACKS) and SHUFFLE ########
 
