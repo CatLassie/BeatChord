@@ -3,7 +3,7 @@
 # data/
 .ipynb_checkpoints/
 # __pycache__/
-# *.flac
+*.flac
 # *.onsets
 *.beats
 # *.bpm
