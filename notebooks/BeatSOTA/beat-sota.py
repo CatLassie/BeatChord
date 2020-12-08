@@ -206,6 +206,10 @@ targets = init_targets(annotations, features)
 assert len(features) == len(targets)
 
 
+######## 0 pad features that are shorter than 8193 frames ########
+
+if ZERO_PAD:
+    features = zero_pad_short_features(features)
 
 ######## (optionally FILTER SHORTER THAN 10 SEC TRACKS) and SHUFFLE ########
 
@@ -482,14 +486,7 @@ class BeatNet(nn.Module):
 # Dataset for DataLoader (items are pairs of Context x 81 (time x freq.) spectrogram snippets and 0-1 (0.5) target values)
 class BeatSet(Dataset):
     def __init__(self, feat_list, targ_list, context, hop_size):
-        
-        ######## 0 pad features that are shorter than 8193 frames ########
-        if ZERO_PAD:
-            self.features = zero_pad_short_features(feat_list)
-        else:
-            self.features = feat_list
-        ##################################################################
-                
+        self.features = feat_list
         self.targets = targ_list
         self.context = context
         self.hop_size = hop_size
