@@ -5,7 +5,7 @@ bsc = importlib.import_module("beat-sota-config")
 
 
 
-# COMPLETION DISPLAY
+######## COMPLETION DISPLAY #########
 
 COMPLETE_DISPLAY_INTERVAL = bsc.COMPLETE_DISPLAY_INTERVAL
 
@@ -23,3 +23,9 @@ def set_current_display(element_num):
 def display_progress(idx):
     if idx % CURRENT_MOD == 0:
         print(str(int((idx / CURRENT_LENGTH)*100)) + '%', end=' ')
+        
+
+        
+        
+        
+########
