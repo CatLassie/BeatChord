@@ -49,7 +49,6 @@ DEVICE = bsc.DEVICE
 print("CURRENT DEVICE:", DEVICE)
 
 # paths
-
 MODEL_NAME = bsc.MODEL_NAME
 MODEL_PATH = bsc.MODEL_PATH
 if not os.path.exists(MODEL_PATH):
