@@ -33,6 +33,10 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score
 import importlib
 bsc = importlib.import_module("beat-sota-config")
 
+bsu = importlib.import_module("beat-sota-util")
+set_current_display = bsu.set_current_display
+display_progress = bsu.display_progress
+
 
 # In[ ]:
 
@@ -91,31 +95,10 @@ TRAIN = bsc.TRAIN
 PREDICT = bsc.PREDICT
 ZERO_PAD = bsc.ZERO_PAD
 VERBOSE = bsc.VERBOSE
-COMPLETE_DISPLAY_INTERVAL = bsc.COMPLETE_DISPLAY_INTERVAL
 
 if VERBOSE:
     print('\n---- EXECUTION STARTED ----\n')
     # print('Command line arguments:\n\n', args, '\n')
-
-
-# In[ ]:
-
-
-# COMPLETION DISPLAY
-CURRENT_MOD = 1
-CURRENT_LENGTH = 1
-COMPLETE_DIVISOR  = int(100 / COMPLETE_DISPLAY_INTERVAL)
-
-def set_current_display(element_num):
-    global CURRENT_MOD
-    global CURRENT_LENGTH
-    
-    CURRENT_MOD = int(element_num / COMPLETE_DIVISOR) or 1
-    CURRENT_LENGTH = element_num
-    
-def display_progress(idx):
-    if idx % CURRENT_MOD == 0:
-        print(str(int((idx / CURRENT_LENGTH)*100)) + '%', end=' ')
 
 
 # In[ ]:
