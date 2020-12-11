@@ -1,5 +1,5 @@
 import importlib
-bsc = importlib.import_module("beat-sota-config")
+bsc = importlib.import_module("scripts.beat_sota_config")
 
 
 

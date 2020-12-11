@@ -31,9 +31,9 @@ import torch.optim as optim
 from sklearn.metrics import accuracy_score, precision_score, recall_score
 
 import importlib
-bsc = importlib.import_module("beat-sota-config")
+bsc = importlib.import_module("scripts.beat_sota_config")
 
-bsu = importlib.import_module("beat-sota-util")
+bsu = importlib.import_module("scripts.beat_sota_util")
 set_current_display = bsu.set_current_display
 display_progress = bsu.display_progress
 
