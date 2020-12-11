@@ -1,6 +1,10 @@
 import os
 import torch
 
+
+
+
+
 # GLOBAL VARIABLES
 
 # random seed
@@ -37,3 +41,28 @@ FPS = 100 # frames / second
 
 TRAIN_SPLIT_POINT = 0.7
 VALIDATION_SPLIT_POINT = 0.85
+
+
+
+
+
+# TRAINING PARAMETERS
+
+# number of epochs
+NUM_EPOCHS = 50 #1 10 25 ?
+
+# learning rate
+LR = 0.001 # reduce by a factor of five whenever <condition from paper> is reached
+# lr = 0.01 ?
+
+# context for 1 feature (e.g. 4096 frames on either side, that would be 8193)
+FEATURE_CONTEXT = 8193 #800 #1000
+TRAINING_HOP_SIZE = 512 #40 #100
+
+BATCH_SIZE = 1
+PATIENCE = 4 #9999
+
+
+
+
+
