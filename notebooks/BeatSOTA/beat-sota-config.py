@@ -5,7 +5,7 @@ import torch
 
 
 
-# GLOBAL VARIABLES
+######## GLOBAL VARIABLES ########
 
 # random seed
 SEED = 1
@@ -46,7 +46,7 @@ VALIDATION_SPLIT_POINT = 0.85
 
 
 
-# TRAINING PARAMETERS
+######## TRAINING PARAMETERS ########
 
 # number of epochs
 NUM_EPOCHS = 50 #1 10 25 ?
@@ -66,3 +66,16 @@ PATIENCE = 4 #9999
 
 
 
+######## COMMAND LINE SUPPORT ARGUMENTS ########
+
+TRAIN = False
+PREDICT = False
+ZERO_PAD = True
+VERBOSE = True # args.verbose
+COMPLETE_DISPLAY_INTERVAL = 5 # desired completion dislpay frequency in percentage
+
+
+
+
+
+########
