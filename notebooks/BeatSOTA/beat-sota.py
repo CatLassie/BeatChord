@@ -30,49 +30,40 @@ import torch.optim as optim
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score
 
+import importlib  
+
 
 # In[ ]:
 
 
 # GLOBAL VARIABLES
 
+bsc = importlib.import_module("beat-sota-config")
+
 # random seed
-SEED = 1
+SEED = bsc.SEED
 
 # cuda configuration
-DISABLE_CUDA = False
-USE_CUDA = not DISABLE_CUDA and torch.cuda.is_available()
-DEVICE = torch.device("cuda:0" if USE_CUDA else "cpu")
+USE_CUDA = bsc.USE_CUDA
+DEVICE = bsc.DEVICE
 print("CURRENT DEVICE:", DEVICE)
 
 # paths
-CURRENT_PATH = os.getcwd()
-MODEL_BASE_PATH = os.path.join(CURRENT_PATH, 'data/models')
-FEATURE_BASE_PATH = os.path.join(CURRENT_PATH, 'data/features')
-ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, 'data/annotations')
 
-DATASET_NAME = '<DATASET_FOLDER_NAME>'
-
-MODEL_NAME = 'beat_sota'
-MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
+MODEL_NAME = bsc.MODEL_NAME
+MODEL_PATH = bsc.MODEL_PATH
 if not os.path.exists(MODEL_PATH):
     os.makedirs(MODEL_PATH)  
     
-FEATURE_EXT = '.feat.npy'
-FEATURE_PATH = os.path.join(FEATURE_BASE_PATH, DATASET_NAME)
-ANNOTATION_EXT = '.beats'
-ANNOTATION_PATH = os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME)
+FEATURE_EXT = bsc.FEATURE_EXT
+FEATURE_PATH = bsc.FEATURE_PATH
+ANNOTATION_EXT = bsc.ANNOTATION_EXT
+ANNOTATION_PATH = bsc.ANNOTATION_PATH
 
-# feature parameters
-# SR = 44100 # samping rate
-# FRAME_SIZE = 2048 # number of samples per frame
-FPS = 100 # frames / second
-# HOP_SIZE = int(SR / FPS) # hop size = 10ms or 441 samples
-# TODO: Mel bins should be from 30 to 17000 Hz !!!
-# NUM_BANDS = 81 # number of mel bins
+FPS = bsc.FPS
 
-TRAIN_SPLIT_POINT = 0.7
-VALIDATION_SPLIT_POINT = 0.85
+TRAIN_SPLIT_POINT = bsc.TRAIN_SPLIT_POINT
+VALIDATION_SPLIT_POINT = bsc.VALIDATION_SPLIT_POINT
 
 
 # In[ ]:
