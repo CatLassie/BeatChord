@@ -30,15 +30,14 @@ import torch.optim as optim
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score
 
-import importlib  
+import importlib
+bsc = importlib.import_module("beat-sota-config")
 
 
 # In[ ]:
 
 
 # GLOBAL VARIABLES
-
-bsc = importlib.import_module("beat-sota-config")
 
 # random seed
 SEED = bsc.SEED
@@ -70,19 +69,15 @@ VALIDATION_SPLIT_POINT = bsc.VALIDATION_SPLIT_POINT
 
 # TRAINING PARAMETERS
 
-# number of epochs
-num_epochs = 50 #1 10 25 ?
+num_epochs = bsc.NUM_EPOCHS
 
-# learning rate
-lr = 0.001 # reduce by a factor of five whenever <condition from paper> is reached
-# lr = 0.01 ?
+lr = bsc.LR
 
-# context for 1 feature (e.g. 4096 frames on either side, that would be 8193)
-feature_context = 8193 #800 #1000
-traininig_hop_size = 512 #40 #100
+feature_context = bsc.FEATURE_CONTEXT
+traininig_hop_size = bsc.TRAINING_HOP_SIZE
 
-batch_size = 1
-patience = 4 #9999
+batch_size = bsc.BATCH_SIZE
+patience = bsc.PATIENCE
 
 
 # In[ ]:
@@ -92,11 +87,11 @@ patience = 4 #9999
 
 # TODO:
 
-TRAIN = False
-PREDICT = False
-ZERO_PAD = True
-VERBOSE = True # args.verbose
-COMPLETE_DISPLAY_INTERVAL = 5 # desired completion dislpay frequency in percentage
+TRAIN = bsc.TRAIN
+PREDICT = bsc.PREDICT
+ZERO_PAD = bsc.ZERO_PAD
+VERBOSE = bsc.VERBOSE
+COMPLETE_DISPLAY_INTERVAL = bsc.COMPLETE_DISPLAY_INTERVAL
 
 if VERBOSE:
     print('\n---- EXECUTION STARTED ----\n')
