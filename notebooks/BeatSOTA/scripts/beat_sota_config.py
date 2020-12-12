@@ -83,7 +83,10 @@ ZERO_PAD = True # pad short videos with zeros to match context length
 FRAME_ONE_START = False # pad all videos with context/2 zeros on either side to start training from frame one
 ########
 
+# for features computed with librosa use this flag, for madmom disabled it (server features used madmom)
 TRANSPOSE_FEATURES = True
+# server features are multiple different features stacked on top of each other, use this flag to filter out relevant data
+FILTER_FEATURES = False
 
 VERBOSE = True # args.verbose
 COMPLETE_DISPLAY_INTERVAL = 5 # desired completion dislpay frequency in percentage
