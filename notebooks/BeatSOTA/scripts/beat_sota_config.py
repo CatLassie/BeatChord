@@ -23,7 +23,7 @@ ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, 'data/annotations')
 
 DATASET_NAME = '<DATASET_FOLDER_NAME>'
 
-MODEL_NAME = 'beat_sota'
+MODEL_NAME = '<MODEL_NAME>' # e.g. 'beat_sota_gtzan_2049_256_0'
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.feat.npy'
