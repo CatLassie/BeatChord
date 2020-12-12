@@ -111,21 +111,7 @@ def init_feats_annos_targets():
     assert len(features) == len(targets)
     return features, annotations, targets
 
-
-
-
-# MAIN FUNCTION
-def init_data():
-    features, annotations, targets = init_feats_annos_targets()
-    
-    ######## 0 pad features that are shorter than 8193 frames ########
-
-    if ZERO_PAD:
-        features = zero_pad_short_features(features)
-        targets = zero_pad_short_targets(targets)
-        
-    ######## (optionally FILTER SHORTER THAN 10 SEC TRACKS) and SHUFFLE ########
-
+def shuffle_data(features, annotations, targets):
     # get sort indices by length
     feture_lengths = [len(x) for x in features]
     sort_idxs = np.argsort(feture_lengths)
@@ -136,7 +122,7 @@ def init_data():
     annotations_sort = [annotations[i] for i in sort_idxs]
 
        ######## optionally filter out tracks of length less than <length> ########
-    # filter out 12 shortes tracks (>10sec)
+    # filter out 12 shortes tracks (>10sec), for IAMA dataset only!
     # features_sort = features_sort[12:]
     # targets_sort = targets_sort[12:]
     # annotations_sort = annotations_sort[12:]
@@ -169,10 +155,26 @@ def init_data():
     # print(targets_rand[31][:50])
     # print(annotations_rand[31][:5])
 
-    ###############################################################
+    return features_rand, annotations_rand, targets_rand
 
 
 
+
+
+# MAIN FUNCTION
+def init_data():
+    # init features, annotations and targets
+    features, annotations, targets = init_feats_annos_targets()
+    
+    # 0 pad features that are shorter than 8193 frames
+    if ZERO_PAD:
+        features = zero_pad_short_features(features)
+        targets = zero_pad_short_targets(targets)
+        
+    # shuffle data (optionally filter out short tracks)
+    features_rand, annotations_rand, targets_rand = shuffle_data(features, annotations, targets)
+
+    # find split indices and split data
     first_idx = int(len(features_rand)*TRAIN_SPLIT_POINT)
     second_idx = int(len(features_rand)*VALIDATION_SPLIT_POINT)
 
@@ -198,7 +200,3 @@ def init_data():
     # print(features.shape)
         
     return train_f, train_t, train_anno, valid_f, valid_t, valid_anno, test_f, test_t, test_anno
-
-
-
-
