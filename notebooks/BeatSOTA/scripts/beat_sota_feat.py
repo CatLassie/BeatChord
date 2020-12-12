@@ -7,6 +7,7 @@ import scripts.beat_sota_config as bsc
 
 FEATURE_CONTEXT = bsc.FEATURE_CONTEXT
 ZERO_PAD = bsc.ZERO_PAD
+FRAME_ONE_START = bsc.FRAME_ONE_START
 
 FPS = bsc.FPS
 
@@ -28,7 +29,7 @@ VERBOSE = bsc.VERBOSE
 # HELPER FUNCTIONS FOR FEATURES AND TARGETS
 
 def zero_pad_short_features(feat_list):
-    # 0 pad features to start from frame 1
+    # 0 pad short features to at least fit context
     feat_list_padded = []
     for feat in feat_list:
 
@@ -46,7 +47,7 @@ def zero_pad_short_features(feat_list):
     return feat_list_padded
 
 def zero_pad_short_targets(target_list):
-    # 0 pad targets to start from frame 1
+    # 0 pad targets to at least fit context
     target_list_padded = []
     for target in target_list:
 
@@ -62,6 +63,34 @@ def zero_pad_short_targets(target_list):
             target_list_padded.append(target)
             
     return target_list_padded
+
+def zero_pad_all_features(feat_list):
+    # 0 pad features to start from frame 1
+    feat_list_padded = []
+    for feat in feat_list:
+
+        side = int(np.floor(FEATURE_CONTEXT/2))
+        feat_padded = np.zeros((feat.shape[0] + (2*side), feat.shape[1]), np.float32)
+        feat_padded[side : feat.shape[0] + side, : feat.shape[1]] = feat
+        feat_list_padded.append(feat_padded)
+
+    return feat_list_padded
+
+def zero_pad_all_targets(target_list):
+    # 0 pad targets to start from frame 1
+    target_list_padded = []
+    for target in target_list:
+
+        side = int(np.floor(FEATURE_CONTEXT/2))
+        target_padded = np.zeros((target.shape[0] + (2*side)), np.float32)
+        target_padded[side : target.shape[0] + side] = target
+        target_list_padded.append(target_padded)
+ 
+    return target_list_padded
+
+
+
+
 
 # compute a target array for 1 feature (1 (0.5 on neighbouring frames) for beat, 0 for non-beat in each frame)
 # NOTE: if there is an annotation that is after the last frame, ignore it
@@ -166,10 +195,22 @@ def init_data():
     # init features, annotations and targets
     features, annotations, targets = init_feats_annos_targets()
     
+    # 0 pad all features to start from frame 1
+    if FRAME_ONE_START:
+        if VERBOSE:
+            print('Padded data with zeros to start from frame one!\n')
+        features = zero_pad_all_features(features)
+        targets = zero_pad_all_targets(targets)
+
     # 0 pad features that are shorter than 8193 frames
-    if ZERO_PAD:
+    elif ZERO_PAD:
+        if VERBOSE:
+            print('Padded data with zeros to match context!\n')
         features = zero_pad_short_features(features)
         targets = zero_pad_short_targets(targets)
+
+    elif VERBOSE:
+        print('Data zero padding disabled!\n')
         
     # shuffle data (optionally filter out short tracks)
     features_rand, annotations_rand, targets_rand = shuffle_data(features, annotations, targets)
