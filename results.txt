@@ -6,3 +6,6 @@ F-measure: 0.699 P-score: 0.693 Cemgil: 0.690 Goto: 0.280 CMLc: 0.201 CMLt: 0.47
 
 beat_sota_gtzan_2049_256_0
 F-measure: 0.711 P-score: 0.768 Cemgil: 0.758 Goto: 0.320 CMLc: 0.178 CMLt: 0.496 AMLc: 0.208 AMLt: 0.568 D: 2.108 Dg: 1.066
+
+beat_sota_smc_2049_256_0
+F-measure: 0.332 P-score: 0.606 Cemgil: 0.415 Goto: 0.000 CMLc: 0.026 CMLt: 0.121 AMLc: 0.040 AMLt: 0.167 D: 0.878 Dg: 0.229

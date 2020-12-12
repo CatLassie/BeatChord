@@ -8,6 +8,7 @@ import scripts.beat_sota_config as bsc
 FEATURE_CONTEXT = bsc.FEATURE_CONTEXT
 ZERO_PAD = bsc.ZERO_PAD
 FRAME_ONE_START = bsc.FRAME_ONE_START
+TRANSPOSE_FEATURES = bsc.TRANSPOSE_FEATURES
 
 FPS = bsc.FPS
 
@@ -133,7 +134,9 @@ def init_feats_annos_targets():
 
     features = [np.load(p) for p in feat_paths]
     # librosa has time in rows, madmom is transposed! now first index is time as in madmom!
-    features = [np.transpose(f) for f in features]
+    if TRANSPOSE_FEATURES:
+        features = [np.transpose(f) for f in features]
+
     annotations = [madmom.io.load_beats(p) for p in anno_paths]
     targets = init_targets(annotations, features)
 
