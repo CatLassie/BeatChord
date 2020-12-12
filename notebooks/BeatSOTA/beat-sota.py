@@ -10,13 +10,11 @@
 
 import os
 import time
-import random
 
 import pandas as pd
 import numpy as np
 
 import madmom
-from madmom.utils import search_files
 from madmom.features.onsets import OnsetPeakPickingProcessor
 # from madmom.features.beats import BeatTrackingProcessor
 from madmom.evaluation.beats import BeatEvaluation
@@ -30,7 +28,13 @@ import torch.optim as optim
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score
 
+# configurations
 import scripts.beat_sota_config as bsc
+
+# feature, target, annotation initializer
+from scripts.beat_sota_feat import init_data
+
+# progress display helpers
 from scripts.beat_sota_util import set_current_display, display_progress
 
 
@@ -53,15 +57,7 @@ MODEL_PATH = bsc.MODEL_PATH
 if not os.path.exists(MODEL_PATH):
     os.makedirs(MODEL_PATH)  
     
-FEATURE_EXT = bsc.FEATURE_EXT
-FEATURE_PATH = bsc.FEATURE_PATH
-ANNOTATION_EXT = bsc.ANNOTATION_EXT
-ANNOTATION_PATH = bsc.ANNOTATION_PATH
-
 FPS = bsc.FPS
-
-TRAIN_SPLIT_POINT = bsc.TRAIN_SPLIT_POINT
-VALIDATION_SPLIT_POINT = bsc.VALIDATION_SPLIT_POINT
 
 
 # In[ ]:
@@ -89,7 +85,6 @@ patience = bsc.PATIENCE
 
 TRAIN = bsc.TRAIN
 PREDICT = bsc.PREDICT
-ZERO_PAD = bsc.ZERO_PAD
 VERBOSE = bsc.VERBOSE
 
 if VERBOSE:
@@ -100,105 +95,8 @@ if VERBOSE:
 # In[ ]:
 
 
-# HELPER FUNCTIONS FOR FEATURES AND TARGETS
-from scripts.beat_sota_feat import zero_pad_short_features, zero_pad_short_targets, compute_target, init_targets
-
-
-# In[ ]:
-
-
 # LOAD FEATURES AND ANNOTATIONS, COMPUTE TARGETS
-
-# load and initialize feature data
-feat_paths = search_files(FEATURE_PATH, FEATURE_EXT)
-anno_paths = search_files(ANNOTATION_PATH, ANNOTATION_EXT)
-
-features = [np.load(p) for p in feat_paths]
-# librosa has time in rows, madmom is transposed! now first index is time as in madmom!
-features = [np.transpose(f) for f in features]
-annotations = [madmom.io.load_beats(p) for p in anno_paths]
-targets = init_targets(annotations, features)
-
-assert len(features) == len(targets)
-
-
-######## 0 pad features that are shorter than 8193 frames ########
-
-if ZERO_PAD:
-    features = zero_pad_short_features(features)
-    targets = zero_pad_short_targets(targets)
-
-######## (optionally FILTER SHORTER THAN 10 SEC TRACKS) and SHUFFLE ########
-
-# get sort indices by length
-feture_lengths = [len(x) for x in features]
-sort_idxs = np.argsort(feture_lengths)
-
-# sort by feature length
-features_sort = [features[i] for i in sort_idxs]
-targets_sort = [targets[i] for i in sort_idxs]
-annotations_sort = [annotations[i] for i in sort_idxs]
-
-   ######## optionally filter out tracks of length less than <length> ########
-# filter out 12 shortes tracks (>10sec)
-# features_sort = features_sort[12:]
-# targets_sort = targets_sort[12:]
-# annotations_sort = annotations_sort[12:]
-   ###########################################################################
-
-# print(sort_idxs)
-# print(features_sort[164][0][:5])
-# print(targets_sort[164][:50])
-# print(annotations_sort[164][:5])
-
-print('shortest track is:', len(features_sort[0]), 'frames at', FPS, 'FPS')
-print('longest track is:', len(features_sort[len(features_sort)-1]), 'frames at', FPS, 'FPS')
-
-# get sort indices by length again
-feture_lengths = [len(x) for x in features_sort]
-sort_idxs = np.argsort(feture_lengths)
-
-# shuffle indices
-random.seed(SEED)
-random.shuffle(sort_idxs)
-
-# shuffle data
-features_rand = [features_sort[i] for i in sort_idxs]
-targets_rand = [targets_sort[i] for i in sort_idxs]
-annotations_rand = [annotations_sort[i] for i in sort_idxs]
-
-# print(sort_idxs)
-# print(features_rand[31][0][:5])
-# print(targets_rand[31][:50])
-# print(annotations_rand[31][:5])
-
-###############################################################
-
-
-
-first_idx = int(len(features_rand)*TRAIN_SPLIT_POINT)
-second_idx = int(len(features_rand)*VALIDATION_SPLIT_POINT)
-
-train_f = features_rand[: first_idx]
-train_t = targets_rand[: first_idx]
-valid_f = features_rand[first_idx : second_idx]
-valid_t = targets_rand[first_idx : second_idx]
-test_f = features_rand[second_idx :]
-test_t = targets_rand[second_idx :]
-
-train_anno = annotations_rand[: first_idx]
-valid_anno = annotations_rand[first_idx : second_idx]
-test_anno = annotations_rand[second_idx :]
-
-if VERBOSE:
-    print(len(features_rand), 'feature spectrogram files loaded, with example shape:', features_rand[0].shape)
-    print(len(annotations_rand), 'feature annotation files loaded, with example shape:', annotations_rand[0].shape)
-    print(len(targets_rand), 'targets computed, with example shape:', targets_rand[0].shape)
-    print(len(train_f), 'training features', len(valid_f), 'validation features and', len(test_f), 'test features')
-  
-# Conacatenate spectrograms along the time axis
-# features = np.concatenate(features, axis=1)
-# print(features.shape)
+train_f, train_t, train_anno, valid_f, valid_t, valid_anno, test_f, test_t, test_anno = init_data()
 
 
 # In[ ]:
