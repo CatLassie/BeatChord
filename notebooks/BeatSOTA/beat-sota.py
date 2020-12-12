@@ -59,6 +59,13 @@ if not os.path.exists(MODEL_PATH):
     
 FPS = bsc.FPS
 
+# peak picker params
+THRESHOLD = bsc.THRESHOLD
+PRE_AVG = bsc.PRE_AVG
+POST_AVG = bsc.POST_AVG
+PRE_MAX = bsc.PRE_MAX
+POST_MAX = bsc.POST_MAX
+
 
 # In[ ]:
 
@@ -558,7 +565,7 @@ picked_beats = []
 
 if PREDICT:
     # beat_picker = BeatTrackingProcessor(fps=FPS) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
-    beat_picker = OnsetPeakPickingProcessor(fps=FPS, threshold=0.12, pre_avg=2.0, post_avg=2.0, pre_max=0.0, post_max=0.0) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
+    beat_picker = OnsetPeakPickingProcessor(fps=FPS, threshold=THRESHOLD, pre_avg=PRE_AVG, post_avg=POST_AVG, pre_max=PRE_MAX, post_max=POST_MAX) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
     
     # predict beats
     if VERBOSE:

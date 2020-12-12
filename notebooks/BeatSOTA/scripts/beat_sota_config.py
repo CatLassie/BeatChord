@@ -42,6 +42,13 @@ FPS = 100 # frames / second
 TRAIN_SPLIT_POINT = 0.7
 VALIDATION_SPLIT_POINT = 0.85
 
+# peak picker params
+THRESHOLD = 0.12
+PRE_AVG = 2
+POST_AVG = 2
+PRE_MAX = 0
+POST_MAX = 0
+
 
 
 
