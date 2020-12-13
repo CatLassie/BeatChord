@@ -81,4 +81,6 @@ ssh key is in home/users/catlassie (invisible)\
 - you can monitor the elapsed time with the ./ns.sh script\
 - kill a running task with kill -9 <process_id>. Look up process id with ./ns.sh\
 - tail -f nohup.out to monitor output in real time (in folder where script was executed)\
+	OR tail -f /proc/<process_id>/fd/* NOTE: tail -f /proc/<process_id>/fd/1 seems to be what we need!!!\
+	OR watch -n 1 tail -n 20 nohup.out (where -n 1 is every 1 second and -n 20 is last 20 lines)\
 }
