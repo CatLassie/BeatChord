@@ -73,6 +73,18 @@ PATIENCE = 4 #9999
 
 
 
+######## !!!!IMPORTANT!!!! NETWORK PARAMETERS ########
+
+# value 8 is based on paper (1,8): 81 -> 79 -> 26 -> 24 -> 8 -> 1
+# value 9 is needed based on server features (1,9): 91 -> 89 -> 29 -> 27 -> 9 -> 1
+LAST_CNN_KERNEL_FREQUENCY_SIZE = 8 #9
+
+######################################################
+
+
+
+
+
 ######## COMMAND LINE SUPPORT ARGUMENTS ########
 
 TRAIN = False

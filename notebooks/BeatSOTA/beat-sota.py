@@ -113,13 +113,15 @@ train_f, train_t, train_anno, valid_f, valid_t, valid_anno, test_f, test_t, test
 
 # CNN
 
+LAST_CNN_KERNEL_FREQUENCY_SIZE = bsc.LAST_CNN_KERNEL_FREQUENCY_SIZE
+
 # filters
 cnn_in_size = 1
 cnn_h_size = 16
 
 # kernels
 cnn_k_1_size = 3
-cnn_k_2_size = (1, 8)
+cnn_k_2_size = (1, LAST_CNN_KERNEL_FREQUENCY_SIZE)
 cnn_padding = (1,0)
 cnn_max_pool_k_size = (1,3)
 
