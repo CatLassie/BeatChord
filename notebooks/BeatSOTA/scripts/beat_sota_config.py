@@ -83,10 +83,13 @@ ZERO_PAD = True # pad short videos with zeros to match context length
 FRAME_ONE_START = False # pad all videos with context/2 zeros on either side to start training from frame one
 ########
 
-# for features computed with librosa use this flag, for madmom disabled it (server features used madmom)
+# for features computed with librosa use this flag, for madmom disable it (server features used madmom)
 TRANSPOSE_FEATURES = True
 # server features are multiple different features stacked on top of each other, use this flag to filter out relevant data
 FILTER_FEATURES = False
+# indices used to filter out 2048 window spectogram from feature matrix (it has 1024, 2048 and spectral flux features stacked together)
+LOWER_FILTER_IDX = 132
+UPPER_FILTER_IDX = 223
 
 VERBOSE = True # args.verbose
 COMPLETE_DISPLAY_INTERVAL = 5 # desired completion dislpay frequency in percentage

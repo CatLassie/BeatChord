@@ -10,6 +10,8 @@ ZERO_PAD = bsc.ZERO_PAD
 FRAME_ONE_START = bsc.FRAME_ONE_START
 TRANSPOSE_FEATURES = bsc.TRANSPOSE_FEATURES
 FILTER_FEATURES = bsc.FILTER_FEATURES
+LOWER_FILTER_IDX = bsc.LOWER_FILTER_IDX
+UPPER_FILTER_IDX = bsc.UPPER_FILTER_IDX
 
 FPS = bsc.FPS
 
@@ -137,6 +139,9 @@ def init_feats_annos_targets():
     # librosa has time in rows, madmom is transposed! now first index is time as in madmom!
     if TRANSPOSE_FEATURES:
         features = [np.transpose(f) for f in features]
+
+    if FILTER_FEATURES:
+        features = [f[:, LOWER_FILTER_IDX : UPPER_FILTER_IDX] for f in features]
 
     annotations = [madmom.io.load_beats(p) for p in anno_paths]
     targets = init_targets(annotations, features)
