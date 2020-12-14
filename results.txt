@@ -31,6 +31,9 @@ F-measure: 0.755 P-score: 0.779 Cemgil: 0.694 Goto: 0.111 CMLc: 0.110 CMLt: 0.58
 beat_sota_beatles_1000c_256h_0z_1b_32l
 F-measure: 0.732 P-score: 0.808 Cemgil: 0.763 Goto: 0.074 CMLc: 0.087 CMLt: 0.538 AMLc: 0.089 AMLt: 0.548 D: 1.696 Dg: 1.049
 
+
+
+
 beat_sota_beatles_1000_256_0_8batch
 F-measure: 0.568 P-score: 0.775 Cemgil: 0.760 Goto: 0.000 CMLc: 0.016 CMLt: 0.317 AMLc: 0.018 AMLt: 0.370 D: 0.824 Dg: 0.513
 
@@ -43,3 +46,8 @@ F-measure: 0.772 P-score: 0.783 Cemgil: 0.724 Goto: 0.148 CMLc: 0.134 CMLt: 0.60
 beat_sota_beatles_1000_25_0
 F-measure: 0.793 P-score: 0.810 Cemgil: 0.726 Goto: 0.259 CMLc: 0.252 CMLt: 0.654 AMLc: 0.253 AMLt: 0.659 D: 2.413 Dg: 1.346
 threshold: 0.2, avg: 1, max: 0
+
+
+
+beat_sota_beatles_800c_80h_0z_1b_16l_doubleTCN
+F-measure: 0.690 P-score: 0.778 Cemgil: 0.699 Goto: 0.000 CMLc: 0.060 CMLt: 0.511 AMLc: 0.062 AMLt: 0.525 D: 1.581 Dg: 0.910
