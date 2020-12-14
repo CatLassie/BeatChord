@@ -44,8 +44,8 @@ VALIDATION_SPLIT_POINT = 0.85
 
 # peak picker params
 THRESHOLD = 0.12 #0.12 #0.00075
-PRE_AVG = 2 #2 #1
-POST_AVG = 2 #2 #1
+PRE_AVG = 1 #2 #1
+POST_AVG = 1 #2 #1
 PRE_MAX = 0 #0 #0
 POST_MAX = 0 #0 #0
 
