@@ -59,3 +59,13 @@ F-measure: 0.690 P-score: 0.778 Cemgil: 0.699 Goto: 0.000 CMLc: 0.060 CMLt: 0.51
 
 beat_sota_beatles_800c_80h_0z_1b_32l
 F-measure: 0.73  or something around that
+
+
+
+
+
+NOTES:
+bigger context size worsens results when used with 0-pad to fit context
+32 layers, double TCN and bigger batch size as well
+
+bigger context + first frame start ?
