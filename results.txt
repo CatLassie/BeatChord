@@ -49,5 +49,13 @@ threshold: 0.2, avg: 1, max: 0
 
 
 
+beat_sota_beatles_800c_80h_0z_1b_16l
+F-measure: 0.810 P-score: 0.831 Cemgil: 0.753 Goto: 0.185 CMLc: 0.151 CMLt: 0.656 AMLc: 0.153 AMLt: 0.661 D: 2.451 Dg: 1.566
+threshold: 0.2, avg: 1, max: 0
+runtime: 1h.
+
 beat_sota_beatles_800c_80h_0z_1b_16l_doubleTCN
 F-measure: 0.690 P-score: 0.778 Cemgil: 0.699 Goto: 0.000 CMLc: 0.060 CMLt: 0.511 AMLc: 0.062 AMLt: 0.525 D: 1.581 Dg: 0.910
+
+beat_sota_beatles_800c_80h_0z_1b_32l
+F-measure: 0.73  or something around that
