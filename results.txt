@@ -34,6 +34,12 @@ F-measure: 0.718 P-score: 0.781 Cemgil: 0.717 Goto: 0.037 CMLc: 0.061 CMLt: 0.53
 beat_sota_beatles_8193c_250h_1z_1b_16l
 F-measure: 0.727 P-score: 0.783 Cemgil: 0.709 Goto: 0.074 CMLc: 0.111 CMLt: 0.566 AMLc: 0.118 AMLt: 0.582 D: 1.925 Dg: 1.023
 
+beat_sota_beatles_8193c_100h_1z_1b_16l_4p
+F-measure: 0.758 P-score: 0.768 Cemgil: 0.686 Goto: 0.148 CMLc: 0.158 CMLt: 0.589 AMLc: 0.165 AMLt: 0.607 D: 2.195 Dg: 1.281
+
+beat_sota_beatles_8193c_100h_0z_1b_16l_4p
+F-measure: 0.758 P-score: 0.788 Cemgil: 0.710 Goto: 0.148 CMLc: 0.145 CMLt: 0.589 AMLc: 0.152 AMLt: 0.612 D: 2.187 Dg: 1.260
+
 beat_sota_beatles_1000c_256h_0z_1b_32l
 F-measure: 0.732 P-score: 0.808 Cemgil: 0.763 Goto: 0.074 CMLc: 0.087 CMLt: 0.538 AMLc: 0.089 AMLt: 0.548 D: 1.696 Dg: 1.049
 
@@ -74,4 +80,6 @@ NOTES:
 bigger context size worsens results when used with 0-pad to fit context
 32 layers, double TCN and bigger batch size as well
 
-bigger context + first frame start ?
+bigger context + first frame start ? worse results
+
+80sec context first frame vs 0pad exactly same results
