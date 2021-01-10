@@ -129,7 +129,7 @@ cnn_dropout_rate = 0.1
 
 # TCN
 
-tcn_layer_num = 11 #7
+tcn_layer_num = 8 #11
 
 # filters
 tcn_h_size = 16
@@ -242,27 +242,6 @@ class BeatNet(nn.Module):
                 nn.Dropout(p = tcn_dropout_rate)
         )
         
-        self.ld9 = nn.Sequential(
-                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[8], dilation=tcn_dilations[8]),
-                nn.BatchNorm1d(tcn_h_size),
-                nn.ELU(),
-                nn.Dropout(p = tcn_dropout_rate)
-        )
-        
-        self.ld10 = nn.Sequential(
-                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[9], dilation=tcn_dilations[9]),
-                nn.BatchNorm1d(tcn_h_size),
-                nn.ELU(),
-                nn.Dropout(p = tcn_dropout_rate)
-        )
-        
-        self.ld11 = nn.Sequential(
-                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[10], dilation=tcn_dilations[10]),
-                nn.BatchNorm1d(tcn_h_size),
-                nn.ELU(),
-                nn.Dropout(p = tcn_dropout_rate)
-        )
-        
         self.lfc = nn.Sequential(
             nn.Conv1d(fc_h_size, fc_out_size, fc_k_size),
             nn.Sigmoid()
@@ -292,9 +271,6 @@ class BeatNet(nn.Module):
         out = self.ld6(out)
         out = self.ld7(out)
         out = self.ld8(out)
-        out = self.ld9(out)
-        out = self.ld10(out)
-        out = self.ld11(out)
         # print(out.shape)
         
         out = self.lfc(out)
