@@ -76,6 +76,14 @@ F-measure: 0.73  or something around that
 
 
 
+BEST BEATLES:
+beat_sota_beatles_1025c_250h (1025c, 250h, 0z, 1b, 16l, 4p, tcn not doubled)
+F-measure: 0.815 P-score: 0.825 Cemgil: 0.760 Goto: 0.222 CMLc: 0.201 CMLt: 0.651 AMLc: 0.205 AMLt: 0.651 D: 2.465 Dg: 1.555
+
+
+
+
+
 NOTES:
 bigger context size worsens results when used with 0-pad to fit context
 32 layers, double TCN and bigger batch size as well
