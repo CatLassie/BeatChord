@@ -26,8 +26,8 @@ DATASET_NAME = '<DATASET_FOLDER_NAME>'
 MODEL_NAME = '<MODEL_NAME>' # e.g. 'beat_sota_gtzan_2049_256_0'
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
-FEATURE_EXT = '.feat.npy'
 FEATURE_PATH = os.path.join(FEATURE_BASE_PATH, DATASET_NAME)
+FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
 ANNOTATION_EXT = '.beats'
 ANNOTATION_PATH = os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME)
 
@@ -63,8 +63,8 @@ LR = 0.001 # reduce by a factor of five whenever <condition from paper> is reach
 # lr = 0.01 ?
 
 # context for 1 feature (e.g. 4096 frames on either side, that would be 8193)
-FEATURE_CONTEXT = 8193 #800 #1000
-TRAINING_HOP_SIZE = 512 #40 #100
+FEATURE_CONTEXT = 1025 #8193 #800 #1000
+TRAINING_HOP_SIZE = 250 #512 #40 #100
 
 BATCH_SIZE = 1
 PATIENCE = 4 #9999
@@ -77,7 +77,7 @@ PATIENCE = 4 #9999
 
 # value 8 is based on paper (1,8): 81 -> 79 -> 26 -> 24 -> 8 -> 1
 # value 9 is needed based on server features (1,9): 91 -> 89 -> 29 -> 27 -> 9 -> 1
-LAST_CNN_KERNEL_FREQUENCY_SIZE = 8 #9
+LAST_CNN_KERNEL_FREQUENCY_SIZE = 9 # 8
 
 ######################################################
 
@@ -87,8 +87,8 @@ LAST_CNN_KERNEL_FREQUENCY_SIZE = 8 #9
 
 ######## COMMAND LINE SUPPORT ARGUMENTS ########
 
-TRAIN = False
-PREDICT = False
+TRAIN = True
+PREDICT = True
 
 ######## 2 params are exclusive, if both set to true, FRAME_ONE_START takes precedence ########
 ZERO_PAD = True # pad short videos with zeros to match context length
@@ -96,9 +96,9 @@ FRAME_ONE_START = False # pad all videos with context/2 zeros on either side to 
 ########
 
 # for features computed with librosa use this flag, for madmom disable it (server features used madmom)
-TRANSPOSE_FEATURES = True
+TRANSPOSE_FEATURES = False # True
 # server features are multiple different features stacked on top of each other, use this flag to filter out relevant data
-FILTER_FEATURES = False
+FILTER_FEATURES = True # False
 # indices used to filter out 2048 window spectogram from feature matrix (it has 1024, 2048 and spectral flux features stacked together)
 LOWER_FILTER_IDX = 132
 UPPER_FILTER_IDX = 223
