@@ -18,12 +18,12 @@ DEVICE = torch.device("cuda:0" if USE_CUDA else "cpu")
 # paths
 CURRENT_PATH = os.getcwd()
 MODEL_BASE_PATH = os.path.join(CURRENT_PATH, 'data/models')
-FEATURE_BASE_PATH = os.path.join(CURRENT_PATH, 'data/features')
-ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, 'data/annotations')
+FEATURE_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/features')
+ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/annotations')
 
-DATASET_NAME = '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
+DATASET_NAME = 'all' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
 
-MODEL_NAME = '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
+MODEL_NAME = 'beat_sota_all' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
