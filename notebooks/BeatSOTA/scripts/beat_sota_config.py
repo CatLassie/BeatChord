@@ -27,9 +27,9 @@ MODEL_NAME = 'beat_sota_all' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_25
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
-FEATURE_PATH = os.path.join(FEATURE_BASE_PATH, DATASET_NAME) # os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck')
+FEATURE_PATH = os.path.join(FEATURE_BASE_PATH, DATASET_NAME) # os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck') # os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck')
 ANNOTATION_EXT = '.beats'
-ANNOTATION_PATH = os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME)
+ANNOTATION_PATH = os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 
 # feature parameters
 # SR = 44100 # samping rate
