@@ -194,7 +194,7 @@ def init_data():
     elif VERBOSE:
         print('Data zero padding disabled!\n')
         
-    # shuffle data (optionally filter out short tracks)
+    # shuffle data
     features_rand, annotations_rand, targets_rand = shuffle_data(features, annotations, targets)
 
     # find split indices and split data
