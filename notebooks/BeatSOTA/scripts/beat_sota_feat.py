@@ -150,43 +150,16 @@ def init_feats_annos_targets():
     return features, annotations, targets
 
 def shuffle_data(features, annotations, targets):
-    # get sort indices by length
-    feture_lengths = [len(x) for x in features]
-    sort_idxs = np.argsort(feture_lengths)
-
-    # sort by feature length
-    features_sort = [features[i] for i in sort_idxs]
-    targets_sort = [targets[i] for i in sort_idxs]
-    annotations_sort = [annotations[i] for i in sort_idxs]
-
-       ######## optionally filter out tracks of length less than <length> ########
-    # filter out 12 shortes tracks (>10sec), for IAMA dataset only!
-    # features_sort = features_sort[12:]
-    # targets_sort = targets_sort[12:]
-    # annotations_sort = annotations_sort[12:]
-       ###########################################################################
-
-    # print(sort_idxs)
-    # print(features_sort[164][0][:5])
-    # print(targets_sort[164][:50])
-    # print(annotations_sort[164][:5])
-
-    if VERBOSE:
-        print('shortest track is:', len(features_sort[0]), 'frames at', FPS, 'FPS')
-        print('longest track is:', len(features_sort[len(features_sort)-1]), 'frames at', FPS, 'FPS')
-
-    # get sort indices by length again
-    feture_lengths = [len(x) for x in features_sort]
-    sort_idxs = np.argsort(feture_lengths)
+    idxs = list(range(0, len(features)))
 
     # shuffle indices
     random.seed(SEED)
-    random.shuffle(sort_idxs)
+    random.shuffle(idxs)
 
     # shuffle data
-    features_rand = [features_sort[i] for i in sort_idxs]
-    targets_rand = [targets_sort[i] for i in sort_idxs]
-    annotations_rand = [annotations_sort[i] for i in sort_idxs]
+    features_rand = [features[i] for i in idxs]
+    targets_rand = [targets[i] for i in idxs]
+    annotations_rand = [annotations[i] for i in idxs]
 
     # print(sort_idxs)
     # print(features_rand[31][0][:5])
