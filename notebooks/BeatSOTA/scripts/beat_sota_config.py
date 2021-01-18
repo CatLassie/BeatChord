@@ -45,8 +45,8 @@ FPS = 100 # frames / second
 # TODO: Mel bins should be from 30 to 17000 Hz !!!
 # NUM_BANDS = 81 # number of mel bins
 
-TRAIN_SPLIT_POINT = 0.7
-VALIDATION_SPLIT_POINT = 0.85
+TRAIN_SPLIT_POINT = 0.75
+VALIDATION_SPLIT_POINT = 0.875
 
 # peak picker params
 THRESHOLD = 0.12 #0.12 #0.00075
