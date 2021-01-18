@@ -131,9 +131,9 @@ def init_targets(annos, feats):
 
 
 # LOAD FEATURES AND ANNOTATIONS, COMPUTE TARGETS
-def init_feats_annos_targets():
-    feat_paths = search_files(FEATURE_PATH, FEATURE_EXT)
-    anno_paths = search_files(ANNOTATION_PATH, ANNOTATION_EXT)
+def init_feats_annos_targets(feat_path_root, anno_path_root):
+    feat_paths = search_files(feat_path_root, FEATURE_EXT)
+    anno_paths = search_files(anno_path_root, ANNOTATION_EXT)
 
     features = [np.load(p) for p in feat_paths]
     # librosa has time in rows, madmom is transposed! now first index is time as in madmom!
@@ -174,48 +174,70 @@ def shuffle_data(features, annotations, targets):
 
 # MAIN FUNCTION
 def init_data():
+
+    train_f = []
+    train_t = []
+    train_anno = []
+    valid_f = []
+    valid_t = []
+    valid_anno = []
+    test_f = []
+    test_t = []
+    test_anno = []
+
+    data_length = 0
+
     # init features, annotations and targets
-    features, annotations, targets = init_feats_annos_targets()
-    
-    # 0 pad all features to start from frame 1
-    if FRAME_ONE_START:
-        if VERBOSE:
-            print('Padded data with zeros to start from frame one!\n')
-        features = zero_pad_all_features(features)
-        targets = zero_pad_all_targets(targets)
+    # features, annotations, targets = init_feats_annos_targets()
+    datasets = []
+    for idx, _ in enumerate(FEATURE_PATH):
+        datasets.append(list(init_feats_annos_targets(FEATURE_PATH[idx], ANNOTATION_PATH[idx])))
 
-    # 0 pad features that are shorter than 8193 frames
-    elif ZERO_PAD:
-        if VERBOSE:
-            print('Padded data with zeros to match context!\n')
-        features = zero_pad_short_features(features)
-        targets = zero_pad_short_targets(targets)
+    for idx, _ in enumerate(datasets):
 
-    elif VERBOSE:
-        print('Data zero padding disabled!\n')
-        
-    # shuffle data
-    features_rand, annotations_rand, targets_rand = shuffle_data(features, annotations, targets)
+        # indices: 0 - features, 1 - annotations, 2 - targets
 
-    # find split indices and split data
-    first_idx = int(len(features_rand)*TRAIN_SPLIT_POINT)
-    second_idx = int(len(features_rand)*VALIDATION_SPLIT_POINT)
+        # 0 pad all features to start from frame 1
+        if FRAME_ONE_START:
+            if VERBOSE:
+                print('Padded data with zeros to start from frame one!\n')
+            datasets[idx][0] = zero_pad_all_features(datasets[idx][0])
+            datasets[idx][2] = zero_pad_all_targets(datasets[idx][2])
 
-    train_f = features_rand[: first_idx]
-    train_t = targets_rand[: first_idx]
-    valid_f = features_rand[first_idx : second_idx]
-    valid_t = targets_rand[first_idx : second_idx]
-    test_f = features_rand[second_idx :]
-    test_t = targets_rand[second_idx :]
+        # 0 pad features that are shorter than 8193 frames
+        elif ZERO_PAD:
+            if VERBOSE:
+                print('Padded data with zeros to match context!\n')
+            datasets[idx][0] = zero_pad_short_features(datasets[idx][0])
+            datasets[idx][2] = zero_pad_short_targets(datasets[idx][2])
 
-    train_anno = annotations_rand[: first_idx]
-    valid_anno = annotations_rand[first_idx : second_idx]
-    test_anno = annotations_rand[second_idx :]
+        elif VERBOSE:
+            print('Data zero padding disabled!\n')
+            
+        # shuffle data
+        datasets[idx][0], datasets[idx][1], datasets[idx][2] = shuffle_data(datasets[idx][0], datasets[idx][1], datasets[idx][2])
+
+        # find split indices and split data
+        first_idx = int(len(datasets[idx][0])*TRAIN_SPLIT_POINT)
+        second_idx = int(len(datasets[idx][0])*VALIDATION_SPLIT_POINT)
+
+        train_f = train_f + datasets[idx][0][: first_idx]
+        train_t = train_t + datasets[idx][2][: first_idx]
+        valid_f = valid_f + datasets[idx][0][first_idx : second_idx]
+        valid_t = valid_t + datasets[idx][2][first_idx : second_idx]
+        test_f = test_f + datasets[idx][0][second_idx :]
+        test_t = test_t + datasets[idx][2][second_idx :]
+
+        train_anno = train_anno + datasets[idx][1][: first_idx]
+        valid_anno = valid_anno + datasets[idx][1][first_idx : second_idx]
+        test_anno = test_anno + datasets[idx][1][second_idx :]
+
+        data_length = data_length + len(datasets[idx][0])
 
     if VERBOSE:
-        print(len(features_rand), 'feature spectrogram files loaded, with example shape:', features_rand[0].shape)
-        print(len(annotations_rand), 'feature annotation files loaded, with example shape:', annotations_rand[0].shape)
-        print(len(targets_rand), 'targets computed, with example shape:', targets_rand[0].shape)
+        print(data_length, 'feature spectrogram files loaded, with example shape:', datasets[idx][0][0].shape)
+        print(data_length, 'feature annotation files loaded, with example shape:', datasets[idx][1][0].shape)
+        print(data_length, 'targets computed, with example shape:', datasets[idx][2][0].shape)
         print(len(train_f), 'training features', len(valid_f), 'validation features and', len(test_f), 'test features')
 
     # Conacatenate spectrograms along the time axis
