@@ -102,6 +102,7 @@ BEST (folder "all"):
 
 BEATLES:
 beat_sota_beatles
+F-measure: 0.825 P-score: 0.837 Cemgil: 0.782 Goto: 0.130 CMLc: 0.140 CMLt: 0.659 AMLc: 0.144 AMLt: 0.681 D: 2.377 Dg: 1.445
 
 ROBBIE WILLIAMS:
 beat_sota_robbie_williams
