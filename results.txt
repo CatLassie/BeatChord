@@ -122,6 +122,7 @@ F-measure: 0.609 P-score: 0.632 Cemgil: 0.644 Goto: 0.000 CMLc: 0.035 CMLt: 0.35
 
 HAINSWORTH:
 beat_sota_hainsworth
+F-measure: 0.619 P-score: 0.595 Cemgil: 0.605 Goto: 0.214 CMLc: 0.139 CMLt: 0.427 AMLc: 0.166 AMLt: 0.520 D: 2.344 Dg: 1.370
 
 ALL:
 beat_sota_all
