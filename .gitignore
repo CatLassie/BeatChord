@@ -7,5 +7,7 @@ __pycache__/
 *.wav
 # *.onsets
 *.beats
+*.chords
 # *.bpm
 *.feat.npy
+*.npy
