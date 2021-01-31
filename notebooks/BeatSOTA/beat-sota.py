@@ -16,7 +16,7 @@ import numpy as np
 
 import madmom
 from madmom.features.onsets import OnsetPeakPickingProcessor
-# from madmom.features.beats import BeatTrackingProcessor
+from madmom.features.beats import BeatTrackingProcessor
 from madmom.evaluation.beats import BeatEvaluation
 from madmom.evaluation.beats import BeatMeanEvaluation
 
