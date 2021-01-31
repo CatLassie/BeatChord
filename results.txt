@@ -80,8 +80,6 @@ BEST BEATLES:
 beat_sota_beatles_1025c_250h (1025c, 250h, 0z, 1b, 16l, 4p, tcn not doubled)
 F-measure: 0.815 P-score: 0.825 Cemgil: 0.760 Goto: 0.222 CMLc: 0.201 CMLt: 0.651 AMLc: 0.205 AMLt: 0.651 D: 2.465 Dg: 1.555
 
-BALLROOM:
-F-measure: 0.852 P-score: 0.844 Cemgil: 0.818 Goto: 0.628 CMLc: 0.448 CMLt: 0.698 AMLc: 0.475 AMLt: 0.747 D: 3.025 Dg: 1.751
 
 
 
@@ -92,3 +90,15 @@ bigger context size worsens results when used with 0-pad to fit context
 bigger context + first frame start ? worse results
 
 80sec context first frame vs 0pad exactly same results
+
+
+
+
+
+
+
+
+BEST:
+
+BALLROOM:
+F-measure: 0.852 P-score: 0.844 Cemgil: 0.818 Goto: 0.628 CMLc: 0.448 CMLt: 0.698 AMLc: 0.475 AMLt: 0.747 D: 3.025 Dg: 1.751
