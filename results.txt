@@ -114,6 +114,7 @@ F-measure: 0.852 P-score: 0.844 Cemgil: 0.818 Goto: 0.628 CMLc: 0.448 CMLt: 0.69
 
 ROCK:
 beat_sota_rock
+F-measure: 0.815 P-score: 0.760 Cemgil: 0.782 Goto: 0.240 CMLc: 0.157 CMLt: 0.533 AMLc: 0.181 AMLt: 0.708 D: 3.228 Dg: 2.244
 
 RWC:
 beat_sota_rwc
