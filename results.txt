@@ -98,7 +98,28 @@ bigger context + first frame start ? worse results
 
 
 
-BEST:
+BEST (folder "all"):
+
+BEATLES:
+beat_sota_beatles
+
+ROBBIE WILLIAMS:
+beat_sota_robbie_williams
+F-measure: 0.743 P-score: 0.750 Cemgil: 0.747 Goto: 0.000 CMLc: 0.069 CMLt: 0.480 AMLc: 0.104 AMLt: 0.658 D: 2.105 Dg: 1.403
 
 BALLROOM:
+beat_sota_ballroom
 F-measure: 0.852 P-score: 0.844 Cemgil: 0.818 Goto: 0.628 CMLc: 0.448 CMLt: 0.698 AMLc: 0.475 AMLt: 0.747 D: 3.025 Dg: 1.751
+
+ROCK:
+beat_sota_rock
+
+RWC:
+beat_sota_rwc
+
+HAINSWORTH:
+beat_sota_hainsworth
+
+ALL:
+beat_sota_all
+
