@@ -141,3 +141,16 @@ F-measure: 0.620 P-score: 0.576 Cemgil: 0.574 Goto: 0.138 CMLc: 0.113 CMLt: 0.40
 (HAINSWORTH)
 F-measure: 0.623 P-score: 0.592 Cemgil: 0.605 Goto: 0.286 CMLc: 0.179 CMLt: 0.463 AMLc: 0.201 AMLt: 0.508 D: 2.358 Dg: 1.391
 
+
+
+
+BEATLES AND ROBBIE WILLIAMS (folder "all")
+beat_sota_d1_d2
+(BOTH)
+F-measure: 0.771 P-score: 0.790 Cemgil: 0.741 Goto: 0.188 CMLc: 0.127 CMLt: 0.580 AMLc: 0.138 AMLt: 0.656 D: 2.185 Dg: 1.026
+(BEATLES)
+ F-measure: 0.804 P-score: 0.821 Cemgil: 0.757 Goto: 0.261 CMLc: 0.157 CMLt: 0.629 AMLc: 0.166 AMLt: 0.700 D: 2.371 Dg: 1.129
+(ROBBIE WILLIAMS)
+F-measure: 0.688 P-score: 0.743 Cemgil: 0.741 Goto: 0.000 CMLc: 0.037 CMLt: 0.445 AMLc: 0.047 AMLt: 0.519 D: 1.563 Dg: 0.931
+
+
