@@ -126,4 +126,18 @@ F-measure: 0.619 P-score: 0.595 Cemgil: 0.605 Goto: 0.214 CMLc: 0.139 CMLt: 0.42
 
 ALL:
 beat_sota_all
+(ALL)
+F-measure: 0.732 P-score: 0.692 Cemgil: 0.696 Goto: 0.270 CMLc: 0.189 CMLt: 0.506 AMLc: 0.223 AMLt: 0.585 D: 2.607 Dg: 1.334
+(BEATLES)
+F-measure: 0.877 P-score: 0.881 Cemgil: 0.787 Goto: 0.174 CMLc: 0.139 CMLt: 0.724 AMLc: 0.142 AMLt: 0.735 D: 2.710 Dg: 1.653
+(ROBBIE WILLIAMS)
+F-measure: 0.858 P-score: 0.841 Cemgil: 0.778 Goto: 0.111 CMLc: 0.104 CMLt: 0.677 AMLc: 0.104 AMLt: 0.677 D: 2.768 Dg: 1.797
+(BALLROOM)
+F-measure: 0.739 P-score: 0.683 Cemgil: 0.714 Goto: 0.395 CMLc: 0.269 CMLt: 0.477 AMLc: 0.326 AMLt: 0.581 D: 2.740 Dg: 1.534
+(ROCK)
+ F-measure: 0.785 P-score: 0.744 Cemgil: 0.767 Goto: 0.120 CMLc: 0.090 CMLt: 0.509 AMLc: 0.113 AMLt: 0.646 D: 2.935 Dg: 2.123
+(RWC)
+F-measure: 0.620 P-score: 0.576 Cemgil: 0.574 Goto: 0.138 CMLc: 0.113 CMLt: 0.405 AMLc: 0.132 AMLt: 0.467 D: 2.038 Dg: 0.742
+(HAINSWORTH)
+F-measure: 0.623 P-score: 0.592 Cemgil: 0.605 Goto: 0.286 CMLc: 0.179 CMLt: 0.463 AMLc: 0.201 AMLt: 0.508 D: 2.358 Dg: 1.391
 
