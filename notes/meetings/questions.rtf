@@ -1,0 +1,142 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\froman\fcharset0 Times-Roman;
+\f3\froman\fcharset0 Times-Bold;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c100000\c100000\c100000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww22840\viewh13880\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 10-11-2020:\
+\
+
+\f1\b0 CNN net is a big convolution, you give it a seruqnce, you get a sequence back (any length ?)\
+- in beat case, you give it feature with a context of e.g. 513 and instead of putting out 1 label, it gives you a sequence of 513!\
+- for prediction the same is true, you should be able to give it 513 or even 2000 at the same time and it gives you back a sequence of beat predictions\
+- skipping some feature during training is useful, cause if every feature is used it takes too long + there is a lot of overlap anyway, so a reasonable hopsize can be used\
+- using context eats up stuff on the left and right sides and those targets are not used (also skipped ones are not used), but its ok, cause the data is still there for training (cause of context), only the\
+targets are missed\
+- for beats a context of 8sec should be enough, cause at 60bpm if you have 4 beats per bar and 2 bars would be enough, the its 8 beats -> 8sec (so probably 2**7 layer == 10sec)
+\f0\b \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b0 \cf0 OnsetPeakPickingProcessor for neural nets is easy: low threshold value (approx 0.2), small avg (3-4), and max (1-3) frame number\
+\
+
+\f0\b \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+30-11-2020:
+\f1\b0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 Improve results further ?\
+- model stopped improving after 25 epochs\
+	--> ok\
+\
+- why big validation loss (screenshot) (maybe cause batch size is 1 ?)\
+	--> probably mean calculated wrong with hops and stuff (but shouldnt be a big deal)\
+- reduce learning rate after something ? (reload best model params and reinitialize optimizer with lr/10 learning rate)\
+	--> reduce learning rate by factor of 10 (maybe 2-3 times), after having run out of patience and start from best model so far\
+\
+- reduce hop size (by factor of 2 ?)\
+	--> can be done if training time is still ok :)\
+\
+additionally:\
+- play around with context (can try 0 padding again to have 80sec)\
+- increase channel numbers in convo layers\
+- play with stack in dilated and also do the sigmoid + tahn stuff (in wavenet email)\
+- datasets from 2016 RNN boeck\
+\
+note: GTZAN might have bad annotations!\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f2\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+crazy datasets (avoid first, maybe add later):\
+\
+Carnatic [28] Cretan [16]\
+Turkish [27] \
+<--- folk and crazy (tonal and rhythmic)\
+\
+HJDB [14] <--- (many breakbeats)
+\f1\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\
+indices for beatls:\
+\
+for all downbeat dataset folders\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f2\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+feat_type_indices = \{0:  [0, 314],\
+                     1:  [132, 223],\
+                     2:  [42, 87],\
+                     10: [132, 314],\
+                     20: [42, 132]\}\
+1\'85 2048 spec\
+2.. 1024 spec\
+10: 2048 spec+1st order diff\
+20\'85 1024 + 1st order diffs\
+\
+\
+command for less memory\
+np.load(cache_name, mmap_mode=mmap_mode)\
+'r'\
+\
+\
+\
+\
+\
+
+\f3\b 14-12-2020:\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 - try to throw some more data at the network\
+- big training hop size is ok even if targets are sparse because we have 100FPS and it means a lot of frames overlap,\
+its ok to have hop size up to sequence length (a little overlap is usually good though!)\
+- try 8 fold cross validation (or whatever fold)\
+or train on everything, then validate and then test on separate dataset test splits\
+but at the end for the most truthful result, use crossvalidation\
+- try to keep TCN size exactly as big as context size (bigger TCN size will just probably make runtime worse)\
+- also try downbeats at the end, targets need to be computed differently and the output has to be 3 classes with softmax activation\
+cause softmax is generally used with crossentropy for multiclass classification (and sigmoid with binary cross entropy for 2 class classification)\
+\
+\
+\
+\
+
+\f0\b 18-01-2021:\
+\
+
+\f1\b0 - to check if for example chords even improve beats at all, you can throw the chord targets additionally (for the beat network)\
+- check out chord datasets in paper try-these-chord-datasets, also ones from the other chord paper\
+- rwc and beatles and 1 other I think have chord annotations in picasso, but they might be bad or something, google a bit if the 6 chosen beat datasets have chord annotations as well\
+\
+\
+\
+\
+\
+
+\f0\b 01-02-2021:
+\f1\b0 \
+\
+- madmom.features.beats.DBNBeatTrackingProcessor instead of the beattracking processor (this is the cool guy!) (works only with softmax?)\
+- enough to start with 12+1 chords, then maybe 24+1 (just cut off probably all extra info and keep if its min, aug/dim.is probably maj/min)\
+- heinsworth and rwc is fine as datasets (try adding gtzan to training and see what happens!! NO GTZAN ON SERVER! TRY MORE LAYERS like 32 or something 8193 conext)\
+- sigmoid vs softmax -> check picture, softmax has to sum up to one mor or less, sigmoid is separate independent classes\
+- check for chord annotation on the internet, or ask richard for the annotations of filip or whoever\
+\
+\
+\
+\
+\
+}
