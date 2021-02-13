@@ -34,9 +34,6 @@ import scripts.beat_sota_config as bsc
 # feature, target, annotation initializer
 from scripts.beat_sota_feat import init_data
 
-# progress display helpers
-from scripts.beat_sota_util import set_current_display, display_progress
-
 
 # In[ ]:
 
@@ -553,31 +550,23 @@ if PREDICT:
     # pick peaks
     if VERBOSE:
         print('picking beats...')
-        set_current_display(len(predicted))
         
     for i, pred in enumerate(predicted):
         picked = beat_picker(pred.squeeze(0)) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
         picked_beats.append(picked)
         
-        if VERBOSE:
-            display_progress(i)
-
     if VERBOSE:
         print('\n')
     
     # evaluate results
     if VERBOSE:
         print('evaluating results...')
-        set_current_display(len(picked_beats))
         
     evals = []
     for i, beat in enumerate(picked_beats):
         e = madmom.evaluation.beats.BeatEvaluation(beat, test_anno[i])
         evals.append(e)
         
-        if VERBOSE:
-            display_progress(i)
-
     if VERBOSE:
         print('\n')
     

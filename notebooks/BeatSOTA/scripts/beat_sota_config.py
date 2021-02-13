@@ -118,7 +118,6 @@ LOWER_FILTER_IDX = 132
 UPPER_FILTER_IDX = 223
 
 VERBOSE = True # args.verbose
-COMPLETE_DISPLAY_INTERVAL = 5 # desired completion dislpay frequency in percentage
 
 
 
