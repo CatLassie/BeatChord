@@ -36,16 +36,22 @@ def parse_annotations(majmin = False):
             #print(line[1])
     unique_labels = list(unique_labels)
 
-    #print(sorted(unique_labels))
-    # [print(l, '--->', chord_to_root(l), '--->', root_to_target(chord_to_root(l))) for l in sorted(unique_labels)]
-    [print(l, ' ==> ', root_to_target(chord_to_root(l))) for l in sorted(unique_labels)]
+    #[print(l, '==>', chord_to_root(l), '==>', root_to_target(chord_to_root(l))) for l in sorted(unique_labels)]
+    #[print(l, ' ==> ', root_to_target(chord_to_root(l))) for l in sorted(unique_labels)]
 
-    #print('lets roll!', list(map(lambda a: a[:], annotations)))
-    #[print(a) for a in annotations]
+    [print(l, ' ==> ', chord_to_majmin(l), ' ==> ', majmin_to_target(chord_to_majmin(l))) for l in sorted(unique_labels)]
 
-    #print('lets roll!', annotations)
 
-    #[print(l, ' ==> ', root_to_target(chord_to_root(l))) for l in list(map(lambda x : x[1], annotations))]
+
+    unique_chord_configs = set()
+    for _, anno in enumerate(annotations):
+        for _, line in enumerate(anno):
+            label = line[1]
+            root = chord_to_root(label)
+            label = label.split(root)
+            unique_chord_configs.add(label[1])
+    unique_chord_configs = list(unique_chord_configs)
+    # [print(cc) for cc in sorted(unique_chord_configs)]
 
 
 def load_chords(path):
@@ -53,8 +59,6 @@ def load_chords(path):
     lines = file.readlines()
 
     time_labels = [parse_chord(l) for l in lines]
-
-    # print(time_label, '\n')
 
     return time_labels
 
@@ -88,4 +92,43 @@ def root_to_target(root):
     return target+1
 
 def chord_to_majmin(label):
-    return
+    if(label == 'N'):
+        return label
+
+    root = chord_to_root(label)
+    majmin = root
+
+    if(':' not in label):
+        majmin +=  ':maj'
+    else:
+        affix = label.split(':')[1]
+        affix_3 = affix[:3]
+        affix_4 = affix[:4]
+        
+        if(affix_3 == 'min' or affix_3 == 'dim' or affix_4 == 'hdim'):
+            majmin += ':min'
+        elif(affix_3 == 'maj' or affix_3 == 'aug'):
+            majmin += ':maj'
+        elif(affix_3 == 'sus'):
+            majmin = 'N'
+        else:
+            majmin += ':maj'
+
+    return majmin
+
+def majmin_to_target(majmin):
+    if(majmin == 'N'):
+        return root_to_target(majmin)
+
+    majminsplit = majmin.split(':')
+    if(len(majminsplit) != 2):
+        raise Exception('Invalid chord label format! Must be of the form "<root>:<maj/min>"')
+
+    root = majminsplit[0]
+    affix = majminsplit[1]
+    target = root_to_target(root)
+
+    if(affix == 'min'):
+        target += 13
+
+    return target
