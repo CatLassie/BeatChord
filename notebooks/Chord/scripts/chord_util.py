@@ -2,6 +2,10 @@ import os
 from madmom.utils import search_files
 import numpy as np
 
+import scripts.chord_config as cc
+
+VERBOSE = cc.VERBOSE
+
 CURRENT_PATH = os.getcwd()
 
 ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, 'data/annotations') # os.path.join(CURRENT_PATH, 'data/annotations')
@@ -23,35 +27,39 @@ note_labels = {
     'N': 12
 }
 
-def parse_annotations(majmin = False):
+def parse_annotations(majmin = False, display_unique_chords_and_chord_configs = False):
 
     anno_paths = search_files(ANNOTATION_PATH[0], ANNOTATION_EXT)
 
     annotations = [load_chords(p) for p in anno_paths]
 
-    unique_labels = set()
-    for _, anno in enumerate(annotations):
-        for _, line in enumerate(anno):
-            unique_labels.add(line[1])
-            #print(line[1])
-    unique_labels = list(unique_labels)
+    if display_unique_chords_and_chord_configs:
+        unique_labels = set()
+        for _, anno in enumerate(annotations):
+            for _, line in enumerate(anno):
+                unique_labels.add(line[1])
+                #print(line[1])
+        unique_labels = list(unique_labels)
 
-    #[print(l, '==>', chord_to_root(l), '==>', root_to_target(chord_to_root(l))) for l in sorted(unique_labels)]
-    #[print(l, ' ==> ', root_to_target(chord_to_root(l))) for l in sorted(unique_labels)]
+        print('All unique chords:\n')
+        if majmin:
+            [print(l, ' ==> ', majmin_to_target(chord_to_majmin(l))) for l in sorted(unique_labels)]
+        else:
+            [print(l, ' ==> ', root_to_target(chord_to_root(l))) for l in sorted(unique_labels)]
+        print('\n')
 
-    [print(l, ' ==> ', chord_to_majmin(l), ' ==> ', majmin_to_target(chord_to_majmin(l))) for l in sorted(unique_labels)]
-
-
-
-    unique_chord_configs = set()
-    for _, anno in enumerate(annotations):
-        for _, line in enumerate(anno):
-            label = line[1]
-            root = chord_to_root(label)
-            label = label.split(root)
-            unique_chord_configs.add(label[1])
-    unique_chord_configs = list(unique_chord_configs)
-    # [print(cc) for cc in sorted(unique_chord_configs)]
+    if display_unique_chords_and_chord_configs:
+        unique_chord_configs = set()
+        for _, anno in enumerate(annotations):
+            for _, line in enumerate(anno):
+                label = line[1]
+                root = chord_to_root(label)
+                label = label.split(root)
+                unique_chord_configs.add(label[1])
+        unique_chord_configs = list(unique_chord_configs)
+        print('All unique chord configurations:\n')
+        [print(cc) for cc in sorted(unique_chord_configs)]
+        print('\n')
 
 
 def load_chords(path):
