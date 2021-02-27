@@ -31,7 +31,6 @@ def parse_annotations(majmin = False, display_unique_chords_and_chord_configs = 
         for _, anno in enumerate(annotations):
             for _, line in enumerate(anno):
                 unique_labels.add(line[1])
-                #print(line[1])
         unique_labels = list(unique_labels)
 
         print('All unique chords:\n')
@@ -54,6 +53,7 @@ def parse_annotations(majmin = False, display_unique_chords_and_chord_configs = 
         [print(cc) for cc in sorted(unique_chord_configs)]
         print('\n')
 
+# FUNCTIONS FOR PARSING CHORD ANNOTATIONS
 
 def load_chords(path):
     file = open(path, 'r')
@@ -71,6 +71,8 @@ def parse_chord(time_label_string):
     time_label[0] = round(float(time_label[0]), 6)
 
     return time_label
+
+# FUNCTIONS FOR MAPPING CHORDS TO ROOT
 
 def chord_to_root(label):
     root = label[0]
@@ -91,6 +93,8 @@ def root_to_target(root):
             target = (target - 1) % 12
 
     return target+1
+
+# FUNCTIONS FOR MAPPING CHORDS TO MAJOR/MINOR
 
 def chord_to_majmin(label):
     if(label == 'N'):
