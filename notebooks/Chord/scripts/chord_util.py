@@ -5,15 +5,8 @@ import numpy as np
 import scripts.chord_config as cc
 
 VERBOSE = cc.VERBOSE
-
-CURRENT_PATH = os.getcwd()
-
-ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, 'data/annotations') # os.path.join(CURRENT_PATH, 'data/annotations')
-ANNOTATION_EXT = '.chords'
-
-ANNOTATION_PATH = [
-    os.path.join(ANNOTATION_BASE_PATH, 'beatles'),
-]
+ANNOTATION_EXT = cc.ANNOTATION_EXT
+ANNOTATION_PATH = cc.ANNOTATION_PATH
 
 note_labels = {
     'C': 0,
