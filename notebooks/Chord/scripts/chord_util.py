@@ -53,6 +53,14 @@ def parse_annotations(majmin = False, display_unique_chords_and_chord_configs = 
         [print(cc) for cc in sorted(unique_chord_configs)]
         print('\n')
 
+    mapped_annotations = None
+    if majmin:
+        mapped_annotations = [[[line[0], majmin_to_target(chord_to_majmin(line[1]))] for line in anno] for anno in annotations]
+    else:
+        mapped_annotations = [[[line[0], root_to_target(chord_to_root(line[1]))] for line in anno] for anno in annotations]
+
+    return mapped_annotations
+
 # FUNCTIONS FOR PARSING CHORD ANNOTATIONS
 
 def load_chords(path):
