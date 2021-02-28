@@ -70,7 +70,7 @@ def init_feats_annos_targets(feat_path_root, anno_path_root):
         features = [f[:, LOWER_FILTER_IDX : UPPER_FILTER_IDX] for f in features]
     '''
 
-    features = [[0]*17100] * 180 # DELETE ME (180 5 minute "songs")
+    features = [np.array([0]*30000)] * 180 # DELETE ME (180 5 minute "songs")
 
     annotations = parse_annotations(anno_path_root, ANNOTATION_EXT); # [madmom.io.load_beats(p) for p in anno_paths]
     targets = init_targets(annotations, features)
@@ -142,9 +142,9 @@ def init_data():
         data_length = data_length + len(datasets[idx][0])
 
     if VERBOSE:
-        #print(data_length, 'feature spectrogram files loaded, with example shape:', datasets[idx][0][0].shape)
-        #print(data_length, 'feature annotation files loaded, with example shape:', datasets[idx][1][0].shape)
-        #print(data_length, 'targets computed, with example shape:', datasets[idx][2][0].shape)
+        print(data_length, 'feature spectrogram files loaded, with example shape:', datasets[idx][0][0].shape)
+        print(data_length, 'feature annotation files loaded, with example shape:', datasets[idx][1][0].shape)
+        print(data_length, 'targets computed, with example shape:', datasets[idx][2][0].shape)
         print(len(train_f), 'training features', len(valid_f), 'validation features and', len(test_f), 'test features')
 
     return train_f, train_t, train_anno, valid_f, valid_t, valid_anno, test_f, test_t, test_anno

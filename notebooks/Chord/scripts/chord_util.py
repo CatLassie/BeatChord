@@ -49,9 +49,9 @@ def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_c
 
     mapped_annotations = None
     if majmin:
-        mapped_annotations = [[[line[0], majmin_to_target(chord_to_majmin(line[1]))] for line in anno] for anno in annotations]
+        mapped_annotations = [np.array([[line[0], majmin_to_target(chord_to_majmin(line[1]))] for line in anno]) for anno in annotations]
     else:
-        mapped_annotations = [[[line[0], root_to_target(chord_to_root(line[1]))] for line in anno] for anno in annotations]
+        mapped_annotations = [np.array([[line[0], root_to_target(chord_to_root(line[1]))] for line in anno]) for anno in annotations]
 
     return mapped_annotations
 
