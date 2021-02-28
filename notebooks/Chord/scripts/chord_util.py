@@ -2,11 +2,7 @@ import os
 from madmom.utils import search_files
 import numpy as np
 
-import scripts.chord_config as cc
 
-VERBOSE = cc.VERBOSE
-ANNOTATION_EXT = cc.ANNOTATION_EXT
-ANNOTATION_PATH = cc.ANNOTATION_PATH
 
 note_labels = {
     'C': 0,
@@ -20,9 +16,9 @@ note_labels = {
     'N': 12
 }
 
-def parse_annotations(majmin = False, display_unique_chords_and_chord_configs = False):
+def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_chords_and_chord_configs = False):
 
-    anno_paths = search_files(ANNOTATION_PATH[0], ANNOTATION_EXT)
+    anno_paths = search_files(anno_path_root, anno_ext)
 
     annotations = [load_chords(p) for p in anno_paths]
 

@@ -54,7 +54,6 @@ def init_targets(annos, feats):
 # LOAD FEATURES AND ANNOTATIONS, COMPUTE TARGETS
 def init_feats_annos_targets(feat_path_root, anno_path_root):
     # feat_paths = search_files(feat_path_root, FEATURE_EXT)
-    anno_paths = search_files(anno_path_root, ANNOTATION_EXT)
 
     '''
     features = [np.load(p) for p in feat_paths]
@@ -68,7 +67,7 @@ def init_feats_annos_targets(feat_path_root, anno_path_root):
 
     features = [[0]*17100] * 180 # DELETE ME (180 5 minute "songs")
 
-    annotations = parse_annotations(); # [madmom.io.load_beats(p) for p in anno_paths]
+    annotations = parse_annotations(anno_path_root, ANNOTATION_EXT); # [madmom.io.load_beats(p) for p in anno_paths]
     targets = init_targets(annotations, features)
 
     assert len(features) == len(targets)
