@@ -58,9 +58,8 @@ def init_targets(annos, feats):
 
 # LOAD FEATURES AND ANNOTATIONS, COMPUTE TARGETS
 def init_feats_annos_targets(feat_path_root, anno_path_root):
-    # feat_paths = search_files(feat_path_root, FEATURE_EXT)
+    feat_paths = search_files(feat_path_root, FEATURE_EXT)
 
-    '''
     features = [np.load(p) for p in feat_paths]
     # librosa has time in rows, madmom is transposed! now first index is time as in madmom!
     if TRANSPOSE_FEATURES:
@@ -68,11 +67,8 @@ def init_feats_annos_targets(feat_path_root, anno_path_root):
 
     if FILTER_FEATURES:
         features = [f[:, LOWER_FILTER_IDX : UPPER_FILTER_IDX] for f in features]
-    '''
 
-    features = [np.array([0]*30000)] * 180 # DELETE ME (180 5 minute "songs")
-
-    annotations = parse_annotations(anno_path_root, ANNOTATION_EXT); # [madmom.io.load_beats(p) for p in anno_paths]
+    annotations = parse_annotations(anno_path_root, ANNOTATION_EXT);
     targets = init_targets(annotations, features)
 
     assert len(features) == len(targets)
