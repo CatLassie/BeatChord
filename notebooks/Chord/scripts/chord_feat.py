@@ -33,10 +33,15 @@ VERBOSE = cc.VERBOSE
 # NOTE: if there is an annotation that is after the last frame, ignore it
 def compute_target(time_labels, num_frames):
     target = np.zeros(num_frames, np.float32)
-    for _, time_label in enumerate(time_labels):
-        time_idx = int(np.rint(time_label[0]*FPS))
-        if time_idx < num_frames:
-            target = np.array([time_label[1] if i >= time_idx else t for (i, t) in enumerate(target)])
+    for i, time_label in enumerate(time_labels):
+        time_idx_start = int(np.rint(time_label[0]*FPS))
+        time_idx_end = int(np.rint(time_labels[i+1][0]*FPS)) if i < len(time_labels) - 1 else num_frames
+
+        if time_idx_end <= num_frames:
+            for j in range(time_idx_start, time_idx_end):
+                target[j] = time_label[1]
+        else:
+            print('WARNING: annotation after last frame detected!', time_idx_end)
             
     return target
 

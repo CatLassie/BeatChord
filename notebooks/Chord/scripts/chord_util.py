@@ -17,9 +17,7 @@ note_labels = {
 }
 
 def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_chords_and_chord_configs = False):
-
     anno_paths = search_files(anno_path_root, anno_ext)
-
     annotations = [load_chords(p) for p in anno_paths]
 
     if display_unique_chords_and_chord_configs:
