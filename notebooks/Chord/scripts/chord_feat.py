@@ -36,7 +36,7 @@ def compute_target(time_labels, num_frames):
     for _, time_label in enumerate(time_labels):
         time_idx = int(np.rint(time_label[0]*FPS))
         if time_idx < num_frames:
-            target = [time_label[1] if i >= time_idx else t for (i, t) in enumerate(target)]
+            target = np.array([time_label[1] if i >= time_idx else t for (i, t) in enumerate(target)])
             
     return target
 
