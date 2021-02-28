@@ -33,7 +33,7 @@ FEATURE_PATH = [
 ] # os.path.join(FEATURE_BASE_PATH, DATASET_NAME) # os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck') # os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck')
 ANNOTATION_EXT = '.chords'
 ANNOTATION_PATH = [
-    os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/chords'),
+    os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/chords'), # os.path.join(ANNOTATION_BASE_PATH, 'beatles'),
     # os.path.join(ANNOTATION_BASE_PATH, 'robbie_williams/annotations/beats')
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 
