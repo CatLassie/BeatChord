@@ -94,7 +94,7 @@ def root_to_target(root):
         elif(root[1] == 'b'):
             target = (target - 1) % 12
 
-    return target+1
+    return target
 
 # FUNCTIONS FOR MAPPING CHORDS TO MAJOR/MINOR
 

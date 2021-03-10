@@ -32,7 +32,7 @@ VERBOSE = cc.VERBOSE
 
 # NOTE: if there is an annotation that is after the last frame, ignore it
 def compute_target(time_labels, num_frames):
-    target = np.zeros(num_frames, np.float32)
+    target = np.zeros(num_frames, np.int64)
     for i, time_label in enumerate(time_labels):
         time_idx_start = int(np.rint(time_label[0]*FPS))
         time_idx_end = int(np.rint(time_labels[i+1][0]*FPS)) if i < len(time_labels) - 1 else num_frames
