@@ -28,7 +28,7 @@ MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
 FEATURE_PATH = [
-    os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck'),
+    os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck'), # os.path.join(FEATURE_BASE_PATH, 'beatles'),
     # os.path.join(FEATURE_BASE_PATH, 'robbie_williams/audio/feat_cache_boeck')
 ] # os.path.join(FEATURE_BASE_PATH, DATASET_NAME) # os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck') # os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck')
 ANNOTATION_EXT = '.chords'
