@@ -113,7 +113,7 @@ cnn_dropout_rate = 0.1
 # FULLY CONNECTED (by using a 1d convolutional. layer)
 
 # filters
-fc_h1_size = 156 #52 # neurons in FC layers
+fc_h1_size = 52 #156 # neurons in FC layers
 fc_out_size = 13 # 13 outputs for 13 classes
 
 # kernels
