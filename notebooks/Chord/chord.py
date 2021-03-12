@@ -441,6 +441,7 @@ def run_prediction(test_features):
         if test_idx % 100 == 0:
             completion = int((test_idx / len(test_features))*100)
             print(str(completion)+'% complete...')
+        print('file number:', test_idx+1)
         
         # run the inference method
         result = predict(model, DEVICE, cur_test_feat, args.context)
