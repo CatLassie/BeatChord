@@ -21,7 +21,7 @@ import torch.nn.functional as F
 from torch.utils.data import Dataset as Dataset
 import torch.optim as optim
 
-from sklearn.metrics import accuracy_score, precision_score, recall_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 # configurations
 import scripts.chord_config as cc
@@ -320,13 +320,26 @@ def predict(model, device, data, context):
     """
     # set model to inference mode (deactivate dropout / batch normalization).
     model.eval()
-    output = None
+    
+    in_shape = data.shape
+    side = int((context-1)/2)
+    outlen = in_shape[0] - 2*side
+    output = np.empty(outlen)
     # move data to device
     data = torch.from_numpy(data[None, None, :, :])
     data = data.to(device)
     # no gradient calculation
     with torch.no_grad():
-        output = model(data.float())
+        # iterate over input data
+        for idx in range(outlen):
+            # calculate output for input data
+            out_vector = model(data[:, :, idx:(idx+context), :])[0]
+            _, out_val = torch.max(out_vector.data, 0)            
+            output[idx] = out_val
+
+    # compensate for convolutional context and return output
+    output = np.append([12 for _ in range(side)], output)
+    output = np.append(output,[12 for _ in range(side)])
     return output
 
 
@@ -407,8 +420,6 @@ if TRAIN:
 # In[ ]:
 
 
-# TODO!!!!!
-
 def run_prediction(test_features): 
     args = Args()
     args.context = feature_context #5
@@ -417,7 +428,7 @@ def run_prediction(test_features):
     
     # load model
     model = ChordNet().to(DEVICE)
-    model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '.model')))
+    model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '.model'))) #, map_location=torch.device('cpu')
     print('model loaded...')
     
     # calculate actual output for the test data
@@ -430,7 +441,7 @@ def run_prediction(test_features):
         
         # run the inference method
         result = predict(model, DEVICE, cur_test_feat, args.context)
-        results_cnn[test_idx] = result.cpu().numpy()
+        results_cnn[test_idx] = result
 
     return results_cnn
 
@@ -449,25 +460,16 @@ if PREDICT:
     # evaluate results
     if VERBOSE:
         print('evaluating results...')
-        
-    predicted_chords = []
-    for i, pred in enumerate(predicted):
-        
-        _, predicted_chord = torch.max(pred.data, 1)
-        
-        e = madmom.evaluation.beats.BeatEvaluation(beat, test_anno[i])
-        predicted_chords.append(predicted_chord)
-        
-    if VERBOSE:
-        print('\n')
-        
-    for i, pred_chord in enumerate(predicted_chords):
-        print(pred_chord, test_t[i])
     
-    #mean_eval = madmom.evaluation.beats.BeatMeanEvaluation(evals)
-    #print(mean_eval)
+    p_scores = []
+    r_scores = []
+    f1_scores = []
+    for i, pred_chord in enumerate(predicted):        
+        p_scores.append(precision_score(test_t[i], pred_chord, average='micro'))
+        r_scores.append(recall_score(test_t[i], pred_chord, average='micro'))
+        f1_scores.append(f1_score(test_t[i], pred_chord, average='micro'))
     
-    #something something mean of accuracy/precision/recall/f-measure
-    
-    # print('F-Measure:', mean_eval.fmeasure)
+    print('Precision:', np.mean(p_scores))
+    print('Recall:', np.mean(r_scores))
+    print('F-measure:', np.mean(f1_scores))
 
