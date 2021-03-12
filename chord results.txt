@@ -3,12 +3,12 @@
 
 BEATLES: (folder: chord_beatles)
 
+
 chord_beatles_25c_25h_1b_16-32l_156fc
 Precision: 0.5527211556044227
 Recall: 0.5527211556044227
 F-measure: 0.5527211556044227
 time: approx 30-40min
-
 
 
 chord_beatles_25c_25h_8b_16-32l_156fc
@@ -18,9 +18,15 @@ F-measure: 0.6484680384887229
 time: approx 3min
 
 
-
 chord_beatles_25c_25h_8b_32-64l_156fc
 Precision: 0.6344622704624922
 Recall: 0.6344622704624922
 F-measure: 0.6344622704624922
 time: 3min
+
+
+chord_beatles_25c_25h_8b_16-32l_52fc
+Precision: 0.6426703027061231
+Recall: 0.6426703027061231
+F-measure: 0.6426703027061231
+time: 3min (faster prediction time)
