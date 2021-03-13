@@ -102,6 +102,7 @@ train_f, train_t, train_anno, valid_f, valid_t, valid_anno, test_f, test_t, test
 cnn_in_size = 1
 cnn_h1_size = 16 #32
 cnn_h2_size = 32 #64
+cnn_h3_size = 64
 
 # kernels
 cnn_k_size = 3
@@ -117,7 +118,7 @@ fc_h1_size = 104 #52 #156 # neurons in FC layers
 fc_out_size = 13 # 13 outputs for 13 classes
 
 # kernels
-fc_k1_size = (37,22) #(6,22) #22 # something big that would correspond to an FC layer (capture all data into 1 input)
+fc_k1_size = (18,11) #(37,22) #(6,22) #22 # something big that would correspond to an FC layer (capture all data into 1 input)
 fc_k2_size = 1 # second FC layer gets input from first one, filter size is 1
 
 # loss function
@@ -149,9 +150,17 @@ class ChordNet(nn.Module):
             nn.MaxPool2d(kernel_size = cnn_max_pool_k_size),
             nn.Dropout2d(p = cnn_dropout_rate)
         )
+
+        self.l3 = nn.Sequential(
+            nn.Conv2d(cnn_h2_size, cnn_h3_size, cnn_k_size, padding=cnn_padding),
+            nn.BatchNorm2d(cnn_h3_size),
+            nn.ELU(),
+            nn.MaxPool2d(kernel_size = cnn_max_pool_k_size),
+            nn.Dropout2d(p = cnn_dropout_rate)
+        )
         
         self.lfc1 = nn.Sequential(
-            nn.Conv2d(cnn_h2_size, fc_h1_size, fc_k1_size), # nn.Conv1d(cnn_h2_size, fc_h1_size, fc_k1_size),
+            nn.Conv2d(cnn_h3_size, fc_h1_size, fc_k1_size), # nn.Conv1d(cnn_h2_size, fc_h1_size, fc_k1_size),
             nn.BatchNorm2d(fc_h1_size),
             nn.ELU(),
             nn.Dropout(p = cnn_dropout_rate)
@@ -170,6 +179,9 @@ class ChordNet(nn.Module):
         #print(out.shape)
 
         out = self.l2(out)
+        #print(out.shape)
+
+        out = self.l3(out)
         #print(out.shape)
         
         #out.squeeze_(2)
