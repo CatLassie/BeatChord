@@ -97,6 +97,14 @@ F-measure (weighted): 0.839195642163497
 time: unknown
 
 
+chord_beatles_151c_5h_16b_32-64l_104fc
+Precision (micro): 0.8103354594782065
+Recall (mico): 0.8103354594782065
+F-measure (micro): 0.8103354594782065
+Precision (weighted): 0.8587508198120625
+Recall (weighted): 0.8103354594782065
+F-measure (weighted): 0.8233532362954
+
 
 chord_beatles_201c_5h_16b_16-32l_52fc
 Precision (micro): 0.8193402549235572
