@@ -150,7 +150,7 @@ class ChordNet(nn.Module):
             nn.MaxPool2d(kernel_size = cnn_max_pool_k_size),
             nn.Dropout2d(p = cnn_dropout_rate)
         )
-
+        
         self.l3 = nn.Sequential(
             nn.Conv2d(cnn_h2_size, cnn_h3_size, cnn_k_size, padding=cnn_padding),
             nn.BatchNorm2d(cnn_h3_size),
@@ -180,7 +180,7 @@ class ChordNet(nn.Module):
 
         out = self.l2(out)
         #print(out.shape)
-
+        
         out = self.l3(out)
         #print(out.shape)
         
