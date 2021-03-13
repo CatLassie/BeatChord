@@ -63,7 +63,7 @@ LR = 0.001 # reduce by a factor of five whenever <condition from paper> is reach
 
 # context for 1 feature (e.g. 4096 frames on either side, that would be 8193)
 FEATURE_CONTEXT = 25 #8193 #800 #1000
-TRAINING_HOP_SIZE = 25 #512 #40 #100
+TRAINING_HOP_SIZE = 12 #512 #40 #100
 
 BATCH_SIZE = 16
 PATIENCE = 4 #9999

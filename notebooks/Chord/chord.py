@@ -152,7 +152,7 @@ class ChordNet(nn.Module):
         
         self.lfc1 = nn.Sequential(
             nn.Conv2d(cnn_h2_size, fc_h1_size, fc_k1_size), # nn.Conv1d(cnn_h2_size, fc_h1_size, fc_k1_size),
-            # nn.BatchNorm1d(fc_h1_size),
+            nn.BatchNorm2d(fc_h1_size),
             nn.ELU(),
             nn.Dropout(p = cnn_dropout_rate)
         )
