@@ -65,3 +65,10 @@ Precision: 0.7912762379035875
 Recall: 0.7912762379035875
 F-measure: 0.7912762379035875
 time: longer
+
+
+chord_beatles_151c_5h_16b_16-32l_52fc
+Precision: 0.8229685169863946
+Recall: 0.8229685169863946
+F-measure: 0.8229685169863946
+time: unknown

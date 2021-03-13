@@ -117,7 +117,7 @@ fc_h1_size = 52 #156 # neurons in FC layers
 fc_out_size = 13 # 13 outputs for 13 classes
 
 # kernels
-fc_k1_size = (6,22) #22 # something big that would correspond to an FC layer (capture all data into 1 input)
+fc_k1_size = (37,22) #(6,22) #22 # something big that would correspond to an FC layer (capture all data into 1 input)
 fc_k2_size = 1 # second FC layer gets input from first one, filter size is 1
 
 # loss function
