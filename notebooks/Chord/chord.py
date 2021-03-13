@@ -466,15 +466,26 @@ if PREDICT:
     if VERBOSE:
         print('evaluating results...')
     
-    p_scores = []
-    r_scores = []
-    f1_scores = []
+    p_scores_mic = []
+    r_scores_mic = []
+    f1_scores_mic = []
+    p_scores_w = []
+    r_scores_w = []
+    f1_scores_w = []
     for i, pred_chord in enumerate(predicted):        
-        p_scores.append(precision_score(test_t[i], pred_chord, average='micro'))
-        r_scores.append(recall_score(test_t[i], pred_chord, average='micro'))
-        f1_scores.append(f1_score(test_t[i], pred_chord, average='micro'))
+        p_scores_mic.append(precision_score(test_t[i], pred_chord, average='micro'))
+        r_scores_mic.append(recall_score(test_t[i], pred_chord, average='micro'))
+        f1_scores_mic.append(f1_score(test_t[i], pred_chord, average='micro'))
+
+        p_scores_w.append(precision_score(test_t[i], pred_chord, average='weighted'))
+        r_scores_w.append(recall_score(test_t[i], pred_chord, average='weighted'))
+        f1_scores_w.append(f1_score(test_t[i], pred_chord, average='weighted'))
     
-    print('Precision:', np.mean(p_scores))
-    print('Recall:', np.mean(r_scores))
-    print('F-measure:', np.mean(f1_scores))
+    print('Precision (micro):', np.mean(p_scores_mic))
+    print('Recall (mico):', np.mean(r_scores_mic))
+    print('F-measure (micro):', np.mean(f1_scores_mic))
+    
+    print('Precision (weighted):', np.mean(p_scores_w))
+    print('Recall (weighted):', np.mean(r_scores_w))
+    print('F-measure (weighted):', np.mean(f1_scores_w))
 

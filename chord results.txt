@@ -68,7 +68,10 @@ time: longer
 
 
 chord_beatles_151c_5h_16b_16-32l_52fc
-Precision: 0.8229685169863946
-Recall: 0.8229685169863946
-F-measure: 0.8229685169863946
+Precision (micro): 0.8229685169863946
+Recall (mico): 0.8229685169863946
+F-measure (micro): 0.8229685169863946
+Precision (weighted): 0.866666492876694
+Recall (weighted): 0.8229685169863946
+F-measure (weighted): 0.835161404020656
 time: unknown
