@@ -43,7 +43,7 @@ chord_beatles_25c_12h_16b_16-32l_52fc
 Precision: 0.6992120430733146
 Recall: 0.6992120430733146
 F-measure: 0.6992120430733146
-time: 2min
+time: 4min
 
 
 chord_beatles_25c_6h_16b_16-32l_52fc
@@ -51,3 +51,10 @@ Precision: 0.7501977751816516
 Recall: 0.7501977751816516
 F-measure: 0.7501977751816516
 time: 8min
+
+
+chord_beatles_50c_12h_16b_16-32l_52fc
+Precision: 0.7369906812299378
+Recall: 0.7369906812299378
+F-measure: 0.7369906812299378
+time: 4min
