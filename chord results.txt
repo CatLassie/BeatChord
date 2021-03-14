@@ -144,3 +144,18 @@ Precision (weighted): 0.8611251130158317
 Recall (weighted): 0.8193402549235572
 F-measure (weighted): 0.8302623944926794
 time: a lot
+
+
+
+
+
+ROBBIE WILLIAMS: (folder: chord_robbie_williams)
+
+
+chord_beatles_151c_5h_16b_16-32-64l_104fc' (SOME UNPREDICTED LABELS WARNING (some of labels were never predicted at least once and their scores are 0))
+Precision (micro): 0.7856757690140725
+Recall (mico): 0.7856757690140725
+F-measure (micro): 0.7856757690140725
+Precision (weighted): 0.838026134925741
+Recall (weighted): 0.7856757690140725
+F-measure (weighted): 0.7868166045097983
