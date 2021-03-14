@@ -152,10 +152,31 @@ time: a lot
 ROBBIE WILLIAMS: (folder: chord_robbie_williams)
 
 
-chord_beatles_151c_5h_16b_16-32-64l_104fc' (SOME UNPREDICTED LABELS WARNING (some of labels were never predicted at least once and their scores are 0))
+chord_beatles_151c_5h_16b_16-32-64l_104fc (SOME UNPREDICTED LABELS WARNING (some of labels were never predicted at least once and their scores are 0))
 Precision (micro): 0.7856757690140725
 Recall (mico): 0.7856757690140725
 F-measure (micro): 0.7856757690140725
 Precision (weighted): 0.838026134925741
 Recall (weighted): 0.7856757690140725
 F-measure (weighted): 0.7868166045097983
+
+
+
+
+
+ALL: (folder: chord_all)
+
+
+d1_d2_151c_5h_16b_16-32-64l_104fc (DATASETS: BEATLES AND ROBBIE_WILLIAMS)
+
+results for both:
+Precision (micro): 0.8286677822447494
+Recall (mico): 0.8286677822447494
+F-measure (micro): 0.8286677822447494
+Precision (weighted): 0.8701825535799976
+Recall (weighted): 0.8286677822447494
+F-measure (weighted): 0.8368598271956359
+
+results for beatles:
+
+results for robbie_williams:

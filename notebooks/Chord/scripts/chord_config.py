@@ -21,20 +21,20 @@ MODEL_BASE_PATH = os.path.join(CURRENT_PATH, 'data/models')
 FEATURE_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/features')
 ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/annotations')
 
-DATASET_NAME = 'chord_beatles' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
+DATASET_NAME = 'chord_all' # '<DATASET_FOLDER_NAME>' # e.g. 'chord_bealtes'
 
-MODEL_NAME = 'chord_beatles' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
+MODEL_NAME = 'd1-d2_151c_5h_16b_16-32-64l_104fc' # '<MODEL_NAME>' # e.g. 'chord_beatles_151c_5h_16b_16-32-64l_104fc' (context, hop size, batch size, conv. layer num., FC neurons)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
 FEATURE_PATH = [
     os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck'), # os.path.join(FEATURE_BASE_PATH, 'beatles'),
-    # os.path.join(FEATURE_BASE_PATH, 'robbie_williams/audio/feat_cache_boeck')
+    os.path.join(FEATURE_BASE_PATH, 'robbie_williams/audio/feat_cache_boeck')
 ] # os.path.join(FEATURE_BASE_PATH, DATASET_NAME) # os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck') # os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck')
 ANNOTATION_EXT = '.chords'
 ANNOTATION_PATH = [
     os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/chords'), # os.path.join(ANNOTATION_BASE_PATH, 'beatles'),
-    # os.path.join(ANNOTATION_BASE_PATH, 'robbie_williams/annotations/beats')
+    os.path.join(ANNOTATION_BASE_PATH, 'robbie_williams/annotations/original/chords')
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 
 # feature parameters

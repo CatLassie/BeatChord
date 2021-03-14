@@ -67,6 +67,11 @@ def load_chords(path):
 
 def parse_chord(time_label_string):
     time_label = time_label_string.split()
+
+    # fix for robbie_williams dataset (second column contains ending times for chords which are redundant)
+    #if(len(time_label) == 3):
+    #    time_label.pop(1)
+
     if(len(time_label) != 2):
         raise Exception('Invalid input file format! Each line must contain exactly 1 timestamp and 1 chord!')
 
