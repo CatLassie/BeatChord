@@ -106,6 +106,7 @@ Recall (weighted): 0.8103354594782065
 F-measure (weighted): 0.8233532362954
 
 
+(!!!!BEST!!!!)
 chord_beatles_151c_5h_16b_16-32-64l_104fc'
 Precision (micro): 0.8357322412646319
 Recall (mico): 0.8357322412646319
