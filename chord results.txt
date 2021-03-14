@@ -178,5 +178,17 @@ Recall (weighted): 0.8286677822447494
 F-measure (weighted): 0.8368598271956359
 
 results for beatles:
+Precision (micro): 0.843687325993778
+Recall (mico): 0.843687325993778
+F-measure (micro): 0.843687325993778
+Precision (weighted): 0.8825929740247358
+Recall (weighted): 0.843687325993778
+F-measure (weighted): 0.8548479259508575
 
 results for robbie_williams:
+Precision (micro): 0.7902845037750095
+Recall (mico): 0.7902845037750095
+F-measure (micro): 0.7902845037750095
+Precision (weighted): 0.8384670346656671
+Recall (weighted): 0.7902845037750095
+F-measure (weighted): 0.7908902414878474
