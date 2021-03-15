@@ -144,6 +144,9 @@ F-measure: 0.623 P-score: 0.592 Cemgil: 0.605 Goto: 0.286 CMLc: 0.179 CMLt: 0.46
 
 
 
+
+!!!! BAD PEAK PICKER !!!!
+
 BEATLES AND ROBBIE WILLIAMS (folder "all")
 beat_sota_d1_d2
 (BOTH)
@@ -152,11 +155,6 @@ F-measure: 0.771 P-score: 0.790 Cemgil: 0.741 Goto: 0.188 CMLc: 0.127 CMLt: 0.58
  F-measure: 0.804 P-score: 0.821 Cemgil: 0.757 Goto: 0.261 CMLc: 0.157 CMLt: 0.629 AMLc: 0.166 AMLt: 0.700 D: 2.371 Dg: 1.129
 (ROBBIE WILLIAMS)
 F-measure: 0.688 P-score: 0.743 Cemgil: 0.741 Goto: 0.000 CMLc: 0.037 CMLt: 0.445 AMLc: 0.047 AMLt: 0.519 D: 1.563 Dg: 0.931
-
-
-
-
-
 
 
 BEATLES AND ROBBIE WILLIAMS AND ROCK (folder "all")
@@ -170,7 +168,7 @@ F-measure: 0.806 P-score: 0.798 Cemgil: 0.757 Goto: 0.000 CMLc: 0.062 CMLt: 0.54
 (ROCK)
 F-measure: 0.784 P-score: 0.771 Cemgil: 0.803 Goto: 0.040 CMLc: 0.095 CMLt: 0.517 AMLc: 0.117 AMLt: 0.645 D: 2.877 Dg: 2.196
 
-
+!!!!!!!!!!!!!!!!
 
 
 
@@ -179,12 +177,12 @@ F-measure: 0.784 P-score: 0.771 Cemgil: 0.803 Goto: 0.040 CMLc: 0.095 CMLt: 0.51
 BEATLES AND ROBBIE WILLIAMS AND ROCK AND BALLROOM(folder "all")
 beat_sota_d1_d2_d3_d4
 (ALL 4)
-F-measure: 0.807 P-score: 0.791 Cemgil: 0.782 Goto: 0.308 CMLc: 0.222 CMLt: 0.583 AMLc: 0.247 AMLt: 0.652 D: 2.780 Dg: 1.783
+F-measure: 0.821 P-score: 0.753 Cemgil: 0.780 Goto: 0.448 CMLc: 0.322 CMLt: 0.584 AMLc: 0.363 AMLt: 0.664 D: 2.950 Dg: 2.194
 (BEATLES)
-F-measure: 0.868 P-score: 0.902 Cemgil: 0.809 Goto: 0.130 CMLc: 0.145 CMLt: 0.723 AMLc: 0.150 AMLt: 0.748 D: 2.613 Dg: 1.560
+F-measure: 0.908 P-score: 0.867 Cemgil: 0.808 Goto: 0.435 CMLc: 0.329 CMLt: 0.756 AMLc: 0.335 AMLt: 0.784 D: 2.986 Dg: 1.869
 (ROBBIE WILLIAMS)
-F-measure: 0.852 P-score: 0.878 Cemgil: 0.814 Goto: 0.111 CMLc: 0.099 CMLt: 0.684 AMLc: 0.099 AMLt: 0.684 D: 2.559 Dg: 1.693
+F-measure: 0.882 P-score: 0.853 Cemgil: 0.810 Goto: 0.222 CMLc: 0.169 CMLt: 0.713 AMLc: 0.169 AMLt: 0.713 D: 2.886 Dg: 1.986
 (BALLROOM)
-F-measure: 0.785 P-score: 0.755 Cemgil: 0.768 Goto: 0.419 CMLc: 0.287 CMLt: 0.546 AMLc: 0.319 AMLt: 0.610 D: 2.765 Dg: 1.699
+F-measure: 0.790 P-score: 0.713 Cemgil: 0.760 Goto: 0.512 CMLc: 0.358 CMLt: 0.535 AMLc: 0.409 AMLt: 0.615 D: 2.873 Dg: 2.074
 (ROCK)
-F-measure: 0.811 P-score: 0.779 Cemgil: 0.798 Goto: 0.160 CMLc: 0.115 CMLt: 0.545 AMLc: 0.140 AMLt: 0.696 D: 3.067 Dg: 2.280
+F-measure: 0.823 P-score: 0.752 Cemgil: 0.810 Goto: 0.320 CMLc: 0.244 CMLt: 0.548 AMLc: 0.298 AMLt: 0.702 D: 3.206 Dg: 2.930
