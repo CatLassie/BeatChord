@@ -164,25 +164,22 @@ def majmin_to_target(majmin):
 # FUNCTIONS FOR MAPPING OUTPUT LABELS TO NOTES AND INTERVALS (for mir_eval evaluation)
 
 def labels_to_notataion_and_intervals(labels):
-    # out_labels = np.empty(len(labels), dtype='object')
-
     curr_label = labels[0]
 
-    out_l = np.empty(0)
-    out_l = np.append(out_l, labels_to_letters.get(curr_label))
+    out_labels = np.empty(0)
+    out_labels = np.append(out_labels, labels_to_letters.get(curr_label))
 
     out_intervals = np.empty((0, 2))
     out_intervals = np.append(out_intervals, [[0,0]], axis=0)
 
     for i, l in enumerate(labels):
-        # out_labels[i] = labels_to_letters.get(l)
 
         if l != curr_label:
             time = i / 100
             out_intervals[len(out_intervals) - 1][1] = time
             out_intervals = np.append(out_intervals, [[time, 0]], axis=0)
-
-            out_l = np.append(out_l, labels_to_letters.get(l))
+            
+            out_labels = np.append(out_labels, labels_to_letters.get(l))
 
             curr_label = l
 
@@ -190,5 +187,4 @@ def labels_to_notataion_and_intervals(labels):
             end_time = i/100
             out_intervals[len(out_intervals) - 1][1] = end_time
     
-    #return out_labels, out_intervals
-    return out_l, out_intervals
+    return out_labels, out_intervals
