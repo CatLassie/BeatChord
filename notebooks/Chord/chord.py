@@ -30,6 +30,9 @@ import scripts.chord_config as cc
 from scripts.chord_feat import init_data
 
 from scripts.chord_util import parse_annotations
+from scripts.chord_util import labels_to_notataion_and_intervals
+
+import mir_eval
 
 
 # In[ ]:
@@ -484,6 +487,9 @@ if PREDICT:
     p_scores_w = []
     r_scores_w = []
     f1_scores_w = []
+    
+    weighted_accuracies = []
+    
     for i, pred_chord in enumerate(predicted):        
         p_scores_mic.append(precision_score(test_t[i], pred_chord, average='micro'))
         r_scores_mic.append(recall_score(test_t[i], pred_chord, average='micro'))
@@ -492,6 +498,24 @@ if PREDICT:
         p_scores_w.append(precision_score(test_t[i], pred_chord, average='weighted'))
         r_scores_w.append(recall_score(test_t[i], pred_chord, average='weighted'))
         f1_scores_w.append(f1_score(test_t[i], pred_chord, average='weighted'))
+        
+        # mir_eval score (weighted accuracy)
+
+        ref_labels, ref_intervals = labels_to_notataion_and_intervals(test_t[i])
+        est_labels, est_intervals = labels_to_notataion_and_intervals(pred_chord)
+
+        est_intervals, est_labels = mir_eval.util.adjust_intervals(
+            est_intervals, est_labels, ref_intervals.min(),
+            ref_intervals.max(), mir_eval.chord.NO_CHORD,
+            mir_eval.chord.NO_CHORD)
+
+        merged_intervals, ref_labels, est_labels = mir_eval.util.merge_labeled_intervals(ref_intervals, ref_labels, est_intervals, est_labels)
+
+        durations = mir_eval.util.intervals_to_durations(merged_intervals)
+        comparison = mir_eval.chord.root(ref_labels, est_labels)
+        score = mir_eval.chord.weighted_accuracy(comparison, durations)
+
+        weighted_accuracies.append(score)
     
     print('Precision (micro):', np.mean(p_scores_mic))
     print('Recall (mico):', np.mean(r_scores_mic))
@@ -500,4 +524,6 @@ if PREDICT:
     print('Precision (weighted):', np.mean(p_scores_w))
     print('Recall (weighted):', np.mean(r_scores_w))
     print('F-measure (weighted):', np.mean(f1_scores_w))
+    
+    print('Weighted accuracies (mir_eval):', np.mean(weighted_accuracies))
 
