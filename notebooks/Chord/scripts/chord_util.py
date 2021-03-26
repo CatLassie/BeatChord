@@ -16,6 +16,22 @@ note_labels = {
     'N': 12
 }
 
+labels_to_letters = {
+    0: 'C',
+    1: 'C#',
+    2: 'D',
+    3: 'D#',
+    4: 'E',
+    5: 'F',
+    6: 'F#',
+    7: 'G',
+    8: 'G#',
+    9: 'A',
+    10: 'A#',
+    11: 'B',
+    12: 'N'
+}
+
 def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_chords_and_chord_configs = False):
     anno_paths = search_files(anno_path_root, anno_ext)
     annotations = [load_chords(p) for p in anno_paths]
@@ -144,3 +160,35 @@ def majmin_to_target(majmin):
         target += 13
 
     return target
+
+# FUNCTIONS FOR MAPPING OUTPUT LABELS TO NOTES AND INTERVALS (for mir_eval evaluation)
+
+def labels_to_notataion_and_intervals(labels):
+    # out_labels = np.empty(len(labels), dtype='object')
+
+    curr_label = labels[0]
+
+    out_l = np.empty(0)
+    out_l = np.append(out_l, labels_to_letters.get(curr_label))
+
+    out_intervals = np.empty((0, 2))
+    out_intervals = np.append(out_intervals, [[0,0]], axis=0)
+
+    for i, l in enumerate(labels):
+        # out_labels[i] = labels_to_letters.get(l)
+
+        if l != curr_label:
+            time = i / 100
+            out_intervals[len(out_intervals) - 1][1] = time
+            out_intervals = np.append(out_intervals, [[time, 0]], axis=0)
+
+            out_l = np.append(out_l, labels_to_letters.get(l))
+
+            curr_label = l
+
+        if i == len(labels) - 1:
+            end_time = i/100
+            out_intervals[len(out_intervals) - 1][1] = end_time
+    
+    #return out_labels, out_intervals
+    return out_l, out_intervals
