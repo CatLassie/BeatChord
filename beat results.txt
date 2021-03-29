@@ -186,3 +186,24 @@ F-measure: 0.882 P-score: 0.853 Cemgil: 0.810 Goto: 0.222 CMLc: 0.169 CMLt: 0.71
 F-measure: 0.790 P-score: 0.713 Cemgil: 0.760 Goto: 0.512 CMLc: 0.358 CMLt: 0.535 AMLc: 0.409 AMLt: 0.615 D: 2.873 Dg: 2.074
 (ROCK)
 F-measure: 0.823 P-score: 0.752 Cemgil: 0.810 Goto: 0.320 CMLc: 0.244 CMLt: 0.548 AMLc: 0.298 AMLt: 0.702 D: 3.206 Dg: 2.930
+
+
+
+
+
+FIXED RWC !!!!!!!!!!!!!
+
+Beatles, RW, Ballroom, Rock, RWCPop(folder "all")
+BEAT_Beatles_RW_Ballroom_Rock_RWCPop
+(All 5)
+F-measure: 0.815 P-score: 0.764 Cemgil: 0.775 Goto: 0.410 CMLc: 0.317 CMLt: 0.571 AMLc: 0.354 AMLt: 0.661 D: 2.914 Dg: 2.176
+(BEATLES)
+F-measure: 0.899 P-score: 0.858 Cemgil: 0.799 Goto: 0.435 CMLc: 0.313 CMLt: 0.733 AMLc: 0.318 AMLt: 0.758 D: 2.891 Dg: 1.825
+(ROBBIE WILLIAMS)
+F-measure: 0.841 P-score: 0.804 Cemgil: 0.777 Goto: 0.222 CMLc: 0.147 CMLt: 0.582 AMLc: 0.148 AMLt: 0.582 D: 2.633 Dg: 1.804
+(BALLROOM)
+F-measure: 0.798 P-score: 0.746 Cemgil: 0.765 Goto: 0.512 CMLc: 0.393 CMLt: 0.549 AMLc: 0.440 AMLt: 0.628 D: 2.841 Dg: 2.068
+(ROCK)
+F-measure: 0.828 P-score: 0.763 Cemgil: 0.813 Goto: 0.240 CMLc: 0.197 CMLt: 0.543 AMLc: 0.256 AMLt: 0.734 D: 3.249 Dg: 2.888
+(RWC POP)
+F-measure: 0.741 P-score: 0.690 Cemgil: 0.718 Goto: 0.154 CMLc: 0.173 CMLt: 0.482 AMLc: 0.188 AMLt: 0.624 D: 2.982 Dg: 2.329
