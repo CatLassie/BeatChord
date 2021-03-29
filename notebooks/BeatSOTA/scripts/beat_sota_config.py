@@ -33,7 +33,7 @@ FEATURE_PATH = [
     os.path.join(FEATURE_BASE_PATH, 'ballroom/audio/feat_cache_boeck'),
     os.path.join(FEATURE_BASE_PATH, 'rock/audio/feat_cache_boeck'),
     #os.path.join(FEATURE_BASE_PATH, 'rwc/audio/feat_cache_boeck'),
-    #os.path.join(FEATURE_BASE_PATH, 'hainsworth/audio/feat_cache_boeck')
+    #os.path.join(FEATURE_BASE_PATH, 'hainsworth/audio/feat_cache_boeck'),
     '../chord/data/features/rwc'
 ] # os.path.join(FEATURE_BASE_PATH, DATASET_NAME) # os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck') # os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck')
 ANNOTATION_EXT = '.beats'
@@ -43,7 +43,7 @@ ANNOTATION_PATH = [
     os.path.join(ANNOTATION_BASE_PATH, 'ballroom/annotations/beats'),
     os.path.join(ANNOTATION_BASE_PATH, 'rock/annotations/beats'),
     #os.path.join(ANNOTATION_BASE_PATH, 'rwc/annotations/beats'),
-    #os.path.join(ANNOTATION_BASE_PATH, 'hainsworth/annotations/beats')
+    #os.path.join(ANNOTATION_BASE_PATH, 'hainsworth/annotations/beats'),
     'data/annotations/rwc'
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 
