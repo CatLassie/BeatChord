@@ -23,7 +23,7 @@ ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets
 
 DATASET_NAME = 'all' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
 
-MODEL_NAME = 'beat_sota_all' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
+MODEL_NAME = 'BEAT_Beatles_RW_Ballroom_Rock_RWCPop' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
@@ -32,8 +32,9 @@ FEATURE_PATH = [
     os.path.join(FEATURE_BASE_PATH, 'robbie_williams/audio/feat_cache_boeck'),
     os.path.join(FEATURE_BASE_PATH, 'ballroom/audio/feat_cache_boeck'),
     os.path.join(FEATURE_BASE_PATH, 'rock/audio/feat_cache_boeck'),
-    os.path.join(FEATURE_BASE_PATH, 'rwc/audio/feat_cache_boeck'),
-    os.path.join(FEATURE_BASE_PATH, 'hainsworth/audio/feat_cache_boeck')
+    #os.path.join(FEATURE_BASE_PATH, 'rwc/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'hainsworth/audio/feat_cache_boeck')
+    '../chord/data/features/rwc'
 ] # os.path.join(FEATURE_BASE_PATH, DATASET_NAME) # os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck') # os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck')
 ANNOTATION_EXT = '.beats'
 ANNOTATION_PATH = [
@@ -41,8 +42,9 @@ ANNOTATION_PATH = [
     os.path.join(ANNOTATION_BASE_PATH, 'robbie_williams/annotations/beats'),
     os.path.join(ANNOTATION_BASE_PATH, 'ballroom/annotations/beats'),
     os.path.join(ANNOTATION_BASE_PATH, 'rock/annotations/beats'),
-    os.path.join(ANNOTATION_BASE_PATH, 'rwc/annotations/beats'),
-    os.path.join(ANNOTATION_BASE_PATH, 'hainsworth/annotations/beats')
+    #os.path.join(ANNOTATION_BASE_PATH, 'rwc/annotations/beats'),
+    #os.path.join(ANNOTATION_BASE_PATH, 'hainsworth/annotations/beats')
+    'data/annotations/rwc'
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 
 # feature parameters
