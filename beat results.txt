@@ -234,12 +234,34 @@ F-measure: 0.627 P-score: 0.576 Cemgil: 0.615 Goto: 0.357 CMLc: 0.243 CMLt: 0.46
 
 
 
+
+
 Beatles, HJDB (folder "all")
 
 BEAT_Beatles_HJDB
 
 (ALL)
 F-measure: 0.903 P-score: 0.885 Cemgil: 0.856 Goto: 0.736 CMLc: 0.529 CMLt: 0.799 AMLc: 0.533 AMLt: 0.820 D: 3.438 Dg: 2.198
+
+
+
+
+Beatles, RW, Ballroom, Rock, HJDB (folder "all")
+
+BEAT_Beatles_RW_Ballroom_Rock_HJDB
+
+(ALL)
+F-measure: 0.813 P-score: 0.755 Cemgil: 0.778 Goto: 0.474 CMLc: 0.347 CMLt: 0.585 AMLc: 0.394 AMLt: 0.688 D: 3.033 Dg: 2.217
+(BEATLES)
+F-measure: 0.887 P-score: 0.839 Cemgil: 0.787 Goto: 0.435 CMLc: 0.300 CMLt: 0.694 AMLc: 0.314 AMLt: 0.785 D: 2.880 Dg: 1.810
+(ROBBIE WILLIAMS)
+F-measure: 0.854 P-score: 0.792 Cemgil: 0.789 Goto: 0.111 CMLc: 0.114 CMLt: 0.566 AMLc: 0.114 AMLt: 0.589 D: 2.813 Dg: 2.170
+(BALLROOM)
+F-measure: 0.778 P-score: 0.710 Cemgil: 0.748 Goto: 0.512 CMLc: 0.387 CMLt: 0.540 AMLc: 0.454 AMLt: 0.650 D: 2.853 Dg: 1.992
+(ROCK)
+F-measure: 0.803 P-score: 0.733 Cemgil: 0.791 Goto: 0.320 CMLc: 0.173 CMLt: 0.504 AMLc: 0.250 AMLt: 0.714 D: 3.172 Dg: 2.873
+(HJDB)
+F-measure: 0.851 P-score: 0.825 Cemgil: 0.844 Goto: 0.633 CMLc: 0.485 CMLt: 0.704 AMLc: 0.489 AMLt: 0.728 D: 3.615 Dg: 3.177
 
 
 
