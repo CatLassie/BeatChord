@@ -38,4 +38,14 @@ stacked TCN layers\
 - 0-padding  for chord prediction (N chord) to not lose 1.5second worth of score at start and end\
 \
 R. Vogl ask:\
-- whats with the new datasets (they have audio but not features, how do I get the 91 frequency features)}
+- whats with the new datasets (they have audio but not features, how do I get the 91 frequency features)\
+\
+MTL ideas:\
+- chords as extra inputs for beat net\
+- beat net architecture for chords alone\
+- beat net architecture for both beats and chords (softmax for beats too ? as neuron 14 and 15 ?, naaah, more like 2 final layers?)\
+- split architecture after conv layers ?\
+- split architecture even earlier ? (after some conv layers)\
+- if all else fails, read about skip connections (additive stuff)\
+\
+- ALSO TRY CHORD + SCALE MTL TASK! (root + maj/min)}
