@@ -101,4 +101,7 @@ UPPER_FILTER_IDX = 223
 
 VERBOSE = True # args.verbose
 
+MAJMIN = False
+DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS = False
+
 ########

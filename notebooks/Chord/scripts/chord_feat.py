@@ -25,6 +25,8 @@ VALIDATION_SPLIT_POINT = cc.VALIDATION_SPLIT_POINT
 
 SEED = cc.SEED
 VERBOSE = cc.VERBOSE
+MAJMIN = cc.MAJMIN
+DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS = cc.DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS
 
 
 
@@ -68,7 +70,7 @@ def init_feats_annos_targets(feat_path_root, anno_path_root):
     if FILTER_FEATURES:
         features = [f[:, LOWER_FILTER_IDX : UPPER_FILTER_IDX] for f in features]
 
-    annotations = parse_annotations(anno_path_root, ANNOTATION_EXT);
+    annotations = parse_annotations(anno_path_root, ANNOTATION_EXT, MAJMIN, DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS);
     targets = init_targets(annotations, features)
 
     assert len(features) == len(targets)
