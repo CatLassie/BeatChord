@@ -37,6 +37,22 @@ Weighted accuracies (mir_eval): 0.7015551692002209
 
 
 
+
+RWC Pop
+
+151c_5h_16b_16-32-64l_24fc
+
+Precision (micro): 0.6308668605989284
+Recall (mico): 0.6308668605989284
+F-measure (micro): 0.6308668605989284
+Precision (weighted): 0.6959110475219883
+Recall (weighted): 0.6308668605989284
+F-measure (weighted): 0.6273362136040667
+Weighted accuracies (mir_eval): 0.6308924705660964
+
+
+
+
 ALL (folder: chord_all)
 
 (no *1 skip)
@@ -83,7 +99,6 @@ Precision (weighted): 0.7700980854334124
 Recall (weighted): 0.7525486280837239
 F-measure (weighted): 0.7361816590956154
 Weighted accuracies (mir_eval): 0.7525807670754475
-
 
 (RWC POP)
 Precision (micro): 0.6847545615241254
