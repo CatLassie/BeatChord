@@ -97,8 +97,9 @@ def chord_to_scale(label):
 
     # NOTE: explicit absence of 1 (*1) should be taken into account? (also for root targets?)
     # explicit absence of first
-    #if('*1' in label):
-    #    return no_label
+    if('*1' in label):
+        # print('NOTE: chords explicitly missing first note (*1) are mapped to label "N"')
+        return no_label
 
     # short label present (maj, min, minmaj, aug, dim, hdim)
     # order of next 2 conditions covers minmaj 7 chords (IMPORTANT!)
