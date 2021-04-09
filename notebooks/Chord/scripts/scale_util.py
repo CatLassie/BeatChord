@@ -149,57 +149,13 @@ def scale_to_target(scale):
 
     return target
 
-# FUNCTIONS FOR MAPPING CHORDS TO ROOT
+# FUNCTION FOR MAPPING CHORDS TO ROOT
 
 def chord_to_root(label):
     root = label[0]
     if(len(label) > 1 and (label[1] == '#' or label[1] == 'b')):
         root += label[1]
     return root
-
-# FUNCTIONS FOR MAPPING CHORDS TO MAJOR/MINOR
-
-def chord_to_majmin(label):
-    if(label == 'N'):
-        return label
-
-    root = chord_to_root(label)
-    majmin = root
-
-    if(':' not in label):
-        majmin +=  ':maj'
-    else:
-        affix = label.split(':')[1]
-        affix_3 = affix[:3]
-        affix_4 = affix[:4]
-        
-        if(affix_3 == 'min' or affix_3 == 'dim' or affix_4 == 'hdim'):
-            majmin += ':min'
-        elif(affix_3 == 'maj' or affix_3 == 'aug'):
-            majmin += ':maj'
-        elif(affix_3 == 'sus'):
-            majmin = 'N'
-        else:
-            majmin += ':maj'
-
-    return majmin
-
-def majmin_to_target(majmin):
-    if(majmin == 'N'):
-        return root_to_target(majmin)
-
-    majminsplit = majmin.split(':')
-    if(len(majminsplit) != 2):
-        raise Exception('Invalid chord label format! Must be of the form "<root>:<maj/min>"')
-
-    root = majminsplit[0]
-    affix = majminsplit[1]
-    target = root_to_target(root)
-
-    if(affix == 'min'):
-        target += 13
-
-    return target
 
 # FUNCTIONS FOR MAPPING OUTPUT LABELS TO NOTES AND INTERVALS (for mir_eval evaluation)
 
