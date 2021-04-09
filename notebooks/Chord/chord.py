@@ -509,7 +509,11 @@ if PREDICT:
             ref_intervals.max(), mir_eval.chord.NO_CHORD,
             mir_eval.chord.NO_CHORD)
 
+        # print('label length before merge', len(ref_labels), len(est_labels))
+        # print('interval length before merge', len(ref_intervals), len(est_intervals))
         merged_intervals, ref_labels, est_labels = mir_eval.util.merge_labeled_intervals(ref_intervals, ref_labels, est_intervals, est_labels)
+        # print('label length after merge', len(ref_labels), len(est_labels))
+        # print('interval length after merge', len(merged_intervals))
 
         durations = mir_eval.util.intervals_to_durations(merged_intervals)
         comparison = mir_eval.chord.root(ref_labels, est_labels)
