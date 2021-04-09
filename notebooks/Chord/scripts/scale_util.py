@@ -28,7 +28,6 @@ def parse_scale_annotations(anno_path_root, anno_ext, display_unique_chords_and_
         unique_labels = list(unique_labels)
 
         print('All unique chords:\n')
-        # [print(l, ' ==> ', root_to_target(chord_to_root(l))) for l in sorted(unique_labels)]
         [print(l, ' ==> ', scale_to_target(chord_to_scale(l))) for l in sorted(unique_labels)]
         print('\n')
 
@@ -77,7 +76,70 @@ def parse_chord(time_label_string):
 # FUNCTIONS FOR MAPPING CHORDS TO SCALE
 
 def chord_to_scale(label):
-    return 'N'
+    maj_label = 'maj'
+    min_label = 'min'
+    aug_label = 'aug'
+    dim_label = 'dim'
+    sus_label = 'sus'
+    no_label = 'N'
+    maj_third = '3'
+    min_third = 'b3'
+    no_maj_third = '*3'
+    no_min_third = '*b3'
+
+    # no chord label
+    if(label == no_label):
+        return no_label
+
+    # explicit absence of third
+    if((no_maj_third in label) or (no_min_third in label)):
+        return no_label
+
+    # NOTE: explicit absence of 1 (*1) should be taken into account? (also for root targets?)
+    # explicit absence of first
+    #if('*1' in label):
+    #    return no_label
+
+    # short label present (maj, min, minmaj, aug, dim, hdim)
+    # order of next 2 conditions covers minmaj 7 chords (IMPORTANT!)
+    if(min_label in label):
+        return min_label
+
+    if(maj_label in label):
+        return maj_label
+
+    if(aug_label in label):
+        return maj_label
+
+    if(dim_label in label):
+        return min_label
+
+    # explicit presence of third
+    if(min_third in label):
+        return min_label
+
+    label_split = label.split('13')
+    for i, l_s in enumerate(label_split):
+        if(maj_third in l_s):
+            return maj_label
+
+    # sus label present (after 3 and b3 in hierarchy cause suspended chords might have a third appended to them which means they are maj or min)
+    if(sus_label in label):
+        return no_label
+
+    # not explicit chord build
+    if(('(' not in label) and (')' not in label)):
+        return maj_label
+    
+    # explicit chord build but is not full build (doesnt start with 1)
+    if(('(1,' not in label) and ('(1)' not in label)):
+        return maj_label
+
+    # explicit chord build and is full build (starts with 1)
+    if(('(1,' in label) or ('(1)' in label)):
+        return no_label
+
+    return 'NOT_FOUND'
 
 def scale_to_target(scale):
     target = scale_labels.get(scale, 'NOT_FOUND')
