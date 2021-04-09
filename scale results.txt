@@ -1,6 +1,8 @@
 
 ROBBIE WILLIAMS:
 
+151c_5h_16b_16-32-64l_104fc
+
 (no *1 skip)
 
 Precision (micro): 0.7322479379221667
@@ -21,9 +23,17 @@ Recall (weighted): 0.7323236579322548
 F-measure (weighted): 0.711257115745447
 Weighted accuracies (mir_eval): 0.7323548193096323
 
+R. W.:
 
+151c_5h_16b_16-32-64l_24fc
 
-
+Precision (micro): 0.7015254332542137
+Recall (mico): 0.7015254332542137
+F-measure (micro): 0.7015254332542137
+Precision (weighted): 0.7056775299021499
+Recall (weighted): 0.7015254332542137
+F-measure (weighted): 0.691034323695564
+Weighted accuracies (mir_eval): 0.7015551692002209
 
 
 
@@ -65,7 +75,6 @@ Recall (weighted): 0.8314634069288056
 F-measure (weighted): 0.8370399287714639
 Weighted accuracies (mir_eval): 0.831514937567771
 
-
 (ROBBIE WILLIAMS)
 Precision (micro): 0.7525486280837239
 Recall (mico): 0.7525486280837239
@@ -84,3 +93,39 @@ Precision (weighted): 0.7540889053392129
 Recall (weighted): 0.6847545615241254
 F-measure (weighted): 0.6858528007926616
 Weighted accuracies (mir_eval): 0.6847824763595969
+
+
+
+
+
+SCALE_Beatles_RW_RWCpop_151c_5h_16b_16-32-64l_24fc (with *1 skip)
+
+(ALL 3)
+
+
+(BEATLES)
+Precision (micro): 0.8155073256850044
+Recall (mico): 0.8155073256850044
+F-measure (micro): 0.8155073256850044
+Precision (weighted): 0.8738732181135719
+Recall (weighted): 0.8155073256850044
+F-measure (weighted): 0.8252417097031607
+Weighted accuracies (mir_eval): 0.8155577574727494
+
+(ROBBIE WILLIAMS)
+Precision (micro): 0.7591245148075589
+Recall (mico): 0.7591245148075589
+F-measure (micro): 0.7591245148075589
+Precision (weighted): 0.7785330416329002
+Recall (weighted): 0.7591245148075589
+F-measure (weighted): 0.746077796173586
+Weighted accuracies (mir_eval): 0.7591569548862996
+
+(RWC POP)
+Precision (micro): 0.6877864591316218
+Recall (mico): 0.6877864591316218
+F-measure (micro): 0.6877864591316218
+Precision (weighted): 0.7339440673265548
+Recall (weighted): 0.6877864591316218
+F-measure (weighted): 0.6847143124806643
+Weighted accuracies (mir_eval): 0.6878144241459546
