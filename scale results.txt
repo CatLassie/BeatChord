@@ -1,0 +1,73 @@
+
+ROBBIE WILLIAMS:
+
+(no *1 skip)
+
+Precision (micro): 0.7322479379221667
+Recall (mico): 0.7322479379221667
+F-measure (micro): 0.7322479379221668
+Precision (weighted): 0.7265853312486913
+Recall (weighted): 0.7322479379221667
+F-measure (weighted): 0.7165951268144011
+Weighted accuracies (mir_eval): 0.7322790654456133
+
+(with *1 skip)
+
+Precision (micro): 0.7323236579322548
+Recall (mico): 0.7323236579322548
+F-measure (micro): 0.7323236579322548
+Precision (weighted): 0.7274724919388706
+Recall (weighted): 0.7323236579322548
+F-measure (weighted): 0.711257115745447
+Weighted accuracies (mir_eval): 0.7323548193096323
+
+
+
+
+
+
+
+ALL (folder: chord_all)
+
+(no *1 skip)
+
+SCALE_Beatles_RW_RWCpop_151c_5h_16b_16-32-64l_104fc
+
+(ALL 3)
+
+
+(BEATLES)
+
+
+(ROBBIE WILLIAMS)
+
+
+(RWC POP)
+
+
+
+(with *1 skip)
+
+(ALL 3)
+Precision (micro): 0.7732978958206596
+Recall (mico): 0.7732978958206596
+F-measure (micro): 0.7732978958206596
+Precision (weighted): 0.8227248196211779
+Recall (weighted): 0.7732978958206596
+F-measure (weighted): 0.7731919934201957
+Weighted accuracies (mir_eval): 0.773338725786945
+
+(BEATLES)
+
+
+(ROBBIE WILLIAMS)
+Precision (micro): 0.7525486280837239
+Recall (mico): 0.7525486280837239
+F-measure (micro): 0.7525486280837239
+Precision (weighted): 0.7700980854334124
+Recall (weighted): 0.7525486280837239
+F-measure (weighted): 0.7361816590956154
+Weighted accuracies (mir_eval): 0.7525807670754475
+
+
+(RWC POP)
