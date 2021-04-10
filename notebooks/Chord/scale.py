@@ -29,7 +29,6 @@ import scripts.scale_config as sc
 # feature, target, annotation initializer
 from scripts.scale_feat import init_data
 
-from scripts.scale_util import parse_scale_annotations
 from scripts.scale_util import labels_to_notataion_and_intervals
 
 import mir_eval
@@ -511,7 +510,8 @@ if PREDICT:
         f1_scores_w.append(f1_score(test_t[i], pred_chord, average='weighted'))
         
         # mir_eval score (weighted accuracy)
-
+        
+        '''
         ref_labels, ref_intervals = labels_to_notataion_and_intervals(test_t[i])
         est_labels, est_intervals = labels_to_notataion_and_intervals(pred_chord)
 
@@ -531,7 +531,8 @@ if PREDICT:
         score = mir_eval.chord.weighted_accuracy(comparison, durations)
 
         weighted_accuracies.append(score)
-    
+        '''
+        
     print('Precision (micro):', np.mean(p_scores_mic))
     print('Recall (mico):', np.mean(r_scores_mic))
     print('F-measure (micro):', np.mean(f1_scores_mic))
@@ -540,5 +541,5 @@ if PREDICT:
     print('Recall (weighted):', np.mean(r_scores_w))
     print('F-measure (weighted):', np.mean(f1_scores_w))
     
-    print('Weighted accuracies (mir_eval):', np.mean(weighted_accuracies))
+    # print('Weighted accuracies (mir_eval):', np.mean(weighted_accuracies))
 
