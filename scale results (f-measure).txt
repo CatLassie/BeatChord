@@ -1,0 +1,143 @@
+ALL MODELS ARE SKIP *1 IF NOT SPECIFIED EXPLICITLY
+
+
+ROBBIE WILLIAMS:
+
+151c_5h_16b_16-32-64l_104fc
+
+(no *1 skip)
+
+F-measure (micro): 0.7322479379221668
+F-measure (weighted): 0.7165951268144011
+
+(with *1 skip)
+
+F-measure (micro): 0.7323236579322548
+F-measure (weighted): 0.711257115745447
+
+R. W.:
+
+151c_5h_16b_16-32-64l_24fc
+
+F-measure (micro): 0.7015254332542137
+F-measure (weighted): 0.691034323695564
+
+
+
+
+RWC Pop
+
+151c_5h_16b_16-32-64l_24fc
+
+F-measure (micro): 0.6308668605989284
+F-measure (weighted): 0.6273362136040667
+
+
+
+
+ALL (folder: chord_all)
+
+(with *1 skip)
+
+SCALE_Beatles_RW_RWCpop_151c_5h_16b_16-32-64l_104fc
+
+(ALL 3)
+F-measure (micro): 0.7732978958206596
+F-measure (weighted): 0.7731919934201957
+
+(BEATLES)
+F-measure (micro): 0.8314634069288056
+F-measure (weighted): 0.8370399287714639
+
+(ROBBIE WILLIAMS)
+F-measure (micro): 0.7525486280837239
+F-measure (weighted): 0.7361816590956154
+
+(RWC POP)
+F-measure (micro): 0.6847545615241255
+F-measure (weighted): 0.6858528007926616
+
+
+
+
+
+SCALE_Beatles_RW_RWCpop_151c_5h_16b_16-32-64l_24fc (with *1 skip)
+
+(ALL 3)
+
+
+(BEATLES)
+F-measure (micro): 0.8155073256850044
+F-measure (weighted): 0.8252417097031607
+
+(ROBBIE WILLIAMS)
+F-measure (micro): 0.7591245148075589
+F-measure (weighted): 0.746077796173586
+
+(RWC POP)
+F-measure (micro): 0.6877864591316218
+F-measure (weighted): 0.6847143124806643
+
+
+
+
+SCALE_Beatles_RW_RWCpop_151c_5h_16b_16-32-64l_24-24fc (with *1 skip)
+
+(ALL 3)
+
+
+(BEATLES)
+F-measure (micro): 0.810586396029332
+F-measure (weighted): 0.8277340922977939
+
+(ROBBIE WILLIAMS)
+F-measure (micro): 0.7631834725269294
+F-measure (weighted): 0.7592850034003349
+
+(RWC POP)
+F-measure (micro): 0.6990146405784772
+F-measure (weighted): 0.7016312787807701
+
+
+
+
+SCALE_Beatles_RW_RWCpop_151c_5h_16b_16-32-64l_96-96fc (with *1 skip)
+
+(ALL 3)
+F-measure (micro): 0.7883750157864439
+F-measure (weighted): 0.7872736456944474
+
+(BEATLES)
+F-measure (micro): 0.8421392395662137
+F-measure (weighted): 0.8469739724269923
+
+(ROBBIE WILLIAMS)
+F-measure (micro): 0.7762395590117595
+F-measure (weighted): 0.7661821926525669
+
+(RWC POP)
+F-measure (micro): 0.7016551668662471
+F-measure (weighted): 0.6962517658889389
+
+
+
+
+
+SCALE_Beatles_RW_RWCpop_151c_5h_16b_16-32-64l_96-24fc (with *1 skip)
+
+(ALL 3)
+F-measure (micro): 0.7899096235214447
+F-measure (weighted): 0.7923581400688533
+
+(BEATLES)
+F-measure (micro): 0.8393949704204289
+F-measure (weighted): 0.8486930871910532
+
+(ROBBIE WILLIAMS)
+F-measure (micro): 0.7863929021498245
+F-measure (weighted): 0.7786556906060595
+
+(RWC POP)
+
+F-measure (micro): 0.7047932784189785
+F-measure (weighted): 0.7021749294038186
