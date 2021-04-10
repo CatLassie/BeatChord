@@ -366,8 +366,8 @@ def predict(model, device, data, context):
             output[idx] = out_val
 
     # compensate for convolutional context and return output
-    output = np.append([12 for _ in range(side)], output)
-    output = np.append(output,[12 for _ in range(side)])
+    output = np.append([2 for _ in range(side)], output)
+    output = np.append(output,[2 for _ in range(side)])
     return output
 
 
