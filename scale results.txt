@@ -13,7 +13,6 @@ F-measure (micro): 0.7322479379221668
 Precision (weighted): 0.7265853312486913
 Recall (weighted): 0.7322479379221667
 F-measure (weighted): 0.7165951268144011
-Weighted accuracies (mir_eval): 0.7322790654456133
 
 (with *1 skip)
 
@@ -23,7 +22,6 @@ F-measure (micro): 0.7323236579322548
 Precision (weighted): 0.7274724919388706
 Recall (weighted): 0.7323236579322548
 F-measure (weighted): 0.711257115745447
-Weighted accuracies (mir_eval): 0.7323548193096323
 
 R. W.:
 
@@ -35,7 +33,6 @@ F-measure (micro): 0.7015254332542137
 Precision (weighted): 0.7056775299021499
 Recall (weighted): 0.7015254332542137
 F-measure (weighted): 0.691034323695564
-Weighted accuracies (mir_eval): 0.7015551692002209
 
 
 
@@ -50,7 +47,6 @@ F-measure (micro): 0.6308668605989284
 Precision (weighted): 0.6959110475219883
 Recall (weighted): 0.6308668605989284
 F-measure (weighted): 0.6273362136040667
-Weighted accuracies (mir_eval): 0.6308924705660964
 
 
 
@@ -68,7 +64,6 @@ F-measure (micro): 0.7732978958206596
 Precision (weighted): 0.8227248196211779
 Recall (weighted): 0.7732978958206596
 F-measure (weighted): 0.7731919934201957
-Weighted accuracies (mir_eval): 0.773338725786945
 
 (BEATLES)
 Precision (micro): 0.8314634069288056
@@ -77,7 +72,6 @@ F-measure (micro): 0.8314634069288056
 Precision (weighted): 0.8821121019409796
 Recall (weighted): 0.8314634069288056
 F-measure (weighted): 0.8370399287714639
-Weighted accuracies (mir_eval): 0.831514937567771
 
 (ROBBIE WILLIAMS)
 Precision (micro): 0.7525486280837239
@@ -86,7 +80,6 @@ F-measure (micro): 0.7525486280837239
 Precision (weighted): 0.7700980854334124
 Recall (weighted): 0.7525486280837239
 F-measure (weighted): 0.7361816590956154
-Weighted accuracies (mir_eval): 0.7525807670754475
 
 (RWC POP)
 Precision (micro): 0.6847545615241254
@@ -95,7 +88,6 @@ F-measure (micro): 0.6847545615241255
 Precision (weighted): 0.7540889053392129
 Recall (weighted): 0.6847545615241254
 F-measure (weighted): 0.6858528007926616
-Weighted accuracies (mir_eval): 0.6847824763595969
 
 
 
@@ -113,7 +105,6 @@ F-measure (micro): 0.8155073256850044
 Precision (weighted): 0.8738732181135719
 Recall (weighted): 0.8155073256850044
 F-measure (weighted): 0.8252417097031607
-Weighted accuracies (mir_eval): 0.8155577574727494
 
 (ROBBIE WILLIAMS)
 Precision (micro): 0.7591245148075589
@@ -122,7 +113,6 @@ F-measure (micro): 0.7591245148075589
 Precision (weighted): 0.7785330416329002
 Recall (weighted): 0.7591245148075589
 F-measure (weighted): 0.746077796173586
-Weighted accuracies (mir_eval): 0.7591569548862996
 
 (RWC POP)
 Precision (micro): 0.6877864591316218
@@ -131,7 +121,6 @@ F-measure (micro): 0.6877864591316218
 Precision (weighted): 0.7339440673265548
 Recall (weighted): 0.6877864591316218
 F-measure (weighted): 0.6847143124806643
-Weighted accuracies (mir_eval): 0.6878144241459546
 
 
 
@@ -148,7 +137,6 @@ F-measure (micro): 0.810586396029332
 Precision (weighted): 0.8795969068204745
 Recall (weighted): 0.810586396029332
 F-measure (weighted): 0.8277340922977939
-Weighted accuracies (mir_eval): 0.81063627091344
 
 (ROBBIE WILLIAMS)
 Precision (micro): 0.7631834725269294
@@ -157,7 +145,6 @@ F-measure (micro): 0.7631834725269294
 Precision (weighted): 0.7816917341356555
 Recall (weighted): 0.7631834725269294
 F-measure (weighted): 0.7592850034003349
-Weighted accuracies (mir_eval): 0.7632159562298351
 
 (RWC POP)
 Precision (micro): 0.6990146405784772
@@ -166,7 +153,6 @@ F-measure (micro): 0.6990146405784772
 Precision (weighted): 0.7505302171885135
 Recall (weighted): 0.6990146405784772
 F-measure (weighted): 0.7016312787807701
-Weighted accuracies (mir_eval): 0.6990431230656022
 
 
 
@@ -180,7 +166,6 @@ F-measure (micro): 0.7883750157864439
 Precision (weighted): 0.8296748243205654
 Recall (weighted): 0.7883750157864438
 F-measure (weighted): 0.7872736456944474
-Weighted accuracies (mir_eval): 0.7884164255718838
 
 (BEATLES)
 Precision (micro): 0.8421392395662137
@@ -189,7 +174,6 @@ F-measure (micro): 0.8421392395662137
 Precision (weighted): 0.8840491710877137
 Recall (weighted): 0.8421392395662137
 F-measure (weighted): 0.8469739724269923
-Weighted accuracies (mir_eval): 0.8421911309755504
 
 (ROBBIE WILLIAMS)
 Precision (micro): 0.7762395590117595
@@ -198,7 +182,6 @@ F-measure (micro): 0.7762395590117595
 Precision (weighted): 0.7933914353067436
 Recall (weighted): 0.7762395590117595
 F-measure (weighted): 0.7661821926525669
-Weighted accuracies (mir_eval): 0.7762727318000545
 
 (RWC POP)
 Precision (micro): 0.7016551668662471
@@ -207,7 +190,6 @@ F-measure (micro): 0.7016551668662471
 Precision (weighted): 0.758593326280564
 Recall (weighted): 0.7016551668662471
 F-measure (weighted): 0.6962517658889389
-Weighted accuracies (mir_eval): 0.7016837347766633
 
 
 
@@ -222,7 +204,6 @@ F-measure (micro): 0.7899096235214447
 Precision (weighted): 0.8283099490111201
 Recall (weighted): 0.7899096235214447
 F-measure (weighted): 0.7923581400688533
-Weighted accuracies (mir_eval): 0.7899510882916627
 
 (BEATLES)
 Precision (micro): 0.8393949704204289
@@ -231,7 +212,6 @@ F-measure (micro): 0.8393949704204289
 Precision (weighted): 0.8842063021279823
 Recall (weighted): 0.8393949704204289
 F-measure (weighted): 0.8486930871910532
-Weighted accuracies (mir_eval): 0.8394466974768362
 
 (ROBBIE WILLIAMS)
 Precision (micro): 0.7863929021498245
@@ -240,7 +220,6 @@ F-measure (micro): 0.7863929021498245
 Precision (weighted): 0.7998928638584952
 Recall (weighted): 0.7863929021498245
 F-measure (weighted): 0.7786556906060595
-Weighted accuracies (mir_eval): 0.7864265110677802
 
 (RWC POP)
 Precision (micro): 0.7047932784189785
@@ -249,4 +228,3 @@ F-measure (micro): 0.7047932784189785
 Precision (weighted): 0.7490897678331044
 Recall (weighted): 0.7047932784189785
 F-measure (weighted): 0.7021749294038186
-Weighted accuracies (mir_eval): 0.7048220255036587
