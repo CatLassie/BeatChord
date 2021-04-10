@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Chord
+# # Scale
 
 # In[ ]:
 
@@ -133,11 +133,11 @@ unseen_loss_func = nn.CrossEntropyLoss(reduction="sum")
 # In[ ]:
 
 
-# CHORD NETWORK CLASS and DATA SET CLASS for DATA LOADER
+# SCALE NETWORK CLASS and DATA SET CLASS for DATA LOADER
 
-class ChordNet(nn.Module):
+class ScaleNet(nn.Module):
     def __init__(self):
-        super(ChordNet, self).__init__()
+        super(ScaleNet, self).__init__()
         
         self.l1 = nn.Sequential(
             nn.Conv2d(cnn_in_size, cnn_h1_size, cnn_k_size, padding=cnn_padding),
@@ -219,7 +219,7 @@ class ChordNet(nn.Module):
 
 
 # Dataset for DataLoader (items are pairs of Context x 81 (time x freq.) spectrogram snippets and 0-1 (0.5) target values)
-class ChordSet(Dataset):
+class ScaleSet(Dataset):
     def __init__(self, feat_list, targ_list, context, hop_size):
         self.features = feat_list
         self.targets = targ_list
@@ -236,7 +236,7 @@ class ChordSet(Dataset):
             self.snip_cnt.append(cur_len)
             total_snip_cnt += cur_len
         self.length = int(total_snip_cnt)
-        super(ChordSet, self).__init__()
+        super(ScaleSet, self).__init__()
 
     def __len__(self):
         return self.length
@@ -392,16 +392,16 @@ def run_training():
     torch.manual_seed(SEED)
     
     # create model and optimizer
-    model = ChordNet().to(DEVICE)
+    model = ScaleNet().to(DEVICE)
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
 
     # setup our datasets for training, evaluation and testing
     kwargs = {'num_workers': 4, 'pin_memory': True} if USE_CUDA else {'num_workers': 4}
-    train_loader = torch.utils.data.DataLoader(ChordSet(train_f, train_t, args.context, args.hop_size),
+    train_loader = torch.utils.data.DataLoader(ScaleSet(train_f, train_t, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=True, **kwargs)
-    valid_loader = torch.utils.data.DataLoader(ChordSet(valid_f, valid_t, args.context, args.hop_size),
+    valid_loader = torch.utils.data.DataLoader(ScaleSet(valid_f, valid_t, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=False, **kwargs)
-    test_loader = torch.utils.data.DataLoader(ChordSet(test_f, test_t, args.context, args.hop_size),
+    test_loader = torch.utils.data.DataLoader(ScaleSet(test_f, test_t, args.context, args.hop_size),
                                               batch_size=args.batch_size, shuffle=False, **kwargs)
 
     # main training loop
@@ -455,7 +455,7 @@ def run_prediction(test_features):
     torch.manual_seed(SEED)
     
     # load model
-    model = ChordNet().to(DEVICE)
+    model = ScaleNet().to(DEVICE)
     model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '.model'))) #, map_location=torch.device('cpu')
     print('model loaded...')
     
