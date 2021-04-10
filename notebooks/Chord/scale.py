@@ -121,6 +121,7 @@ fc_h1_size = 96 #52 #156 # neurons in FC layers
 fc_h2_size = 24
 fc_out_size = 3 # 13 outputs for 13 classes
 
+
 # kernels
 fc_k1_size = (18,11) #(37,22) #(6,22) #22 # something big that would correspond to an FC layer (capture all data into 1 input)
 fc_k2_size = 1 # second FC layer gets input from first one, filter size is 1
@@ -169,7 +170,7 @@ class ChordNet(nn.Module):
             nn.ELU(),
             nn.Dropout(p = cnn_dropout_rate)
         )
-
+        
         self.lfc2 = nn.Sequential(
             nn.Conv1d(fc_h1_size, fc_h2_size, fc_k2_size),
             nn.BatchNorm1d(fc_h2_size),
@@ -203,7 +204,7 @@ class ChordNet(nn.Module):
                 
         out.squeeze_(2)
         #print(out.shape)
-
+            
         out = self.lfc2(out)
             
         out = self.lfcout(out)
