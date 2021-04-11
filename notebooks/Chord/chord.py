@@ -29,7 +29,6 @@ import scripts.chord_config as cc
 # feature, target, annotation initializer
 from scripts.chord_feat import init_data
 
-from scripts.chord_util import parse_annotations
 from scripts.chord_util import labels_to_notataion_and_intervals
 
 import mir_eval
@@ -84,6 +83,8 @@ VERBOSE = cc.VERBOSE
 
 if VERBOSE:
     print('\n---- EXECUTION STARTED ----\n')
+    print('Train:', TRAIN)
+    print('Predict', PREDICT)
     # print('Command line arguments:\n\n', args, '\n')
 
 
