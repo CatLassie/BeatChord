@@ -71,13 +71,16 @@ def init_feats_annos_targets(feat_path_root, anno_path_root):
     if FILTER_FEATURES:
         features = [f[:, LOWER_FILTER_IDX : UPPER_FILTER_IDX] for f in features]
 
-    annotations = parse_annotations(anno_path_root, ANNOTATION_EXT, MAJMIN, DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS);
-    targets = init_targets(annotations, features)
+    c_annotations = parse_annotations(anno_path_root, ANNOTATION_EXT, MAJMIN, DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS);
+    c_targets = init_targets(c_annotations, features)
+    s_annotations = parse_scale_annotations(anno_path_root, ANNOTATION_EXT, DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS);
+    s_targets = init_targets(s_annotations, features)
 
-    assert len(features) == len(targets)
-    return features, annotations, targets
+    assert len(features) == len(c_targets)
+    assert len(features) == len(s_targets)
+    return features, c_annotations, c_targets, s_annotations, s_targets
 
-def shuffle_data(features, annotations, targets):
+def shuffle_data(features, c_annotations, c_targets, s_annotations, s_targets):
     idxs = list(range(0, len(features)))
 
     # shuffle indices
@@ -86,10 +89,12 @@ def shuffle_data(features, annotations, targets):
 
     # shuffle data
     features_rand = [features[i] for i in idxs]
-    targets_rand = [targets[i] for i in idxs]
-    annotations_rand = [annotations[i] for i in idxs]
+    c_targets_rand = [c_targets[i] for i in idxs]
+    c_annotations_rand = [c_annotations[i] for i in idxs]
+    s_targets_rand = [s_targets[i] for i in idxs]
+    s_annotations_rand = [s_annotations[i] for i in idxs]
 
-    return features_rand, annotations_rand, targets_rand
+    return features_rand, c_annotations_rand, c_targets_rand, s_annotations_rand, s_targets_rand
 
 
 
