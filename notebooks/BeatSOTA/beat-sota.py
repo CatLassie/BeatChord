@@ -93,6 +93,8 @@ VERBOSE = bsc.VERBOSE
 
 if VERBOSE:
     print('\n---- EXECUTION STARTED ----\n')
+    print('Train:', TRAIN)
+    print('Predict', PREDICT)
     # print('Command line arguments:\n\n', args, '\n')
 
 
