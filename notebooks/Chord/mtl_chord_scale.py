@@ -118,16 +118,23 @@ cnn_dropout_rate = 0.1
 # FULLY CONNECTED (by using a 1d convolutional. layer)
 
 # filters
-fc_h1_size = 104 #52 #156 # neurons in FC layers
-fc_out_size = 13 # 13 outputs for 13 classes
+fc_chord_h1_size = 104 #52 #156 # neurons in FC layers
+fc_chord_out_size = 13 # 13 outputs for 13 classes
+
+fc_scale_h1_size = 96 #52 #156 # neurons in FC layers
+fc_scale_h2_size = 24
+fc_scale_out_size = 3 # 13 outputs for 13 classes
 
 # kernels
 fc_k1_size = (18,11) #(37,22) #(6,22) #22 # something big that would correspond to an FC layer (capture all data into 1 input)
 fc_k2_size = 1 # second FC layer gets input from first one, filter size is 1
 
 # loss function
-loss_func = nn.CrossEntropyLoss()
-unseen_loss_func = nn.CrossEntropyLoss(reduction="sum")
+chord_loss_func = nn.CrossEntropyLoss()
+chord_unseen_loss_func = nn.CrossEntropyLoss(reduction="sum")
+
+scale_loss_func = nn.CrossEntropyLoss()
+scale_unseen_loss_func = nn.CrossEntropyLoss(reduction="sum")
 
 
 # In[ ]:
@@ -163,15 +170,38 @@ class ChordScaleNet(nn.Module):
             nn.Dropout2d(p = cnn_dropout_rate)
         )
         
-        self.lfc1 = nn.Sequential(
-            nn.Conv2d(cnn_h3_size, fc_h1_size, fc_k1_size), # nn.Conv1d(cnn_h2_size, fc_h1_size, fc_k1_size),
-            nn.BatchNorm2d(fc_h1_size),
+        ######## CHORD SPECIFIC LAYERS ########
+        
+        self.lfc1_chord = nn.Sequential(
+            nn.Conv2d(cnn_h3_size, fc_chord_h1_size, fc_k1_size), # nn.Conv1d(cnn_h2_size, fc_h1_size, fc_k1_size),
+            nn.BatchNorm2d(fc_chord_h1_size),
             nn.ELU(),
             nn.Dropout(p = cnn_dropout_rate)
         )
         
-        self.lfcout = nn.Sequential(
-            nn.Conv1d(fc_h1_size, fc_out_size, fc_k2_size),
+        self.lfcout_chord = nn.Sequential(
+            nn.Conv1d(fc_chord_h1_size, fc_chord_out_size, fc_k2_size),
+            #nn.Softmax(1),
+        )
+        
+        ######## SCALE SPECIFIC LAYERS ########
+        
+        self.lfc1_scale = nn.Sequential(
+            nn.Conv2d(cnn_h3_size, fc_scale_h1_size, fc_k1_size), # nn.Conv1d(cnn_h2_size, fc_h1_size, fc_k1_size),
+            nn.BatchNorm2d(fc_scale_h1_size),
+            nn.ELU(),
+            nn.Dropout(p = cnn_dropout_rate)
+        )
+        
+        self.lfc2_scale = nn.Sequential(
+            nn.Conv1d(fc_scale_h1_size, fc_scale_h2_size, fc_k2_size),
+            nn.BatchNorm1d(fc_scale_h2_size),
+            nn.ELU(),
+            nn.Dropout(p = cnn_dropout_rate)
+        )
+        
+        self.lfcout_scale = nn.Sequential(
+            nn.Conv1d(fc_scale_h2_size, fc_scale_out_size, fc_k2_size),
             #nn.Softmax(1),
         )
         
@@ -190,22 +220,40 @@ class ChordScaleNet(nn.Module):
         
         #out.squeeze_(2)
         #print(out.shape)
+        
+        ######## CHORD SPECIFIC LAYERS ########
 
-        out = self.lfc1(out)
+        out_chord = self.lfc1_chord(out)
         #print(out.shape)
                 
-        out.squeeze_(2)
+        out_chord.squeeze_(2)
         #print(out.shape)
             
-        out = self.lfcout(out)
+        out_chord = self.lfcout_chord(out_chord)
         #print(out.shape)
         
-        out.squeeze_(-1)
+        out_chord.squeeze_(-1)
+        #print(out.shape)
+        
+        ######## SCALE SPECIFIC LAYERS ########
+        
+        out_scale = self.lfc1_scale(out)
+        #print(out.shape)
+                
+        out_scale.squeeze_(2)
+        #print(out.shape)
+            
+        out_scale = self.lfc2_scale(out_scale)
+            
+        out_scale = self.lfcout_scale(out_scale)
+        #print(out.shape)
+        
+        out_scale.squeeze_(-1)
         #print(out.shape)
                         
         #raise Exception("UNDER CONSTRUCTION!")
 
-        return out
+        return out_chord, out_scale #NOTE: MAYBE THIS IS A LIST?
     
 
 
