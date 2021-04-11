@@ -152,7 +152,7 @@ time: a lot
 ROBBIE WILLIAMS: (folder: chord_robbie_williams)
 
 
-chord_beatles_151c_5h_16b_16-32-64l_104fc (SOME UNPREDICTED LABELS WARNING (some of labels were never predicted at least once and their scores are 0))
+chord_robbie_williams_151c_5h_16b_16-32-64l_104fc (SOME UNPREDICTED LABELS WARNING (some of labels were never predicted at least once and their scores are 0))
 Precision (micro): 0.7856757690140725
 Recall (mico): 0.7856757690140725
 F-measure (micro): 0.7856757690140725
