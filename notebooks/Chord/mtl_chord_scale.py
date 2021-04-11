@@ -323,18 +323,18 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
     model.train()
     t = time.time()
     # iterate through all data using the loader
-    for batch_idx, (data, target) in enumerate(train_loader):
+    for batch_idx, (data, chord_target, scale_target) in enumerate(train_loader):
         # move data to device
-        data, target = data.to(device), target.to(device)
+        data, chord_target, scale_target = data.to(device), chord_target.to(device), scale_target.to(device)
         
         # reset optimizer (clear previous gradients)
         optimizer.zero_grad()
         # forward pass (calculate output of network for input)
-        output = model(data.float())
+        chord_output, scale_output = model(data.float())
         # calculate loss        
-        loss = loss_func(output, target)
+        chord_loss = chord_loss_func(chord_output, chord_target)
         # do a backward pass (calculate gradients using automatic differentiation and backpropagation)
-        loss.backward()
+        chord_loss.backward()
         # udpate parameters of network using calculated gradients
         optimizer.step()
         
@@ -342,7 +342,7 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         if batch_idx % args.log_interval == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}, took {:.2f}s'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.item(), time.time()-t))
+                100. * batch_idx / len(train_loader), chord_loss.item(), time.time()-t))
             t = time.time()
 
         # WORK IN PROGRESS: skip rest of loop
@@ -361,17 +361,17 @@ def calculate_unseen_loss(model, device, unseen_loader):
     # no gradient calculation    
     with torch.no_grad():
         # iterate over test data
-        for data, target in unseen_loader:
+        for data, chord_target, scale_target in unseen_loader:
             # move data to device
-            data, target = data.to(device), target.to(device)
+            data, chord_target, scale_target = data.to(device), chord_target.to(device), scale_target.to(device)
             # forward pass (calculate output of network for input)
-            output = model(data.float())
+            chord_output, scale_output = model(data.float())
             
             # WORK IN PROGRESS: skip rest of loop
             # continue
             
             # claculate loss and add it to our cumulative loss
-            unseen_loss += unseen_loss_func(output, target).item() # sum up batch loss
+            unseen_loss += chord_unseen_loss_func(chord_output, chord_target).item() # sum up batch loss
 
     # output results of test run
     unseen_loss /= len(unseen_loader.dataset)
@@ -393,7 +393,8 @@ def predict(model, device, data, context):
     in_shape = data.shape
     side = int((context-1)/2)
     outlen = in_shape[0] - 2*side
-    output = np.empty(outlen)
+    chord_output = np.empty(outlen)
+    scale_output = np.empty(outlen)
     # move data to device
     data = torch.from_numpy(data[None, None, :, :])
     data = data.to(device)
@@ -402,14 +403,23 @@ def predict(model, device, data, context):
         # iterate over input data
         for idx in range(outlen):
             # calculate output for input data
-            out_vector = model(data[:, :, idx:(idx+context), :])[0]
-            _, out_val = torch.max(out_vector.data, 0)            
-            output[idx] = out_val
+            chord_prediction, scale_prediction = model(data[:, :, idx:(idx+context), :])
+            chord_out_vector = chord_prediction[0]
+            scale_out_vector = scale_prediction[0]
+            
+            _, chord_out_val = torch.max(chord_out_vector.data, 0)
+            _, scale_out_val = torch.max(scale_out_vector.data, 0)
+            chord_output[idx] = chord_out_val
+            scale_output[idx] = scale_out_val
 
     # compensate for convolutional context and return output
-    output = np.append([12 for _ in range(side)], output)
-    output = np.append(output,[12 for _ in range(side)])
-    return output
+    chord_output = np.append([12 for _ in range(side)], chord_output)
+    chord_output = np.append(chord_output, [12 for _ in range(side)])
+    
+    scale_output = np.append([2 for _ in range(side)], scale_output)
+    scale_output = np.append(scale_output, [2 for _ in range(side)])
+    
+    return chord_output, scale_output
 
 
 # In[ ]:
@@ -438,11 +448,11 @@ def run_training():
 
     # setup our datasets for training, evaluation and testing
     kwargs = {'num_workers': 4, 'pin_memory': True} if USE_CUDA else {'num_workers': 4}
-    train_loader = torch.utils.data.DataLoader(ChordScaleSet(train_f, train_t, args.context, args.hop_size),
+    train_loader = torch.utils.data.DataLoader(ChordScaleSet(train_f, train_c_t, train_s_t, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=True, **kwargs)
-    valid_loader = torch.utils.data.DataLoader(ChordScaleSet(valid_f, valid_t, args.context, args.hop_size),
+    valid_loader = torch.utils.data.DataLoader(ChordScaleSet(valid_f, valid_c_t, valid_s_t, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=False, **kwargs)
-    test_loader = torch.utils.data.DataLoader(ChordScaleSet(test_f, test_t, args.context, args.hop_size),
+    test_loader = torch.utils.data.DataLoader(ChordScaleSet(test_f, test_c_t, test_s_t, args.context, args.hop_size),
                                               batch_size=args.batch_size, shuffle=False, **kwargs)
 
     # main training loop
@@ -501,7 +511,8 @@ def run_prediction(test_features):
     print('model loaded...')
     
     # calculate actual output for the test data
-    results_cnn = [None for _ in range(len(test_features))]
+    chord_results_cnn = [None for _ in range(len(test_features))]
+    scale_results_cnn = [None for _ in range(len(test_features))]
     # iterate over test tracks
     for test_idx, cur_test_feat in enumerate(test_features):
         if test_idx % 100 == 0:
@@ -511,10 +522,11 @@ def run_prediction(test_features):
             print('file number:', test_idx+1)
         
         # run the inference method
-        result = predict(model, DEVICE, cur_test_feat, args.context)
-        results_cnn[test_idx] = result
+        chord_result, scale_result = predict(model, DEVICE, cur_test_feat, args.context)
+        chord_results_cnn[test_idx] = chord_result
+        scale_results_cnn[test_idx] = scale_result
 
-    return results_cnn
+    return chord_results_cnn, scale_results_cnn
 
 
 # In[ ]:
@@ -526,33 +538,33 @@ if PREDICT:
     # predict chords
     if VERBOSE:
         print('predicting...')
-    predicted = run_prediction(test_f)
+    predicted_chords, predicted_scales = run_prediction(test_f)
                 
     # evaluate results
     if VERBOSE:
         print('evaluating results...')
     
-    p_scores_mic = []
-    r_scores_mic = []
-    f1_scores_mic = []
-    p_scores_w = []
-    r_scores_w = []
-    f1_scores_w = []
+    chord_p_scores_mic = []
+    chord_r_scores_mic = []
+    chord_f1_scores_mic = []
+    chord_p_scores_w = []
+    chord_r_scores_w = []
+    chord_f1_scores_w = []
     
     weighted_accuracies = []
     
-    for i, pred_chord in enumerate(predicted):        
-        p_scores_mic.append(precision_score(test_t[i], pred_chord, average='micro'))
-        r_scores_mic.append(recall_score(test_t[i], pred_chord, average='micro'))
-        f1_scores_mic.append(f1_score(test_t[i], pred_chord, average='micro'))
+    for i, pred_chord in enumerate(predicted_chords):        
+        chord_p_scores_mic.append(precision_score(test_c_t[i], pred_chord, average='micro'))
+        chord_r_scores_mic.append(recall_score(test_c_t[i], pred_chord, average='micro'))
+        chord_f1_scores_mic.append(f1_score(test_c_t[i], pred_chord, average='micro'))
 
-        p_scores_w.append(precision_score(test_t[i], pred_chord, average='weighted'))
-        r_scores_w.append(recall_score(test_t[i], pred_chord, average='weighted'))
-        f1_scores_w.append(f1_score(test_t[i], pred_chord, average='weighted'))
+        chord_p_scores_w.append(precision_score(test_c_t[i], pred_chord, average='weighted'))
+        chord_r_scores_w.append(recall_score(test_c_t[i], pred_chord, average='weighted'))
+        chord_f1_scores_w.append(f1_score(test_c_t[i], pred_chord, average='weighted'))
         
         # mir_eval score (weighted accuracy)
 
-        ref_labels, ref_intervals = labels_to_notataion_and_intervals(test_t[i])
+        ref_labels, ref_intervals = labels_to_notataion_and_intervals(test_c_t[i])
         est_labels, est_intervals = labels_to_notataion_and_intervals(pred_chord)
 
         est_intervals, est_labels = mir_eval.util.adjust_intervals(
@@ -572,13 +584,41 @@ if PREDICT:
 
         weighted_accuracies.append(score)
     
-    print('Precision (micro):', np.mean(p_scores_mic))
-    print('Recall (mico):', np.mean(r_scores_mic))
-    print('F-measure (micro):', np.mean(f1_scores_mic))
+    print('CHORD EVALUATION:')
+    print('Precision (micro):', np.mean(chord_p_scores_mic))
+    print('Recall (mico):', np.mean(chord_r_scores_mic))
+    print('F-measure (micro):', np.mean(chord_f1_scores_mic))
     
-    print('Precision (weighted):', np.mean(p_scores_w))
-    print('Recall (weighted):', np.mean(r_scores_w))
-    print('F-measure (weighted):', np.mean(f1_scores_w))
+    print('Precision (weighted):', np.mean(chord_p_scores_w))
+    print('Recall (weighted):', np.mean(chord_r_scores_w))
+    print('F-measure (weighted):', np.mean(chord_f1_scores_w))
     
     print('Weighted accuracies (mir_eval):', np.mean(weighted_accuracies))
+    
+    
+    
+    scale_p_scores_mic = []
+    scale_r_scores_mic = []
+    scale_f1_scores_mic = []
+    scale_p_scores_w = []
+    scale_r_scores_w = []
+    scale_f1_scores_w = []    
+    
+    for i, pred_scale in enumerate(predicted_scales):        
+        scale_p_scores_mic.append(precision_score(test_s_t[i], pred_scale, average='micro'))
+        scale_r_scores_mic.append(recall_score(test_s_t[i], pred_scale, average='micro'))
+        scale_f1_scores_mic.append(f1_score(test_s_t[i], pred_scale, average='micro'))
+
+        scale_p_scores_w.append(precision_score(test_s_t[i], pred_scale, average='weighted'))
+        scale_r_scores_w.append(recall_score(test_s_t[i], pred_scale, average='weighted'))
+        scale_f1_scores_w.append(f1_score(test_s_t[i], pred_scale, average='weighted'))
+             
+    print('SCALE EVALUATION:')
+    print('Precision (micro):', np.mean(scale_p_scores_mic))
+    print('Recall (mico):', np.mean(scale_r_scores_mic))
+    print('F-measure (micro):', np.mean(scale_f1_scores_mic))
+    
+    print('Precision (weighted):', np.mean(scale_p_scores_w))
+    print('Recall (weighted):', np.mean(scale_r_scores_w))
+    print('F-measure (weighted):', np.mean(scale_f1_scores_w))
 
