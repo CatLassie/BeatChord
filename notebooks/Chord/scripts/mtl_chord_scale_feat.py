@@ -104,14 +104,20 @@ def shuffle_data(features, c_annotations, c_targets, s_annotations, s_targets):
 def init_data():
 
     train_f = []
-    train_t = []
-    train_anno = []
+    train_c_t = []
+    train_c_anno = []
+    train_s_t = []
+    train_s_anno = []
     valid_f = []
-    valid_t = []
-    valid_anno = []
+    valid_c_t = []
+    valid_c_anno = []
+    valid_s_t = []
+    valid_s_anno = []
     test_f = []
-    test_t = []
-    test_anno = []
+    test_c_t = []
+    test_c_anno = []
+    test_s_t = []
+    test_s_anno = []
 
     data_length = 0
 
@@ -123,32 +129,41 @@ def init_data():
 
     for idx, _ in enumerate(datasets):
 
-        # indices: 0 - features, 1 - annotations, 2 - targets
+        # indices: 0 - features, 1 - c-annotations, 2 - c-targets, 3 - s-annotations, 4 - s-targets
             
         # shuffle data
-        datasets[idx][0], datasets[idx][1], datasets[idx][2] = shuffle_data(datasets[idx][0], datasets[idx][1], datasets[idx][2])
+        datasets[idx][0], datasets[idx][1], datasets[idx][2], datasets[idx][3], datasets[idx][4] = shuffle_data(datasets[idx][0], datasets[idx][1], datasets[idx][2], datasets[idx][3], datasets[idx][4])
 
         # find split indices and split data
         first_idx = int(len(datasets[idx][0])*TRAIN_SPLIT_POINT)
         second_idx = int(len(datasets[idx][0])*VALIDATION_SPLIT_POINT)
 
         train_f = train_f + datasets[idx][0][: first_idx]
-        train_t = train_t + datasets[idx][2][: first_idx]
+        train_c_t = train_c_t + datasets[idx][2][: first_idx]
+        train_s_t = train_s_t + datasets[idx][4][: first_idx]
         valid_f = valid_f + datasets[idx][0][first_idx : second_idx]
-        valid_t = valid_t + datasets[idx][2][first_idx : second_idx]
+        valid_c_t = valid_c_t + datasets[idx][2][first_idx : second_idx]
+        valid_s_t = valid_s_t + datasets[idx][4][first_idx : second_idx]
         test_f = test_f + datasets[idx][0][second_idx :]
-        test_t = test_t + datasets[idx][2][second_idx :]
+        test_c_t = test_c_t + datasets[idx][2][second_idx :]
+        test_s_t = test_s_t + datasets[idx][4][second_idx :]
 
-        train_anno = train_anno + datasets[idx][1][: first_idx]
-        valid_anno = valid_anno + datasets[idx][1][first_idx : second_idx]
-        test_anno = test_anno + datasets[idx][1][second_idx :]
+        train_c_anno = train_c_anno + datasets[idx][1][: first_idx]
+        valid_c_anno = valid_c_anno + datasets[idx][1][first_idx : second_idx]
+        test_c_anno = test_c_anno + datasets[idx][1][second_idx :]
+
+        train_s_anno = train_s_anno + datasets[idx][3][: first_idx]
+        valid_s_anno = valid_s_anno + datasets[idx][3][first_idx : second_idx]
+        test_s_anno = test_s_anno + datasets[idx][3][second_idx :]
 
         data_length = data_length + len(datasets[idx][0])
 
     if VERBOSE:
         print(data_length, 'feature spectrogram files loaded, with example shape:', datasets[idx][0][0].shape)
-        print(data_length, 'feature annotation files loaded, with example shape:', datasets[idx][1][0].shape)
-        print(data_length, 'targets computed, with example shape:', datasets[idx][2][0].shape)
+        print(data_length, 'feature chord annotation files loaded, with example shape:', datasets[idx][1][0].shape)
+        print(data_length, 'chord targets computed, with example shape:', datasets[idx][2][0].shape)
+        print(data_length, 'feature scale annotation files loaded, with example shape:', datasets[idx][3][0].shape)
+        print(data_length, 'scale targets computed, with example shape:', datasets[idx][4][0].shape)
         print(len(train_f), 'training features', len(valid_f), 'validation features and', len(test_f), 'test features')
 
-    return train_f, train_t, train_anno, valid_f, valid_t, valid_anno, test_f, test_t, test_anno
+    return train_f, train_c_t, train_c_anno, train_s_t, train_s_anno, valid_f, valid_c_t, valid_c_anno, valid_s_t, valid_s_anno, test_f, test_c_t, test_c_anno, test_s_t, test_s_anno
