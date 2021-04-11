@@ -259,9 +259,10 @@ class ChordScaleNet(nn.Module):
 
 # Dataset for DataLoader (items are pairs of Context x 81 (time x freq.) spectrogram snippets and 0-1 (0.5) target values)
 class ChordScaleSet(Dataset):
-    def __init__(self, feat_list, targ_list, context, hop_size):
+    def __init__(self, feat_list, targ_c_list, targ_s_list, context, hop_size):
         self.features = feat_list
-        self.targets = targ_list
+        self.chord_targets = targ_c_list
+        self.scale_targets = targ_s_list
         self.context = context
         self.side = int((context-1)/2)
         self.hop_size = hop_size
@@ -297,9 +298,10 @@ class ChordScaleSet(Dataset):
 
         # get snipped and target
         sample = self.features[idx][(position-self.side):(position+self.side+1), :]        
-        target = self.targets[idx][position] # self.targets[idx][position, :]        
+        chord_target = self.chord_targets[idx][position] # self.targets[idx][position, :]
+        scale_target = self.scale_targets[idx][position]
         # convert to PyTorch tensor and return (unsqueeze is for extra dimension, asarray is cause target is scalar)
-        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(target))
+        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(chord_target)), torch.from_numpy(np.asarray(scale_target))
 
 
 
