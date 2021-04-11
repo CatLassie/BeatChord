@@ -24,12 +24,11 @@ import torch.optim as optim
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 # configurations
-import scripts.chord_config as cc
+import scripts.mtl_chord_scale_config as csc
 
 # feature, target, annotation initializer
-from scripts.chord_feat import init_data
+from scripts.mtl_chord_scale_feat import init_data
 
-from scripts.chord_util import parse_annotations
 from scripts.chord_util import labels_to_notataion_and_intervals
 
 import mir_eval
@@ -41,20 +40,20 @@ import mir_eval
 # GLOBAL VARIABLES
 
 # random seed
-SEED = cc.SEED
+SEED = csc.SEED
 
 # cuda configuration
-USE_CUDA = cc.USE_CUDA
-DEVICE = cc.DEVICE
+USE_CUDA = csc.USE_CUDA
+DEVICE = csc.DEVICE
 print("CURRENT DEVICE:", DEVICE)
 
 # paths
-MODEL_NAME = cc.MODEL_NAME
-MODEL_PATH = cc.MODEL_PATH
+MODEL_NAME = csc.MODEL_NAME
+MODEL_PATH = csc.MODEL_PATH
 if not os.path.exists(MODEL_PATH):
     os.makedirs(MODEL_PATH)  
     
-FPS = cc.FPS
+FPS = csc.FPS
 
 
 # In[ ]:
@@ -62,13 +61,13 @@ FPS = cc.FPS
 
 # TRAINING PARAMETERS
 
-num_epochs = cc.NUM_EPOCHS
-lr = cc.LR
-batch_size = cc.BATCH_SIZE
-patience = cc.PATIENCE
+num_epochs = csc.NUM_EPOCHS
+lr = csc.LR
+batch_size = csc.BATCH_SIZE
+patience = csc.PATIENCE
 
-feature_context = cc.FEATURE_CONTEXT
-traininig_hop_size = cc.TRAINING_HOP_SIZE
+feature_context = csc.FEATURE_CONTEXT
+traininig_hop_size = csc.TRAINING_HOP_SIZE
 
 
 # In[ ]:
@@ -78,12 +77,14 @@ traininig_hop_size = cc.TRAINING_HOP_SIZE
 
 # TODO:
 
-TRAIN = cc.TRAIN
-PREDICT = cc.PREDICT
-VERBOSE = cc.VERBOSE
+TRAIN = csc.TRAIN
+PREDICT = csc.PREDICT
+VERBOSE = csc.VERBOSE
 
 if VERBOSE:
     print('\n---- EXECUTION STARTED ----\n')
+    print('Train:', TRAIN)
+    print('Predict', PREDICT)
     # print('Command line arguments:\n\n', args, '\n')
 
 
@@ -91,7 +92,7 @@ if VERBOSE:
 
 
 # LOAD FEATURES AND ANNOTATIONS, COMPUTE TARGETS
-train_f, train_t, train_anno, valid_f, valid_t, valid_anno, test_f, test_t, test_anno = init_data()
+train_f, train_c_t, train_c_anno, train_s_t, train_s_anno, valid_f, valid_c_t, valid_c_anno, valid_s_t, valid_s_anno, test_f, test_c_t, test_c_anno, test_s_t, test_s_anno = init_data()
 
 
 # In[ ]:
