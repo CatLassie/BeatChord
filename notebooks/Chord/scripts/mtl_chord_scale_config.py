@@ -21,9 +21,9 @@ MODEL_BASE_PATH = os.path.join(CURRENT_PATH, 'data/models')
 FEATURE_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/features')
 ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/annotations')
 
-DATASET_NAME = 'chord_all' # '<DATASET_FOLDER_NAME>' # e.g. 'chord_bealtes'
+DATASET_NAME = 'mtl_chord_scale_all' # '<DATASET_FOLDER_NAME>' # e.g. 'chord_bealtes'
 
-MODEL_NAME = 'CHORD_Beatles_RW_RWCpop_151c_5h_16b_16-32-64l_104fc' # '<MODEL_NAME>' # e.g. 'chord_beatles_151c_5h_16b_16-32-64l_104fc' (context, hop size, batch size, conv. layer num., FC neurons)
+MODEL_NAME = 'CHORD_SCALE_Beatles_RW_RWCpop_151c_5h_16b_16-32-64l_104fc_96-24fc' # '<MODEL_NAME>' # e.g. 'chord_beatles_151c_5h_16b_16-32-64l_104fc' (context, hop size, batch size, conv. layer num., FC neurons)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
@@ -101,7 +101,6 @@ UPPER_FILTER_IDX = 223
 
 VERBOSE = True # args.verbose
 
-MAJMIN = False
 DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS = False
 
 ########
