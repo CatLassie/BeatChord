@@ -160,9 +160,9 @@ def init_data():
 
     if VERBOSE:
         print(data_length, 'feature spectrogram files loaded, with example shape:', datasets[idx][0][0].shape)
-        print(data_length, 'feature chord annotation files loaded, with example shape:', datasets[idx][1][0].shape)
+        print(data_length, 'chord feature annotation files loaded, with example shape:', datasets[idx][1][0].shape)
         print(data_length, 'chord targets computed, with example shape:', datasets[idx][2][0].shape)
-        print(data_length, 'feature scale annotation files loaded, with example shape:', datasets[idx][3][0].shape)
+        print(data_length, 'scale feature annotation files loaded, with example shape:', datasets[idx][3][0].shape)
         print(data_length, 'scale targets computed, with example shape:', datasets[idx][4][0].shape)
         print(len(train_f), 'training features', len(valid_f), 'validation features and', len(test_f), 'test features')
 
