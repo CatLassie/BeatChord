@@ -333,8 +333,14 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         chord_output, scale_output = model(data.float())
         # calculate loss        
         chord_loss = chord_loss_func(chord_output, chord_target)
+        scale_loss = scale_loss_func(scale_output, scale_target)
+        loss = chord_loss + scale_loss
+        
+        #print('chord loss:', chord_loss, scale_loss, loss)
+        #raise Exception("TESTING")
+        
         # do a backward pass (calculate gradients using automatic differentiation and backpropagation)
-        chord_loss.backward()
+        loss.backward()
         # udpate parameters of network using calculated gradients
         optimizer.step()
         
@@ -342,7 +348,7 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         if batch_idx % args.log_interval == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}, took {:.2f}s'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), chord_loss.item(), time.time()-t))
+                100. * batch_idx / len(train_loader), loss.item(), time.time()-t))
             t = time.time()
 
         # WORK IN PROGRESS: skip rest of loop
@@ -371,7 +377,10 @@ def calculate_unseen_loss(model, device, unseen_loader):
             # continue
             
             # claculate loss and add it to our cumulative loss
-            unseen_loss += chord_unseen_loss_func(chord_output, chord_target).item() # sum up batch loss
+            chord_unseen_loss = chord_unseen_loss_func(chord_output, chord_target)
+            scale_unseen_loss = scale_unseen_loss_func(scale_output, scale_target)
+            sum_unseen_loss = chord_unseen_loss + scale_unseen_loss
+            unseen_loss += sum_unseen_loss.item() # sum up batch loss
 
     # output results of test run
     unseen_loss /= len(unseen_loader.dataset)
