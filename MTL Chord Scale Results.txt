@@ -1,0 +1,80 @@
+R.W. Training with ONLY chord loss
+
+CHORD EVALUATION:
+Precision (micro): 0.7905365009664821
+Recall (mico): 0.7905365009664821
+F-measure (micro): 0.7905365009664821
+Precision (weighted): 0.8424190467096373
+Recall (weighted): 0.7905365009664821
+F-measure (weighted): 0.7938048655377989
+Weighted accuracies (mir_eval): 0.7905319272367768
+SCALE EVALUATION:
+Precision (micro): 0.38302952837602255
+Recall (mico): 0.38302952837602255
+F-measure (micro): 0.38302952837602255
+Precision (weighted): 0.5926241975930049
+Recall (weighted): 0.38302952837602255
+F-measure (weighted): 0.41484973875472736
+
+
+R.W. Training with ONLY chord loss
+
+CHORD EVALUATION:
+Precision (micro): 0.7826575563740575
+Recall (mico): 0.7826575563740575
+F-measure (micro): 0.7826575563740575
+Precision (weighted): 0.8371731949214576
+Recall (weighted): 0.7826575563740575
+F-measure (weighted): 0.7895072818667982
+Weighted accuracies (mir_eval): 0.7826526237771093
+SCALE EVALUATION:
+Precision (micro): 0.7265261181347448
+Recall (mico): 0.7265261181347448
+F-measure (micro): 0.7265261181347448
+Precision (weighted): 0.732324386253715
+Recall (weighted): 0.7265261181347448
+F-measure (weighted): 0.718049689145262
+
+
+
+
+
+
+
+CHORD_SCALE_Beatles_RW_RWCpop_151c_5h_16b_16-32-64l_104fc_96-24fc
+
+CHORD EVALUATION:
+Precision (micro): 0.8073191845174964
+Recall (mico): 0.8073191845174964
+F-measure (micro): 0.8073191845174964
+Precision (weighted): 0.8482229615528731
+Recall (weighted): 0.8073191845174964
+F-measure (weighted): 0.8143114169879608
+Weighted accuracies (mir_eval): 0.8073130825592167
+SCALE EVALUATION:
+Precision (micro): 0.7981511188212983
+Recall (mico): 0.7981511188212983
+F-measure (micro): 0.7981511188212983
+Precision (weighted): 0.8375349405012918
+Recall (weighted): 0.7981511188212983
+F-measure (weighted): 0.7975970718482914
+
+
+
+CHORD_SCALE_Beatles_RW_RWCpop_151c_5h_16b_16-32l_split_64l_104fc_64l_96-24fc
+
+CHORD EVALUATION:
+Precision (micro): 0.8065589258546105
+Recall (mico): 0.8065589258546105
+F-measure (micro): 0.8065589258546105
+Precision (weighted): 0.8516985458754006
+Recall (weighted): 0.8065589258546105
+F-measure (weighted): 0.8141795918997475
+Weighted accuracies (mir_eval): 0.8065527863661263
+SCALE EVALUATION:
+Precision (micro): 0.799025139224561
+Recall (mico): 0.799025139224561
+F-measure (micro): 0.799025139224561
+Precision (weighted): 0.8313013123487865
+Recall (weighted): 0.799025139224561
+F-measure (weighted): 0.7927748840031315
