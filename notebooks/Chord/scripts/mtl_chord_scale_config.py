@@ -92,6 +92,9 @@ TRAIN = True
 TRAIN_EXISTING = False
 PREDICT = True
 
+TRAIN_ON_CHORD = True
+TRAIN_ON_SCALE = True
+
 # for features computed with librosa use this flag, for madmom disable it (server features used madmom)
 TRANSPOSE_FEATURES = False # True
 # server features are multiple different features stacked on top of each other, use this flag to filter out relevant data
