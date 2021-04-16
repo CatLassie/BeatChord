@@ -78,12 +78,14 @@ traininig_hop_size = csc.TRAINING_HOP_SIZE
 # TODO:
 
 TRAIN = csc.TRAIN
+TRAIN_EXISTING = csc.TRAIN_EXISTING
 PREDICT = csc.PREDICT
 VERBOSE = csc.VERBOSE
 
 if VERBOSE:
     print('\n---- EXECUTION STARTED ----\n')
     print('Train:', TRAIN)
+    print('Train existing model:', TRAIN_EXISTING)
     print('Predict', PREDICT)
     # print('Command line arguments:\n\n', args, '\n')
 
@@ -453,6 +455,9 @@ def run_training():
     
     # create model and optimizer
     model = ChordScaleNet().to(DEVICE)
+    if TRAIN_EXISTING:
+        model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '.model')))
+    
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
 
     # setup our datasets for training, evaluation and testing
@@ -501,7 +506,7 @@ def run_training():
 # In[ ]:
 
 
-if TRAIN:
+if TRAIN or TRAIN_EXISTING:
     run_training()
 
 

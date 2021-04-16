@@ -89,7 +89,6 @@ F-measure (weighted): 0.7927748840031315
 CHORD_SCALE_Beatles_151c_5h_16b_16-32-64l_104fc_96-24fc (TRAINING ON BEATLES CHORD AND SCALE)
 
 (Beatles)
-
 CHORD EVALUATION:
 Precision (micro): 0.8272025339999124
 Recall (mico): 0.8272025339999124
@@ -150,3 +149,80 @@ CHORD_SCALE_Beatles_RW(Scale)_151c_5h_16b_16-32-64l_104fc_96-24fc (TRAINING ON B
 (R.W.)
 
 (RWCPop IMPORTANT!)
+
+
+
+
+
+
+
+
+UNRELATED TEST: Training first on beatles chord+scale and then also on RW and RWC chord+scale
+
+(All)
+CHORD EVALUATION:
+Precision (micro): 0.7900761330749696
+Recall (mico): 0.7900761330749696
+F-measure (micro): 0.7900761330749696
+Precision (weighted): 0.8429032375006261
+Recall (weighted): 0.7900761330749696
+F-measure (weighted): 0.8002480615744678
+Weighted accuracies (mir_eval): 0.7900690403074743
+SCALE EVALUATION:
+Precision (micro): 0.7808500182270701
+Recall (mico): 0.7808500182270701
+F-measure (micro): 0.7808500182270701
+Precision (weighted): 0.8188326893945286
+Recall (weighted): 0.7808500182270701
+F-measure (weighted): 0.7803828337842746
+
+(beatles)
+CHORD EVALUATION:
+Precision (micro): 0.8191834168322465
+Recall (mico): 0.8191834168322465
+F-measure (micro): 0.8191834168322465
+Precision (weighted): 0.8703311261380028
+Recall (weighted): 0.8191834168322465
+F-measure (weighted): 0.8328228386982596
+Weighted accuracies (mir_eval): 0.8191761122960171
+SCALE EVALUATION:
+Precision (micro): 0.8246191828101459
+Recall (mico): 0.8246191828101459
+F-measure (micro): 0.8246191828101459
+Precision (weighted): 0.865709022465407
+Recall (weighted): 0.8246191828101459
+F-measure (weighted): 0.8302835846018478
+
+(R.W.)
+CHORD EVALUATION:
+Precision (micro): 0.8155661336737186
+Recall (mico): 0.8155661336737186
+F-measure (micro): 0.8155661336737186
+Precision (weighted): 0.8490381844811427
+Recall (weighted): 0.8155661336737186
+F-measure (weighted): 0.8152828135986168
+Weighted accuracies (mir_eval): 0.8155625171559238
+SCALE EVALUATION:
+Precision (micro): 0.7844007352553491
+Recall (mico): 0.7844007352553491
+F-measure (micro): 0.7844007352553491
+Precision (weighted): 0.7932604273940473
+Recall (weighted): 0.7844007352553491
+F-measure (weighted): 0.7729374807040742
+
+(RWC Pop)
+CHORD EVALUATION:
+Precision (micro): 0.7209317075514227
+Recall (mico): 0.7209317075514227
+F-measure (micro): 0.7209317075514227
+Precision (weighted): 0.7901297020018324
+Recall (weighted): 0.7209317075514227
+F-measure (weighted): 0.7322070891079643
+Weighted accuracies (mir_eval): 0.72092258281728
+SCALE EVALUATION:
+Precision (micro): 0.700954076791282
+Recall (mico): 0.700954076791282
+F-measure (micro): 0.700954076791282
+Precision (weighted): 0.753601512269461
+Recall (weighted): 0.700954076791282
+F-measure (weighted): 0.6972513652394772
