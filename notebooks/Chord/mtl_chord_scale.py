@@ -80,6 +80,8 @@ traininig_hop_size = csc.TRAINING_HOP_SIZE
 TRAIN = csc.TRAIN
 TRAIN_EXISTING = csc.TRAIN_EXISTING
 PREDICT = csc.PREDICT
+TRAIN_ON_CHORD = csc.TRAIN_ON_CHORD
+TRAIN_ON_SCALE = csc.TRAIN_ON_SCALE
 VERBOSE = csc.VERBOSE
 
 if VERBOSE:
@@ -87,6 +89,7 @@ if VERBOSE:
     print('Train:', TRAIN)
     print('Train existing model:', TRAIN_EXISTING)
     print('Predict', PREDICT)
+    print('Training on chord data:', TRAIN_ON_CHORD, ', training on scale data:', TRAIN_ON_SCALE)
     # print('Command line arguments:\n\n', args, '\n')
 
 
