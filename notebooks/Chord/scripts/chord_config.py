@@ -89,6 +89,7 @@ PATIENCE = 4 #9999
 ######## COMMAND LINE SUPPORT ARGUMENTS ########
 
 TRAIN = True
+TRAIN_EXISTING = False
 PREDICT = True
 
 # for features computed with librosa use this flag, for madmom disable it (server features used madmom)

@@ -106,6 +106,7 @@ LAST_CNN_KERNEL_FREQUENCY_SIZE = 9 # 8
 ######## COMMAND LINE SUPPORT ARGUMENTS ########
 
 TRAIN = True
+TRAIN_EXISTING = False
 PREDICT = True
 
 ######## 2 params are exclusive, if both set to true, FRAME_ONE_START takes precedence ########
