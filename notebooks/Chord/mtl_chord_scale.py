@@ -336,10 +336,14 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         optimizer.zero_grad()
         # forward pass (calculate output of network for input)
         chord_output, scale_output = model(data.float())
-        # calculate loss        
-        chord_loss = chord_loss_func(chord_output, chord_target)
-        scale_loss = scale_loss_func(scale_output, scale_target)
-        loss = chord_loss + scale_loss
+        # calculate loss       
+        loss = 0
+        if TRAIN_ON_CHORD:
+            chord_loss = chord_loss_func(chord_output, chord_target)
+            loss = loss + chord_loss
+        if TRAIN_ON_SCALE:
+            scale_loss = scale_loss_func(scale_output, scale_target)
+            loss = loss + scale_loss
         
         #print('chord loss:', chord_loss, scale_loss, loss)
         #raise Exception("TESTING")
@@ -381,10 +385,15 @@ def calculate_unseen_loss(model, device, unseen_loader):
             # WORK IN PROGRESS: skip rest of loop
             # continue
             
-            # claculate loss and add it to our cumulative loss
-            chord_unseen_loss = chord_unseen_loss_func(chord_output, chord_target)
-            scale_unseen_loss = scale_unseen_loss_func(scale_output, scale_target)
-            sum_unseen_loss = chord_unseen_loss + scale_unseen_loss
+            # claculate loss and add it to our cumulative loss            
+            sum_unseen_loss = 0
+            if TRAIN_ON_CHORD:
+                chord_unseen_loss = chord_unseen_loss_func(chord_output, chord_target)
+                sum_unseen_loss = sum_unseen_loss + chord_unseen_loss
+            if TRAIN_ON_SCALE:
+                scale_unseen_loss = scale_unseen_loss_func(scale_output, scale_target)
+                sum_unseen_loss = sum_unseen_loss + scale_unseen_loss
+                
             unseen_loss += sum_unseen_loss.item() # sum up batch loss
 
     # output results of test run
