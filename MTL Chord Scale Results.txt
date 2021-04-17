@@ -164,11 +164,54 @@ F-measure (weighted): 0.6162545789774685
 CHORD_SCALE_Beatles_RW(Chord)_151c_5h_16b_16-32-64l_104fc_96-24fc (TRAINING ON BEATLES CHORD AND SCALE, R.W. CHORD)
 
 (Beatles)
+Precision (micro): 0.7854254356954808
+Recall (mico): 0.7854254356954808
+F-measure (micro): 0.7854254356954808
+Precision (weighted): 0.857467297564071
+Recall (weighted): 0.7854254356954808
+F-measure (weighted): 0.8070522288211642
+Weighted accuracies (mir_eval): 0.7854160410312615
+SCALE EVALUATION:
+Precision (micro): 0.8351007320496302
+Recall (mico): 0.8351007320496302
+F-measure (micro): 0.8351007320496302
+Precision (weighted): 0.8650651102939114
+Recall (weighted): 0.8351007320496302
+F-measure (weighted): 0.8261589448320154
 
 (R.W.)
+CHORD EVALUATION:
+Precision (micro): 0.7889408299842926
+Recall (mico): 0.7889408299842926
+F-measure (micro): 0.7889408299842926
+Precision (weighted): 0.8307618155276807
+Recall (weighted): 0.7889408299842926
+F-measure (weighted): 0.7893030556657171
+Weighted accuracies (mir_eval): 0.7889360500427308
+SCALE EVALUATION:
+Precision (micro): 0.6783814846413377
+Recall (mico): 0.6783814846413377
+F-measure (micro): 0.6783814846413377
+Precision (weighted): 0.7105153836977727
+Recall (weighted): 0.6783814846413377
+F-measure (weighted): 0.6495449601606382
 
 (RWCPop IMPORTANT!)
-
+CHORD EVALUATION:
+Precision (micro): 0.6944244950066208
+Recall (mico): 0.6944244950066208
+F-measure (micro): 0.6944244950066208
+Precision (weighted): 0.7719247496612293
+Recall (weighted): 0.6944244950066208
+F-measure (weighted): 0.7063988302872615
+Weighted accuracies (mir_eval): 0.6944145064255204
+SCALE EVALUATION:
+Precision (micro): 0.6427950655157904
+Recall (mico): 0.6427950655157904
+F-measure (micro): 0.6427950655157904
+Precision (weighted): 0.7009043918334206
+Recall (weighted): 0.6427950655157904
+F-measure (weighted): 0.6111512219407349
 
 
 
