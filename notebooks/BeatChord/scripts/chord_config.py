@@ -36,7 +36,7 @@ ANNOTATION_EXT = '.chords'
 ANNOTATION_PATH = [
     os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/chords'), # os.path.join(ANNOTATION_BASE_PATH, 'beatles'),
     os.path.join(ANNOTATION_BASE_PATH, 'robbie_williams/annotations/original/chords'),
-    'data/annotations/rwc'
+    'data/annotations/chord/rwc'
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 
 # feature parameters
