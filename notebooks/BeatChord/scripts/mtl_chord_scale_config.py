@@ -88,7 +88,7 @@ PATIENCE = 4 #9999
 
 ######## COMMAND LINE SUPPORT ARGUMENTS ########
 
-TRAIN = True
+TRAIN = False
 TRAIN_EXISTING = False
 PREDICT = True
 
