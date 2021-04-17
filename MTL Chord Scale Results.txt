@@ -17,6 +17,25 @@ Recall (weighted): 0.38302952837602255
 F-measure (weighted): 0.41484973875472736
 
 
+R.W. Training with ONLY scale loss
+
+CHORD EVALUATION:
+Precision (micro): 0.08784104475549927
+Recall (mico): 0.08784104475549927
+F-measure (micro): 0.08784104475549927
+Precision (weighted): 0.24815610033706903
+Recall (weighted): 0.08784104475549927
+F-measure (weighted): 0.11023482047419814
+Weighted accuracies (mir_eval): 0.08780626332058471
+SCALE EVALUATION:
+Precision (micro): 0.7145796938936391
+Recall (mico): 0.7145796938936391
+F-measure (micro): 0.7145796938936391
+Precision (weighted): 0.7171553335961091
+Recall (weighted): 0.7145796938936391
+F-measure (weighted): 0.701731052793612
+
+
 R.W. Training with chord and scale loss
 
 CHORD EVALUATION:
