@@ -17,7 +17,7 @@ DEVICE = torch.device("cuda:0" if USE_CUDA else "cpu")
 
 # paths
 CURRENT_PATH = os.getcwd()
-MODEL_BASE_PATH = os.path.join(CURRENT_PATH, 'data/models')
+MODEL_BASE_PATH = os.path.join(CURRENT_PATH, 'data/models/beat')
 FEATURE_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/features')
 ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/annotations')
 
