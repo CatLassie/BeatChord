@@ -73,7 +73,7 @@ Weighted accuracies (mir_eval): 0.760161226375975
 
 ALL (folder: tcn_chord)
 
-TCN_CHORD_Beatles_RW_RWCpop
+TCN_CHORD_Beatles_RW_RWCpop (1025c, 250h, 1b, like original beat sota)
 
 (ALL 3)
 Precision (micro): 0.7415484596302278
