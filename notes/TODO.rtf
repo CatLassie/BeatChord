@@ -56,11 +56,13 @@ MTL ideas:\
 - write a google doc for Richard about which MTL papers Ive seen and ask what to read\
 - check data preprocessor script from Richard\
 \
-- beat architecture for chords\
++ beat architecture for chords\
 - 1 head for 2 tasks, just use all neurons in 1 layer\
 - use 1 input or concatenate beat and chord inputs (along freq?)\
 - sigmoid vs softmax on output ? (maybe try to take the output from last layer and use different activation function + loss on them ?)\
-\
+	- or try softmax for beats\
+- deal with datasets that have only 1 type of annotations \
+	- like mtl chord + take care of the dataloader and target creation (fill em with 0 ?) + let user select what to predict (beat/chord/both)\
 \
 QUESTIONS:\
 - whats with the new datasets (they have audio but not features, how do I get the 91 frequency features)\
