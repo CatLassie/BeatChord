@@ -112,7 +112,48 @@ F-measure (weighted): 0.6775443034512807
 Weighted accuracies (mir_eval): 0.6593545622652671
 
 
+
 (!!!BEST!!!)
+TCN_CHORD_Beatles_RW_RWCpop_1025c_250h_16b
+
+(All 3)
+Precision (micro): 0.8245476033042543
+Recall (mico): 0.8245476033042543
+F-measure (micro): 0.8245476033042543
+Precision (weighted): 0.8569018685135595
+Recall (weighted): 0.8245476033042543
+F-measure (weighted): 0.8267012927801413
+Weighted accuracies (mir_eval): 0.8245416325629176
+
+(BEATLES)
+Precision (micro): 0.867687365946322
+Recall (mico): 0.867687365946322
+F-measure (micro): 0.867687365946322
+Precision (weighted): 0.888899405097661
+Recall (weighted): 0.867687365946322
+F-measure (weighted): 0.8704289716311291
+Weighted accuracies (mir_eval): 0.8676794669251156
+
+(ROBBIE WILLIAMS)
+Precision (micro): 0.8199170885818734
+Recall (mico): 0.8199170885818734
+F-measure (micro): 0.8199170885818734
+Precision (weighted): 0.8439828274749399
+Recall (weighted): 0.8199170885818734
+F-measure (weighted): 0.8169404919912052
+Weighted accuracies (mir_eval): 0.8199182206622138
+
+(RWC POP)
+Precision (micro): 0.7514291488222444
+Recall (mico): 0.7514291488222444
+F-measure (micro): 0.7514291488222444
+Precision (weighted): 0.8092347937376547
+Recall (weighted): 0.7514291488222444
+F-measure (weighted): 0.7560944153591955
+Weighted accuracies (mir_eval): 0.7514216723149004
+
+
+
 TCN_CHORD_Beatles_RW_RWCpop_1025c_125h_16b
 
 (ALL 3)
