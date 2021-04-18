@@ -422,7 +422,8 @@ def predict(model, device, data, context):
     # no gradient calculation
     with torch.no_grad():
         output = model(data.float())
-    return output
+        _, out_val = torch.max(output.data, 1) # 0 -> batch, 1 -> 13 output neurons, 2 -> data size
+    return out_val
 
 
 # In[ ]:
@@ -528,7 +529,7 @@ def run_prediction(test_features):
         
         # run the inference method
         result = predict(model, DEVICE, cur_test_feat, args.context)
-        results_cnn[test_idx] = result #.cpu().numpy()
+        results_cnn[test_idx] = result.cpu().numpy()
 
     return results_cnn
 
@@ -559,7 +560,7 @@ if PREDICT:
     
     for i, pred_chord in enumerate(predicted):        
         
-        # pred_chord = pred_chord.squeeze(0) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
+        pred_chord = pred_chord.squeeze(0) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
         
         p_scores_mic.append(precision_score(test_t[i], pred_chord, average='micro'))
         r_scores_mic.append(recall_score(test_t[i], pred_chord, average='micro'))
