@@ -5,19 +5,70 @@
 
 R.W. (folder: tcn_chord)
 
-TCN_CHORD_RW
+CONCLUSION: 16b seems to win
+	    context has little influence (1025c is fine)
+	    smaller hopsize improves as always is the intuition (125h seems ok)
 
-(R.W.)
-Precision (micro): 0.6710123415725737
-Recall (mico): 0.6710123415725737
-F-measure (micro): 0.6710123415725738
-Precision (weighted): 0.7894855442961632
-Recall (weighted): 0.6710123415725737
-F-measure (weighted): 0.6701598808417062
+TCN_CHORD_RW
 Weighted accuracies (mir_eval): 0.6710408337377137
 
+TCN_CHORD_RW_16b
+Weighted accuracies (mir_eval): 0.7425948897104697
 
+TCN_CHORD_RW_12b
+Weighted accuracies (mir_eval): 0.7398485584570986
 
+TCN_CHORD_RW_8b
+Weighted accuracies (mir_eval): 0.763350222126675
+
+TCN_CHORD_RW_4b
+Weighted accuracies (mir_eval): 0.7535827568598342
+
+(!!!BEST!!!)
+TCN_CHORD_RW_125h_16b
+Weighted accuracies (mir_eval): 0.7838087205963545
+
+TCN_CHORD_RW_125h_8b
+Weighted accuracies (mir_eval): 0.780117479917614
+
+TCN_CHORD_RW_50h_16b
+Weighted accuracies (mir_eval): 0.7763943014219702
+
+TCN_CHORD_RW_513c
+Weighted accuracies (mir_eval): 0.536643431501594
+
+TCN_CHORD_RW_513c_16b
+Weighted accuracies (mir_eval): 0.7474669625940531
+
+TCN_CHORD_RW_513c_125h_16b
+Weighted accuracies (mir_eval): 0.778685105228055
+
+TCN_CHORD_RW_513c_125h_8b
+Weighted accuracies (mir_eval): 0.7214329884966384
+
+TCN_CHORD_RW_257c_24b
+Weighted accuracies (mir_eval): 0.74648403938527
+
+TCN_CHORD_RW_257c_16b
+Weighted accuracies (mir_eval): 0.7607265519753533
+
+TCN_CHORD_RW_257c_8b
+Weighted accuracies (mir_eval): 0.6792449210928444
+
+TCN_CHORD_RW_129c_24b
+Weighted accuracies (mir_eval): 0.6981608930764287
+
+TCN_CHORD_RW_129c_16b
+Weighted accuracies (mir_eval): 0.7635163913612044
+
+TCN_CHORD_RW_129c_8b
+Weighted accuracies (mir_eval): 0.7043898194561479
+
+TCN_CHORD_RW_129c_125h_16b
+Weighted accuracies (mir_eval): 0.7429227287925159
+
+TCN_CHORD_RW_129c_60h_16b
+Weighted accuracies (mir_eval): 0.760161226375975
 
 
 ALL (folder: tcn_chord)
