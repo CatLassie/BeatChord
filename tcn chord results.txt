@@ -3,6 +3,23 @@
 
 
 
+R.W. (folder: tcn_chord)
+
+TCN_CHORD_RW
+
+(R.W.)
+Precision (micro): 0.6710123415725737
+Recall (mico): 0.6710123415725737
+F-measure (micro): 0.6710123415725738
+Precision (weighted): 0.7894855442961632
+Recall (weighted): 0.6710123415725737
+F-measure (weighted): 0.6701598808417062
+Weighted accuracies (mir_eval): 0.6710408337377137
+
+
+
+
+
 ALL (folder: tcn_chord)
 
 TCN_CHORD_Beatles_RW_RWCpop
