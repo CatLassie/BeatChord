@@ -55,3 +55,24 @@ F-measure: 0.820 P-score: 0.759 Cemgil: 0.748 Goto: 0.222 CMLc: 0.186 CMLt: 0.58
 
 BEAT_RW_125h_16b
 F-measure: 0.812 P-score: 0.749 Cemgil: 0.751 Goto: 0.222 CMLc: 0.129 CMLt: 0.553 AMLc: 0.171 AMLt: 0.668 D: 2.643 Dg: 1.899
+
+
+
+Just to flex, above best model with beattracker for post processing:
+
+(ALL)
+F-measure: 0.881 P-score: 0.860 Cemgil: 0.832 Goto: 0.860 CMLc: 0.726 CMLt: 0.794 AMLc: 0.771 AMLt: 0.854 D: 3.204 Dg: 2.279
+(BEATLES)
+F-measure: 0.935 P-score: 0.910 Cemgil: 0.830 Goto: 0.957 CMLc: 0.747 CMLt: 0.875 AMLc: 0.747 AMLt: 0.875 D: 2.996 Dg: 1.964
+(ROBBIE WILLIAMS)
+F-measure: 0.931 P-score: 0.899 Cemgil: 0.861 Goto: 0.889 CMLc: 0.675 CMLt: 0.835 AMLc: 0.682 AMLt: 0.867 D: 3.226 Dg: 2.342
+(BALLROOM)
+F-measure: 0.885 P-score: 0.858 Cemgil: 0.834 Goto: 0.919 CMLc: 0.762 CMLt: 0.788 AMLc: 0.808 AMLt: 0.844 D: 3.078 Dg: 2.107
+(ROCK)
+F-measure: 0.886 P-score: 0.837 Cemgil: 0.855 Goto: 0.720 CMLc: 0.573 CMLt: 0.712 AMLc: 0.647 AMLt: 0.828 D: 3.148 Dg: 2.743
+(RWC POP)
+F-measure: 0.841 P-score: 0.808 Cemgil: 0.806 Goto: 0.769 CMLc: 0.597 CMLt: 0.734 AMLc: 0.676 AMLt: 0.833 D: 3.555 Dg: 2.575
+(Hainsworth)
+F-measure: 0.789 P-score: 0.805 Cemgil: 0.743 Goto: 0.679 CMLc: 0.626 CMLt: 0.710 AMLc: 0.688 AMLt: 0.799 D: 2.899 Dg: 1.849
+(HJDB)
+F-measure: 0.911 P-score: 0.909 Cemgil: 0.897 Goto: 0.933 CMLc: 0.898 CMLt: 0.905 AMLc: 0.930 AMLt: 0.947 D: 3.898 Dg: 3.328
