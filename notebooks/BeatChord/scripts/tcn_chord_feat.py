@@ -65,7 +65,7 @@ def zero_pad_short_targets(target_list):
             left = int(np.floor(diff/2))
             right = int(np.ceil(diff/2))
             
-            target_padded = np.zeros((target.shape[0] + diff), np.float32)
+            target_padded = np.full((target.shape[0] + diff), 12, np.int64)
             target_padded[left : target.shape[0] + left] = target
             target_list_padded.append(target_padded)
         else:
@@ -91,7 +91,7 @@ def zero_pad_all_targets(target_list):
     for target in target_list:
 
         side = int(np.floor(FEATURE_CONTEXT/2))
-        target_padded = np.zeros((target.shape[0] + (2*side)), np.float32)
+        target_padded = np.full((target.shape[0] + (2*side)), 12, np.int64)
         target_padded[side : target.shape[0] + side] = target
         target_list_padded.append(target_padded)
  
