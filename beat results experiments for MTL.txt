@@ -1,0 +1,57 @@
+Beatles, RW, Ballroom, Rock, RWCPop, Hainsworth, HJDB (folder "all")
+
+BEAT_Beatles_RW_Ballroom_Rock_RWCPop_Hainsworth_HJDB (OLD)
+
+(ALL)
+F-measure: 0.784 P-score: 0.727 Cemgil: 0.752 Goto: 0.430 CMLc: 0.313 CMLt: 0.552 AMLc: 0.350 AMLt: 0.646 D: 2.939 Dg: 2.197
+(BEATLES)
+F-measure: 0.887 P-score: 0.843 Cemgil: 0.788 Goto: 0.478 CMLc: 0.295 CMLt: 0.707 AMLc: 0.302 AMLt: 0.771 D: 2.891 Dg: 1.788
+(ROBBIE WILLIAMS)
+F-measure: 0.849 P-score: 0.796 Cemgil: 0.781 Goto: 0.222 CMLc: 0.131 CMLt: 0.576 AMLc: 0.133 AMLt: 0.576 D: 2.783 Dg: 1.986
+(BALLROOM)
+F-measure: 0.766 P-score: 0.692 Cemgil: 0.735 Goto: 0.477 CMLc: 0.363 CMLt: 0.501 AMLc: 0.423 AMLt: 0.605 D: 2.787 Dg: 1.928
+(ROCK)
+F-measure: 0.828 P-score: 0.768 Cemgil: 0.814 Goto: 0.360 CMLc: 0.221 CMLt: 0.553 AMLc: 0.265 AMLt: 0.755 D: 3.266 Dg: 2.922
+(RWC POP)
+F-measure: 0.775 P-score: 0.724 Cemgil: 0.753 Goto: 0.154 CMLc: 0.204 CMLt: 0.515 AMLc: 0.215 AMLt: 0.621 D: 2.981 Dg: 2.378
+(Hainsworth)
+F-measure: 0.634 P-score: 0.597 Cemgil: 0.620 Goto: 0.286 CMLc: 0.237 CMLt: 0.471 AMLc: 0.277 AMLt: 0.530 D: 2.431 Dg: 1.830
+(HJDB)
+F-measure: 0.842 P-score: 0.806 Cemgil: 0.836 Goto: 0.633 CMLc: 0.436 CMLt: 0.665 AMLc: 0.442 AMLt: 0.721 D: 3.643 Dg: 3.187
+
+
+
+(!!!!!BEST!!!!!)
+BEAT_7sets_1025c_250h_0z_16b_16l_4p (NEW)
+
+(ALL)
+F-measure: 0.843 P-score: 0.801 Cemgil: 0.806 Goto: 0.598 CMLc: 0.418 CMLt: 0.655 AMLc: 0.453 AMLt: 0.749 D: 3.111 Dg: 2.324
+(BEATLES)
+F-measure: 0.919 P-score: 0.887 Cemgil: 0.818 Goto: 0.609 CMLc: 0.422 CMLt: 0.791 AMLc: 0.424 AMLt: 0.817 D: 2.969 Dg: 1.914
+(ROBBIE WILLIAMS)
+F-measure: 0.906 P-score: 0.865 Cemgil: 0.834 Goto: 0.444 CMLc: 0.291 CMLt: 0.727 AMLc: 0.292 AMLt: 0.727 D: 3.052 Dg: 2.126
+(BALLROOM)
+F-measure: 0.861 P-score: 0.829 Cemgil: 0.821 Goto: 0.733 CMLc: 0.511 CMLt: 0.691 AMLc: 0.546 AMLt: 0.760 D: 2.999 Dg: 2.196
+(ROCK)
+F-measure: 0.854 P-score: 0.798 Cemgil: 0.839 Goto: 0.440 CMLc: 0.313 CMLt: 0.609 AMLc: 0.364 AMLt: 0.802 D: 3.405 Dg: 3.039
+(RWC POP)
+F-measure: 0.782 P-score: 0.735 Cemgil: 0.758 Goto: 0.385 CMLc: 0.213 CMLt: 0.557 AMLc: 0.250 AMLt: 0.759 D: 3.280 Dg: 2.497
+(Hainsworth)
+F-measure: 0.704 P-score: 0.660 Cemgil: 0.679 Goto: 0.429 CMLc: 0.311 CMLt: 0.529 AMLc: 0.359 AMLt: 0.595 D: 2.658 Dg: 2.021
+(HJDB)
+F-measure: 0.864 P-score: 0.799 Cemgil: 0.858 Goto: 0.633 CMLc: 0.461 CMLt: 0.623 AMLc: 0.512 AMLt: 0.768 D: 3.662 Dg: 3.232
+
+
+
+
+
+
+
+BEAT_RW
+F-measure: 0.792 P-score: 0.717 Cemgil: 0.725 Goto: 0.222 CMLc: 0.133 CMLt: 0.518 AMLc: 0.183 AMLt: 0.674 D: 2.434 Dg: 1.654
+
+BEAT_RW_16b
+F-measure: 0.820 P-score: 0.759 Cemgil: 0.748 Goto: 0.222 CMLc: 0.186 CMLt: 0.585 AMLc: 0.234 AMLt: 0.751 D: 2.729 Dg: 1.829
+
+BEAT_RW_125h_16b
+F-measure: 0.812 P-score: 0.749 Cemgil: 0.751 Goto: 0.222 CMLc: 0.129 CMLt: 0.553 AMLc: 0.171 AMLt: 0.668 D: 2.643 Dg: 1.899
