@@ -1,0 +1,44 @@
+
+(context_hopsize_batchsize_convLayers_FCNeurons)
+
+
+
+ALL (folder: tcn_chord)
+
+TCN_CHORD_Beatles_RW_RWCpop
+
+(ALL 3)
+Precision (micro): 0.7415484596302278
+Recall (mico): 0.7415484596302278
+F-measure (micro): 0.7415484596302278
+Precision (weighted): 0.8097854745300337
+Recall (weighted): 0.7415484596302278
+F-measure (weighted): 0.7497865564824853
+Weighted accuracies (mir_eval): 0.741585298974909
+
+(BEATLES)
+Precision (micro): 0.7801100247009621
+Recall (mico): 0.7801100247009621
+F-measure (micro): 0.7801100247009621
+Precision (weighted): 0.8258822132881637
+Recall (weighted): 0.7801100247009621
+F-measure (weighted): 0.7858454511105468
+Weighted accuracies (mir_eval): 0.7801541059179293
+
+(ROBBIE WILLIAMS)
+Precision (micro): 0.761765731097872
+Recall (mico): 0.761765731097872
+F-measure (micro): 0.761765731097872
+Precision (weighted): 0.8166397750435155
+Recall (weighted): 0.761765731097872
+F-measure (weighted): 0.7619859690336236
+Weighted accuracies (mir_eval): 0.7617983009233394
+
+(RWC POP)
+Precision (micro): 0.6593275796428669
+Recall (mico): 0.6593275796428669
+F-measure (micro): 0.6593275796428668
+Precision (weighted): 0.7765613440640087
+Recall (weighted): 0.6593275796428669
+F-measure (weighted): 0.6775443034512807
+Weighted accuracies (mir_eval): 0.6593545622652671
