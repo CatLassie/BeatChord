@@ -573,38 +573,38 @@ def run_prediction(test_features):
 # In[ ]:
 
 
-predicted = None
-
 if PREDICT:
-    # predict chords
+    # predict beats and chords
     if VERBOSE:
         print('predicting...')
-    predicted = run_prediction(test_f) #[test_t[0], test_t[1]]
+    predicted_beats, predicted_chords = run_prediction(test_f) #[test_t[0], test_t[1]]
                     
     # evaluate results
     if VERBOSE:
         print('evaluating results...')
         
-    p_scores_mic = []
-    r_scores_mic = []
-    f1_scores_mic = []
-    p_scores_w = []
-    r_scores_w = []
-    f1_scores_w = []
+    #### CHORDS ################
+        
+    chord_p_scores_mic = []
+    chord_r_scores_mic = []
+    chord_f1_scores_mic = []
+    chord_p_scores_w = []
+    chord_r_scores_w = []
+    chord_f1_scores_w = []
     
-    weighted_accuracies = []
+    chord_weighted_accuracies = []
     
-    for i, pred_chord in enumerate(predicted):        
+    for i, pred_chord in enumerate(predicted_chords):        
         
         pred_chord = pred_chord.squeeze(0) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
         
-        p_scores_mic.append(precision_score(test_t[i], pred_chord, average='micro'))
-        r_scores_mic.append(recall_score(test_t[i], pred_chord, average='micro'))
-        f1_scores_mic.append(f1_score(test_t[i], pred_chord, average='micro'))
+        chord_p_scores_mic.append(precision_score(test_t[i], pred_chord, average='micro'))
+        chord_r_scores_mic.append(recall_score(test_t[i], pred_chord, average='micro'))
+        chord_f1_scores_mic.append(f1_score(test_t[i], pred_chord, average='micro'))
 
-        p_scores_w.append(precision_score(test_t[i], pred_chord, average='weighted'))
-        r_scores_w.append(recall_score(test_t[i], pred_chord, average='weighted'))
-        f1_scores_w.append(f1_score(test_t[i], pred_chord, average='weighted'))
+        chord_p_scores_w.append(precision_score(test_t[i], pred_chord, average='weighted'))
+        chord_r_scores_w.append(recall_score(test_t[i], pred_chord, average='weighted'))
+        chord_f1_scores_w.append(f1_score(test_t[i], pred_chord, average='weighted'))
         
         # mir_eval score (weighted accuracy)
 
@@ -626,15 +626,45 @@ if PREDICT:
         comparison = mir_eval.chord.root(ref_labels, est_labels)
         score = mir_eval.chord.weighted_accuracy(comparison, durations)
 
-        weighted_accuracies.append(score)
+        chord_weighted_accuracies.append(score)
     
-    print('Precision (micro):', np.mean(p_scores_mic))
-    print('Recall (mico):', np.mean(r_scores_mic))
-    print('F-measure (micro):', np.mean(f1_scores_mic))
+    print('\nCHORD EVALUATION:')
     
-    print('Precision (weighted):', np.mean(p_scores_w))
-    print('Recall (weighted):', np.mean(r_scores_w))
-    print('F-measure (weighted):', np.mean(f1_scores_w))
+    print('Precision (micro):', np.mean(chord_p_scores_mic))
+    print('Recall (mico):', np.mean(chord_r_scores_mic))
+    print('F-measure (micro):', np.mean(chord_f1_scores_mic))
     
-    print('Weighted accuracies (mir_eval):', np.mean(weighted_accuracies))
+    print('Precision (weighted):', np.mean(chord_p_scores_w))
+    print('Recall (weighted):', np.mean(chord_r_scores_w))
+    print('F-measure (weighted):', np.mean(chord_f1_scores_w))
+    
+    print('Weighted accuracies (mir_eval):', np.mean(chord_weighted_accuracies))
+    
+    #### BEATS ################
+    
+    print('\nBEAT EVALUATION:')
+    
+    picked_beats = []
+    
+    # beat_picker = BeatTrackingProcessor(fps=FPS) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
+    beat_picker = OnsetPeakPickingProcessor(fps=FPS, threshold=THRESHOLD, pre_avg=PRE_AVG, post_avg=POST_AVG, pre_max=PRE_MAX, post_max=POST_MAX) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
+    
+    # pick peaks
+    if VERBOSE:
+        print('\npicking beats...')
+        
+    for i, pred_beat in enumerate(predicted_beats):
+        picked = beat_picker(pred_beat.squeeze(0)) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
+        picked_beats.append(picked)
+        
+    if VERBOSE:
+        print('\n')
+        
+    evals = []
+    for i, beat in enumerate(picked_beats):
+        e = madmom.evaluation.beats.BeatEvaluation(beat, test_b_anno[i])
+        evals.append(e)
+        
+    mean_eval = madmom.evaluation.beats.BeatMeanEvaluation(evals)
+    print(mean_eval)
 
