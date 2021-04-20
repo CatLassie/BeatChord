@@ -1,0 +1,28 @@
+
+(context_hopsize_batchsize)
+
+(folder: tcn_mtl)
+
+
+
+
+
+TCN_MTL_RW_1025c_250h_0z_16b_16l_4p
+
+
+
+
+
+TCN_MTL_Beatles_RW_RWCpop_1025c_250h_0z_16b_16l_4p
+
+(ALL 3)
+
+(BEATLES)
+
+(ROBBIE WILLIAMS)
+
+(RWC POP)
+
+
+
+
