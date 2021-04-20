@@ -119,7 +119,7 @@ train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, v
 
 # CNN
 
-LAST_CNN_KERNEL_FREQUENCY_SIZE = tcnc.LAST_CNN_KERNEL_FREQUENCY_SIZE
+LAST_CNN_KERNEL_FREQUENCY_SIZE = tmc.LAST_CNN_KERNEL_FREQUENCY_SIZE
 
 # filters
 cnn_in_size = 1
@@ -151,7 +151,7 @@ tcn_dropout_rate = 0.1
 
 # filters
 fc_h_size = 16
-fc_out_size = 13
+fc_out_size = 14
 
 # kernels
 fc_k_size = 1
@@ -292,10 +292,11 @@ class TCNChordNet(nn.Module):
 
 
 # Dataset for DataLoader (items are pairs of Context x 81 (time x freq.) spectrogram snippets and 0-1 (0.5) target values)
-class TCNChordSet(Dataset):
-    def __init__(self, feat_list, targ_list, context, hop_size):
+class TCNMTLSet(Dataset):
+    def __init__(self, feat_list, targ_b_list, targ_c_list, context, hop_size):
         self.features = feat_list
-        self.targets = targ_list
+        self.b_targets = targ_b_list
+        self.c_targets = targ_c_list
         self.context = context
         self.hop_size = hop_size
  
@@ -316,7 +317,7 @@ class TCNChordSet(Dataset):
                 print("warning: skipped 1 example, shape", feat.shape[0])
 
         self.length = int(total_snip_cnt)
-        super(TCNChordSet, self).__init__()
+        super(TCNMTLSet, self).__init__()
 
     def __len__(self):
         return self.length
@@ -339,9 +340,10 @@ class TCNChordSet(Dataset):
         # get snippet and target
         
         sample = self.features[idx][position : position+self.context]
-        target = self.targets[idx][position : position+self.context]
+        b_target = self.b_targets[idx][position : position+self.context]
+        c_target = self.c_targets[idx][position : position+self.context]
         # convert to PyTorch tensor and return (unsqueeze is for extra dimension, asarray is cause target is scalar)
-        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(target))
+        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(b_target)), torch.from_numpy(np.asarray(c_target))
 
 
 
