@@ -157,8 +157,8 @@ fc_out_size = 14
 fc_k_size = 1
 
 # loss function
-loss_func = nn.CrossEntropyLoss()
-unseen_loss_func = nn.CrossEntropyLoss(reduction="sum")
+chord_loss_func = nn.CrossEntropyLoss()
+chord_unseen_loss_func = nn.CrossEntropyLoss(reduction="sum")
 
 
 # In[ ]:
@@ -365,16 +365,26 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
     model.train()
     t = time.time()
     # iterate through all data using the loader
-    for batch_idx, (data, target) in enumerate(train_loader):
+    for batch_idx, (data, b_target, c_target) in enumerate(train_loader):
         # move data to device
-        data, target = data.to(device), target.to(device)
+        data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
         
         # reset optimizer (clear previous gradients)
         optimizer.zero_grad()
         # forward pass (calculate output of network for input)
-        output = model(data.float())
+        b_output, c_output = model(data.float())
         # calculate loss        
-        loss = loss_func(output, target)
+        loss = 0
+        if TRAIN_ON_BEAT:
+            b_loss = F.binary_cross_entropy(b_output, b_target)
+            loss = loss + b_loss
+        if TRAIN_ON_CHORD:
+            c_loss = chord_loss_func(c_output, c_target)
+            loss = loss + c_loss
+        
+        #print('chord loss:', chord_loss, scale_loss, loss)
+        #raise Exception("TESTING")
+        
         # do a backward pass (calculate gradients using automatic differentiation and backpropagation)
         loss.backward()
         # udpate parameters of network using calculated gradients
@@ -403,17 +413,25 @@ def calculate_unseen_loss(model, device, unseen_loader):
     # no gradient calculation    
     with torch.no_grad():
         # iterate over test data
-        for data, target in unseen_loader:
+        for data, b_target, c_target in unseen_loader:
             # move data to device
-            data, target = data.to(device), target.to(device)
+            data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
             # forward pass (calculate output of network for input)
-            output = model(data.float())
+            b_output, c_output = model(data.float())
             
             # WORK IN PROGRESS: skip rest of loop
             # continue
             
             # claculate loss and add it to our cumulative loss
-            unseen_loss += unseen_loss_func(output, target).item() # sum up batch loss
+            sum_unseen_loss = 0
+            if TRAIN_ON_BEAT:
+                b_unseen_loss = F.binary_cross_entropy(b_output, c_target, reduction='sum')
+                sum_unseen_loss = sum_unseen_loss + b_unseen_loss
+            if TRAIN_ON_CHORD:
+                c_unseen_loss = chord_unseen_loss_func(c_output, c_target)
+                sum_unseen_loss = sum_unseen_loss + c_unseen_loss
+                
+            unseen_loss += sum_unseen_loss.item() # sum up batch loss
 
     # output results of test run
     unseen_loss /= len(unseen_loader.dataset)
