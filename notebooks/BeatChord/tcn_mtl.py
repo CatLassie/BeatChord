@@ -489,11 +489,11 @@ def run_training():
 
     # setup our datasets for training, evaluation and testing
     kwargs = {'num_workers': 4, 'pin_memory': True} if USE_CUDA else {'num_workers': 4}
-    train_loader = torch.utils.data.DataLoader(TCNChordSet(train_f, train_t, args.context, args.hop_size),
+    train_loader = torch.utils.data.DataLoader(TCNChordSet(train_f, train_b_t, train_c_t, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=True, **kwargs)
-    valid_loader = torch.utils.data.DataLoader(TCNChordSet(valid_f, valid_t, args.context, args.hop_size),
+    valid_loader = torch.utils.data.DataLoader(TCNChordSet(valid_f, valid_b_t, valid_c_t, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=False, **kwargs)
-    test_loader = torch.utils.data.DataLoader(TCNChordSet(test_f, test_t, args.context, args.hop_size),
+    test_loader = torch.utils.data.DataLoader(TCNChordSet(test_f, test_b_t, test_c_t, args.context, args.hop_size),
                                               batch_size=args.batch_size, shuffle=False, **kwargs)
 
     # main training loop
@@ -547,12 +547,13 @@ def run_prediction(test_features):
     torch.manual_seed(SEED)
     
     # load model
-    model = TCNChordNet().to(DEVICE)
+    model = TCNMTLNet().to(DEVICE)
     model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '.model')))
     print('model loaded...')
     
     # calculate actual output for the test data
-    results_cnn = [None for _ in range(len(test_features))]
+    b_results_cnn = [None for _ in range(len(test_features))]
+    c_results_cnn = [None for _ in range(len(test_features))]
     # iterate over test tracks
     for test_idx, cur_test_feat in enumerate(test_features):
         if test_idx % 100 == 0:
@@ -562,10 +563,11 @@ def run_prediction(test_features):
             print('file number:', test_idx+1)
         
         # run the inference method
-        result = predict(model, DEVICE, cur_test_feat, args.context)
-        results_cnn[test_idx] = result.cpu().numpy()
+        b_result, c_result = predict(model, DEVICE, cur_test_feat, args.context)
+        b_results_cnn[test_idx] = b_result.cpu().numpy()
+        c_results_cnn[test_idx] = c_result.cpu().numpy()
 
-    return results_cnn
+    return b_results_cnn, c_results_cnn
 
 
 # In[ ]:
