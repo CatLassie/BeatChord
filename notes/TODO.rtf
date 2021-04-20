@@ -63,6 +63,13 @@ MTL ideas:\
 	- or try softmax for beats\
 - deal with datasets that have only 1 type of annotations \
 	- like mtl chord + take care of the dataloader and target creation (fill em with 0 ?) + let user select what to predict (beat/chord/both)\
+- maybe use 14 neuron last layer -> use sigmoid on neuron 14 and softmax on first 13 and add up losses\
+	- or 15 neurons and 2 softmax activation functions (13 + 2)\
+HINT: dont do further training! train new model with extra data because further training probably overwrites any previous training,\
+	also "make sure to have batches that have all kinds of targets, cause if not your network will jump back and forth between learning 2 tasks"\
+	shuffling data again should do the trick (after returning it from feat script)\
+	also maybe have the dataloader ship a flag that says whether chord or beat data is present (to know which loss to disable)\
+	HOW TO HAVE 1 BATCH WITH DIFFERENT TARGETS?!\
 \
 QUESTIONS:\
 - whats with the new datasets (they have audio but not features, how do I get the 91 frequency features)\
