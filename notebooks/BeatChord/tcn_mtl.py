@@ -440,7 +440,7 @@ def calculate_unseen_loss(model, device, unseen_loader):
             # claculate loss and add it to our cumulative loss
             sum_unseen_loss = 0
             if TRAIN_ON_BEAT:
-                b_unseen_loss = F.binary_cross_entropy(b_output, c_target, reduction='sum')
+                b_unseen_loss = F.binary_cross_entropy(b_output, b_target, reduction='sum')
                 sum_unseen_loss = sum_unseen_loss + b_unseen_loss
             if TRAIN_ON_CHORD:
                 c_unseen_loss = chord_unseen_loss_func(c_output, c_target)
