@@ -613,17 +613,17 @@ if PREDICT:
         
         pred_chord = pred_chord.squeeze(0) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
         
-        chord_p_scores_mic.append(precision_score(test_t[i], pred_chord, average='micro'))
-        chord_r_scores_mic.append(recall_score(test_t[i], pred_chord, average='micro'))
-        chord_f1_scores_mic.append(f1_score(test_t[i], pred_chord, average='micro'))
+        chord_p_scores_mic.append(precision_score(test_c_t[i], pred_chord, average='micro'))
+        chord_r_scores_mic.append(recall_score(test_c_t[i], pred_chord, average='micro'))
+        chord_f1_scores_mic.append(f1_score(test_c_t[i], pred_chord, average='micro'))
 
-        chord_p_scores_w.append(precision_score(test_t[i], pred_chord, average='weighted'))
-        chord_r_scores_w.append(recall_score(test_t[i], pred_chord, average='weighted'))
-        chord_f1_scores_w.append(f1_score(test_t[i], pred_chord, average='weighted'))
+        chord_p_scores_w.append(precision_score(test_c_t[i], pred_chord, average='weighted'))
+        chord_r_scores_w.append(recall_score(test_c_t[i], pred_chord, average='weighted'))
+        chord_f1_scores_w.append(f1_score(test_c_t[i], pred_chord, average='weighted'))
         
         # mir_eval score (weighted accuracy)
 
-        ref_labels, ref_intervals = labels_to_notataion_and_intervals(test_t[i])
+        ref_labels, ref_intervals = labels_to_notataion_and_intervals(test_c_t[i])
         est_labels, est_intervals = labels_to_notataion_and_intervals(pred_chord)
 
         est_intervals, est_labels = mir_eval.util.adjust_intervals(
