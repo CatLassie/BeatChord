@@ -166,9 +166,9 @@ chord_unseen_loss_func = nn.CrossEntropyLoss(reduction="sum")
 
 # BEAT NETWORK CLASS and DATA SET CLASS for DATA LOADER
 
-class TCNChordNet(nn.Module):
+class TCNMTLNet(nn.Module):
     def __init__(self):
-        super(TCNChordNet, self).__init__()
+        super(TCNMTLNet, self).__init__()
         
         self.l1 = nn.Sequential(
             nn.Conv2d(cnn_in_size, cnn_h_size, cnn_k_1_size, padding=cnn_padding),
@@ -255,6 +255,10 @@ class TCNChordNet(nn.Module):
             # nn.Sigmoid()
         )
         
+        self.activationSigmoid = nn.Sequential(
+            nn.Sigmoid()
+        )
+        
     def forward(self, x):
 
         # print(x.shape)
@@ -283,11 +287,22 @@ class TCNChordNet(nn.Module):
         
         out = self.lfc(out)
         # print(out.shape)
+                
+        out_beat = out[:, 13:, :]
+        out_chord = out[:, :13, :]
         
-        out = out.squeeze(1)
-        # print(out.shape)
-
-        return out
+        out_beat = self.activationSigmoid(out_beat)
+        
+        #print(out_beat.shape)
+        #print(out_chord.shape)
+        
+        out_beat = out_beat.squeeze(1)
+        #out_chord = out_chord.squeeze(1)
+        
+        #print(out_beat.shape)
+        #print(out_chord.shape)
+        
+        return out_beat, out_chord
     
 
 
@@ -455,9 +470,9 @@ def predict(model, device, data, context):
     data = data.to(device)
     # no gradient calculation
     with torch.no_grad():
-        output = model(data.float())
-        _, out_val = torch.max(output.data, 1) # 0 -> batch, 1 -> 13 output neurons, 2 -> data size
-    return out_val
+        output_beat, output_chord = model(data.float())
+        _, out_chord_val = torch.max(output_chord.data, 1) # 0 -> batch, 1 -> 13 output neurons, 2 -> data size
+    return output_beat, out_chord_val
 
 
 # In[ ]:
@@ -481,7 +496,7 @@ def run_training():
     torch.manual_seed(SEED)
     
     # create model and optimizer
-    model = TCNChordNet().to(DEVICE)
+    model = TCNMTLNet().to(DEVICE)
     if TRAIN_EXISTING:
         model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '.model')))
     
@@ -489,11 +504,11 @@ def run_training():
 
     # setup our datasets for training, evaluation and testing
     kwargs = {'num_workers': 4, 'pin_memory': True} if USE_CUDA else {'num_workers': 4}
-    train_loader = torch.utils.data.DataLoader(TCNChordSet(train_f, train_b_t, train_c_t, args.context, args.hop_size),
+    train_loader = torch.utils.data.DataLoader(TCNMTLSet(train_f, train_b_t, train_c_t, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=True, **kwargs)
-    valid_loader = torch.utils.data.DataLoader(TCNChordSet(valid_f, valid_b_t, valid_c_t, args.context, args.hop_size),
+    valid_loader = torch.utils.data.DataLoader(TCNMTLSet(valid_f, valid_b_t, valid_c_t, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=False, **kwargs)
-    test_loader = torch.utils.data.DataLoader(TCNChordSet(test_f, test_b_t, test_c_t, args.context, args.hop_size),
+    test_loader = torch.utils.data.DataLoader(TCNMTLSet(test_f, test_b_t, test_c_t, args.context, args.hop_size),
                                               batch_size=args.batch_size, shuffle=False, **kwargs)
 
     # main training loop
