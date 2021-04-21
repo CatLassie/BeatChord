@@ -40,6 +40,27 @@ BEAT EVALUATION:
 
 
 
+RW_13to1
+Weighted accuracies (mir_eval): 0.7430901595535322
+  F-measure: 0.770 P-score: 0.722 Cemgil: 0.707 Goto: 0.000 CMLc: 0.084 CMLt: 0.489 AMLc: 0.101 AMLt: 0.587 D: 2.223 Dg: 1.501
+
+3sets_13to1_BEAT
+F-measure: 0.889 P-score: 0.858 Cemgil: 0.818 Goto: 0.600 CMLc: 0.387 CMLt: 0.758 AMLc: 0.413 AMLt: 0.806 D: 3.121 Dg: 2.193
+
+3sets_13to1_CHORD
+Weighted accuracies (mir_eval): 0.8142186923433494
+
+3sets 13to1 (both)
+Weighted accuracies (mir_eval): 0.8021493328303083
+ F-measure: 0.830 P-score: 0.783 Cemgil: 0.757 Goto: 0.222 CMLc: 0.157 CMLt: 0.619 AMLc: 0.165 AMLt: 0.691 D: 2.832 Dg: 1.801
+
+3sets 16to1 (both)
+Weighted accuracies (mir_eval): 0.8025103213518825
+  F-measure: 0.831 P-score: 0.784 Cemgil: 0.759 Goto: 0.178 CMLc: 0.143 CMLt: 0.617 AMLc: 0.154 AMLt: 0.687 D: 2.830 Dg: 1.878
+
+
+
+
 TCN_MTL_Beatles_RW_RWCpop_1025c_250h_0z_16b_16l_4p
 TCN_MTL_BEAT_Beatles_RW_RWCpop_1025c_250h_0z_16b_16l_4p
 TCN_MTL_CHORD_Beatles_RW_RWCpop_1025c_250h_0z_16b_16l_4p
