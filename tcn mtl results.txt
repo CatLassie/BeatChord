@@ -9,29 +9,7 @@
 
 TCN_MTL_RW_1025c_250h_0z_16b_16l_4p
 
-(BOTH)
-CHORD EVALUATION:
-Precision (micro): 0.7238164289022532
-Recall (mico): 0.7238164289022532
-F-measure (micro): 0.7238164289022532
-Precision (weighted): 0.772161980620242
-Recall (weighted): 0.7238164289022532
-F-measure (weighted): 0.7203560116361414
-Weighted accuracies (mir_eval): 0.7238133322112075
-
-BEAT EVALUATION:
-  F-measure: 0.750 P-score: 0.692 Cemgil: 0.690 Goto: 0.000 CMLc: 0.051 CMLt: 0.451 AMLc: 0.061 AMLt: 0.507 D: 2.090 Dg: 1.399
-
 (BEATS ONLY)
-CHORD EVALUATION:
-Precision (micro): 0.11135583542454358
-Recall (mico): 0.11135583542454358
-F-measure (micro): 0.11135583542454361
-Precision (weighted): 0.19226329984356907
-Recall (weighted): 0.11135583542454358
-F-measure (weighted): 0.08393082010250692
-Weighted accuracies (mir_eval): 0.11133666336737853
-
 BEAT EVALUATION:
   F-measure: 0.768 P-score: 0.700 Cemgil: 0.703 Goto: 0.000 CMLc: 0.104 CMLt: 0.509 AMLc: 0.119 AMLt: 0.573 D: 2.324 Dg: 1.588
 
@@ -45,25 +23,121 @@ Recall (weighted): 0.7551677837897794
 F-measure (weighted): 0.7511929754128508
 Weighted accuracies (mir_eval): 0.755172474291771
 
+(BOTH)
+CHORD EVALUATION:
+Precision (micro): 0.7238164289022532
+Recall (mico): 0.7238164289022532
+F-measure (micro): 0.7238164289022532
+Precision (weighted): 0.772161980620242
+Recall (weighted): 0.7238164289022532
+F-measure (weighted): 0.7203560116361414
+Weighted accuracies (mir_eval): 0.7238133322112075
+
 BEAT EVALUATION:
-  F-measure: 0.000 P-score: 0.000 Cemgil: 0.000 Goto: 0.000 CMLc: 0.000 CMLt: 0.000 AMLc: 0.000 AMLt: 0.000 D: 0.051 Dg: 0.015
-
-
+  F-measure: 0.750 P-score: 0.692 Cemgil: 0.690 Goto: 0.000 CMLc: 0.051 CMLt: 0.451 AMLc: 0.061 AMLt: 0.507 D: 2.090 Dg: 1.399
 
 
 
 
 
 TCN_MTL_Beatles_RW_RWCpop_1025c_250h_0z_16b_16l_4p
+TCN_MTL_BEAT_Beatles_RW_RWCpop_1025c_250h_0z_16b_16l_4p
+TCN_MTL_CHORD_Beatles_RW_RWCpop_1025c_250h_0z_16b_16l_4p
 
 (ALL 3)
 
+Beat
+F-measure: 0.884 P-score: 0.850 Cemgil: 0.809 Goto: 0.556 CMLc: 0.345 CMLt: 0.744 AMLc: 0.367 AMLt: 0.801 D: 3.108 Dg: 2.099
+
+Chord
+Precision (micro): 0.814204365169401
+Recall (mico): 0.814204365169401
+F-measure (micro): 0.814204365169401
+Precision (weighted): 0.8470827622857033
+Recall (weighted): 0.814204365169401
+F-measure (weighted): 0.8166931125071734
+Weighted accuracies (mir_eval): 0.8141989569146395
+
+Both
+Precision (micro): 0.8082714318147235
+Recall (mico): 0.8082714318147235
+F-measure (micro): 0.8082714318147235
+Precision (weighted): 0.8453258642156714
+Recall (weighted): 0.8082714318147235
+F-measure (weighted): 0.8109639306411068
+Weighted accuracies (mir_eval): 0.8082656909073698
+F-measure: 0.811 P-score: 0.762 Cemgil: 0.743 Goto: 0.200 CMLc: 0.139 CMLt: 0.578 AMLc: 0.146 AMLt: 0.646 D: 2.750 Dg: 1.787
+
 (BEATLES)
+
+Beat
+F-measure: 0.933 P-score: 0.910 Cemgil: 0.825 Goto: 0.696 CMLc: 0.439 CMLt: 0.837 AMLc: 0.439 AMLt: 0.850 D: 3.063 Dg: 2.172
+
+Chord
+Precision (micro): 0.8574153240908755
+Recall (mico): 0.8574153240908755
+F-measure (micro): 0.8574153240908755
+Precision (weighted): 0.8799740950011885
+Recall (weighted): 0.8574153240908755
+F-measure (weighted): 0.8601119162855015
+Weighted accuracies (mir_eval): 0.857409095641
+
+Both
+Precision (micro): 0.8523374911213432
+Recall (mico): 0.8523374911213432
+F-measure (micro): 0.8523374911213432
+Precision (weighted): 0.8765979997942152
+Recall (weighted): 0.8523374911213432
+F-measure (weighted): 0.8555018696348359
+Weighted accuracies (mir_eval): 0.852330886721616
+F-measure: 0.879 P-score: 0.834 Cemgil: 0.781 Goto: 0.348 CMLc: 0.197 CMLt: 0.698 AMLc: 0.200 AMLt: 0.726 D: 2.855 Dg: 1.897
 
 (ROBBIE WILLIAMS)
 
+Beat
+F-measure: 0.886 P-score: 0.840 Cemgil: 0.824 Goto: 0.333 CMLc: 0.259 CMLt: 0.707 AMLc: 0.259 AMLt: 0.709 D: 2.915 Dg: 2.127
+
+Chord
+Precision (micro): 0.826798240713224
+Recall (mico): 0.826798240713224
+F-measure (micro): 0.826798240713224
+Precision (weighted): 0.8451922416423834
+Recall (weighted): 0.826798240713224
+F-measure (weighted): 0.822406260148861
+Weighted accuracies (mir_eval): 0.82679966542951
+
+Both
+Precision (micro): 0.8184286494885886
+Recall (mico): 0.8184286494885886
+F-measure (micro): 0.8184286494885886
+Precision (weighted): 0.8420705558897548
+Recall (weighted): 0.8184286494885886
+F-measure (weighted): 0.8132724666743048
+Weighted accuracies (mir_eval): 0.8184296685394423
+F-measure: 0.793 P-score: 0.745 Cemgil: 0.738 Goto: 0.000 CMLc: 0.058 CMLt: 0.510 AMLc: 0.060 AMLt: 0.510 D: 2.429 Dg: 1.616
+
 (RWC POP)
 
+Beat
+F-measure: 0.797 P-score: 0.751 Cemgil: 0.769 Goto: 0.462 CMLc: 0.237 CMLt: 0.607 AMLc: 0.314 AMLt: 0.776 D: 3.321 Dg: 2.557
 
+Chord
+Precision (micro): 0.7290353701626078
+Recall (mico): 0.7290353701626078
+F-measure (micro): 0.7290353701626078
+Precision (weighted): 0.7901992263882975
+Recall (weighted): 0.7290353701626078
+F-measure (weighted): 0.7359199728397317
+Weighted accuracies (mir_eval): 0.7290266825038614
+
+Both
+Precision (micro): 0.7232764838826443
+Recall (mico): 0.7232764838826443
+F-measure (micro): 0.7232764838826443
+Precision (weighted): 0.7922519147254212
+Recall (weighted): 0.7232764838826443
+F-measure (weighted): 0.7305678213215265
+Weighted accuracies (mir_eval): 0.7232675907214989
+F-measure: 0.705 P-score: 0.646 Cemgil: 0.680 Goto: 0.077 CMLc: 0.092 CMLt: 0.415 AMLc: 0.111 AMLt: 0.598 D: 2.787 Dg: 2.070
 
 
