@@ -646,7 +646,7 @@ if PREDICT:
 
         chord_weighted_accuracies.append(score)
     
-    print('\nCHORD EVALUATION:\n')
+    print('\nCHORD EVALUATION:')
     
     print('Precision (micro):', np.mean(chord_p_scores_mic))
     print('Recall (mico):', np.mean(chord_r_scores_mic))
@@ -666,11 +666,7 @@ if PREDICT:
     
     # beat_picker = BeatTrackingProcessor(fps=FPS) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
     beat_picker = OnsetPeakPickingProcessor(fps=FPS, threshold=THRESHOLD, pre_avg=PRE_AVG, post_avg=POST_AVG, pre_max=PRE_MAX, post_max=POST_MAX) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
-    
-    # pick peaks
-    if VERBOSE:
-        print('\npicking beats...')
-        
+            
     for i, pred_beat in enumerate(predicted_beats):
         picked = beat_picker(pred_beat.squeeze(0)) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
         picked_beats.append(picked)
