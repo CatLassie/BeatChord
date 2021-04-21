@@ -81,6 +81,9 @@ traininig_hop_size = tmc.TRAINING_HOP_SIZE
 batch_size = tmc.BATCH_SIZE
 patience = tmc.PATIENCE
 
+beat_loss_weight = tmc.BEAT_LOSS_WEIGHT
+chord_loss_weight = tmc.CHORD_LOSS_WEIGHT
+
 
 # In[ ]:
 
@@ -392,10 +395,10 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         loss = 0
         if TRAIN_ON_BEAT:
             b_loss = F.binary_cross_entropy(b_output, b_target)
-            loss = loss + b_loss
+            loss = loss + (b_loss * beat_loss_weight)
         if TRAIN_ON_CHORD:
             c_loss = chord_loss_func(c_output, c_target)
-            loss = loss + c_loss
+            loss = loss + (c_loss * chord_loss_weight)
         
         #print('chord loss:', chord_loss, scale_loss, loss)
         #raise Exception("TESTING")
@@ -441,10 +444,10 @@ def calculate_unseen_loss(model, device, unseen_loader):
             sum_unseen_loss = 0
             if TRAIN_ON_BEAT:
                 b_unseen_loss = F.binary_cross_entropy(b_output, b_target, reduction='sum')
-                sum_unseen_loss = sum_unseen_loss + b_unseen_loss
+                sum_unseen_loss = sum_unseen_loss + (b_unseen_loss * beat_loss_weight)
             if TRAIN_ON_CHORD:
                 c_unseen_loss = chord_unseen_loss_func(c_output, c_target)
-                sum_unseen_loss = sum_unseen_loss + c_unseen_loss
+                sum_unseen_loss = sum_unseen_loss + (c_unseen_loss * chord_loss_weight)
                 
             unseen_loss += sum_unseen_loss.item() # sum up batch loss
 
