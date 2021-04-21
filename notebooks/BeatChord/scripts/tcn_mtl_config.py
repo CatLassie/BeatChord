@@ -31,7 +31,12 @@ FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
 FEATURE_PATH = [
     os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck'), # os.path.join(FEATURE_BASE_PATH, 'beatles'),
     os.path.join(FEATURE_BASE_PATH, 'robbie_williams/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'ballroom/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'rock/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'rwc/audio/feat_cache_boeck'), NOT POP!!!
+    #os.path.join(FEATURE_BASE_PATH, 'hainsworth/audio/feat_cache_boeck'),
     'data/features/common/rwc',
+    #os.path.join(FEATURE_BASE_PATH, 'hjdb/audio/feat_cache_boeck'),
 ] # os.path.join(FEATURE_BASE_PATH, DATASET_NAME) # os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck') # os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck')
 BEAT_ANNOTATION_EXT = '.beats'
 BEAT_ANNOTATION_PATH = [
