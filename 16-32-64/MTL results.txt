@@ -27,6 +27,22 @@ TCN_MTL_3sets_16l-32-64_13to1_CHORD
 
 
 
+TCN_MTL_3sets_16-32-64l_20to1
+
+(All 3)
+Weighted accuracies (mir_eval): 0.840441256613323
+F-measure: 0.883 P-score: 0.849 Cemgil: 0.800 Goto: 0.489 CMLc: 0.322 CMLt: 0.736 AMLc: 0.335 AMLt: 0.786 D: 3.053 Dg: 2.001
+(Beatles)
+Weighted accuracies (mir_eval): 0.8854202372878541
+F-measure: 0.935 P-score: 0.916 Cemgil: 0.817 Goto: 0.565 CMLc: 0.426 CMLt: 0.844 AMLc: 0.427 AMLt: 0.850 D: 3.030 Dg: 1.934
+(RW)
+Weighted accuracies (mir_eval): 0.8419600576383234
+F-measure: 0.893 P-score: 0.843 Cemgil: 0.824 Goto: 0.444 CMLc: 0.218 CMLt: 0.707 AMLc: 0.218 AMLt: 0.707 D: 2.874 Dg: 2.045
+(RWCPop)
+Weighted accuracies (mir_eval): 0.7598115824026139
+F-measure: 0.782 P-score: 0.735 Cemgil: 0.754 Goto: 0.385 CMLc: 0.211 CMLt: 0.564 AMLc: 0.252 AMLt: 0.727 D: 3.217 Dg: 2.428
+
+
 
 TCN_MTL_3sets_16l-32-64_16to1
 
@@ -42,6 +58,24 @@ F-measure: 0.883 P-score: 0.832 Cemgil: 0.815 Goto: 0.556 CMLc: 0.297 CMLt: 0.69
 (RWCPop)
 Weighted accuracies (mir_eval): 0.7728948580629312
 F-measure: 0.779 P-score: 0.728 Cemgil: 0.752 Goto: 0.308 CMLc: 0.181 CMLt: 0.563 AMLc: 0.235 AMLt: 0.734 D: 3.251 Dg: 2.429
+
+
+
+(!!!BEST!!!)
+TCN_MTL_3sets_16-32-64l_15to1
+
+(All 3)
+Weighted accuracies (mir_eval): 0.8509668187938068
+F-measure: 0.884 P-score: 0.850 Cemgil: 0.806 Goto: 0.511 CMLc: 0.343 CMLt: 0.743 AMLc: 0.362 AMLt: 0.788 D: 3.089 Dg: 2.057
+(Beatles)
+Weighted accuracies (mir_eval): 0.8948313974252011
+F-measure: 0.930 P-score: 0.908 Cemgil: 0.817 Goto: 0.609 CMLc: 0.424 CMLt: 0.832 AMLc: 0.424 AMLt: 0.833 D: 3.018 Dg: 1.942
+(RW)
+Weighted accuracies (mir_eval): 0.841481860759171
+F-measure: 0.891 P-score: 0.846 Cemgil: 0.830 Goto: 0.556 CMLc: 0.277 CMLt: 0.708 AMLc: 0.277 AMLt: 0.715 D: 2.928 Dg: 2.129
+(RWCPop)
+Weighted accuracies (mir_eval): 0.7799267660083953
+F-measure: 0.797 P-score: 0.750 Cemgil: 0.769 Goto: 0.308 CMLc: 0.245 CMLt: 0.610 AMLc: 0.309 AMLt: 0.759 D: 3.326 Dg: 2.441
 
 
 
@@ -62,6 +96,20 @@ F-measure: 0.794 P-score: 0.746 Cemgil: 0.766 Goto: 0.308 CMLc: 0.197 CMLt: 0.59
 
 
 
+TCN_MTL_3sets_16l-32-64_12to1
+
+Weighted accuracies (mir_eval): 0.8484458355522428
+F-measure: 0.880 P-score: 0.846 Cemgil: 0.804 Goto: 0.511 CMLc: 0.329 CMLt: 0.730 AMLc: 0.351 AMLt: 0.785 D: 3.060 Dg: 2.037
+
+
+
+TCN_MTL_3sets_16l-32-64_11to1
+
+Weighted accuracies (mir_eval): 0.8463760108584353
+F-measure: 0.878 P-score: 0.842 Cemgil: 0.796 Goto: 0.467 CMLc: 0.295 CMLt: 0.727 AMLc: 0.305 AMLt: 0.775 D: 3.029 Dg: 1.990
+
+
+
 TCN_MTL_3sets_16l-32-64_10to1
 
 (All 3)
@@ -76,3 +124,29 @@ F-measure: 0.884 P-score: 0.840 Cemgil: 0.821 Goto: 0.444 CMLc: 0.289 CMLt: 0.70
 (RWCPop)
 Weighted accuracies (mir_eval): 0.7774404338259356
 F-measure: 0.782 P-score: 0.732 Cemgil: 0.754 Goto: 0.308 CMLc: 0.181 CMLt: 0.560 AMLc: 0.209 AMLt: 0.691 D: 3.181 Dg: 2.370
+
+
+
+
+
+TCN_MTL_3sets_32l-64-128_10to1
+
+(All 3)
+Weighted accuracies (mir_eval): 0.8460537346969506
+F-measure: 0.883 P-score: 0.849 Cemgil: 0.809 Goto: 0.467 CMLc: 0.326 CMLt: 0.738 AMLc: 0.344 AMLt: 0.787 D: 3.094 Dg: 2.045
+(Beatles)
+Weighted accuracies (mir_eval): 0.8844965692123956
+F-measure: 0.930 P-score: 0.905 Cemgil: 0.828 Goto: 0.565 CMLc: 0.423 CMLt: 0.827 AMLc: 0.424 AMLt: 0.835 D: 3.024 Dg: 1.984
+(RW)
+Weighted accuracies (mir_eval): 0.8485717640733798
+F-measure: 0.888 P-score: 0.842 Cemgil: 0.822 Goto: 0.444 CMLc: 0.239 CMLt: 0.697 AMLc: 0.251 AMLt: 0.711 D: 2.949 Dg: 2.008
+(RWCPop)
+Weighted accuracies (mir_eval): 0.7762962379090201
+F-measure: 0.795 P-score: 0.753 Cemgil: 0.764 Goto: 0.308 CMLc: 0.216 CMLt: 0.607 AMLc: 0.265 AMLt: 0.752 D: 3.317 Dg: 2.420
+
+
+
+TCN_MTL_3sets_16-32-64-128l_10to1
+
+Weighted accuracies (mir_eval): 0.8392966013288091
+F-measure: 0.873 P-score: 0.836 Cemgil: 0.789 Goto: 0.511 CMLc: 0.322 CMLt: 0.728 AMLc: 0.335 AMLt: 0.779 D: 2.998 Dg: 1.929
