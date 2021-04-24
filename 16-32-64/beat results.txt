@@ -1,0 +1,33 @@
+BEAT_3sets_16-32-64l
+
+(All)
+F-measure: 0.872 P-score: 0.836 Cemgil: 0.797 Goto: 0.467 CMLc: 0.320 CMLt: 0.710 AMLc: 0.343 AMLt: 0.784 D: 3.128 Dg: 2.056
+(BEATLES)
+F-measure: 0.925 P-score: 0.899 Cemgil: 0.819 Goto: 0.609 CMLc: 0.417 CMLt: 0.811 AMLc: 0.419 AMLt: 0.822 D: 3.069 Dg: 1.978
+(ROBBIE WILLIAMS)
+F-measure: 0.875 P-score: 0.838 Cemgil: 0.809 Goto: 0.333 CMLc: 0.183 CMLt: 0.673 AMLc: 0.196 AMLt: 0.700 D: 2.934 Dg: 2.135
+(RWC POP)
+F-measure: 0.776 P-score: 0.724 Cemgil: 0.749 Goto: 0.308 CMLc: 0.243 CMLt: 0.558 AMLc: 0.311 AMLt: 0.775 D: 3.368 Dg: 2.467
+
+
+
+
+
+BEAT_7sets_16-32-64l
+
+(ALL)
+F-measure: 0.877 P-score: 0.845 Cemgil: 0.838 Goto: 0.743 CMLc: 0.560 CMLt: 0.748 AMLc: 0.581 AMLt: 0.796 D: 3.303 Dg: 2.504
+(BEATLES)
+F-measure: 0.942 P-score: 0.920 Cemgil: 0.830 Goto: 0.870 CMLc: 0.544 CMLt: 0.852 AMLc: 0.545 AMLt: 0.853 D: 3.081 Dg: 1.917
+(ROBBIE WILLIAMS)
+F-measure: 0.932 P-score: 0.906 Cemgil: 0.866 Goto: 0.667 CMLc: 0.375 CMLt: 0.801 AMLc: 0.380 AMLt: 0.807 D: 3.136 Dg: 2.396
+(BALLROOM)
+F-measure: 0.900 P-score: 0.872 Cemgil: 0.859 Goto: 0.872 CMLc: 0.659 CMLt: 0.783 AMLc: 0.678 AMLt: 0.814 D: 3.219 Dg: 2.505
+(ROCK)
+F-measure: 0.888 P-score: 0.842 Cemgil: 0.873 Goto: 0.520 CMLc: 0.394 CMLt: 0.695 AMLc: 0.424 AMLt: 0.793 D: 3.553 Dg: 3.208
+(RWC POP)
+F-measure: 0.810 P-score: 0.769 Cemgil: 0.785 Goto: 0.385 CMLc: 0.361 CMLt: 0.635 AMLc: 0.387 AMLt: 0.772 D: 3.438 Dg: 2.652
+(Hainsworth)
+F-measure: 0.716 P-score: 0.682 Cemgil: 0.691 Goto: 0.571 CMLc: 0.429 CMLt: 0.593 AMLc: 0.472 AMLt: 0.654 D: 2.788 Dg: 2.130
+(HJDB)
+F-measure: 0.911 P-score: 0.880 Cemgil: 0.904 Goto: 0.800 CMLc: 0.690 CMLt: 0.791 AMLc: 0.707 AMLt: 0.840 D: 3.974 Dg: 3.599

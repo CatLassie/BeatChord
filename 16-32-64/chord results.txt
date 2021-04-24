@@ -1,0 +1,10 @@
+TCN_CHORD_3sets_16-32-64l
+
+(All 3)
+Weighted accuracies (mir_eval): 0.8454644061625622
+(BEATLES)
+Weighted accuracies (mir_eval): 0.8841144862716944
+(ROBBIE WILLIAMS)
+Weighted accuracies (mir_eval): 0.8399604613469045
+(RWC POP)
+Weighted accuracies (mir_eval): 0.7808939185341681

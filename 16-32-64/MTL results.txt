@@ -1,0 +1,78 @@
+TCN_MTL_3sets_16l-32-64_13to1_BEAT
+
+(All 3)
+
+(BEATLES)
+
+(ROBBIE WILLIAMS)
+
+(RWC POP)
+
+
+
+
+
+TCN_MTL_3sets_16l-32-64_13to1_CHORD
+
+(All 3)
+
+(BEATLES)
+
+(ROBBIE WILLIAMS)
+
+(RWC POP)
+
+
+
+
+
+
+
+TCN_MTL_3sets_16l-32-64_16to1
+
+(All 3)
+Weighted accuracies (mir_eval): 0.844932139476838
+F-measure: 0.876 P-score: 0.839 Cemgil: 0.794 Goto: 0.533 CMLc: 0.318 CMLt: 0.725 AMLc: 0.335 AMLt: 0.780 D: 3.039 Dg: 2.000
+(Beatles)
+Weighted accuracies (mir_eval): 0.885230041947768
+F-measure: 0.929 P-score: 0.905 Cemgil: 0.810 Goto: 0.652 CMLc: 0.404 CMLt: 0.829 AMLc: 0.405 AMLt: 0.836 D: 2.979 Dg: 1.906
+(RW)
+Weighted accuracies (mir_eval): 0.8460024618712143
+F-measure: 0.883 P-score: 0.832 Cemgil: 0.815 Goto: 0.556 CMLc: 0.297 CMLt: 0.692 AMLc: 0.301 AMLt: 0.700 D: 2.886 Dg: 2.060
+(RWCPop)
+Weighted accuracies (mir_eval): 0.7728948580629312
+F-measure: 0.779 P-score: 0.728 Cemgil: 0.752 Goto: 0.308 CMLc: 0.181 CMLt: 0.563 AMLc: 0.235 AMLt: 0.734 D: 3.251 Dg: 2.429
+
+
+
+TCN_MTL_3sets_16l-32-64_13to1
+
+(All 3)
+Weighted accuracies (mir_eval): 0.8416630093770869
+F-measure: 0.879 P-score: 0.845 Cemgil: 0.800 Goto: 0.511 CMLc: 0.321 CMLt: 0.728 AMLc: 0.339 AMLt: 0.780 D: 3.052 Dg: 2.015
+(Beatles)
+Weighted accuracies (mir_eval): 0.8874901902591191
+F-measure: 0.922 P-score: 0.897 Cemgil: 0.810 Goto: 0.609 CMLc: 0.412 CMLt: 0.811 AMLc: 0.414 AMLt: 0.822 D: 2.984 Dg: 1.902
+(RW)
+Weighted accuracies (mir_eval): 0.8386529214665878
+F-measure: 0.893 P-score: 0.855 Cemgil: 0.824 Goto: 0.556 CMLc: 0.267 CMLt: 0.713 AMLc: 0.268 AMLt: 0.713 D: 2.914 Dg: 2.078
+(RWCPop)
+Weighted accuracies (mir_eval): 0.7626680579084527
+F-measure: 0.794 P-score: 0.746 Cemgil: 0.766 Goto: 0.308 CMLc: 0.197 CMLt: 0.594 AMLc: 0.255 AMLt: 0.754 D: 3.269 Dg: 2.402
+
+
+
+TCN_MTL_3sets_16l-32-64_10to1
+
+(All 3)
+Weighted accuracies (mir_eval): 0.85293453003398
+F-measure: 0.878 P-score: 0.842 Cemgil: 0.797 Goto: 0.467 CMLc: 0.316 CMLt: 0.724 AMLc: 0.324 AMLt: 0.766 D: 3.033 Dg: 2.032
+(Beatles)
+Weighted accuracies (mir_eval): 0.8966623074213997
+F-measure: 0.929 P-score: 0.905 Cemgil: 0.812 Goto: 0.565 CMLc: 0.403 CMLt: 0.825 AMLc: 0.403 AMLt: 0.833 D: 3.015 Dg: 1.972
+(RW)
+Weighted accuracies (mir_eval): 0.8502327934555273
+F-measure: 0.884 P-score: 0.840 Cemgil: 0.821 Goto: 0.444 CMLc: 0.289 CMLt: 0.701 AMLc: 0.289 AMLt: 0.701 D: 2.862 Dg: 2.070
+(RWCPop)
+Weighted accuracies (mir_eval): 0.7774404338259356
+F-measure: 0.782 P-score: 0.732 Cemgil: 0.754 Goto: 0.308 CMLc: 0.181 CMLt: 0.560 AMLc: 0.209 AMLt: 0.691 D: 3.181 Dg: 2.370
