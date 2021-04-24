@@ -126,7 +126,9 @@ LAST_CNN_KERNEL_FREQUENCY_SIZE = tmc.LAST_CNN_KERNEL_FREQUENCY_SIZE
 
 # filters
 cnn_in_size = 1
-cnn_h_size = 16
+cnn_h1_size = 16
+cnn_h2_size = 32
+cnn_h3_size = 64
 
 # kernels
 cnn_k_1_size = 3
@@ -141,7 +143,7 @@ cnn_dropout_rate = 0.1
 tcn_layer_num = 8 #11
 
 # filters
-tcn_h_size = 16
+tcn_h_size = 64
 
 # kernels
 tcn_k_size = 5
@@ -153,7 +155,7 @@ tcn_dropout_rate = 0.1
 # FULLY CONNECTED (by using a 1d convolutional. layer)
 
 # filters
-fc_h_size = 16
+fc_h_size = 64
 fc_out_size = 14
 
 # kernels
@@ -174,24 +176,24 @@ class TCNMTLNet(nn.Module):
         super(TCNMTLNet, self).__init__()
         
         self.l1 = nn.Sequential(
-            nn.Conv2d(cnn_in_size, cnn_h_size, cnn_k_1_size, padding=cnn_padding),
-            nn.BatchNorm2d(cnn_h_size),
+            nn.Conv2d(cnn_in_size, cnn_h1_size, cnn_k_1_size, padding=cnn_padding),
+            nn.BatchNorm2d(cnn_h1_size),
             nn.ELU(),
             nn.MaxPool2d(kernel_size = cnn_max_pool_k_size),
             nn.Dropout2d(p = cnn_dropout_rate)
         )
         
         self.l2 = nn.Sequential(
-            nn.Conv2d(cnn_h_size, cnn_h_size, cnn_k_1_size, padding=cnn_padding),
-            nn.BatchNorm2d(cnn_h_size),
+            nn.Conv2d(cnn_h1_size, cnn_h2_size, cnn_k_1_size, padding=cnn_padding),
+            nn.BatchNorm2d(cnn_h2_size),
             nn.ELU(),
             nn.MaxPool2d(kernel_size = cnn_max_pool_k_size),
             nn.Dropout2d(p = cnn_dropout_rate)
         )
         
         self.l3 = nn.Sequential(
-            nn.Conv2d(cnn_h_size, cnn_h_size, cnn_k_2_size),
-            # nn.BatchNorm2d(cnn_h_size), # cant use because spec is reduced to 1x1
+            nn.Conv2d(cnn_h2_size, cnn_h3_size, cnn_k_2_size),
+            #nn.BatchNorm2d(cnn_h3_size),
             # NOTE: if needed try Instance normalization (InstanceNorm2d)
             nn.ELU(),
             nn.Dropout2d(p = cnn_dropout_rate)
