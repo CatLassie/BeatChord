@@ -380,7 +380,6 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
                 100. * batch_idx / len(train_loader), loss.item(), time.time()-t))
             t = time.time()
 
-
         # WORK IN PROGRESS: skip rest of loop
         # print('train batch index:', batch_idx)
         # break
