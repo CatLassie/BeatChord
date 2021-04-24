@@ -1,27 +1,27 @@
-TCN_MTL_3sets_16l-32-64_15to1_BEAT
+TCN_MTL_3sets_16-32-64l_15to1_BEAT
 
 (All 3)
-
+F-measure: 0.854 P-score: 0.818 Cemgil: 0.772 Goto: 0.356 CMLc: 0.229 CMLt: 0.678 AMLc: 0.240 AMLt: 0.735 D: 2.898 Dg: 1.867
 (BEATLES)
-
+F-measure: 0.903 P-score: 0.873 Cemgil: 0.786 Goto: 0.478 CMLc: 0.269 CMLt: 0.771 AMLc: 0.269 AMLt: 0.775 D: 2.830 Dg: 1.811
 (ROBBIE WILLIAMS)
-
+F-measure: 0.881 P-score: 0.861 Cemgil: 0.816 Goto: 0.333 CMLc: 0.248 CMLt: 0.715 AMLc: 0.248 AMLt: 0.715 D: 2.814 Dg: 2.106
 (RWC POP)
+F-measure: 0.748 P-score: 0.691 Cemgil: 0.718 Goto: 0.154 CMLc: 0.145 CMLt: 0.488 AMLc: 0.183 AMLt: 0.677 D: 3.079 Dg: 2.130
 
 
 
 
-
-TCN_MTL_3sets_16l-32-64_15to1_CHORD
+TCN_MTL_3sets_16-32-64l_15to1_CHORD
 
 (All 3)
-
+Weighted accuracies (mir_eval): 0.8561580715131656
 (BEATLES)
-
+Weighted accuracies (mir_eval): 0.8978827981140489
 (ROBBIE WILLIAMS)
-
+Weighted accuracies (mir_eval): 0.8510572951857069
 (RWC POP)
-
+Weighted accuracies (mir_eval): 0.7858687080613821
 
 
 
