@@ -8,3 +8,15 @@ Weighted accuracies (mir_eval): 0.8841144862716944
 Weighted accuracies (mir_eval): 0.8399604613469045
 (RWC POP)
 Weighted accuracies (mir_eval): 0.7808939185341681
+
+
+TCN_CHORD_3sets_16-32-64l_BCE
+
+(All 3)
+Weighted accuracies (mir_eval): 0.8477795102821645
+(BEATLES)
+Weighted accuracies (mir_eval): 0.8882291433155288
+(ROBBIE WILLIAMS)
+Weighted accuracies (mir_eval): 0.8456062442527584
+(RWC POP)
+Weighted accuracies (mir_eval): 0.7777193437050317
