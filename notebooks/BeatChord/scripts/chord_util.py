@@ -161,6 +161,21 @@ def majmin_to_target(majmin):
 
     return target
 
+# FUNCTIONS FOR 1-hot encoding
+
+def target_to_one_hot(targ):
+    one_hot_target = np.zeros(13, np.float32)
+    one_hot_target[targ] = 1
+    return one_hot_target
+
+def targets_to_one_hot(targ_list):
+    one_hot_list = []
+    for _, targ in enumerate(targ_list):
+        one_hot_targ = np.array([target_to_one_hot(t) for t in targ])
+        one_hot_list.append(one_hot_targ)
+
+    return one_hot_list 
+
 # FUNCTIONS FOR MAPPING OUTPUT LABELS TO NOTES AND INTERVALS (for mir_eval evaluation)
 
 def labels_to_notataion_and_intervals(labels):
