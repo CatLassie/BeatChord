@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # TCN Chord
+# # TCN Chord BCE
 
 # In[ ]:
 
