@@ -1,22 +1,26 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red62\green62\blue62;
+}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000;\cssrgb\c30980\c30980\c30980;
+}
 \paperw11900\paperh16840\margl1440\margr1440\vieww17120\viewh13880\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 - binary cross entropy takes input [0:1] and labels class with 1 if value is above 0,5s\
 - BCE can be used with sigmoid for exmaple, but not with ReLu ( >= 0, and not [0,1])\
-- BCE can't use softmax cause cause softmax outputs sum up to 1, makes 0.5 unlikely when there are many neurons\
-- BCE is for 2 class classification (d'uh) -> 1-hot encoding needed\
-- BCEWIthLogitsLoss -> is like BCE but it applies sigmoid internally\
+- BCE can't use softmax cause cause softmax outputs sum up to 1, makes 0.5 or higher unlikely when there are many neurons\
+- BCE is for 2 class classification (d'uh) -> 1-hot encoding needed, 1 neuron for each "pair" of yes/no\
 - CE is for multiclass classification and needs raw values (and uses softmax on them internally)\
+- CE needs 1 neuron for each class\
+\
+- BCEWIthLogitsLoss -> is like BCE but it applies sigmoid internally\
 - NLLLoss is as CE, but doesnt use softax internally so needs to be applied before\
 \
 - BCEWIthLogitsLoss == BCE + Sigmoid\
 - CrossEntropyLoss == NLLLoss + Softmax (nn.LogSoftmax )\
-Note: NLLLoss means Negative Log Likelyhood Loss where NLL is -log_2(P(x)), where P(x) is the probability of an event x (same as P(X=e), where e is event that random variable X can have)\
-Note: random variable is a set of events X = \{e1, e2, e3...\}, P(X=e1) is the probability of e1\
+\
+\
 \
 FIRST IDEA:\
 - use sigmoid for all 13 chords and 1 beat\
@@ -25,11 +29,32 @@ FIRST IDEA:\
 - use 1 extra neuron for beat and 1 extra neuron for chord to encode that there are no targets (mabe set it to -1 on tragets)\
 	- or maybe set -1 on all 13 / 1 neurons when there is no target for respective task ? is it allowed ?\
 \
-\
 SECOND IDEA:\
 - dont use sigmoid for beat, just feed it into CE as is\
 	- probably wont work with 0,5 targets, targets need to be classes numbered (0 - no beat, 1 - beat)\
 \
 FIND OUT:\
 - can I use BCE with a vector of values ? (13+1 sigmoid)\
-- }
+\
+\
+\
+NOTE:\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 nn.CrossEntropyLoss() \'97\'97
+\f1 \'a1\'b7
+\f0 nn.functional.cross_entropy()\
+nn.BCEloss() \'97\'97
+\f1 \'a1\'b7
+\f0 nn.functional.binary_cross_entropy()\
+nn.BCEWithLogitsLoss() \'97\'97
+\f1 \'a1\'b7
+\f0 nn.functional.binary_cross_entropy_with_logits()\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \cb1 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 Note: NLLLoss means Negative Log Likelyhood Loss where NLL is -log_2(P(x)), where P(x) is the probability of an event x (same as P(X=e), where e is event that random variable X can have)\
+Note: random variable is a set of events X = \{e1, e2, e3...\}, P(X=e1) is the probability of e1\cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+}
