@@ -191,7 +191,7 @@ cnn_h3_size = 64
 
 # kernels
 cnn_k_1_size = 3
-cnn_k_2_size = (1, LAST_CNN_KERNEL_FREQUENCY_SIZE)
+cnn_k_2_size = (1, 2)
 cnn_padding = (1,0)
 cnn_max_pool_k_size = (1,3)
 
@@ -246,8 +246,16 @@ class TCNMTLNet(nn.Module):
             nn.Dropout2d(p = cnn_dropout_rate)
         )
         
+        self.l2b = nn.Sequential(
+            nn.Conv2d(cnn_h2_size, cnn_h3_size, cnn_k_1_size, padding=cnn_padding),
+            nn.BatchNorm2d(cnn_h3_size),
+            nn.ELU(),
+            nn.MaxPool2d(kernel_size = cnn_max_pool_k_size),
+            nn.Dropout2d(p = cnn_dropout_rate)
+        )
+        
         self.l3 = nn.Sequential(
-            nn.Conv2d(cnn_h2_size, cnn_h3_size, cnn_k_2_size),
+            nn.Conv2d(cnn_h3_size, cnn_h3_size, cnn_k_2_size),
             #nn.BatchNorm2d(cnn_h3_size),
             # NOTE: if needed try Instance normalization (InstanceNorm2d)
             nn.ELU(),
@@ -324,6 +332,7 @@ class TCNMTLNet(nn.Module):
 
         out = self.l2(out)
         # print(out.shape)
+        out = self.l2b(out)
 
         out = self.l3(out)
         # print(out.shape)
