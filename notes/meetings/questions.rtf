@@ -142,4 +142,17 @@ cause softmax is generally used with crossentropy for multiclass classification 
 
 \f1\b0 - mireval chord root something for evaluation (check bookmarked link)\
 	https://craffel.github.io/mir_eval/#mir_eval.chord.root\
-- RWC chord annotations are in bookmarked link}
+- RWC chord annotations are in bookmarked link\
+\
+\
+\
+\
+
+\f0\b 16-04-2021:\
+
+\f1\b0 - setting target to -1 and when its -1 then also set output to it ! that way the loss function thinks there is nothing to improve since output and target are the same, so it will not update\
+	- but better to just simply not calculate the loss for the -1 targets (same way as before, just skip it from the sum).\
+	- tricky thing is batching, each example in a batch would need to be examined separate if it needs to be calculated.\
+		for example: 5 out of 16 chord targets are missing, so only calculate and add up 11 (and take their mean) and do the same with beats. probably sum them and take mean ?\
+- CLEAN UP CODE AND PUT INTO TU REPO, PROGRAMMING SESSION WITH RICHARD ON FRIDAY\
+}
