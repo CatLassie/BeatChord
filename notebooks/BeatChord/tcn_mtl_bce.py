@@ -34,6 +34,7 @@ import scripts.tcn_mtl_config as tmc
 from scripts.tcn_mtl_feat import init_data
 
 from scripts.chord_util import labels_to_notataion_and_intervals
+from scripts.chord_util import targets_to_one_hot
 
 import mir_eval
 
@@ -81,8 +82,8 @@ traininig_hop_size = tmc.TRAINING_HOP_SIZE
 batch_size = tmc.BATCH_SIZE
 patience = tmc.PATIENCE
 
-beat_loss_weight = tmc.BEAT_LOSS_WEIGHT
-chord_loss_weight = tmc.CHORD_LOSS_WEIGHT
+beat_loss_weight = tmc.BEAT_BCE_LOSS_WEIGHT
+chord_loss_weight = tmc.CHORD_BCE_LOSS_WEIGHT
 
 
 # In[ ]:
@@ -113,6 +114,16 @@ if VERBOSE:
 
 # LOAD FEATURES AND ANNOTATIONS, COMPUTE TARGETS
 train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno = init_data()
+
+
+# In[ ]:
+
+
+train_c_t_1hot = targets_to_one_hot(train_c_t)
+valid_c_t_1hot = targets_to_one_hot(valid_c_t)
+test_c_t_1hot = targets_to_one_hot(test_c_t)
+
+print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
 
 
 # In[ ]:
@@ -160,10 +171,6 @@ fc_out_size = 14
 
 # kernels
 fc_k_size = 1
-
-# loss function
-chord_loss_func = nn.CrossEntropyLoss()
-chord_unseen_loss_func = nn.CrossEntropyLoss(reduction="sum")
 
 
 # In[ ]:
@@ -257,10 +264,6 @@ class TCNMTLNet(nn.Module):
         
         self.lfc = nn.Sequential(
             nn.Conv1d(fc_h_size, fc_out_size, fc_k_size),
-            # nn.Sigmoid()
-        )
-        
-        self.activationSigmoid = nn.Sequential(
             nn.Sigmoid()
         )
         
@@ -295,8 +298,6 @@ class TCNMTLNet(nn.Module):
                 
         out_beat = out[:, 13:, :]
         out_chord = out[:, :13, :]
-        
-        out_beat = self.activationSigmoid(out_beat)
         
         #print(out_beat.shape)
         #print(out_chord.shape)
@@ -362,8 +363,10 @@ class TCNMTLSet(Dataset):
         sample = self.features[idx][position : position+self.context]
         b_target = self.b_targets[idx][position : position+self.context]
         c_target = self.c_targets[idx][position : position+self.context]
+        
+        transposed_c_target = np.transpose(np.asarray(c_target))
         # convert to PyTorch tensor and return (unsqueeze is for extra dimension, asarray is cause target is scalar)
-        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(b_target)), torch.from_numpy(np.asarray(c_target))
+        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(b_target)), torch.from_numpy(transposed_c_target)
 
 
 
@@ -399,7 +402,7 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
             b_loss = F.binary_cross_entropy(b_output, b_target)
             loss = loss + (b_loss * beat_loss_weight)
         if TRAIN_ON_CHORD:
-            c_loss = chord_loss_func(c_output, c_target)
+            c_loss = F.binary_cross_entropy(c_output, c_target)
             loss = loss + (c_loss * chord_loss_weight)
         
         #print('chord loss:', chord_loss, scale_loss, loss)
@@ -448,7 +451,7 @@ def calculate_unseen_loss(model, device, unseen_loader):
                 b_unseen_loss = F.binary_cross_entropy(b_output, b_target, reduction='sum')
                 sum_unseen_loss = sum_unseen_loss + (b_unseen_loss * beat_loss_weight)
             if TRAIN_ON_CHORD:
-                c_unseen_loss = chord_unseen_loss_func(c_output, c_target)
+                c_unseen_loss = F.binary_cross_entropy(c_output, c_target)
                 sum_unseen_loss = sum_unseen_loss + (c_unseen_loss * chord_loss_weight)
                 
             unseen_loss += sum_unseen_loss.item() # sum up batch loss
@@ -509,11 +512,11 @@ def run_training():
 
     # setup our datasets for training, evaluation and testing
     kwargs = {'num_workers': 4, 'pin_memory': True} if USE_CUDA else {'num_workers': 4}
-    train_loader = torch.utils.data.DataLoader(TCNMTLSet(train_f, train_b_t, train_c_t, args.context, args.hop_size),
+    train_loader = torch.utils.data.DataLoader(TCNMTLSet(train_f, train_b_t, train_c_t_1hot, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=True, **kwargs)
-    valid_loader = torch.utils.data.DataLoader(TCNMTLSet(valid_f, valid_b_t, valid_c_t, args.context, args.hop_size),
+    valid_loader = torch.utils.data.DataLoader(TCNMTLSet(valid_f, valid_b_t, valid_c_t_1hot, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=False, **kwargs)
-    test_loader = torch.utils.data.DataLoader(TCNMTLSet(test_f, test_b_t, test_c_t, args.context, args.hop_size),
+    test_loader = torch.utils.data.DataLoader(TCNMTLSet(test_f, test_b_t, test_c_t_1hot, args.context, args.hop_size),
                                               batch_size=args.batch_size, shuffle=False, **kwargs)
 
     # main training loop
