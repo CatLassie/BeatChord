@@ -129,6 +129,52 @@ print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
 # In[ ]:
 
 
+# base approach
+'''
+total_labels = 0
+class_occurences = np.zeros(14, np.float32)
+for i, target in enumerate(train_c_t_1hot):
+    for j, frame in enumerate(target):
+        class_occurences[13] = class_occurences[13] + train_b_t[i][j]
+        for k, label in enumerate(frame):
+            class_occurences[k] = class_occurences[k] + label
+            total_labels = total_labels+1
+'''
+
+
+# In[ ]:
+
+
+#print(train_c_t_1hot[0].shape)
+#print(train_b_t[0].shape)
+
+#print(total_labels)
+#print((total_labels - class_occurences) / class_occurences)
+
+# 2nd approach
+'''
+chord_occurences = 0
+for i, c in enumerate(class_occurences):
+    if i < 13:
+        chord_occurences = chord_occurences + c
+
+weight_values = np.full(14, chord_occurences, np.float32)
+weight_values[13] = class_occurences[13]
+weight_values = (total_labels - weight_values) / weight_values
+'''
+
+# 1st approach
+#weight_values = (total_labels - class_occurences) / class_occurences
+
+#print(total_labels)
+#print(class_occurences)
+#print(chord_occurences)
+#print('loss weights:', weight_values)
+
+
+# In[ ]:
+
+
 # NETWORK PARAMETERS
 
 # CNN
@@ -296,19 +342,19 @@ class TCNMTLNet(nn.Module):
         out = self.lfc(out)
         # print(out.shape)
                 
-        out_beat = out[:, 13:, :]
-        out_chord = out[:, :13, :]
+        #out_beat = out[:, 13:, :]
+        #out_chord = out[:, :13, :]
         
         #print(out_beat.shape)
         #print(out_chord.shape)
         
-        out_beat = out_beat.squeeze(1)
+        #out_beat = out_beat.squeeze(1)
         #out_chord = out_chord.squeeze(1)
         
         #print(out_beat.shape)
         #print(out_chord.shape)
         
-        return out_beat, out_chord
+        return out
     
 
 
@@ -364,9 +410,16 @@ class TCNMTLSet(Dataset):
         b_target = self.b_targets[idx][position : position+self.context]
         c_target = self.c_targets[idx][position : position+self.context]
         
+        # probably will need to be removed when beat 2nd neuron is used
+        # also b_target will need to be transposed like chord?
+        b_target_2d = np.expand_dims(b_target, axis=0)
+
         transposed_c_target = np.transpose(np.asarray(c_target))
+
+        joint_target = np.concatenate((transposed_c_target, b_target_2d))
+
         # convert to PyTorch tensor and return (unsqueeze is for extra dimension, asarray is cause target is scalar)
-        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(b_target)), torch.from_numpy(transposed_c_target)
+        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(joint_target)
 
 
 
@@ -388,26 +441,20 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
     model.train()
     t = time.time()
     # iterate through all data using the loader
-    for batch_idx, (data, b_target, c_target) in enumerate(train_loader):
+    for batch_idx, (data, target) in enumerate(train_loader):
         # move data to device
-        data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
+        data, target = data.to(device), target.to(device)
         
         # reset optimizer (clear previous gradients)
         optimizer.zero_grad()
         # forward pass (calculate output of network for input)
-        b_output, c_output = model(data.float())
-        # calculate loss        
-        loss = 0
-        if TRAIN_ON_BEAT:
-            b_loss = F.binary_cross_entropy(b_output, b_target)
-            loss = loss + (b_loss * beat_loss_weight)
-        if TRAIN_ON_CHORD:
-            c_loss = F.binary_cross_entropy(c_output, c_target)
-            loss = loss + (c_loss * chord_loss_weight)
-        
-        #print('chord loss:', chord_loss, scale_loss, loss)
-        #raise Exception("TESTING")
-        
+        output = model(data.float())
+        #calculate weights
+        weight = torch.from_numpy(np.array([1,1,1,1,1,1,1,1,1,1,1,1,1,15], np.float32))
+        weight = weight.to(device)
+        weight = weight.unsqueeze(1)
+        # calculate loss
+        loss = F.binary_cross_entropy(output, target, weight=weight)                
         # do a backward pass (calculate gradients using automatic differentiation and backpropagation)
         loss.backward()
         # udpate parameters of network using calculated gradients
@@ -420,10 +467,8 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
                 100. * batch_idx / len(train_loader), loss.item(), time.time()-t))
             t = time.time()
 
-        # WORK IN PROGRESS: skip rest of loop
-        # print('train batch index:', batch_idx)
-        # break
-       
+
+
 def calculate_unseen_loss(model, device, unseen_loader):
     """
     Calculate loss for unseen data (validation or testing)
@@ -436,25 +481,17 @@ def calculate_unseen_loss(model, device, unseen_loader):
     # no gradient calculation    
     with torch.no_grad():
         # iterate over test data
-        for data, b_target, c_target in unseen_loader:
+        for data, target in unseen_loader:
             # move data to device
-            data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
+            data, target = data.to(device), target.to(device)
             # forward pass (calculate output of network for input)
-            b_output, c_output = model(data.float())
-            
-            # WORK IN PROGRESS: skip rest of loop
-            # continue
-            
-            # claculate loss and add it to our cumulative loss
-            sum_unseen_loss = 0
-            if TRAIN_ON_BEAT:
-                b_unseen_loss = F.binary_cross_entropy(b_output, b_target, reduction='sum')
-                sum_unseen_loss = sum_unseen_loss + (b_unseen_loss * beat_loss_weight)
-            if TRAIN_ON_CHORD:
-                c_unseen_loss = F.binary_cross_entropy(c_output, c_target)
-                sum_unseen_loss = sum_unseen_loss + (c_unseen_loss * chord_loss_weight)
-                
-            unseen_loss += sum_unseen_loss.item() # sum up batch loss
+            output = model(data.float())
+            #calculate weights
+            weight = torch.from_numpy(np.array([1,1,1,1,1,1,1,1,1,1,1,1,1,15], np.float32))
+            weight = weight.to(device)
+            weight = weight.unsqueeze(1)
+            # claculate loss and add it to our cumulative loss            
+            unseen_loss += F.binary_cross_entropy(output, target, weight=weight, reduction='sum').item() # sum up batch loss
 
     # output results of test run
     unseen_loss /= len(unseen_loader.dataset)
@@ -463,8 +500,8 @@ def calculate_unseen_loss(model, device, unseen_loader):
 
     return unseen_loss
   
-    
-    
+
+
 def predict(model, device, data, context):
     """
     Predict beat
@@ -478,7 +515,10 @@ def predict(model, device, data, context):
     data = data.to(device)
     # no gradient calculation
     with torch.no_grad():
-        output_beat, output_chord = model(data.float())
+        output = model(data.float())
+        output_beat = output[:, 13:]
+        output_chord = output[:, :13]
+        
         _, out_chord_val = torch.max(output_chord.data, 1) # 0 -> batch, 1 -> 13 output neurons, 2 -> data size
     return output_beat, out_chord_val
 
@@ -520,7 +560,7 @@ def run_training():
                                               batch_size=args.batch_size, shuffle=False, **kwargs)
 
     # main training loop
-    best_validation_loss = 9999
+    best_validation_loss = 9999999
     cur_patience = args.patience
     for epoch in range(1, args.max_epochs + 1):
         # run one epoch of NN training
@@ -673,7 +713,10 @@ if PREDICT:
     beat_picker = OnsetPeakPickingProcessor(fps=FPS, threshold=THRESHOLD, pre_avg=PRE_AVG, post_avg=POST_AVG, pre_max=PRE_MAX, post_max=POST_MAX) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
             
     for i, pred_beat in enumerate(predicted_beats):
-        picked = beat_picker(pred_beat.squeeze(0)) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
+
+        pred_beat = pred_beat.squeeze(0).squeeze(0)
+
+        picked = beat_picker(pred_beat) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
         picked_beats.append(picked)
                 
     evals = []

@@ -1,0 +1,22 @@
+(!!!BEST!!!)
+TCN_MTL_3sets_BCE_15to1
+
+Beat:
+(All 3)
+F-measure: 0.873 P-score: 0.837 Cemgil: 0.794 Goto: 0.400 CMLc: 0.315 CMLt: 0.710 AMLc: 0.332 AMLt: 0.765 D: 3.069 Dg: 1.945
+(Beatles)
+F-measure: 0.922 P-score: 0.896 Cemgil: 0.809 Goto: 0.565 CMLc: 0.417 CMLt: 0.807 AMLc: 0.419 AMLt: 0.825 D: 3.039 Dg: 1.847
+(RW)
+F-measure: 0.877 P-score: 0.838 Cemgil: 0.812 Goto: 0.333 CMLc: 0.269 CMLt: 0.677 AMLc: 0.276 AMLt: 0.699 D: 2.917 Dg: 2.056
+(RWCPop)
+F-measure: 0.784 P-score: 0.731 Cemgil: 0.756 Goto: 0.154 CMLc: 0.166 CMLt: 0.562 AMLc: 0.218 AMLt: 0.706 D: 3.226 Dg: 2.320
+
+Chord:
+(All 3)
+Weighted accuracies (mir_eval): 0.8494269177489983
+(Beatles)
+Weighted accuracies (mir_eval): 0.8929854738389651
+(RW)
+Weighted accuracies (mir_eval): 0.8466875115120702
+(RWCPop)
+Weighted accuracies (mir_eval): 0.7742582920615456
