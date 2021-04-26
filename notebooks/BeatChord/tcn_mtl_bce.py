@@ -133,25 +133,17 @@ print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
 
 total_labels = 0
 beat_occurences = 0
-class_occurences = np.zeros(14, np.float32)
+#class_occurences = np.zeros(14, np.float32)
 for i, target in enumerate(train_c_t_1hot):
     for j, frame in enumerate(target):
-        #class_occurences[13] = class_occurences[13] + train_b_t[i][j]
         total_labels = total_labels + 1
         beat_occurences = beat_occurences + train_b_t[i][j]
         #for k, label in enumerate(frame):
         #    class_occurences[k] = class_occurences[k] + label
-        #    total_labels = total_labels+1
 
 
 # In[ ]:
 
-
-#print(train_c_t_1hot[0].shape)
-#print(train_b_t[0].shape)
-
-#print(total_labels)
-#print((total_labels - class_occurences) / class_occurences)
 
 # 2nd approach
 '''
@@ -166,10 +158,10 @@ weight_values = (total_labels - weight_values) / weight_values
 '''
 
 # 1st approach
+#class_occurences[13] = beat_occurences
 #weight_values = (total_labels - class_occurences) / class_occurences
-#weight_values[13] = weight_values[13]*13
+#weight_values[13] = weight_values[13]*13 # to balance off 13vs1 neurons
 
-#print(total_labels)
 #print(class_occurences)
 #print(chord_occurences)
 #print('loss weights:', weight_values)
@@ -177,7 +169,9 @@ weight_values = (total_labels - weight_values) / weight_values
 #print(beat_occurences)
 #print(total_labels)
 beat_weight = (total_labels - beat_occurences) / beat_occurences
-print(beat_weight)
+weight_values = [1,1,1,1,1,1,1,1,1,1,1,1,1,beat_weight]
+print('beat loss weight:', beat_weight)
+#print('loss weights:', weight_values)
 
 
 # In[ ]:
@@ -458,7 +452,7 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         # forward pass (calculate output of network for input)
         output = model(data.float())
         #calculate weights
-        weight = torch.from_numpy(np.array([1,1,1,1,1,1,1,1,1,1,1,1,1,beat_weight], np.float32))
+        weight = torch.from_numpy(np.array(weight_values, np.float32))
         weight = weight.to(device)
         weight = weight.unsqueeze(1)
         # calculate loss
@@ -495,7 +489,7 @@ def calculate_unseen_loss(model, device, unseen_loader):
             # forward pass (calculate output of network for input)
             output = model(data.float())
             #calculate weights
-            weight = torch.from_numpy(np.array([1,1,1,1,1,1,1,1,1,1,1,1,1,beat_weight], np.float32))
+            weight = torch.from_numpy(np.array(weight_values, np.float32))
             weight = weight.to(device)
             weight = weight.unsqueeze(1)
             # claculate loss and add it to our cumulative loss            
