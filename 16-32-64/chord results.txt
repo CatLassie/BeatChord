@@ -20,3 +20,5 @@ Weighted accuracies (mir_eval): 0.8882291433155288
 Weighted accuracies (mir_eval): 0.8456062442527584
 (RWC POP)
 Weighted accuracies (mir_eval): 0.7777193437050317
+
+32-32-64-64 is same 84.5

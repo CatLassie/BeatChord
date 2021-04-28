@@ -24,7 +24,7 @@ CHORD_ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/da
 
 DATASET_NAME = 'end_to_end' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
 
-MODEL_NAME = 'TCN_MTL_3sets_16-32-64-64_BCE_calculated-weights' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
+MODEL_NAME = 'TCN_MTL_3sets_32-32-64-64l_BCE_calc-weights' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
@@ -106,7 +106,7 @@ CHORD_BCE_LOSS_WEIGHT = 2
 
 # value 8 is based on paper (1,8): 81 -> 79 -> 26 -> 24 -> 8 -> 1
 # value 9 is needed based on server features (1,9): 91 -> 89 -> 29 -> 27 -> 9 -> 1
-LAST_CNN_KERNEL_FREQUENCY_SIZE = 9 # 8
+LAST_CNN_KERNEL_FREQUENCY_SIZE = 2 #9 # 8
 
 ######################################################
 

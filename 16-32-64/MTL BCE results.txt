@@ -46,7 +46,6 @@ Weighted accuracies (mir_eval): 0.7407445332873832
 
 
 
-(!!!BEST!!!)
 TCN_MTL_3sets_16-32-64-64_BCE_сalculated-weights
 
 Beat:
@@ -68,3 +67,28 @@ Weighted accuracies (mir_eval): 0.8851740744542803
 Weighted accuracies (mir_eval): 0.8420372081435658
 (RWCPop)
 Weighted accuracies (mir_eval): 0.7756667692225041
+
+
+
+(!!!BEST!!!)
+TCN_MTL_3sets_32-32-64-64l_BCE_сalc-weights
+
+Beat:
+(All 3)
+F-measure: 0.884 P-score: 0.854 Cemgil: 0.799 Goto: 0.622 CMLc: 0.356 CMLt: 0.742 AMLc: 0.365 AMLt: 0.786 D: 3.073 Dg: 1.937
+(Beatles)
+F-measure: 0.925 P-score: 0.901 Cemgil: 0.802 Goto: 0.739 CMLc: 0.429 CMLt: 0.813 AMLc: 0.429 AMLt: 0.818 D: 3.031 Dg: 1.784
+(RW)
+F-measure: 0.885 P-score: 0.850 Cemgil: 0.820 Goto: 0.556 CMLc: 0.286 CMLt: 0.688 AMLc: 0.287 AMLt: 0.696 D: 2.895 Dg: 2.098
+(RWCPop)
+F-measure: 0.810 P-score: 0.775 Cemgil: 0.778 Goto: 0.462 CMLc: 0.273 CMLt: 0.652 AMLc: 0.305 AMLt: 0.792 D: 3.273 Dg: 2.359
+
+Chord:
+(All 3)
+Weighted accuracies (mir_eval): 0.8522348170465891
+(Beatles)
+Weighted accuracies (mir_eval): 0.8862162413481568
+(RW)
+Weighted accuracies (mir_eval): 0.8541976020034919
+(RWCPop)
+Weighted accuracies (mir_eval): 0.7907549844659597

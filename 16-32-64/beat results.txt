@@ -31,3 +31,7 @@ F-measure: 0.810 P-score: 0.769 Cemgil: 0.785 Goto: 0.385 CMLc: 0.361 CMLt: 0.63
 F-measure: 0.716 P-score: 0.682 Cemgil: 0.691 Goto: 0.571 CMLc: 0.429 CMLt: 0.593 AMLc: 0.472 AMLt: 0.654 D: 2.788 Dg: 2.130
 (HJDB)
 F-measure: 0.911 P-score: 0.880 Cemgil: 0.904 Goto: 0.800 CMLc: 0.690 CMLt: 0.791 AMLc: 0.707 AMLt: 0.840 D: 3.974 Dg: 3.599
+
+BEAT_3sets_16-32-64-64l is ok
+BEAT_3sets_32-32-64-64l is 82.7, much worse
+BEAT_7sets_32-32-64-64l is 88.3, goood! (hainsworth 77, rwc 84!)
