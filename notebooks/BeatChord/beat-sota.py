@@ -118,7 +118,7 @@ LAST_CNN_KERNEL_FREQUENCY_SIZE = bsc.LAST_CNN_KERNEL_FREQUENCY_SIZE
 
 # filters
 cnn_in_size = 1
-cnn_h1_size = 16
+cnn_h1_size = 32
 cnn_h2_size = 32
 cnn_h3_size = 64
 
@@ -132,7 +132,7 @@ cnn_dropout_rate = 0.1
 
 # TCN
 
-tcn_layer_num = 8 #11
+tcn_layer_num = 11 #11
 
 # filters
 tcn_h_size = 64
@@ -252,6 +252,27 @@ class BeatNet(nn.Module):
                 nn.ELU(),
                 nn.Dropout(p = tcn_dropout_rate)
         )
+
+        self.ld9 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[8], dilation=tcn_dilations[8]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld10 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[9], dilation=tcn_dilations[9]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
+        
+        self.ld11 = nn.Sequential(
+                nn.Conv1d(tcn_h_size, tcn_h_size, tcn_k_size, padding=tcn_paddings[10], dilation=tcn_dilations[10]),
+                nn.BatchNorm1d(tcn_h_size),
+                nn.ELU(),
+                nn.Dropout(p = tcn_dropout_rate)
+        )
         
         self.lfc = nn.Sequential(
             nn.Conv1d(fc_h_size, fc_out_size, fc_k_size),
@@ -283,6 +304,9 @@ class BeatNet(nn.Module):
         out = self.ld6(out)
         out = self.ld7(out)
         out = self.ld8(out)
+        out = self.ld9(out)
+        out = self.ld10(out)
+        out = self.ld11(out)
         # print(out.shape)
         
         out = self.lfc(out)
@@ -314,10 +338,10 @@ class BeatSet(Dataset):
                 self.snip_cnt.append(cur_len)
                 total_snip_cnt += cur_len
             else:
-                cur_len = 0
+                cur_len = 1
                 self.snip_cnt.append(cur_len)
                 total_snip_cnt += cur_len 
-                print("warning: skipped 1 example, shape", feat.shape[0])
+                #print("warning: skipped 1 example, shape", feat.shape[0])
 
         self.length = int(total_snip_cnt)
         super(BeatSet, self).__init__()
@@ -342,8 +366,35 @@ class BeatSet(Dataset):
 
         # get snippet and target
         
-        sample = self.features[idx][position : position+self.context]
-        target = self.targets[idx][position : position+self.context]
+        sample = None #self.features[idx][position : position+self.context] if self.features[idx].shape[0] - self.context >= 0 else self.features[idx]
+        target = None #self.targets[idx][position : position+self.context] if self.targets[idx].shape[0] - self.context >= 0 else self.targets[idx]
+
+        if self.features[idx].shape[0] - self.context >= 0:
+            sample = self.features[idx][position : position+self.context]
+        else:
+            sample = np.zeros((self.context, self.features[idx].shape[1]), np.float32)
+            start = 0
+            increment = self.features[idx].shape[0]
+            remainder = self.context
+            while remainder >= increment:
+                sample[start:start+increment] = self.features[idx]
+                start += increment
+                remainder -= increment
+            sample[start:] = self.features[idx][:remainder]
+
+        if self.targets[idx].shape[0] - self.context >= 0:
+            target = self.targets[idx][position : position+self.context]
+        else:
+            target = np.zeros(self.context, np.float32)
+            start = 0
+            increment = self.targets[idx].shape[0]
+            remainder = self.context
+            while remainder >= increment:
+                target[start:start+increment] = self.targets[idx]
+                start += increment
+                remainder -= increment
+            target[start:] = self.targets[idx][:remainder]
+
         # convert to PyTorch tensor and return (unsqueeze is for extra dimension, asarray is cause target is scalar)
         return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(target))
 

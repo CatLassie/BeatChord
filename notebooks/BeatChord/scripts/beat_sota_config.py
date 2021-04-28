@@ -23,7 +23,7 @@ ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets
 
 DATASET_NAME = 'mtl_experiments' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
 
-MODEL_NAME = 'BEAT_7sets_16-32-64-64l' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
+MODEL_NAME = 'BEAT_8kc_2kh_2b_experiment' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
@@ -81,10 +81,10 @@ LR = 0.001 # reduce by a factor of five whenever <condition from paper> is reach
 # lr = 0.01 ?
 
 # context for 1 feature (e.g. 4096 frames on either side, that would be 8193)
-FEATURE_CONTEXT = 1025 #8193 #800 #1000
-TRAINING_HOP_SIZE = 250 #512 #40 #100
+FEATURE_CONTEXT = 8193 #8193 #800 #1000
+TRAINING_HOP_SIZE = 2000 #512 #40 #100
 
-BATCH_SIZE = 16
+BATCH_SIZE = 2
 PATIENCE = 4 #9999
 
 
@@ -110,7 +110,7 @@ TRAIN_EXISTING = False
 PREDICT = True
 
 ######## 2 params are exclusive, if both set to true, FRAME_ONE_START takes precedence ########
-ZERO_PAD = True # pad short videos with zeros to match context length
+ZERO_PAD = False # pad short videos with zeros to match context length
 FRAME_ONE_START = False # pad all videos with context/2 zeros on either side to start training from frame one
 ########
 
