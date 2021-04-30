@@ -446,6 +446,7 @@ def calculate_unseen_loss(model, device, unseen_loader):
 
     # output results of test run
     unseen_loss /= len(unseen_loader.dataset)
+    unseen_loss /= feature_context
     print('Average loss: {:.4f}\n'.format(
         unseen_loss, len(unseen_loader.dataset)))
 
