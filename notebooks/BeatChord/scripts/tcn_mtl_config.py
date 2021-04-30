@@ -24,7 +24,7 @@ CHORD_ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/da
 
 DATASET_NAME = 'end_to_end' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
 
-MODEL_NAME = 'TCN_MTL_3sets_32-32-64-64l_BCE_calc-weights' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
+MODEL_NAME = 'MTL_2xBCE_3set_autoweight' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
@@ -124,7 +124,7 @@ TRAIN_ON_BEAT = True
 TRAIN_ON_CHORD = True
 
 ######## 2 params are exclusive, if both set to true, FRAME_ONE_START takes precedence ########
-ZERO_PAD = True # pad short videos with zeros to match context length
+ZERO_PAD = False # pad short videos with zeros to match context length
 FRAME_ONE_START = False # pad all videos with context/2 zeros on either side to start training from frame one
 ########
 

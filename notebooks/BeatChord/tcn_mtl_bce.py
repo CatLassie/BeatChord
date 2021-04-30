@@ -133,13 +133,13 @@ print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
 
 total_labels = 0
 beat_occurences = 0
-#class_occurences = np.zeros(14, np.float32)
+class_occurences = np.zeros(14, np.float32)
 for i, target in enumerate(train_c_t_1hot):
     for j, frame in enumerate(target):
         total_labels = total_labels + 1
         beat_occurences = beat_occurences + train_b_t[i][j]
-        #for k, label in enumerate(frame):
-        #    class_occurences[k] = class_occurences[k] + label
+        for k, label in enumerate(frame):
+            class_occurences[k] = class_occurences[k] + label
 
 
 # In[ ]:
@@ -158,8 +158,8 @@ weight_values = (total_labels - weight_values) / weight_values
 '''
 
 # 1st approach
-#class_occurences[13] = beat_occurences
-#weight_values = (total_labels - class_occurences) / class_occurences
+class_occurences[13] = beat_occurences
+weight_values = (total_labels - class_occurences) / class_occurences
 #weight_values[13] = weight_values[13]*13 # to balance off 13vs1 neurons
 
 #print(class_occurences)
@@ -168,10 +168,10 @@ weight_values = (total_labels - weight_values) / weight_values
 
 #print(beat_occurences)
 #print(total_labels)
-beat_weight = (total_labels - beat_occurences) / beat_occurences
-weight_values = [1,1,1,1,1,1,1,1,1,1,1,1,1,beat_weight]
-print('beat loss weight:', beat_weight)
-#print('loss weights:', weight_values)
+#beat_weight = (total_labels - beat_occurences) / beat_occurences
+#weight_values = [1,1,1,1,1,1,1,1,1,1,1,1,1,beat_weight]
+#print('beat loss weight:', beat_weight)
+print('loss weight vector:', weight_values)
 
 
 # In[ ]:
@@ -424,14 +424,14 @@ class TCNMTLSet(Dataset):
         
         # probably will need to be removed when beat 2nd neuron is used
         # also b_target will need to be transposed like chord?
-        b_target_2d = np.expand_dims(b_target, axis=0)
+        #b_target_2d = np.expand_dims(b_target, axis=0)
 
         transposed_c_target = np.transpose(np.asarray(c_target))
 
-        joint_target = np.concatenate((transposed_c_target, b_target_2d))
+        #joint_target = np.concatenate((transposed_c_target, b_target_2d))
 
         # convert to PyTorch tensor and return (unsqueeze is for extra dimension, asarray is cause target is scalar)
-        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(joint_target)
+        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(b_target)), torch.from_numpy(transposed_c_target)
 
 
 
@@ -453,9 +453,9 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
     model.train()
     t = time.time()
     # iterate through all data using the loader
-    for batch_idx, (data, target) in enumerate(train_loader):
+    for batch_idx, (data, b_target, c_target) in enumerate(train_loader):
         # move data to device
-        data, target = data.to(device), target.to(device)
+        data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
         
         # reset optimizer (clear previous gradients)
         optimizer.zero_grad()
@@ -466,7 +466,13 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         weight = weight.to(device)
         weight = weight.unsqueeze(1)
         # calculate loss
-        loss = F.binary_cross_entropy(output, target, weight=weight)                
+        loss = 0
+        if TRAIN_ON_BEAT:
+            b_loss = F.binary_cross_entropy(output[:, 13:].squeeze(1), b_target, weight=weight[13:].squeeze(1))
+            loss += b_loss
+        if TRAIN_ON_CHORD:
+            c_loss = F.binary_cross_entropy(output[:, :13], c_target, weight=weight[:13])
+            loss += c_loss           
         # do a backward pass (calculate gradients using automatic differentiation and backpropagation)
         loss.backward()
         # udpate parameters of network using calculated gradients
@@ -493,9 +499,9 @@ def calculate_unseen_loss(model, device, unseen_loader):
     # no gradient calculation    
     with torch.no_grad():
         # iterate over test data
-        for data, target in unseen_loader:
+        for data, b_target, c_target in unseen_loader:
             # move data to device
-            data, target = data.to(device), target.to(device)
+            data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
             # forward pass (calculate output of network for input)
             output = model(data.float())
             #calculate weights
@@ -503,7 +509,14 @@ def calculate_unseen_loss(model, device, unseen_loader):
             weight = weight.to(device)
             weight = weight.unsqueeze(1)
             # claculate loss and add it to our cumulative loss            
-            unseen_loss += F.binary_cross_entropy(output, target, weight=weight, reduction='sum').item() # sum up batch loss
+            sum_unseen_loss = 0
+            if TRAIN_ON_BEAT:
+                b_unseen_loss = F.binary_cross_entropy(output[:, 13:].squeeze(1), b_target, weight=weight[13:].squeeze(1), reduction='sum')
+                sum_unseen_loss += b_unseen_loss
+            if TRAIN_ON_CHORD:
+                c_unseen_loss = F.binary_cross_entropy(output[:, :13], c_target, weight=weight[:13], reduction='sum')
+                sum_unseen_loss += c_unseen_loss
+            unseen_loss += sum_unseen_loss.item() # sum up batch loss
 
     # output results of test run
     unseen_loss /= len(unseen_loader.dataset)
