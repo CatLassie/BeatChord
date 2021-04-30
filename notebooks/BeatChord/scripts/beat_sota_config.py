@@ -23,7 +23,7 @@ ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets
 
 DATASET_NAME = 'mtl_experiments' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
 
-MODEL_NAME = 'BEAT_2kc_500h_2b_experiment' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
+MODEL_NAME = 'BEAT_1kc_250h_16b_experiment' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
@@ -81,10 +81,10 @@ LR = 0.001 # reduce by a factor of five whenever <condition from paper> is reach
 # lr = 0.01 ?
 
 # context for 1 feature (e.g. 4096 frames on either side, that would be 8193)
-FEATURE_CONTEXT = 2049 #8193 #800 #1000
-TRAINING_HOP_SIZE = 500 #512 #40 #100
+FEATURE_CONTEXT = 1025 #8193 #800 #1000
+TRAINING_HOP_SIZE = 250 #512 #40 #100
 
-BATCH_SIZE = 2
+BATCH_SIZE = 16
 PATIENCE = 4 #9999
 
 
@@ -105,7 +105,7 @@ LAST_CNN_KERNEL_FREQUENCY_SIZE = 9 # 8
 
 ######## COMMAND LINE SUPPORT ARGUMENTS ########
 
-TRAIN = False
+TRAIN = True
 TRAIN_EXISTING = False
 PREDICT = True
 
