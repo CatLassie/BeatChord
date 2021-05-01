@@ -178,6 +178,10 @@ if TRAIN and CALCULATE_LOSS_WEIGHTS:
     #print('beat loss weight:', beat_weight)
     print('loss weight vector:', weight_values)
 
+#calculate weights
+weight = torch.from_numpy(np.array(weight_values, np.float32))
+weight = weight.to(DEVICE)
+weight = weight.unsqueeze(1)
 
 # In[ ]:
 
@@ -466,10 +470,6 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         optimizer.zero_grad()
         # forward pass (calculate output of network for input)
         output = model(data.float())
-        #calculate weights
-        weight = torch.from_numpy(np.array(weight_values, np.float32))
-        weight = weight.to(device)
-        weight = weight.unsqueeze(1)
         # calculate loss
         loss = 0
         if TRAIN_ON_BEAT:
@@ -516,10 +516,6 @@ def calculate_unseen_loss(model, device, unseen_loader):
             data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
             # forward pass (calculate output of network for input)
             output = model(data.float())
-            #calculate weights
-            weight = torch.from_numpy(np.array(weight_values, np.float32))
-            weight = weight.to(device)
-            weight = weight.unsqueeze(1)
             # claculate loss and add it to our cumulative loss            
             sum_beat_loss = 0
             sum_chord_loss = 0
