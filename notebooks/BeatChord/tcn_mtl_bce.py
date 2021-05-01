@@ -230,6 +230,12 @@ fc_out_size = 14
 # kernels
 fc_k_size = 1
 
+# loss function
+beat_loss_func = nn.BCEWithLogitsLoss(pos_weight=weight[13:].squeeze(1))
+unseen_beat_loss_func = nn.BCEWithLogitsLoss(pos_weight=weight[13:].squeeze(1), reduction="sum")
+chord_loss_func = nn.BCEWithLogitsLoss(pos_weight=weight[:13])
+unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=weight[:13], reduction="sum")
+
 
 # In[ ]:
 
@@ -330,7 +336,7 @@ class TCNMTLNet(nn.Module):
         
         self.lfc = nn.Sequential(
             nn.Conv1d(fc_h_size, fc_out_size, fc_k_size),
-            nn.Sigmoid()
+            # nn.Sigmoid()
         )
         
     def forward(self, x):
@@ -473,10 +479,10 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         # calculate loss
         loss = 0
         if TRAIN_ON_BEAT:
-            b_loss = F.binary_cross_entropy(output[:, 13:].squeeze(1), b_target, weight=weight[13:].squeeze(1))
+            b_loss = beat_loss_func(output[:, 13:].squeeze(1), b_target)
             loss += b_loss
         if TRAIN_ON_CHORD:
-            c_loss = F.binary_cross_entropy(output[:, :13], c_target, weight=weight[:13])
+            c_loss = chord_loss_func(output[:, :13], c_target)
             loss += c_loss
 
         # take average of the 2 losses
@@ -517,18 +523,16 @@ def calculate_unseen_loss(model, device, unseen_loader):
             # forward pass (calculate output of network for input)
             output = model(data.float())
             # claculate loss and add it to our cumulative loss            
-            sum_beat_loss = 0
-            sum_chord_loss = 0
+            beat_loss_value = 0
+            chord_loss_value = 0
             if TRAIN_ON_BEAT:
-                b_unseen_loss = F.binary_cross_entropy(output[:, 13:].squeeze(1), b_target, weight=weight[13:].squeeze(1), reduction='sum')
-                sum_beat_loss += b_unseen_loss
+                beat_loss_value = unseen_beat_loss_func(output[:, 13:].squeeze(1), b_target).item()
             if TRAIN_ON_CHORD:
-                c_unseen_loss = F.binary_cross_entropy(output[:, :13], c_target, weight=weight[:13], reduction='sum')
-                sum_chord_loss += c_unseen_loss
+                chord_loss_value = unseen_chord_loss_func(output[:, :13], c_target).item()
             
-            unseen_beat_loss += sum_beat_loss.item()
-            unseen_chord_loss += sum_chord_loss.item()
-            unseen_loss += (sum_beat_loss.item() + sum_chord_loss.item()) # sum up batch loss
+            unseen_beat_loss += beat_loss_value
+            unseen_chord_loss += chord_loss_value
+            unseen_loss += (beat_loss_value + chord_loss_value) # sum up batch loss
 
         # take average of the 2 losses
         loss_denominator = (2 if (TRAIN_ON_BEAT and TRAIN_ON_CHORD) else 1)
