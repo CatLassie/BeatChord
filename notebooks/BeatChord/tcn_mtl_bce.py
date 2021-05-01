@@ -98,6 +98,7 @@ TRAIN_EXISTING = tmc.TRAIN_EXISTING
 PREDICT = tmc.PREDICT
 TRAIN_ON_BEAT = tmc.TRAIN_ON_BEAT
 TRAIN_ON_CHORD = tmc.TRAIN_ON_CHORD
+CALCULATE_LOSS_WEIGHTS = tmc.CALCULATE_LOSS_WEIGHTS
 VERBOSE = tmc.VERBOSE
 
 if VERBOSE:
@@ -129,7 +130,9 @@ print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
 # In[ ]:
 
 
-if TRAIN:
+weight_values = [1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+
+if TRAIN and CALCULATE_LOSS_WEIGHTS:
     # base approach
 
     total_labels = 0
@@ -146,7 +149,7 @@ if TRAIN:
 # In[ ]:
 
 
-if TRAIN:
+if TRAIN and CALCULATE_LOSS_WEIGHTS:
     # 2nd approach
     '''
     chord_occurences = 0
@@ -474,7 +477,12 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
             loss += b_loss
         if TRAIN_ON_CHORD:
             c_loss = F.binary_cross_entropy(output[:, :13], c_target, weight=weight[:13])
-            loss += c_loss           
+            loss += c_loss
+
+        # take average of the 2 losses
+        loss_denominator = (2 if (TRAIN_ON_BEAT and TRAIN_ON_CHORD) else 1)
+        loss /= loss_denominator
+        
         # do a backward pass (calculate gradients using automatic differentiation and backpropagation)
         loss.backward()
         # udpate parameters of network using calculated gradients
@@ -498,6 +506,8 @@ def calculate_unseen_loss(model, device, unseen_loader):
     model.eval()
     # init cumulative loss
     unseen_loss = 0
+    unseen_beat_loss = 0
+    unseen_chord_loss = 0
     # no gradient calculation    
     with torch.no_grad():
         # iterate over test data
@@ -511,16 +521,32 @@ def calculate_unseen_loss(model, device, unseen_loader):
             weight = weight.to(device)
             weight = weight.unsqueeze(1)
             # claculate loss and add it to our cumulative loss            
-            sum_unseen_loss = 0
+            sum_beat_loss = 0
+            sum_chord_loss = 0
             if TRAIN_ON_BEAT:
                 b_unseen_loss = F.binary_cross_entropy(output[:, 13:].squeeze(1), b_target, weight=weight[13:].squeeze(1), reduction='sum')
-                sum_unseen_loss += b_unseen_loss
+                sum_beat_loss += b_unseen_loss
             if TRAIN_ON_CHORD:
                 c_unseen_loss = F.binary_cross_entropy(output[:, :13], c_target, weight=weight[:13], reduction='sum')
-                sum_unseen_loss += c_unseen_loss
-            unseen_loss += sum_unseen_loss.item() # sum up batch loss
+                sum_chord_loss += c_unseen_loss
+            
+            unseen_beat_loss += sum_beat_loss.item()
+            unseen_chord_loss += sum_chord_loss.item()
+            unseen_loss += (sum_beat_loss.item() + sum_chord_loss.item()) # sum up batch loss
+
+        # take average of the 2 losses
+        loss_denominator = (2 if (TRAIN_ON_BEAT and TRAIN_ON_CHORD) else 1)
+        unseen_loss /= loss_denominator
 
     # output results of test run
+    unseen_beat_loss /= len(unseen_loader.dataset)
+    print('Average beat loss: {:.4f}'.format(
+        unseen_beat_loss, len(unseen_loader.dataset)))
+
+    unseen_chord_loss /= len(unseen_loader.dataset)
+    print('Average chord loss: {:.4f}'.format(
+        unseen_chord_loss, len(unseen_loader.dataset)))
+
     unseen_loss /= len(unseen_loader.dataset)
     print('Average loss: {:.4f}\n'.format(
         unseen_loss, len(unseen_loader.dataset)))
@@ -607,10 +633,10 @@ def run_training():
         else:
             # if performance does not improve, we do not stop immediately but wait for 4 iterations (patience)
             if cur_patience <= 0:
-                print('Early stopping, no improvement for %d epochs...' % args.patience)
+                print('Early stopping, no improvement for %d epochs...\n' % args.patience)
                 break
             else:
-                print('No improvement, patience: %d' % cur_patience)
+                print('No improvement, patience: %d\n' % cur_patience)
                 cur_patience -= 1
 
     # testing on test data
