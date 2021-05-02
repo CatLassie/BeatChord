@@ -120,30 +120,30 @@ train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, v
 # In[ ]:
 
 
-train_c_t_1hot = targets_to_one_hot(train_c_t)
-valid_c_t_1hot = targets_to_one_hot(valid_c_t)
-test_c_t_1hot = targets_to_one_hot(test_c_t)
+#train_c_t_1hot = targets_to_one_hot(train_c_t)
+#valid_c_t_1hot = targets_to_one_hot(valid_c_t)
+#test_c_t_1hot = targets_to_one_hot(test_c_t)
 
-print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
+#print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
 
 
 # In[ ]:
 
 
-weight_values = [1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+weight_values = [0]
 
 if TRAIN and CALCULATE_LOSS_WEIGHTS:
     # base approach
 
     total_labels = 0
     beat_occurences = 0
-    class_occurences = np.zeros(14, np.float32)
-    for i, target in enumerate(train_c_t_1hot):
+    #class_occurences = np.zeros(14, np.float32)
+    for i, target in enumerate(train_b_t):
         for j, frame in enumerate(target):
             total_labels = total_labels + 1
             beat_occurences = beat_occurences + train_b_t[i][j]
-            for k, label in enumerate(frame):
-                class_occurences[k] = class_occurences[k] + label
+            #for k, label in enumerate(frame):
+            #    class_occurences[k] = class_occurences[k] + label
 
 
 # In[ ]:
@@ -163,8 +163,8 @@ if TRAIN and CALCULATE_LOSS_WEIGHTS:
     '''
 
     # 1st approach
-    class_occurences[13] = beat_occurences
-    weight_values = (total_labels - class_occurences) / class_occurences
+    #class_occurences[13] = beat_occurences
+    #weight_values = (total_labels - class_occurences) / class_occurences
     #weight_values[13] = weight_values[13]*13 # to balance off 13vs1 neurons
 
     #print(class_occurences)
@@ -173,15 +173,15 @@ if TRAIN and CALCULATE_LOSS_WEIGHTS:
 
     #print(beat_occurences)
     #print(total_labels)
-    #beat_weight = (total_labels - beat_occurences) / beat_occurences
-    #weight_values = [1,1,1,1,1,1,1,1,1,1,1,1,1,beat_weight]
-    #print('beat loss weight:', beat_weight)
-    print('loss weight vector:', weight_values)
+    beat_weight = (total_labels - beat_occurences) / beat_occurences
+    weight_values = [beat_weight]
+    print('beat loss weight:', beat_weight)
+    #print('loss weight vector:', weight_values)
 
 #calculate weights
 weight = torch.from_numpy(np.array(weight_values, np.float32))
 weight = weight.to(DEVICE)
-weight = weight.unsqueeze(1)
+#weight = weight.unsqueeze(1)
 
 # In[ ]:
 
@@ -231,10 +231,10 @@ fc_out_size = 14
 fc_k_size = 1
 
 # loss function
-beat_loss_func = nn.BCEWithLogitsLoss(pos_weight=weight[13:].squeeze(1))
-unseen_beat_loss_func = nn.BCEWithLogitsLoss(pos_weight=weight[13:].squeeze(1), reduction="sum")
-chord_loss_func = nn.BCEWithLogitsLoss(pos_weight=weight[:13])
-unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=weight[:13], reduction="sum")
+beat_loss_func = nn.BCEWithLogitsLoss(weight=weight) if CALCULATE_LOSS_WEIGHTS else  nn.BCEWithLogitsLoss()
+unseen_beat_loss_func = nn.BCEWithLogitsLoss(weight=weight, reduction="sum") if CALCULATE_LOSS_WEIGHTS else nn.BCEWithLogitsLoss(reduction="sum")
+chord_loss_func = nn.CrossEntropyLoss()
+unseen_chord_loss_func = nn.CrossEntropyLoss(reduction="sum")
 
 
 # In[ ]:
@@ -441,12 +441,12 @@ class TCNMTLSet(Dataset):
         # also b_target will need to be transposed like chord?
         #b_target_2d = np.expand_dims(b_target, axis=0)
 
-        transposed_c_target = np.transpose(np.asarray(c_target))
+        #transposed_c_target = np.transpose(np.asarray(c_target))
 
         #joint_target = np.concatenate((transposed_c_target, b_target_2d))
 
         # convert to PyTorch tensor and return (unsqueeze is for extra dimension, asarray is cause target is scalar)
-        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(b_target)), torch.from_numpy(transposed_c_target)
+        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(b_target)), torch.from_numpy(np.asarray(c_target))
 
 
 
@@ -479,10 +479,10 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         # calculate loss
         loss = 0
         if TRAIN_ON_BEAT:
-            b_loss = beat_loss_func(output[:, 13:].squeeze(1), b_target)
+            b_loss = beat_loss_func(output[:, 13:].squeeze(1), b_target) * beat_loss_weight
             loss += b_loss
         if TRAIN_ON_CHORD:
-            c_loss = chord_loss_func(output[:, :13], c_target)
+            c_loss = chord_loss_func(output[:, :13], c_target) * chord_loss_weight
             loss += c_loss
 
         # take average of the 2 losses
@@ -526,9 +526,9 @@ def calculate_unseen_loss(model, device, unseen_loader):
             beat_loss_value = 0
             chord_loss_value = 0
             if TRAIN_ON_BEAT:
-                beat_loss_value = unseen_beat_loss_func(output[:, 13:].squeeze(1), b_target).item()
+                beat_loss_value = unseen_beat_loss_func(output[:, 13:].squeeze(1), b_target).item() / feature_context * beat_loss_weight
             if TRAIN_ON_CHORD:
-                chord_loss_value = unseen_chord_loss_func(output[:, :13], c_target).item()
+                chord_loss_value = unseen_chord_loss_func(output[:, :13], c_target).item() / feature_context * chord_loss_weight
             
             unseen_beat_loss += beat_loss_value
             unseen_chord_loss += chord_loss_value
@@ -572,6 +572,10 @@ def predict(model, device, data, context):
         output_beat = output[:, 13:]
         output_chord = output[:, :13]
         
+        sgm = nn.Sigmoid()
+        smx = nn.Softmax(dim=1)
+        output_beat = sgm(output_beat)
+        output_chord = smx(output_chord)
         _, out_chord_val = torch.max(output_chord.data, 1) # 0 -> batch, 1 -> 13 output neurons, 2 -> data size
     return output_beat, out_chord_val
 
@@ -605,11 +609,11 @@ def run_training():
 
     # setup our datasets for training, evaluation and testing
     kwargs = {'num_workers': 4, 'pin_memory': True} if USE_CUDA else {'num_workers': 4}
-    train_loader = torch.utils.data.DataLoader(TCNMTLSet(train_f, train_b_t, train_c_t_1hot, args.context, args.hop_size),
+    train_loader = torch.utils.data.DataLoader(TCNMTLSet(train_f, train_b_t, train_c_t, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=True, **kwargs)
-    valid_loader = torch.utils.data.DataLoader(TCNMTLSet(valid_f, valid_b_t, valid_c_t_1hot, args.context, args.hop_size),
+    valid_loader = torch.utils.data.DataLoader(TCNMTLSet(valid_f, valid_b_t, valid_c_t, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=False, **kwargs)
-    test_loader = torch.utils.data.DataLoader(TCNMTLSet(test_f, test_b_t, test_c_t_1hot, args.context, args.hop_size),
+    test_loader = torch.utils.data.DataLoader(TCNMTLSet(test_f, test_b_t, test_c_t, args.context, args.hop_size),
                                               batch_size=args.batch_size, shuffle=False, **kwargs)
 
     # main training loop
