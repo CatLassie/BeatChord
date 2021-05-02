@@ -131,6 +131,7 @@ print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
 
 # base approach
 
+'''
 total_labels = 0
 beat_occurences = 0
 #class_occurences = np.zeros(14, np.float32)
@@ -140,6 +141,7 @@ for i, target in enumerate(train_c_t_1hot):
         beat_occurences = beat_occurences + train_b_t[i][j]
         #for k, label in enumerate(frame):
         #    class_occurences[k] = class_occurences[k] + label
+'''
 
 
 # In[ ]:
@@ -168,10 +170,17 @@ weight_values = (total_labels - weight_values) / weight_values
 
 #print(beat_occurences)
 #print(total_labels)
+'''
 beat_weight = (total_labels - beat_occurences) / beat_occurences
 weight_values = [1,1,1,1,1,1,1,1,1,1,1,1,1,beat_weight]
 print('beat loss weight:', beat_weight)
 #print('loss weights:', weight_values)
+
+#calculate weights
+pos_weight = torch.from_numpy(np.array(weight_values))
+pos_weight = pos_weight.to(DEVICE)
+pos_weight = pos_weight.unsqueeze(1)
+'''
 
 
 # In[ ]:
@@ -220,6 +229,19 @@ fc_out_size = 14
 
 # kernels
 fc_k_size = 1
+
+# loss functions
+class_weight = np.full(14, chord_loss_weight, np.float32)
+class_weight[13] = beat_loss_weight
+
+print('loss weights:', class_weight)
+
+class_weight = torch.from_numpy(class_weight)
+class_weight = class_weight.to(DEVICE)
+class_weight = class_weight.unsqueeze(1)
+
+loss_func = nn.BCEWithLogitsLoss(weight=class_weight)
+unseen_loss_func = nn.BCEWithLogitsLoss(weight=class_weight, reduction="sum")
 
 
 # In[ ]:
@@ -321,7 +343,7 @@ class TCNMTLNet(nn.Module):
         
         self.lfc = nn.Sequential(
             nn.Conv1d(fc_h_size, fc_out_size, fc_k_size),
-            nn.Sigmoid()
+            #nn.Sigmoid()
         )
         
     def forward(self, x):
@@ -461,12 +483,8 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         optimizer.zero_grad()
         # forward pass (calculate output of network for input)
         output = model(data.float())
-        #calculate weights
-        weight = torch.from_numpy(np.array(weight_values, np.float32))
-        weight = weight.to(device)
-        weight = weight.unsqueeze(1)
         # calculate loss
-        loss = F.binary_cross_entropy(output, target, weight=weight)                
+        loss = loss_func(output, target)                
         # do a backward pass (calculate gradients using automatic differentiation and backpropagation)
         loss.backward()
         # udpate parameters of network using calculated gradients
@@ -498,12 +516,8 @@ def calculate_unseen_loss(model, device, unseen_loader):
             data, target = data.to(device), target.to(device)
             # forward pass (calculate output of network for input)
             output = model(data.float())
-            #calculate weights
-            weight = torch.from_numpy(np.array(weight_values, np.float32))
-            weight = weight.to(device)
-            weight = weight.unsqueeze(1)
             # claculate loss and add it to our cumulative loss            
-            unseen_loss += F.binary_cross_entropy(output, target, weight=weight, reduction='sum').item() # sum up batch loss
+            unseen_loss += unseen_loss_func(output, target).item() # sum up batch loss
 
     # output results of test run
     unseen_loss /= len(unseen_loader.dataset)
@@ -528,6 +542,11 @@ def predict(model, device, data, context):
     # no gradient calculation
     with torch.no_grad():
         output = model(data.float())
+
+        sgm = nn.Sigmoid()
+        #smx = nn.Softmax(dim=1)
+        output = sgm(output)
+
         output_beat = output[:, 13:]
         output_chord = output[:, :13]
         
