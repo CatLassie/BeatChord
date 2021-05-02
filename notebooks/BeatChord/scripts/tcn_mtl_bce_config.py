@@ -121,7 +121,7 @@ TRAIN_ON_BEAT = True
 TRAIN_ON_CHORD = True
 
 ######## 2 params are exclusive, if both set to true, FRAME_ONE_START takes precedence ########
-ZERO_PAD = True # pad short videos with zeros to match context length
+ZERO_PAD = False # pad short videos with zeros to match context length
 FRAME_ONE_START = False # pad all videos with context/2 zeros on either side to start training from frame one
 ########
 
