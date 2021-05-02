@@ -240,8 +240,10 @@ class_weight = torch.from_numpy(class_weight)
 class_weight = class_weight.to(DEVICE)
 class_weight = class_weight.unsqueeze(1)
 
-loss_func = nn.BCEWithLogitsLoss(weight=class_weight)
-unseen_loss_func = nn.BCEWithLogitsLoss(weight=class_weight, reduction="sum")
+beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1))
+unseen_beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1), reduction="sum")
+chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13])
+unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13], reduction="sum")
 
 
 # In[ ]:
@@ -446,14 +448,14 @@ class TCNMTLSet(Dataset):
         
         # probably will need to be removed when beat 2nd neuron is used
         # also b_target will need to be transposed like chord?
-        b_target_2d = np.expand_dims(b_target, axis=0)
+        #b_target_2d = np.expand_dims(b_target, axis=0)
 
         transposed_c_target = np.transpose(np.asarray(c_target))
 
-        joint_target = np.concatenate((transposed_c_target, b_target_2d))
+        #joint_target = np.concatenate((transposed_c_target, b_target_2d))
 
         # convert to PyTorch tensor and return (unsqueeze is for extra dimension, asarray is cause target is scalar)
-        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(joint_target)
+        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(b_target)), torch.from_numpy(transposed_c_target)
 
 
 
@@ -475,16 +477,23 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
     model.train()
     t = time.time()
     # iterate through all data using the loader
-    for batch_idx, (data, target) in enumerate(train_loader):
+    for batch_idx, (data, b_target, c_target) in enumerate(train_loader):
         # move data to device
-        data, target = data.to(device), target.to(device)
+        data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
         
         # reset optimizer (clear previous gradients)
         optimizer.zero_grad()
         # forward pass (calculate output of network for input)
         output = model(data.float())
+        b_output, c_output = output[:, 13:].squeeze(1), output[:, :13]
         # calculate loss
-        loss = loss_func(output, target)                
+        loss = 0
+        if TRAIN_ON_BEAT:
+            b_loss = beat_loss_func(b_output, b_target)
+            loss = loss + b_loss
+        if TRAIN_ON_CHORD:
+            c_loss = chord_loss_func(c_output, c_target)
+            loss = loss + c_loss            
         # do a backward pass (calculate gradients using automatic differentiation and backpropagation)
         loss.backward()
         # udpate parameters of network using calculated gradients
@@ -511,13 +520,22 @@ def calculate_unseen_loss(model, device, unseen_loader):
     # no gradient calculation    
     with torch.no_grad():
         # iterate over test data
-        for data, target in unseen_loader:
+        for data, b_target, c_target in unseen_loader:
             # move data to device
-            data, target = data.to(device), target.to(device)
+            data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
             # forward pass (calculate output of network for input)
             output = model(data.float())
-            # claculate loss and add it to our cumulative loss            
-            unseen_loss += unseen_loss_func(output, target).item() # sum up batch loss
+            b_output, c_output = output[:, 13:].squeeze(1), output[:, :13]
+            # claculate loss and add it to our cumulative loss
+            sum_unseen_loss = 0
+            if TRAIN_ON_BEAT:
+                b_unseen_loss = unseen_beat_loss_func(b_output, b_target)
+                sum_unseen_loss = sum_unseen_loss + b_unseen_loss
+            if TRAIN_ON_CHORD:
+                c_unseen_loss = unseen_chord_loss_func(c_output, c_target)
+                sum_unseen_loss = sum_unseen_loss + c_unseen_loss
+                
+            unseen_loss += sum_unseen_loss.item() # sum up batch loss
 
     # output results of test run
     unseen_loss /= len(unseen_loader.dataset)
