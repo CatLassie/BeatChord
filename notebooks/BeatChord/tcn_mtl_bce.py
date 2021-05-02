@@ -28,10 +28,10 @@ import torch.optim as optim
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 # configurations
-import scripts.tcn_mtl_config as tmc
+import scripts.tcn_mtl_bce_config as tmc
 
 # feature, target, annotation initializer
-from scripts.tcn_mtl_feat import init_data
+from scripts.tcn_mtl_bce_feat import init_data
 
 from scripts.chord_util import labels_to_notataion_and_intervals
 from scripts.chord_util import targets_to_one_hot
