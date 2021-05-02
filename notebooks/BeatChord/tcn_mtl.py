@@ -163,6 +163,15 @@ fc_out_size = 14
 fc_k_size = 1
 
 # loss function
+print('loss weights:', beat_loss_weight, chord_loss_weight)
+class_weight = np.asarray([beat_loss_weight])
+
+class_weight = torch.from_numpy(class_weight)
+class_weight = class_weight.to(DEVICE)
+class_weight = class_weight.unsqueeze(1)
+
+beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight)
+beat_unseen_loss_func = nn.BCEWithLogitsLoss(weight=class_weight, reduction="sum")
 chord_loss_func = nn.CrossEntropyLoss()
 chord_unseen_loss_func = nn.CrossEntropyLoss(reduction="sum")
 
@@ -269,10 +278,6 @@ class TCNMTLNet(nn.Module):
             # nn.Sigmoid()
         )
         
-        self.activationSigmoid = nn.Sequential(
-            nn.Sigmoid()
-        )
-        
     def forward(self, x):
 
         # print(x.shape)
@@ -305,8 +310,6 @@ class TCNMTLNet(nn.Module):
                 
         out_beat = out[:, 13:, :]
         out_chord = out[:, :13, :]
-        
-        out_beat = self.activationSigmoid(out_beat)
         
         #print(out_beat.shape)
         #print(out_chord.shape)
@@ -406,8 +409,8 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         # calculate loss        
         loss = 0
         if TRAIN_ON_BEAT:
-            b_loss = F.binary_cross_entropy(b_output, b_target)
-            loss = loss + (b_loss * beat_loss_weight)
+            b_loss = beat_loss_func(b_output, b_target)
+            loss = loss + b_loss
         if TRAIN_ON_CHORD:
             c_loss = chord_loss_func(c_output, c_target)
             loss = loss + (c_loss * chord_loss_weight)
@@ -455,8 +458,8 @@ def calculate_unseen_loss(model, device, unseen_loader):
             # claculate loss and add it to our cumulative loss
             sum_unseen_loss = 0
             if TRAIN_ON_BEAT:
-                b_unseen_loss = F.binary_cross_entropy(b_output, b_target, reduction='sum')
-                sum_unseen_loss = sum_unseen_loss + (b_unseen_loss * beat_loss_weight)
+                b_unseen_loss = beat_unseen_loss_func(b_output, b_target)
+                sum_unseen_loss = sum_unseen_loss + b_unseen_loss
             if TRAIN_ON_CHORD:
                 c_unseen_loss = chord_unseen_loss_func(c_output, c_target)
                 sum_unseen_loss = sum_unseen_loss + (c_unseen_loss * chord_loss_weight)
@@ -486,6 +489,9 @@ def predict(model, device, data, context):
     # no gradient calculation
     with torch.no_grad():
         output_beat, output_chord = model(data.float())
+
+        sgm = nn.Sigmoid()
+        output_beat = sgm(output_beat)
         _, out_chord_val = torch.max(output_chord.data, 1) # 0 -> batch, 1 -> 13 output neurons, 2 -> data size
     return output_beat, out_chord_val
 
