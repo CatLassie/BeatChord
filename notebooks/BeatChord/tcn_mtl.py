@@ -126,9 +126,10 @@ LAST_CNN_KERNEL_FREQUENCY_SIZE = tmc.LAST_CNN_KERNEL_FREQUENCY_SIZE
 
 # filters
 cnn_in_size = 1
-cnn_h1_size = 16
+cnn_h1_size = 32
 cnn_h2_size = 32
 cnn_h3_size = 64
+cnn_h4_size = 64
 
 # kernels
 cnn_k_1_size = 3
@@ -190,9 +191,17 @@ class TCNMTLNet(nn.Module):
             nn.MaxPool2d(kernel_size = cnn_max_pool_k_size),
             nn.Dropout2d(p = cnn_dropout_rate)
         )
-        
+
         self.l3 = nn.Sequential(
-            nn.Conv2d(cnn_h2_size, cnn_h3_size, cnn_k_2_size),
+            nn.Conv2d(cnn_h2_size, cnn_h3_size, cnn_k_1_size, padding=cnn_padding),
+            nn.BatchNorm2d(cnn_h3_size),
+            nn.ELU(),
+            nn.MaxPool2d(kernel_size = cnn_max_pool_k_size),
+            nn.Dropout2d(p = cnn_dropout_rate)
+        )
+        
+        self.l4 = nn.Sequential(
+            nn.Conv2d(cnn_h3_size, cnn_h4_size, cnn_k_2_size),
             #nn.BatchNorm2d(cnn_h3_size),
             # NOTE: if needed try Instance normalization (InstanceNorm2d)
             nn.ELU(),
@@ -276,6 +285,7 @@ class TCNMTLNet(nn.Module):
 
         out = self.l3(out)
         # print(out.shape)
+        out = self.l4(out)
         
         out.squeeze_(-1)
         # print(out.shape)

@@ -24,7 +24,7 @@ CHORD_ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/da
 
 DATASET_NAME = 'end_to_end' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
 
-MODEL_NAME = 'TCN_MTL_3sets_32-32-64-64l_BCE_calc-weights' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
+MODEL_NAME = 'TCN_MTL_experiment' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
