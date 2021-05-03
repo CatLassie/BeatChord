@@ -800,9 +800,10 @@ if PREDICT:
                 
     evals = []
     for i, beat in enumerate(picked_beats):
-        e = madmom.evaluation.beats.BeatEvaluation(beat, test_b_anno[i])
-        evals.append(e)
+        if test_b_anno[i] is not None:
+            e = madmom.evaluation.beats.BeatEvaluation(beat, test_b_anno[i])
+            evals.append(e)
         
-    mean_eval = madmom.evaluation.beats.BeatMeanEvaluation(evals)
+    mean_eval = madmom.evaluation.beats.BeatMeanEvaluation(evals) if len(evals) > 0 else 'no annotations provided!'
     print(mean_eval)
 
