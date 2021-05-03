@@ -489,11 +489,27 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         # calculate loss
         loss = 0
         if TRAIN_ON_BEAT:
-            b_loss = beat_loss_func(b_output, b_target)
-            loss = loss + b_loss
+            # b_target[2] = torch.from_numpy(np.full(1025, -1, np.float32)) # for testing mask
+            mask = [(t[0].item() >= 0) for t in b_target]
+            b_output = b_output[mask]
+            b_target = b_target[mask]
+
+            b_zip = zip(b_output, b_target)
+            b_list = list(b_zip)
+            b_loss_arr = [beat_loss_func(el[0], el[1]) for el in b_list]
+            b_loss_mean = sum(b_loss_arr) / batch_size
+            loss = loss + b_loss_mean
         if TRAIN_ON_CHORD:
-            c_loss = chord_loss_func(c_output, c_target)
-            loss = loss + c_loss            
+            # c_target[2][0] = torch.from_numpy(np.full(1025, -1, np.float32)) # for testing mask
+            mask = [(t[0][0].item() >= 0) for t in c_target]
+            c_output = c_output[mask]
+            c_target = c_target[mask]
+
+            c_zip = zip(c_output, c_target)
+            c_list = list(c_zip)
+            c_loss_arr = [chord_loss_func(el[0], el[1]) for el in c_list]
+            c_loss_mean = sum(c_loss_arr) / batch_size
+            loss = loss + c_loss_mean         
         # do a backward pass (calculate gradients using automatic differentiation and backpropagation)
         loss.backward()
         # udpate parameters of network using calculated gradients
