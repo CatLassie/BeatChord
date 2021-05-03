@@ -120,7 +120,7 @@ LAST_CNN_KERNEL_FREQUENCY_SIZE = tcnc.LAST_CNN_KERNEL_FREQUENCY_SIZE
 
 # filters
 cnn_in_size = 1
-cnn_h1_size = 16
+cnn_h1_size = 32
 cnn_h2_size = 32
 cnn_h3_size = 64
 
