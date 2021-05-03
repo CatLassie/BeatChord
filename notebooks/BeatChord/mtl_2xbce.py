@@ -557,11 +557,30 @@ def calculate_unseen_loss(model, device, unseen_loader):
             # claculate loss and add it to our cumulative loss
             sum_unseen_loss = 0
             if TRAIN_ON_BEAT:
-                b_unseen_loss = unseen_beat_loss_func(b_output, b_target)
-                sum_unseen_loss = sum_unseen_loss + b_unseen_loss
+                #b_unseen_loss = unseen_beat_loss_func(b_output, b_target)
+                #sum_unseen_loss = sum_unseen_loss + b_unseen_loss
+                mask = [(t[0].item() >= 0) for t in b_target]
+                b_output = b_output[mask]
+                b_target = b_target[mask]
+
+                b_zip = zip(b_output, b_target)
+                b_list = list(b_zip)
+                b_loss_arr = [beat_loss_func(el[0], el[1]) for el in b_list]
+                b_loss_sum = sum(b_loss_arr)
+                sum_unseen_loss = sum_unseen_loss + b_loss_sum
+
             if TRAIN_ON_CHORD:
-                c_unseen_loss = unseen_chord_loss_func(c_output, c_target)
-                sum_unseen_loss = sum_unseen_loss + c_unseen_loss
+                #c_unseen_loss = unseen_chord_loss_func(c_output, c_target)
+                #sum_unseen_loss = sum_unseen_loss + c_unseen_loss
+                mask = [(t[0][0].item() >= 0) for t in c_target]
+                c_output = c_output[mask]
+                c_target = c_target[mask]
+
+                c_zip = zip(c_output, c_target)
+                c_list = list(c_zip)
+                c_loss_arr = [chord_loss_func(el[0], el[1]) for el in c_list]
+                c_loss_sum = sum(c_loss_arr)
+                sum_unseen_loss = sum_unseen_loss + c_loss_sum
                 
             unseen_loss += sum_unseen_loss.item() # sum up batch loss
 
