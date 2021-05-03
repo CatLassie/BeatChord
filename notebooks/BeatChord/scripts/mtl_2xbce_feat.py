@@ -119,6 +119,13 @@ def compute_beat_target(times, num_frames):
     return target
 
 def init_beat_targets(annos, feats):
+    if annos == None:
+        dummy_targs = []
+        for _, feat in enumerate(feats):
+            targ = np.full(len(feat), -1, np.float32)
+            dummy_targs.append(targ)
+        return dummy_targs
+
     targs = []
     for anno, feat in zip(annos, feats):
         targ = compute_beat_target(anno, len(feat)) # time axis for length!
@@ -161,7 +168,7 @@ def init_chord_targets(annos, feats):
 # LOAD FEATURES AND ANNOTATIONS, COMPUTE TARGETS
 def init_feats_annos_targets(feat_path_root, beat_anno_path_root, chord_anno_path_root):
     feat_paths = search_files(feat_path_root, FEATURE_EXT)
-    beat_anno_paths = search_files(beat_anno_path_root, BEAT_ANNOTATION_EXT)
+    beat_anno_paths = search_files(beat_anno_path_root, BEAT_ANNOTATION_EXT) if beat_anno_path_root is not None else None
 
     features = [np.load(p) for p in feat_paths]
     # librosa has time in rows, madmom is transposed! now first index is time as in madmom!
@@ -171,15 +178,19 @@ def init_feats_annos_targets(feat_path_root, beat_anno_path_root, chord_anno_pat
     if FILTER_FEATURES:
         features = [f[:, LOWER_FILTER_IDX : UPPER_FILTER_IDX] for f in features]
 
-    b_annotations = [madmom.io.load_beats(p) for p in beat_anno_paths]
+    b_annotations = [madmom.io.load_beats(p) for p in beat_anno_paths] if beat_anno_paths is not None else None
     b_targets = init_beat_targets(b_annotations, features)
-    c_annotations = parse_annotations(chord_anno_path_root, CHORD_ANNOTATION_EXT, MAJMIN, DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS);
+    if b_annotations == None:
+        b_annotations = [None for f in features]
+
+    c_annotations = parse_annotations(chord_anno_path_root, CHORD_ANNOTATION_EXT, MAJMIN, DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS) if chord_anno_path_root is not None else None
     c_targets = init_chord_targets(c_annotations, features)
     if c_annotations == None:
         c_annotations = [None for f in features]
 
     assert len(features) == len(b_targets)
     assert len(features) == len(c_targets)
+    assert len(features) == len(b_annotations)
     assert len(features) == len(c_annotations)
     return features, b_annotations, b_targets, c_annotations, c_targets
 
@@ -282,7 +293,7 @@ def init_data():
 
     if VERBOSE:
         print(data_length, 'feature spectrogram files loaded, with example shape:', datasets[idx][0][0].shape)
-        print(data_length, 'beat feature annotation files loaded, with example shape:', datasets[idx][1][0].shape)
+        print(data_length, 'beat feature annotation files loaded, with example shape:', datasets[idx][1][0].shape if datasets[idx][1][0] is not None else datasets[idx][1][0])
         print(data_length, 'beat targets computed, with example shape:', datasets[idx][2][0].shape)
         print(data_length, 'chord feature annotation files loaded, with example shape:', datasets[idx][3][0].shape if datasets[idx][3][0] is not None else datasets[idx][3][0])
         print(data_length, 'chord targets computed, with example shape:', datasets[idx][4][0].shape)
