@@ -33,6 +33,9 @@ labels_to_letters = {
 }
 
 def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_chords_and_chord_configs = False):
+    if anno_path_root == None:
+        return None
+
     anno_paths = search_files(anno_path_root, anno_ext)
     annotations = [load_chords(p) for p in anno_paths]
 
@@ -164,6 +167,10 @@ def majmin_to_target(majmin):
 # FUNCTIONS FOR 1-hot encoding
 
 def target_to_one_hot(targ):
+    if targ == -1:
+        dummy_one_hot_target = np.full(13, -1, np.float32)
+        return dummy_one_hot_target
+
     one_hot_target = np.zeros(13, np.float32)
     one_hot_target[targ] = 1
     return one_hot_target

@@ -141,6 +141,13 @@ def compute_chord_target(time_labels, num_frames):
     return target
 
 def init_chord_targets(annos, feats):
+    if annos == None:
+        dummy_targs = []
+        for _, feat in enumerate(feats):
+            targ = np.full(len(feat), -1, np.int64)
+            dummy_targs.append(targ)
+        return dummy_targs
+
     targs = []
     for anno, feat in zip(annos, feats):
         targ = compute_chord_target(anno, len(feat)) # time axis for length!
@@ -168,9 +175,12 @@ def init_feats_annos_targets(feat_path_root, beat_anno_path_root, chord_anno_pat
     b_targets = init_beat_targets(b_annotations, features)
     c_annotations = parse_annotations(chord_anno_path_root, CHORD_ANNOTATION_EXT, MAJMIN, DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS);
     c_targets = init_chord_targets(c_annotations, features)
+    if c_annotations == None:
+        c_annotations = [None for f in features]
 
     assert len(features) == len(b_targets)
     assert len(features) == len(c_targets)
+    assert len(features) == len(c_annotations)
     return features, b_annotations, b_targets, c_annotations, c_targets
 
 def shuffle_data(features, b_annotations, b_targets, c_annotations, c_targets):
@@ -274,7 +284,7 @@ def init_data():
         print(data_length, 'feature spectrogram files loaded, with example shape:', datasets[idx][0][0].shape)
         print(data_length, 'beat feature annotation files loaded, with example shape:', datasets[idx][1][0].shape)
         print(data_length, 'beat targets computed, with example shape:', datasets[idx][2][0].shape)
-        print(data_length, 'chord feature annotation files loaded, with example shape:', datasets[idx][3][0].shape)
+        print(data_length, 'chord feature annotation files loaded, with example shape:', datasets[idx][3][0].shape if datasets[idx][3][0] is not None else datasets[idx][3][0])
         print(data_length, 'chord targets computed, with example shape:', datasets[idx][4][0].shape)
         print(len(train_f), 'training features', len(valid_f), 'validation features and', len(test_f), 'test features')
         
