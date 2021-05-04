@@ -96,6 +96,7 @@ chord_loss_weight = tmc.CHORD_BCE_LOSS_WEIGHT
 TRAIN = tmc.TRAIN
 TRAIN_EXISTING = tmc.TRAIN_EXISTING
 PREDICT = tmc.PREDICT
+PREDICT_PER_DATASET = tmc.PREDICT_PER_DATASET
 TRAIN_ON_BEAT = tmc.TRAIN_ON_BEAT
 TRAIN_ON_CHORD = tmc.TRAIN_ON_CHORD
 VERBOSE = tmc.VERBOSE
@@ -105,6 +106,7 @@ if VERBOSE:
     print('Train:', TRAIN)
     print('Train existing model:', TRAIN_EXISTING)
     print('Predict', PREDICT)
+    print('Predict per dataset', PREDICT_PER_DATASET)
     print('Training on beat data:', TRAIN_ON_BEAT, ', training on chord data:', TRAIN_ON_CHORD)
     print('\nSelected model:', MODEL_NAME)
     # print('Command line arguments:\n\n', args, '\n')
@@ -114,7 +116,7 @@ if VERBOSE:
 
 
 # LOAD FEATURES AND ANNOTATIONS, COMPUTE TARGETS
-train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno = init_data()
+train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = init_data()
 
 
 # In[ ]:

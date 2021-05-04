@@ -239,6 +239,9 @@ def init_data():
     test_c_t = []
     test_c_anno = []
 
+    # for holding test data (set name, faet, targs, annos) by dataset 
+    test_per_dataset = []
+
     data_length = 0
 
     # init features, annotations and targets
@@ -246,6 +249,7 @@ def init_data():
     datasets = []
     for idx, _ in enumerate(FEATURE_PATH):
         datasets.append(list(init_feats_annos_targets(FEATURE_PATH[idx], BEAT_ANNOTATION_PATH[idx], CHORD_ANNOTATION_PATH[idx])))
+        test_per_dataset.append({'path': FEATURE_PATH[idx]})
 
     for idx, _ in enumerate(datasets):
 
@@ -297,6 +301,12 @@ def init_data():
 
         data_length = data_length + len(datasets[idx][0])
 
+        test_per_dataset[idx]['feat'] = datasets[idx][0][second_idx :]
+        test_per_dataset[idx]['b_targ'] = datasets[idx][2][second_idx :]
+        test_per_dataset[idx]['b_anno'] = datasets[idx][1][second_idx :]
+        test_per_dataset[idx]['c_targ'] = datasets[idx][4][second_idx :]
+        test_per_dataset[idx]['c_anno'] = datasets[idx][3][second_idx :]
+
     if VERBOSE:
         print(data_length, 'feature spectrogram files loaded, with example shape:', datasets[idx][0][0].shape)
         print(data_length, 'beat feature annotation files loaded, with example shape:', datasets[idx][1][0].shape if datasets[idx][1][0] is not None else datasets[idx][1][0])
@@ -305,4 +315,4 @@ def init_data():
         print(data_length, 'chord targets computed, with example shape:', datasets[idx][4][0].shape)
         print(len(train_f), 'training features', len(valid_f), 'validation features and', len(test_f), 'test features')
         
-    return train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno
+    return train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset
