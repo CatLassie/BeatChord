@@ -123,7 +123,8 @@ train_c_t_1hot = targets_to_one_hot(train_c_t)
 valid_c_t_1hot = targets_to_one_hot(valid_c_t)
 test_c_t_1hot = targets_to_one_hot(test_c_t)
 
-print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
+if VERBOSE:
+    print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
 
 
 # In[ ]:

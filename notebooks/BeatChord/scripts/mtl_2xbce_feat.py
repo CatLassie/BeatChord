@@ -216,6 +216,12 @@ def shuffle_data(features, b_annotations, b_targets, c_annotations, c_targets):
 
 # MAIN FUNCTION
 def init_data():
+    if VERBOSE:
+        print('\nBeat datasets selected:')
+        [print(i+1, ':', p) for i, p in enumerate(BEAT_ANNOTATION_PATH)]
+        print('\nChord datasets selected:')
+        [print(i+1, ':', p) for i, p in enumerate(CHORD_ANNOTATION_PATH)]
+        print('\n')
 
     train_f = []
     train_b_t = []
