@@ -121,6 +121,7 @@ TRAIN = False
 TRAIN_EXISTING = False
 PREDICT = True
 PREDICT_PER_DATASET = True
+PREDICT_UNSEEN = True # predict complete unseen dataset, no splits
 
 TRAIN_ON_BEAT = True
 TRAIN_ON_CHORD = True

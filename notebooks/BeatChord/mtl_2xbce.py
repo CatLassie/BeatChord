@@ -97,6 +97,7 @@ TRAIN = tmc.TRAIN
 TRAIN_EXISTING = tmc.TRAIN_EXISTING
 PREDICT = tmc.PREDICT
 PREDICT_PER_DATASET = tmc.PREDICT_PER_DATASET
+PREDICT_UNSEEN = tmc.PREDICT_UNSEEN
 TRAIN_ON_BEAT = tmc.TRAIN_ON_BEAT
 TRAIN_ON_CHORD = tmc.TRAIN_ON_CHORD
 VERBOSE = tmc.VERBOSE
@@ -736,11 +737,11 @@ def run_prediction(test_features):
 # In[ ]:
 
 
-if PREDICT:
+def evaluate(feats, c_targs, b_annos):
     # predict beats and chords
     if VERBOSE:
         print('predicting...')
-    predicted_beats, predicted_chords = run_prediction(test_f) #[test_t[0], test_t[1]]
+    predicted_beats, predicted_chords = run_prediction(feats) #[test_t[0], test_t[1]]
                     
     # evaluate results
     if VERBOSE:
@@ -759,21 +760,21 @@ if PREDICT:
     
     for i, pred_chord in enumerate(predicted_chords):        
         
-        if test_c_t[i][0] != -1:
+        if c_targs[i][0] != -1:
 
             pred_chord = pred_chord.squeeze(0) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
             
-            chord_p_scores_mic.append(precision_score(test_c_t[i], pred_chord, average='micro'))
-            chord_r_scores_mic.append(recall_score(test_c_t[i], pred_chord, average='micro'))
-            chord_f1_scores_mic.append(f1_score(test_c_t[i], pred_chord, average='micro'))
+            chord_p_scores_mic.append(precision_score(c_targs[i], pred_chord, average='micro'))
+            chord_r_scores_mic.append(recall_score(c_targs[i], pred_chord, average='micro'))
+            chord_f1_scores_mic.append(f1_score(c_targs[i], pred_chord, average='micro'))
 
-            chord_p_scores_w.append(precision_score(test_c_t[i], pred_chord, average='weighted'))
-            chord_r_scores_w.append(recall_score(test_c_t[i], pred_chord, average='weighted'))
-            chord_f1_scores_w.append(f1_score(test_c_t[i], pred_chord, average='weighted'))
+            chord_p_scores_w.append(precision_score(c_targs[i], pred_chord, average='weighted'))
+            chord_r_scores_w.append(recall_score(c_targs[i], pred_chord, average='weighted'))
+            chord_f1_scores_w.append(f1_score(c_targs[i], pred_chord, average='weighted'))
             
             # mir_eval score (weighted accuracy)
 
-            ref_labels, ref_intervals = labels_to_notataion_and_intervals(test_c_t[i])
+            ref_labels, ref_intervals = labels_to_notataion_and_intervals(c_targs[i])
             est_labels, est_intervals = labels_to_notataion_and_intervals(pred_chord)
 
             est_intervals, est_labels = mir_eval.util.adjust_intervals(
@@ -823,10 +824,18 @@ if PREDICT:
                 
     evals = []
     for i, beat in enumerate(picked_beats):
-        if test_b_anno[i] is not None:
-            e = madmom.evaluation.beats.BeatEvaluation(beat, test_b_anno[i])
+        if b_annos[i] is not None:
+            e = madmom.evaluation.beats.BeatEvaluation(beat, b_annos[i])
             evals.append(e)
         
     mean_eval = madmom.evaluation.beats.BeatMeanEvaluation(evals) if len(evals) > 0 else 'no annotations provided!'
     print(mean_eval)
 
+if PREDICT:
+    evaluate(test_f, test_c_t, test_b_anno)
+
+if PREDICT_PER_DATASET:
+    pass
+
+if PREDICT_UNSEEN:
+    pass
