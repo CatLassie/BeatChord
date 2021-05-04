@@ -724,7 +724,8 @@ def run_prediction(test_features):
             completion = int((test_idx / len(test_features))*100)
             print(str(completion)+'% complete...')
         if VERBOSE:
-            print('file number:', test_idx+1)
+            #print('file number:', test_idx+1)
+            pass
         
         # run the inference method
         b_result, c_result = predict(model, DEVICE, cur_test_feat, args.context)
@@ -794,21 +795,7 @@ def evaluate(feats, c_targs, b_annos):
 
             chord_weighted_accuracies.append(score)
     
-    print('\nCHORD EVALUATION:')
-    
-    print('Precision (micro):', np.mean(chord_p_scores_mic) if len(chord_p_scores_mic) > 0 else 'no annotations provided!')
-    print('Recall (mico):', np.mean(chord_r_scores_mic) if len(chord_r_scores_mic) > 0 else 'no annotations provided!')
-    print('F-measure (micro):', np.mean(chord_f1_scores_mic) if len(chord_f1_scores_mic) > 0 else 'no annotations provided!')
-    
-    print('Precision (weighted):', np.mean(chord_p_scores_w) if len(chord_p_scores_w) > 0 else 'no annotations provided!')
-    print('Recall (weighted):', np.mean(chord_r_scores_w) if len(chord_r_scores_w) > 0 else 'no annotations provided!')
-    print('F-measure (weighted):', np.mean(chord_f1_scores_w) if len(chord_f1_scores_w) > 0 else 'no annotations provided!')
-    
-    print('Weighted accuracies (mir_eval):', np.mean(chord_weighted_accuracies) if len(chord_weighted_accuracies) > 0 else 'no annotations provided!')
-    
-    #### BEATS ################
-    
-    print('\nBEAT EVALUATION:')
+    #### BEATS ################    
     
     picked_beats = []
     
@@ -829,10 +816,30 @@ def evaluate(feats, c_targs, b_annos):
             evals.append(e)
         
     mean_eval = madmom.evaluation.beats.BeatMeanEvaluation(evals) if len(evals) > 0 else 'no annotations provided!'
-    print(mean_eval)
+    
+    return mean_eval, chord_p_scores_mic, chord_r_scores_mic, chord_f1_scores_mic, chord_p_scores_w, chord_r_scores_w, chord_f1_scores_w, chord_weighted_accuracies
+
+def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
+    print('\nCHORD EVALUATION:')
+    
+    print('Precision (micro):', np.mean(p_m) if len(p_m) > 0 else 'no annotations provided!')
+    print('Recall (mico):', np.mean(r_m) if len(r_m) > 0 else 'no annotations provided!')
+    print('F-measure (micro):', np.mean(f_m) if len(f_m) > 0 else 'no annotations provided!')
+    
+    print('Precision (weighted):', np.mean(p_w) if len(p_w) > 0 else 'no annotations provided!')
+    print('Recall (weighted):', np.mean(r_w) if len(r_w) > 0 else 'no annotations provided!')
+    print('F-measure (weighted):', np.mean(f_w) if len(f_w) > 0 else 'no annotations provided!')
+    
+    print('Weighted accuracies (mir_eval):', np.mean(mireval_acc) if len(mireval_acc) > 0 else 'no annotations provided!')
+
+    print('\nBEAT EVALUATION:')
+
+    print(beat_eval)
 
 if PREDICT:
-    evaluate(test_f, test_c_t, test_b_anno)
+    beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(test_f, test_c_t, test_b_anno)
+    print('\nOverall results:')
+    display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
 if PREDICT_PER_DATASET:
     pass

@@ -272,7 +272,8 @@ def init_data():
             datasets[idx][4] = zero_pad_short_targets(datasets[idx][4], 12, np.int64)
 
         elif VERBOSE:
-            print('Data zero padding disabled!\n')
+            #print('Data zero padding disabled!\n')
+            pass
             
         # shuffle data
         datasets[idx][0], datasets[idx][1], datasets[idx][2], datasets[idx][3], datasets[idx][4] = shuffle_data(datasets[idx][0], datasets[idx][1], datasets[idx][2], datasets[idx][3], datasets[idx][4])
