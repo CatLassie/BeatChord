@@ -835,7 +835,14 @@ def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
     print('')
 
 dataset_beat_evaluations = np.zeros(DATASET_NUM, np.float32)
+dataset_f_micro_evaluations = np.zeros(DATASET_NUM, np.float32)
+dataset_f_weighted_evaluations = np.zeros(DATASET_NUM, np.float32)
+dataset_mireval_evaluations = np.zeros(DATASET_NUM, np.float32)
+
 unseen_dataset_beat_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
+unseen_dataset_f_micro_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
+unseen_dataset_f_weighted_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
+unseen_dataset_mireval_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
 
 for i in FOLD_RANGE:
     train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, i)
@@ -870,6 +877,12 @@ for i in FOLD_RANGE:
 
             if len(beat_eval) > 0:
                 dataset_beat_evaluations[j] += madmom.evaluation.beats.BeatMeanEvaluation(beat_eval).fmeasure
+            if len(f_m) > 0:
+                dataset_f_micro_evaluations[j] += np.mean(f_m)
+            if len(f_w) > 0:
+                dataset_f_weighted_evaluations[j] += np.mean(f_w)
+            if len(mireval_acc) > 0:
+                dataset_mireval_evaluations[j] += np.mean(mireval_acc)
 
     if PREDICT_UNSEEN:
         #print('\nResults for evaluation only datasets:')
@@ -880,15 +893,27 @@ for i in FOLD_RANGE:
 
             if len(beat_eval) > 0:
                 unseen_dataset_beat_evaluations[j] += madmom.evaluation.beats.BeatMeanEvaluation(beat_eval).fmeasure
+            if len(f_m) > 0:
+                unseen_dataset_f_micro_evaluations[j] += np.mean(f_m)
+            if len(f_w) > 0:
+                unseen_dataset_f_weighted_evaluations[j] += np.mean(f_w)
+            if len(mireval_acc) > 0:
+                unseen_dataset_mireval_evaluations[j] += np.mean(mireval_acc)
 
 if PREDICT_PER_DATASET:
     print('\nCROSS-VALIDATION RESULTS FOR TEST SPLITS:')
     for i, path in enumerate(FEATURE_PATH):
         print('\nDataset:', path, '\n')
         print('Beat F-measure:', dataset_beat_evaluations[i]/len(FOLD_RANGE))
+        print('Chord F-measure (micro):', dataset_f_micro_evaluations[i]/len(FOLD_RANGE))
+        print('Chord F-measure (weighted):', dataset_f_weighted_evaluations[i]/len(FOLD_RANGE))
+        print('Weighted accuracies (mir_eval):', dataset_mireval_evaluations[i]/len(FOLD_RANGE))
 
 if PREDICT_UNSEEN:
     print('\nCROSS-VALIDATION RESULTS FOR COMPLETE UNSEEN DATASETS:')
     for i, path in enumerate(EVAL_FEATURE_PATH):
         print('\nDataset:', path, '\n')
         print('Beat F-measure:', unseen_dataset_beat_evaluations[i]/len(FOLD_RANGE))
+        print('Chord F-measure (micro):', unseen_dataset_f_micro_evaluations[i]/len(FOLD_RANGE))
+        print('Chord F-measure (weighted):', unseen_dataset_f_weighted_evaluations[i]/len(FOLD_RANGE))
+        print('Weighted accuracies (mir_eval):', unseen_dataset_mireval_evaluations[i]/len(FOLD_RANGE))
