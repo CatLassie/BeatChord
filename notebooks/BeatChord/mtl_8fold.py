@@ -52,6 +52,12 @@ USE_CUDA = tmc.USE_CUDA
 DEVICE = tmc.DEVICE
 print("CURRENT DEVICE:", DEVICE)
 
+#datasets
+FEATURE_PATH = tmc.FEATURE_PATH
+EVAL_FEATURE_PATH = tmc.EVAL_FEATURE_PATH
+DATASET_NUM = tmc.DATASET_NUM
+EVAL_DATASET_NUM = tmc.EVAL_DATASET_NUM
+
 # paths
 MODEL_NAME = tmc.MODEL_NAME
 MODEL_PATH = tmc.MODEL_PATH
@@ -826,7 +832,10 @@ def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
 
     mean_beat_eval = madmom.evaluation.beats.BeatMeanEvaluation(beat_eval) if len(beat_eval) > 0 else 'no annotations provided!'
     print(mean_beat_eval)
+    print('')
 
+dataset_beat_evaluations = np.zeros(DATASET_NUM, np.float32)
+unseen_dataset_beat_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
 
 for i in FOLD_RANGE:
     train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, i)
@@ -848,19 +857,29 @@ for i in FOLD_RANGE:
 
     if PREDICT:
         beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(test_f, test_c_t, test_b_anno, i+1)
-        print('\nOverall results:')
-        display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
+        #print('\nOverall results:')
+        #display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
     if PREDICT_PER_DATASET:
-        print('\nResults by dataset:')
-        for i, s in enumerate(test_per_dataset):
-            print('\nDATASET:', s['path'])
+        #print('\nResults by dataset:')
+        for j, s in enumerate(test_per_dataset):
+            #print('\nDATASET:', s['path'])
             beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'], i+1)
-            display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
+            #display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
+
+            if len(beat_eval) > 0:
+                dataset_beat_evaluations[j] += madmom.evaluation.beats.BeatMeanEvaluation(beat_eval).fmeasure
 
     if PREDICT_UNSEEN:
-        print('\nResults for evaluation only datasets:')
-        for i, s in enumerate(evaluation_only_datasets):
-            print('\nDATASET:', s['path'])
+        #print('\nResults for evaluation only datasets:')
+        for j, s in enumerate(evaluation_only_datasets):
+            #print('\nDATASET:', s['path'])
             beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'], i+1)
-            display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
+            #display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
+
+print('\nCROSS-VALIDATION RESULTS:')
+
+if PREDICT_PER_DATASET:
+    for i, path in enumerate(FEATURE_PATH):
+        print('\nDataset:', path, '\n')
+        print('Beat F-measure:', dataset_beat_evaluations[i]/len(FOLD_RANGE))
