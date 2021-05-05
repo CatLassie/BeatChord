@@ -152,6 +152,7 @@ TRAIN_EXISTING = False
 PREDICT = True
 PREDICT_PER_DATASET = True
 PREDICT_UNSEEN = True # predict complete unseen dataset, no splits
+FOLD_RANGE = range(0, 8) # maximum 8!!!
 
 TRAIN_ON_BEAT = True
 TRAIN_ON_CHORD = True

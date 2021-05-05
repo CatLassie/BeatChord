@@ -100,6 +100,7 @@ PREDICT_PER_DATASET = tmc.PREDICT_PER_DATASET
 PREDICT_UNSEEN = tmc.PREDICT_UNSEEN
 TRAIN_ON_BEAT = tmc.TRAIN_ON_BEAT
 TRAIN_ON_CHORD = tmc.TRAIN_ON_CHORD
+FOLD_RANGE = tmc.FOLD_RANGE
 VERBOSE = tmc.VERBOSE
 
 if VERBOSE:
@@ -110,6 +111,7 @@ if VERBOSE:
     print('Predict per dataset', PREDICT_PER_DATASET)
     print('Predict whole unseen datasets', PREDICT_UNSEEN)
     print('Training on beat data:', TRAIN_ON_BEAT, ', training on chord data:', TRAIN_ON_CHORD)
+    print('Cross-validation range is:', FOLD_RANGE)
     print('\nSelected model:', MODEL_NAME)
     # print('Command line arguments:\n\n', args, '\n')
 
@@ -619,7 +621,7 @@ def predict(model, device, data, context):
 # In[ ]:
 
 
-def run_training():
+def run_training(fold_number):
     print('Training network...')
 
     # parameters for NN training
@@ -667,7 +669,7 @@ def run_training():
         validation_loss = calculate_unseen_loss(model, DEVICE, valid_loader)
         # check for early stopping
         if validation_loss < best_validation_loss:
-            torch.save(model.state_dict(), os.path.join(MODEL_PATH, MODEL_NAME + '.model'))
+            torch.save(model.state_dict(), os.path.join(MODEL_PATH, MODEL_NAME + '_No' + str(fold_number) + '.model'))
             best_validation_loss = validation_loss
             cur_patience = args.patience
         else:
@@ -692,7 +694,7 @@ def run_training():
 # In[ ]:
 
 
-def run_prediction(test_features): 
+def run_prediction(test_features, fold_number): 
     args = Args()
     args.context = feature_context #5
     
@@ -700,7 +702,7 @@ def run_prediction(test_features):
     
     # load model
     model = TCNMTLNet().to(DEVICE)
-    model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '.model')))
+    model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '_No' + str(fold_number) + '.model')))
     #print('model loaded...')
     
     # calculate actual output for the test data
@@ -726,12 +728,12 @@ def run_prediction(test_features):
 # In[ ]:
 
 
-def evaluate(feats, c_targs, b_annos):
+def evaluate(feats, c_targs, b_annos, fold_number):
     # predict beats and chords
     if VERBOSE:
         #print('predicting...')
         pass
-    predicted_beats, predicted_chords = run_prediction(feats) #[test_t[0], test_t[1]]
+    predicted_beats, predicted_chords = run_prediction(feats, fold_number) #[test_t[0], test_t[1]]
                     
     # evaluate results
     if VERBOSE:
@@ -826,7 +828,7 @@ def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
     print(mean_beat_eval)
 
 
-for i in range(0, 8):
+for i in FOLD_RANGE:
     train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, i)
 
     train_c_t_1hot = targets_to_one_hot(train_c_t)
@@ -841,24 +843,24 @@ for i in range(0, 8):
     chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13])
     unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13], reduction="sum")
 
-if TRAIN or TRAIN_EXISTING:
-    run_training()
+    if TRAIN or TRAIN_EXISTING:
+        run_training(i+1)
 
-if PREDICT:
-    beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(test_f, test_c_t, test_b_anno)
-    print('\nOverall results:')
-    display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
-
-if PREDICT_PER_DATASET:
-    print('\nResults by dataset:')
-    for i, s in enumerate(test_per_dataset):
-        print('\nDATASET:', s['path'])
-        beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'])
+    if PREDICT:
+        beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(test_f, test_c_t, test_b_anno, i+1)
+        print('\nOverall results:')
         display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
-if PREDICT_UNSEEN:
-    print('\nResults for evaluation only datasets:')
-    for i, s in enumerate(evaluation_only_datasets):
-        print('\nDATASET:', s['path'])
-        beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'])
-        display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
+    if PREDICT_PER_DATASET:
+        print('\nResults by dataset:')
+        for i, s in enumerate(test_per_dataset):
+            print('\nDATASET:', s['path'])
+            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'], i+1)
+            display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
+
+    if PREDICT_UNSEEN:
+        print('\nResults for evaluation only datasets:')
+        for i, s in enumerate(evaluation_only_datasets):
+            print('\nDATASET:', s['path'])
+            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'], i+1)
+            display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
