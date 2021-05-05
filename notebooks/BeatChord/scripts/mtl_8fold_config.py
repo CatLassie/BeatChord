@@ -58,6 +58,8 @@ CHORD_ANNOTATION_PATH = [
     None,
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 
+DATASET_NUM = len(FEATURE_PATH)
+
 
 
 EVAL_FEATURE_PATH = [
@@ -87,6 +89,8 @@ EVAL_CHORD_ANNOTATION_PATH = [
     #'data/annotations/chord/rwc',
     #None,
 ]
+
+EVAL_DATASET_NUM = len(EVAL_FEATURE_PATH)
 
 
 
