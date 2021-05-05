@@ -268,7 +268,7 @@ def init_data():
 
 
 
-def datasets_to_splits(datasets, test_per_dataset, split):
+def datasets_to_splits(datasets, test_per_dataset, fold_idx):
     train_f = []
     train_b_t = []
     train_b_anno = []
@@ -287,36 +287,46 @@ def datasets_to_splits(datasets, test_per_dataset, split):
 
     data_length = 0
 
+    split = 0.125
+    val_start = (split * fold_idx)
+    val_end = (split * (fold_idx+1))
+    test_start = (split * (fold_idx+1))%1
+    test_end = (split * (fold_idx+2))%1
+
+    test_end = test_end + 1 if test_end - test_start < 0 else test_end
+
     for idx, _ in enumerate(datasets):
         # find split indices and split data
-        first_idx = int(len(datasets[idx][0])*TRAIN_SPLIT_POINT)
-        second_idx = int(len(datasets[idx][0])*VALIDATION_SPLIT_POINT)
+        vsi = int(len(datasets[idx][0])*val_start)
+        vei = int(len(datasets[idx][0])*val_end)
+        tsi = int(len(datasets[idx][0])*test_start)
+        tei = int(len(datasets[idx][0])*test_end)
 
-        train_f = train_f + datasets[idx][0][: first_idx]
-        train_b_t = train_b_t + datasets[idx][2][: first_idx]
-        train_c_t = train_c_t + datasets[idx][4][: first_idx]
-        valid_f = valid_f + datasets[idx][0][first_idx : second_idx]
-        valid_b_t = valid_b_t + datasets[idx][2][first_idx : second_idx]
-        valid_c_t = valid_c_t + datasets[idx][4][first_idx : second_idx]
-        test_f = test_f + datasets[idx][0][second_idx :]
-        test_b_t = test_b_t + datasets[idx][2][second_idx :]
-        test_c_t = test_c_t + datasets[idx][4][second_idx :]
+        train_f = train_f + (datasets[idx][0][: vsi] + datasets[idx][0][tei :] if vsi < tei else datasets[idx][0][tei:vsi])
+        train_b_t = train_b_t + (datasets[idx][2][: vsi] + datasets[idx][2][tei :] if vsi < tei else datasets[idx][2][tei:vsi])
+        train_c_t = train_c_t + (datasets[idx][4][: vsi] + datasets[idx][4][tei :] if vsi < tei else datasets[idx][4][tei:vsi])
+        valid_f = valid_f + datasets[idx][0][vsi : vei]
+        valid_b_t = valid_b_t + datasets[idx][2][vsi : vei]
+        valid_c_t = valid_c_t + datasets[idx][4][vsi : vei]
+        test_f = test_f + datasets[idx][0][tsi : tei]
+        test_b_t = test_b_t + datasets[idx][2][tsi : tei]
+        test_c_t = test_c_t + datasets[idx][4][tsi : tei]
 
-        train_b_anno = train_b_anno + datasets[idx][1][: first_idx]
-        valid_b_anno = valid_b_anno + datasets[idx][1][first_idx : second_idx]
-        test_b_anno = test_b_anno + datasets[idx][1][second_idx :]
+        train_b_anno = train_b_anno + (datasets[idx][1][: vsi] + datasets[idx][1][tei :] if vsi < tei else datasets[idx][1][tei:vsi])
+        valid_b_anno = valid_b_anno + datasets[idx][1][vsi : vei]
+        test_b_anno = test_b_anno + datasets[idx][1][tsi : tei]
 
-        train_c_anno = train_c_anno + datasets[idx][3][: first_idx]
-        valid_c_anno = valid_c_anno + datasets[idx][3][first_idx : second_idx]
-        test_c_anno = test_c_anno + datasets[idx][3][second_idx :]
+        train_c_anno = train_c_anno + (datasets[idx][3][: vsi] + datasets[idx][3][tei :] if vsi < tei else datasets[idx][3][tei:vsi])
+        valid_c_anno = valid_c_anno + datasets[idx][3][vsi : vei]
+        test_c_anno = test_c_anno + datasets[idx][3][tsi : tei]
 
         data_length = data_length + len(datasets[idx][0])
 
-        test_per_dataset[idx]['feat'] = datasets[idx][0][second_idx :]
-        test_per_dataset[idx]['b_targ'] = datasets[idx][2][second_idx :]
-        test_per_dataset[idx]['b_anno'] = datasets[idx][1][second_idx :]
-        test_per_dataset[idx]['c_targ'] = datasets[idx][4][second_idx :]
-        test_per_dataset[idx]['c_anno'] = datasets[idx][3][second_idx :]
+        test_per_dataset[idx]['feat'] = datasets[idx][0][tsi : tei]
+        test_per_dataset[idx]['b_targ'] = datasets[idx][2][tsi : tei]
+        test_per_dataset[idx]['b_anno'] = datasets[idx][1][tsi : tei]
+        test_per_dataset[idx]['c_targ'] = datasets[idx][4][tsi : tei]
+        test_per_dataset[idx]['c_anno'] = datasets[idx][3][tsi : tei]
 
     if VERBOSE and len(datasets) > 0:
         print(data_length, 'feature spectrogram files loaded, with example shape:', datasets[idx][0][0].shape)

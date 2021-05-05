@@ -826,21 +826,20 @@ def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
     print(mean_beat_eval)
 
 
+for i in range(0, 8):
+    train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, i)
 
-train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, 0)
+    train_c_t_1hot = targets_to_one_hot(train_c_t)
+    valid_c_t_1hot = targets_to_one_hot(valid_c_t)
+    test_c_t_1hot = targets_to_one_hot(test_c_t)
 
-train_c_t_1hot = targets_to_one_hot(train_c_t)
-valid_c_t_1hot = targets_to_one_hot(valid_c_t)
-test_c_t_1hot = targets_to_one_hot(test_c_t)
+    if VERBOSE and len(train_c_t_1hot) > 0:
+        print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
 
-if VERBOSE and len(train_c_t_1hot) > 0:
-    print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
-
-
-beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1))
-unseen_beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1), reduction="sum")
-chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13])
-unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13], reduction="sum")
+    beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1))
+    unseen_beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1), reduction="sum")
+    chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13])
+    unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13], reduction="sum")
 
 if TRAIN or TRAIN_EXISTING:
     run_training()
