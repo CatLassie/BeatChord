@@ -840,11 +840,12 @@ unseen_dataset_beat_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
 for i in FOLD_RANGE:
     train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, i)
 
-    train_c_t_1hot = targets_to_one_hot(train_c_t)
-    valid_c_t_1hot = targets_to_one_hot(valid_c_t)
-    test_c_t_1hot = targets_to_one_hot(test_c_t)
+    if TRAIN:
+        train_c_t_1hot = targets_to_one_hot(train_c_t)
+        valid_c_t_1hot = targets_to_one_hot(valid_c_t)
+        test_c_t_1hot = targets_to_one_hot(test_c_t)
 
-    if VERBOSE and len(train_c_t_1hot) > 0:
+    if VERBOSE and TRAIN and len(train_c_t_1hot) > 0:
         print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
 
     beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1))
@@ -877,9 +878,17 @@ for i in FOLD_RANGE:
             beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'], i+1)
             #display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
-print('\nCROSS-VALIDATION RESULTS:')
+            if len(beat_eval) > 0:
+                unseen_dataset_beat_evaluations[j] += madmom.evaluation.beats.BeatMeanEvaluation(beat_eval).fmeasure
 
 if PREDICT_PER_DATASET:
+    print('\nCROSS-VALIDATION RESULTS FOR TEST SPLITS:')
     for i, path in enumerate(FEATURE_PATH):
         print('\nDataset:', path, '\n')
         print('Beat F-measure:', dataset_beat_evaluations[i]/len(FOLD_RANGE))
+
+if PREDICT_UNSEEN:
+    print('\nCROSS-VALIDATION RESULTS FOR COMPLETE UNSEEN DATASETS:')
+    for i, path in enumerate(EVAL_FEATURE_PATH):
+        print('\nDataset:', path, '\n')
+        print('Beat F-measure:', unseen_dataset_beat_evaluations[i]/len(FOLD_RANGE))
