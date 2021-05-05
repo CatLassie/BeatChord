@@ -239,7 +239,7 @@ fc_k_size = 1
 class_weight = np.full(14, chord_loss_weight, np.float32)
 class_weight[13] = beat_loss_weight
 
-print('loss weights:', class_weight)
+print('loss weights:', class_weight, '\n')
 
 class_weight = torch.from_numpy(class_weight)
 class_weight = class_weight.to(DEVICE)
@@ -713,7 +713,7 @@ def run_prediction(test_features):
     # load model
     model = TCNMTLNet().to(DEVICE)
     model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '.model')))
-    print('model loaded...')
+    #print('model loaded...')
     
     # calculate actual output for the test data
     b_results_cnn = [None for _ in range(len(test_features))]
@@ -722,7 +722,7 @@ def run_prediction(test_features):
     for test_idx, cur_test_feat in enumerate(test_features):
         if test_idx % 100 == 0:
             completion = int((test_idx / len(test_features))*100)
-            print(str(completion)+'% complete...')
+            #print(str(completion)+'% complete...')
         if VERBOSE:
             #print('file number:', test_idx+1)
             pass
@@ -741,12 +741,14 @@ def run_prediction(test_features):
 def evaluate(feats, c_targs, b_annos):
     # predict beats and chords
     if VERBOSE:
-        print('predicting...')
+        #print('predicting...')
+        pass
     predicted_beats, predicted_chords = run_prediction(feats) #[test_t[0], test_t[1]]
                     
     # evaluate results
     if VERBOSE:
-        print('evaluating results...')
+        #print('evaluating results...')
+        pass
         
     #### CHORDS ################
         
@@ -841,7 +843,11 @@ if PREDICT:
     display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
 if PREDICT_PER_DATASET:
-    pass
+    print('\nResults by dataset:')
+    for i, s in enumerate(test_per_dataset):
+        print('\nDATASET:', s['path'])
+        beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'])
+        display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
 if PREDICT_UNSEEN:
     pass

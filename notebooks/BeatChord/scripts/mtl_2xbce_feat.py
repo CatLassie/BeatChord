@@ -221,7 +221,7 @@ def init_data():
         [print(i+1, ':', p) for i, p in enumerate(BEAT_ANNOTATION_PATH)]
         print('\nChord datasets selected:')
         [print(i+1, ':', p) for i, p in enumerate(CHORD_ANNOTATION_PATH)]
-        print('\n')
+        print('')
 
     train_f = []
     train_b_t = []
