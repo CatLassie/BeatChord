@@ -128,16 +128,6 @@ datasets, test_per_dataset = init_data()
 # In[ ]:
 
 
-train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, 0)
-
-train_c_t_1hot = targets_to_one_hot(train_c_t)
-valid_c_t_1hot = targets_to_one_hot(valid_c_t)
-test_c_t_1hot = targets_to_one_hot(test_c_t)
-
-if VERBOSE and len(train_c_t_1hot) > 0:
-    print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
-
-
 # In[ ]:
 
 
@@ -251,11 +241,6 @@ print('loss weights:', class_weight, '\n')
 class_weight = torch.from_numpy(class_weight)
 class_weight = class_weight.to(DEVICE)
 class_weight = class_weight.unsqueeze(1)
-
-beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1))
-unseen_beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1), reduction="sum")
-chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13])
-unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13], reduction="sum")
 
 
 # In[ ]:
@@ -704,10 +689,6 @@ def run_training():
 # In[ ]:
 
 
-if TRAIN or TRAIN_EXISTING:
-    run_training()
-
-
 # In[ ]:
 
 
@@ -843,6 +824,26 @@ def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
 
     mean_beat_eval = madmom.evaluation.beats.BeatMeanEvaluation(beat_eval) if len(beat_eval) > 0 else 'no annotations provided!'
     print(mean_beat_eval)
+
+
+
+train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, 0)
+
+train_c_t_1hot = targets_to_one_hot(train_c_t)
+valid_c_t_1hot = targets_to_one_hot(valid_c_t)
+test_c_t_1hot = targets_to_one_hot(test_c_t)
+
+if VERBOSE and len(train_c_t_1hot) > 0:
+    print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
+
+
+beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1))
+unseen_beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1), reduction="sum")
+chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13])
+unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13], reduction="sum")
+
+if TRAIN or TRAIN_EXISTING:
+    run_training()
 
 if PREDICT:
     beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(test_f, test_c_t, test_b_anno)
