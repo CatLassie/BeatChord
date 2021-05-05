@@ -25,6 +25,10 @@ BEAT_ANNOTATION_PATH = tmc.BEAT_ANNOTATION_PATH
 CHORD_ANNOTATION_EXT = tmc.CHORD_ANNOTATION_EXT
 CHORD_ANNOTATION_PATH = tmc.CHORD_ANNOTATION_PATH
 
+EVAL_FEATURE_PATH = tmc.EVAL_FEATURE_PATH
+EVAL_BEAT_ANNOTATION_PATH = tmc.EVAL_BEAT_ANNOTATION_PATH
+EVAL_CHORD_ANNOTATION_PATH = tmc.EVAL_CHORD_ANNOTATION_PATH
+
 TRAIN_SPLIT_POINT = tmc.TRAIN_SPLIT_POINT
 VALIDATION_SPLIT_POINT = tmc.VALIDATION_SPLIT_POINT
 
@@ -317,3 +321,29 @@ def init_data():
         print(len(train_f), 'training features', len(valid_f), 'validation features and', len(test_f), 'test features')
         
     return train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset
+
+
+
+def init_data_for_evaluation_only():
+    if VERBOSE:
+        print('\nBeat datasets selected for evaluation only:')
+        [print(i+1, ':', p) for i, p in enumerate(EVAL_BEAT_ANNOTATION_PATH)]
+        print('\nChord datasets selected for evaluation only:')
+        [print(i+1, ':', p) for i, p in enumerate(EVAL_CHORD_ANNOTATION_PATH)]
+        print('')
+
+    data_sets = []
+    for idx, _ in enumerate(EVAL_FEATURE_PATH):
+        features, b_annotations, b_targets, c_annotations, c_targets = init_feats_annos_targets(EVAL_FEATURE_PATH[idx], EVAL_BEAT_ANNOTATION_PATH[idx], EVAL_CHORD_ANNOTATION_PATH[idx])
+
+        data_set = {
+            'path': EVAL_FEATURE_PATH[idx],
+            'feat': features,
+            'b_targ': b_targets,
+            'b_anno': b_annotations,
+            'c_targ': c_targets,
+            'c_anno': c_annotations
+        }
+        data_sets.append(data_set)
+
+    return data_sets

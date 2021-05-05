@@ -3,8 +3,6 @@ import torch
 
 
 
-
-
 ######## GLOBAL VARIABLES ########
 
 # random seed
@@ -59,6 +57,38 @@ CHORD_ANNOTATION_PATH = [
     'data/annotations/chord/rwc',
     None,
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
+
+
+
+EVAL_FEATURE_PATH = [
+    #os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'robbie_williams/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'ballroom/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'rock/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'hainsworth/audio/feat_cache_boeck'),
+    'data/features/common/rwc',
+    #os.path.join(FEATURE_BASE_PATH, 'hjdb/audio/feat_cache_boeck'),
+]
+EVAL_BEAT_ANNOTATION_PATH = [
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'beatles/annotations/beats'),
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'robbie_williams/annotations/beats'),
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'ballroom/annotations/beats'),
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'rock/annotations/beats'),
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'hainsworth/annotations/beats'),
+    'data/annotations/beat/rwc',
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'hjdb/annotations/beats'),
+]
+EVAL_CHORD_ANNOTATION_PATH = [
+    #os.path.join(CHORD_ANNOTATION_BASE_PATH, 'beatles/annotations/chords'),
+    #os.path.join(CHORD_ANNOTATION_BASE_PATH, 'robbie_williams/annotations/original/chords'),
+    #None,
+    #None,
+    #None,
+    'data/annotations/chord/rwc',
+    #None,
+]
+
+
 
 # feature parameters
 # SR = 44100 # samping rate

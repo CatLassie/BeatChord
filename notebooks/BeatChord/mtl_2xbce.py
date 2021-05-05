@@ -31,7 +31,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import scripts.mtl_2xbce_config as tmc
 
 # feature, target, annotation initializer
-from scripts.mtl_2xbce_feat import init_data
+from scripts.mtl_2xbce_feat import init_data, init_data_for_evaluation_only
 
 from scripts.chord_util import labels_to_notataion_and_intervals
 from scripts.chord_util import targets_to_one_hot
@@ -130,6 +130,10 @@ test_c_t_1hot = targets_to_one_hot(test_c_t)
 
 if VERBOSE:
     print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
+
+evaluate_only_datasets = []
+if PREDICT_UNSEEN:
+    evaluation_only_datasets = init_data_for_evaluation_only()
 
 
 # In[ ]:
@@ -851,4 +855,8 @@ if PREDICT_PER_DATASET:
         display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
 if PREDICT_UNSEEN:
-    pass
+    print('\nResults for evaluation only datasets:')
+    for i, s in enumerate(evaluation_only_datasets):
+        print('\nDATASET:', s['path'])
+        beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'])
+        display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
