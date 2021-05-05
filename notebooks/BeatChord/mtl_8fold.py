@@ -921,9 +921,9 @@ for i in FOLD_RANGE:
                 unseen_dataset_mireval_evaluations[j] += np.mean(mireval_acc)
 
 if PREDICT_PER_DATASET:
-    write_results('\n ######## CROSS-VALIDATION RESULTS FOR TEST SPLITS: ########')
+    write_results('\n\n\n############ CROSS-VALIDATION RESULTS FOR DATASET TEST SPLITS: ############')
     for i, path in enumerate(FEATURE_PATH):
-        write_results('\nDataset:' + path + '\n')
+        write_results('\nDATASET: ' + path + '\n')
         
         write_results('BEAT EVALUATION:')
         if BEAT_ANNOTATION_PATH[i] != None:
@@ -940,9 +940,9 @@ if PREDICT_PER_DATASET:
             write_results('no chord annotations provided!')
 
 if PREDICT_UNSEEN:
-    write_results('\n ######## CROSS-VALIDATION RESULTS FOR COMPLETE UNSEEN DATASETS: ########')
+    write_results('\n\n\n############ CROSS-VALIDATION RESULTS FOR COMPLETE UNSEEN DATASETS: ############')
     for i, path in enumerate(EVAL_FEATURE_PATH):
-        write_results('\nDataset:' + path + '\n')
+        write_results('\nDATASET: ' + path + '\n')
 
         write_results('BEAT EVALUATION:')
         if EVAL_BEAT_ANNOTATION_PATH[i] != None:
