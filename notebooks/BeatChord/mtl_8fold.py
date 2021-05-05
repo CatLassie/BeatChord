@@ -862,7 +862,7 @@ unseen_dataset_f_micro_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
 unseen_dataset_f_weighted_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
 unseen_dataset_mireval_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
 
-write_results('', 'w+')
+write_results('Model name: ' + MODEL_NAME, 'w+')
 
 for i in FOLD_RANGE:
     train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, i)
