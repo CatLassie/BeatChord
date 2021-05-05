@@ -66,8 +66,14 @@ EVAL_CHORD_ANNOTATION_PATH = tmc.EVAL_CHORD_ANNOTATION_PATH
 MODEL_NAME = tmc.MODEL_NAME
 MODEL_PATH = tmc.MODEL_PATH
 if not os.path.exists(MODEL_PATH):
-    os.makedirs(MODEL_PATH)  
-    
+    os.makedirs(MODEL_PATH) 
+
+RESULTS_PATH = tmc.RESULTS_PATH
+if not os.path.exists(RESULTS_PATH):
+    os.makedirs(RESULTS_PATH)
+
+RESULTS_FILE_PATH = tmc.RESULTS_FILE_PATH
+
 FPS = tmc.FPS
 
 # peak picker params
@@ -838,6 +844,14 @@ def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
     print(mean_beat_eval)
     print('')
 
+def write_results(line, mode = 'a+'):
+    print(line)
+    file_path = os.path.join(RESULTS_FILE_PATH)
+    f = open(file_path, mode)
+    f.write(line)
+    f.write('\n')
+    f.close()
+
 dataset_beat_evaluations = [[] for p in FEATURE_PATH]
 dataset_f_micro_evaluations = np.zeros(DATASET_NUM, np.float32)
 dataset_f_weighted_evaluations = np.zeros(DATASET_NUM, np.float32)
@@ -847,6 +861,8 @@ unseen_dataset_beat_evaluations = [[] for p in EVAL_FEATURE_PATH]
 unseen_dataset_f_micro_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
 unseen_dataset_f_weighted_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
 unseen_dataset_mireval_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
+
+write_results('', 'w+')
 
 for i in FOLD_RANGE:
     train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, i)

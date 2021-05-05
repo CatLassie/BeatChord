@@ -16,6 +16,7 @@ DEVICE = torch.device("cuda:0" if USE_CUDA else "cpu")
 # paths
 CURRENT_PATH = os.getcwd()
 MODEL_BASE_PATH = os.path.join(CURRENT_PATH, 'data/models/beat_chord')
+RESULTS_PATH = os.path.join(CURRENT_PATH, 'data/results')
 FEATURE_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/features')
 BEAT_ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/annotations')
 CHORD_ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/annotations')
@@ -24,6 +25,7 @@ DATASET_NAME = '8fold' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
 
 MODEL_NAME = 'MTL_experiment' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
+RESULTS_FILE_PATH = os.path.join(RESULTS_PATH, MODEL_NAME + '.txt')
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
 FEATURE_PATH = [
