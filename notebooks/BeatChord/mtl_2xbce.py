@@ -814,27 +814,26 @@ def evaluate(feats, c_targs, b_annos):
         if b_annos[i] is not None:
             e = madmom.evaluation.beats.BeatEvaluation(beat, b_annos[i])
             evals.append(e)
-        
-    mean_eval = madmom.evaluation.beats.BeatMeanEvaluation(evals) if len(evals) > 0 else 'no annotations provided!'
-    
-    return mean_eval, chord_p_scores_mic, chord_r_scores_mic, chord_f1_scores_mic, chord_p_scores_w, chord_r_scores_w, chord_f1_scores_w, chord_weighted_accuracies
+            
+    return evals, chord_p_scores_mic, chord_r_scores_mic, chord_f1_scores_mic, chord_p_scores_w, chord_r_scores_w, chord_f1_scores_w, chord_weighted_accuracies
 
 def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
     print('\nCHORD EVALUATION:')
     
-    print('Precision (micro):', np.mean(p_m) if len(p_m) > 0 else 'no annotations provided!')
-    print('Recall (mico):', np.mean(r_m) if len(r_m) > 0 else 'no annotations provided!')
+    #print('Precision (micro):', np.mean(p_m) if len(p_m) > 0 else 'no annotations provided!')
+    #print('Recall (mico):', np.mean(r_m) if len(r_m) > 0 else 'no annotations provided!')
     print('F-measure (micro):', np.mean(f_m) if len(f_m) > 0 else 'no annotations provided!')
     
-    print('Precision (weighted):', np.mean(p_w) if len(p_w) > 0 else 'no annotations provided!')
-    print('Recall (weighted):', np.mean(r_w) if len(r_w) > 0 else 'no annotations provided!')
+    #print('Precision (weighted):', np.mean(p_w) if len(p_w) > 0 else 'no annotations provided!')
+    #print('Recall (weighted):', np.mean(r_w) if len(r_w) > 0 else 'no annotations provided!')
     print('F-measure (weighted):', np.mean(f_w) if len(f_w) > 0 else 'no annotations provided!')
     
     print('Weighted accuracies (mir_eval):', np.mean(mireval_acc) if len(mireval_acc) > 0 else 'no annotations provided!')
 
     print('\nBEAT EVALUATION:')
 
-    print(beat_eval)
+    mean_beat_eval = madmom.evaluation.beats.BeatMeanEvaluation(beat_eval) if len(beat_eval) > 0 else 'no annotations provided!'
+    print(mean_beat_eval)
 
 if PREDICT:
     beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(test_f, test_c_t, test_b_anno)
