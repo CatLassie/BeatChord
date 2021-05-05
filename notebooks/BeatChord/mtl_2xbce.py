@@ -128,7 +128,7 @@ train_c_t_1hot = targets_to_one_hot(train_c_t)
 valid_c_t_1hot = targets_to_one_hot(valid_c_t)
 test_c_t_1hot = targets_to_one_hot(test_c_t)
 
-if VERBOSE:
+if VERBOSE and len(train_c_t_1hot) > 0:
     print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
 
 evaluate_only_datasets = []

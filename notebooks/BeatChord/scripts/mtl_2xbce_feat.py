@@ -312,7 +312,7 @@ def init_data():
         test_per_dataset[idx]['c_targ'] = datasets[idx][4][second_idx :]
         test_per_dataset[idx]['c_anno'] = datasets[idx][3][second_idx :]
 
-    if VERBOSE:
+    if VERBOSE and len(datasets) > 0:
         print(data_length, 'feature spectrogram files loaded, with example shape:', datasets[idx][0][0].shape)
         print(data_length, 'beat feature annotation files loaded, with example shape:', datasets[idx][1][0].shape if datasets[idx][1][0] is not None else datasets[idx][1][0])
         print(data_length, 'beat targets computed, with example shape:', datasets[idx][2][0].shape)
