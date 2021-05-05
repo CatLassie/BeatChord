@@ -108,6 +108,7 @@ if VERBOSE:
     print('Train existing model:', TRAIN_EXISTING)
     print('Predict', PREDICT)
     print('Predict per dataset', PREDICT_PER_DATASET)
+    print('Predict whole unseen datasets', PREDICT_UNSEEN)
     print('Training on beat data:', TRAIN_ON_BEAT, ', training on chord data:', TRAIN_ON_CHORD)
     print('\nSelected model:', MODEL_NAME)
     # print('Command line arguments:\n\n', args, '\n')
