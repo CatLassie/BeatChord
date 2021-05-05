@@ -921,39 +921,39 @@ for i in FOLD_RANGE:
                 unseen_dataset_mireval_evaluations[j] += np.mean(mireval_acc)
 
 if PREDICT_PER_DATASET:
-    print('\n ######## CROSS-VALIDATION RESULTS FOR TEST SPLITS: ########')
+    write_results('\n ######## CROSS-VALIDATION RESULTS FOR TEST SPLITS: ########')
     for i, path in enumerate(FEATURE_PATH):
-        print('\nDataset:', path, '\n')
+        write_results('\nDataset:' + path + '\n')
         
-        print('BEAT EVALUATION:')
+        write_results('BEAT EVALUATION:')
         if BEAT_ANNOTATION_PATH[i] != None:
-            print(madmom.evaluation.beats.BeatMeanEvaluation(dataset_beat_evaluations[i]))
+            write_results(madmom.evaluation.beats.BeatMeanEvaluation(dataset_beat_evaluations[i]).tostring())
         else:
-            print('no beat annotations provided!')
+            write_results('no beat annotations provided!')
 
-        print('\nCHORD EVALUATION:')
+        write_results('\nCHORD EVALUATION:')
         if CHORD_ANNOTATION_PATH[i] != None:
-            print('F-measure (micro):', dataset_f_micro_evaluations[i]/len(FOLD_RANGE))
-            print('F-measure (weighted):', dataset_f_weighted_evaluations[i]/len(FOLD_RANGE))
-            print('Weighted accuracies (mir_eval):', dataset_mireval_evaluations[i]/len(FOLD_RANGE))
+            write_results('F-measure (micro): ' + str(dataset_f_micro_evaluations[i]/len(FOLD_RANGE)))
+            write_results('F-measure (weighted): ' + str(dataset_f_weighted_evaluations[i]/len(FOLD_RANGE)))
+            write_results('Weighted accuracies (mir_eval): ' + str(dataset_mireval_evaluations[i]/len(FOLD_RANGE)))
         else:
-            print('no chord annotations provided!')
+            write_results('no chord annotations provided!')
 
 if PREDICT_UNSEEN:
-    print('\n ######## CROSS-VALIDATION RESULTS FOR COMPLETE UNSEEN DATASETS: ########')
+    write_results('\n ######## CROSS-VALIDATION RESULTS FOR COMPLETE UNSEEN DATASETS: ########')
     for i, path in enumerate(EVAL_FEATURE_PATH):
-        print('\nDataset:', path, '\n')
+        write_results('\nDataset:' + path + '\n')
 
-        print('BEAT EVALUATION:')
+        write_results('BEAT EVALUATION:')
         if EVAL_BEAT_ANNOTATION_PATH[i] != None:
-            print(madmom.evaluation.beats.BeatMeanEvaluation(unseen_dataset_beat_evaluations[i]))
+            write_results(madmom.evaluation.beats.BeatMeanEvaluation(unseen_dataset_beat_evaluations[i]).tostring())
         else:
-            print('no beat annotations provided!')
+            write_results('no beat annotations provided!')
 
-        print('\nCHORD EVALUATION:')
+        write_results('\nCHORD EVALUATION:')
         if EVAL_CHORD_ANNOTATION_PATH[i] != None:
-            print('F-measure (micro):', unseen_dataset_f_micro_evaluations[i]/len(FOLD_RANGE))
-            print('F-measure (weighted):', unseen_dataset_f_weighted_evaluations[i]/len(FOLD_RANGE))
-            print('Weighted accuracies (mir_eval):', unseen_dataset_mireval_evaluations[i]/len(FOLD_RANGE))
+            write_results('F-measure (micro): ' + str(unseen_dataset_f_micro_evaluations[i]/len(FOLD_RANGE)))
+            write_results('F-measure (weighted): ' + str(unseen_dataset_f_weighted_evaluations[i]/len(FOLD_RANGE)))
+            write_results('Weighted accuracies (mir_eval): ' + str(unseen_dataset_mireval_evaluations[i]/len(FOLD_RANGE)))
         else:
-            print('no chord annotations provided!')
+            write_results('no chord annotations provided!')
