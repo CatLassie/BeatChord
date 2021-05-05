@@ -227,26 +227,8 @@ def init_data():
         [print(i+1, ':', p) for i, p in enumerate(CHORD_ANNOTATION_PATH)]
         print('')
 
-    train_f = []
-    train_b_t = []
-    train_b_anno = []
-    train_c_t = []
-    train_c_anno = []
-    valid_f = []
-    valid_b_t = []
-    valid_b_anno = []
-    valid_c_t = []
-    valid_c_anno = []
-    test_f = []
-    test_b_t = []
-    test_b_anno = []
-    test_c_t = []
-    test_c_anno = []
-
     # for holding test data (set name, faet, targs, annos) by dataset 
     test_per_dataset = []
-
-    data_length = 0
 
     # init features, annotations and targets
     # features, annotations, targets = init_feats_annos_targets()
@@ -281,7 +263,31 @@ def init_data():
             
         # shuffle data
         datasets[idx][0], datasets[idx][1], datasets[idx][2], datasets[idx][3], datasets[idx][4] = shuffle_data(datasets[idx][0], datasets[idx][1], datasets[idx][2], datasets[idx][3], datasets[idx][4])
+        
+    return datasets, test_per_dataset
 
+
+
+def datasets_to_splits(datasets, test_per_dataset, split):
+    train_f = []
+    train_b_t = []
+    train_b_anno = []
+    train_c_t = []
+    train_c_anno = []
+    valid_f = []
+    valid_b_t = []
+    valid_b_anno = []
+    valid_c_t = []
+    valid_c_anno = []
+    test_f = []
+    test_b_t = []
+    test_b_anno = []
+    test_c_t = []
+    test_c_anno = []
+
+    data_length = 0
+
+    for idx, _ in enumerate(datasets):
         # find split indices and split data
         first_idx = int(len(datasets[idx][0])*TRAIN_SPLIT_POINT)
         second_idx = int(len(datasets[idx][0])*VALIDATION_SPLIT_POINT)

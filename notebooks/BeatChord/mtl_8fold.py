@@ -31,7 +31,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import scripts.mtl_8fold_config as tmc
 
 # feature, target, annotation initializer
-from scripts.mtl_8fold_feat import init_data, init_data_for_evaluation_only
+from scripts.mtl_8fold_feat import init_data, datasets_to_splits, init_data_for_evaluation_only
 
 from scripts.chord_util import labels_to_notataion_and_intervals
 from scripts.chord_util import targets_to_one_hot
@@ -118,11 +118,17 @@ if VERBOSE:
 
 
 # LOAD FEATURES AND ANNOTATIONS, COMPUTE TARGETS
-train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = init_data()
+evaluate_only_datasets = []
+if PREDICT_UNSEEN:
+    evaluation_only_datasets = init_data_for_evaluation_only()
+
+datasets, test_per_dataset = init_data()
 
 
 # In[ ]:
 
+
+train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, 0)
 
 train_c_t_1hot = targets_to_one_hot(train_c_t)
 valid_c_t_1hot = targets_to_one_hot(valid_c_t)
@@ -130,10 +136,6 @@ test_c_t_1hot = targets_to_one_hot(test_c_t)
 
 if VERBOSE and len(train_c_t_1hot) > 0:
     print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
-
-evaluate_only_datasets = []
-if PREDICT_UNSEEN:
-    evaluation_only_datasets = init_data_for_evaluation_only()
 
 
 # In[ ]:
