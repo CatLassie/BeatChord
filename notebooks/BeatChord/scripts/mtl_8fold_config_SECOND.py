@@ -37,7 +37,9 @@ FEATURE_PATH = [
     'data/features/common/rwc',
     os.path.join(FEATURE_BASE_PATH, 'hjdb/audio/feat_cache_boeck'),
     'data/features/common/queen',
-    'data/features/common/zweieck'
+    'data/features/common/zweieck',
+    os.path.join(FEATURE_BASE_PATH, 'smc/audio/feat_cache_boeck'),
+    'data/features/common/gtzan',
 ] # os.path.join(FEATURE_BASE_PATH, DATASET_NAME) # os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck') # os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck')
 BEAT_ANNOTATION_EXT = '.beats'
 BEAT_ANNOTATION_PATH = [
@@ -50,7 +52,9 @@ BEAT_ANNOTATION_PATH = [
     'data/annotations/beat/rwc',
     os.path.join(BEAT_ANNOTATION_BASE_PATH, 'hjdb/annotations/beats'),
     None,
-    None
+    None,
+    os.path.join(FEATURE_BASE_PATH, 'smc/annotations/beats'),
+    'data/annotations/beat/gtzan',
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 CHORD_ANNOTATION_EXT = '.chords'
 CHORD_ANNOTATION_PATH = [
@@ -62,7 +66,9 @@ CHORD_ANNOTATION_PATH = [
     'data/annotations/chord/rwc',
     None,
     'data/annotations/chord/queen',
-    'data/annotations/chord/zweieck'
+    'data/annotations/chord/zweieck',
+    None,
+    None,
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 
 DATASET_NUM = len(FEATURE_PATH)
@@ -78,7 +84,9 @@ EVAL_FEATURE_PATH = [
     #'data/features/common/rwc',
     #os.path.join(FEATURE_BASE_PATH, 'hjdb/audio/feat_cache_boeck'),
     #'data/features/common/queen',
-    #'data/features/common/zweieck'
+    #'data/features/common/zweieck',
+    #os.path.join(FEATURE_BASE_PATH, 'smc/audio/feat_cache_boeck'),
+    #'data/features/common/gtzan',
 ]
 EVAL_BEAT_ANNOTATION_PATH = [
     os.path.join(BEAT_ANNOTATION_BASE_PATH, 'beatles/annotations/beats'),
@@ -89,7 +97,9 @@ EVAL_BEAT_ANNOTATION_PATH = [
     #'data/annotations/beat/rwc',
     #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'hjdb/annotations/beats'),
     #None,
-    #None
+    #None,
+    #os.path.join(FEATURE_BASE_PATH, 'smc/annotations/beats'),
+    #'data/annotations/beat/gtzan',
 ]
 EVAL_CHORD_ANNOTATION_PATH = [
     os.path.join(CHORD_ANNOTATION_BASE_PATH, 'beatles/annotations/chords'),
@@ -101,6 +111,8 @@ EVAL_CHORD_ANNOTATION_PATH = [
     #None,
     #'data/annotations/chord/queen',
     #'data/annotations/chord/zweieck'
+    #None,
+    #None,
 ]
 
 EVAL_DATASET_NUM = len(EVAL_FEATURE_PATH)
