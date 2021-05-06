@@ -875,7 +875,7 @@ for i in FOLD_RANGE:
         test_c_t_1hot = targets_to_one_hot(test_c_t)
 
     if VERBOSE and TRAIN and len(train_c_t_1hot) > 0:
-        print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape)
+        print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape, '\n')
 
     beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1))
     unseen_beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1), reduction="sum")
