@@ -329,7 +329,8 @@ def datasets_to_splits(datasets, test_per_dataset, fold_idx):
         test_per_dataset[idx]['c_anno'] = datasets[idx][3][tsi : tei]
 
     if VERBOSE and len(datasets) > 0:
-        print('\n', data_length, 'feature spectrogram files loaded, with example shape:', datasets[idx][0][0].shape)
+        print('')
+        print(data_length, 'feature spectrogram files loaded, with example shape:', datasets[idx][0][0].shape)
         print(data_length, 'beat feature annotation files loaded, with example shape:', datasets[idx][1][0].shape if datasets[idx][1][0] is not None else datasets[idx][1][0])
         print(data_length, 'beat targets computed, with example shape:', datasets[idx][2][0].shape)
         print(data_length, 'chord feature annotation files loaded, with example shape:', datasets[idx][3][0].shape if datasets[idx][3][0] is not None else datasets[idx][3][0])
