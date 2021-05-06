@@ -165,13 +165,13 @@ LAST_CNN_KERNEL_FREQUENCY_SIZE = 2 #9 # 8
 
 ######## COMMAND LINE SUPPORT ARGUMENTS ########
 
-WRITE_TO_FILE = True
+WRITE_TO_FILE = False
 TRAIN = False
 TRAIN_EXISTING = False
 
 PREDICT = False
 PREDICT_PER_DATASET = True
-PREDICT_UNSEEN = True # predict complete unseen dataset, no splits
+PREDICT_UNSEEN = False # predict complete unseen dataset, no splits
 FOLD_RANGE = range(0, 8) # maximum 8!!!
 
 TRAIN_ON_BEAT = True
