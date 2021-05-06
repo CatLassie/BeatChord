@@ -885,8 +885,10 @@ for i in FOLD_RANGE:
     if TRAIN or TRAIN_EXISTING:
         run_training(i+1)
 
+    # HINT: Obsolete method to calculate metrics on all features combined
     if PREDICT:
-        beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(test_f, test_c_t, test_b_anno, i+1)
+        pass
+        #beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(test_f, test_c_t, test_b_anno, i+1)
         #print('\nOverall results:')
         #display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
