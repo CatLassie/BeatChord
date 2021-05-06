@@ -73,6 +73,7 @@ if not os.path.exists(RESULTS_PATH):
     os.makedirs(RESULTS_PATH)
 
 RESULTS_FILE_PATH = tmc.RESULTS_FILE_PATH
+WRITE_TO_FILE = tmc.WRITE_TO_FILE
 
 FPS = tmc.FPS
 
@@ -846,11 +847,12 @@ def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
 
 def write_results(line, mode = 'a+'):
     print(line)
-    file_path = os.path.join(RESULTS_FILE_PATH)
-    f = open(file_path, mode)
-    f.write(line)
-    f.write('\n')
-    f.close()
+    if WRITE_TO_FILE:
+        file_path = os.path.join(RESULTS_FILE_PATH)
+        f = open(file_path, mode)
+        f.write(line)
+        f.write('\n')
+        f.close()
 
 dataset_beat_evaluations = [[] for p in FEATURE_PATH]
 dataset_f_micro_evaluations = np.zeros(DATASET_NUM, np.float32)
