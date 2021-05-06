@@ -28,10 +28,10 @@ import torch.optim as optim
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 # configurations
-import scripts.mtl_8fold_config as tmc
+import scripts.mtl_8fold_config_SECOND as tmc
 
 # feature, target, annotation initializer
-from scripts.mtl_8fold_feat import init_data, datasets_to_splits, init_data_for_evaluation_only
+from scripts.mtl_8fold_feat_SECOND import init_data, datasets_to_splits, init_data_for_evaluation_only
 
 from scripts.chord_util import labels_to_notataion_and_intervals
 from scripts.chord_util import targets_to_one_hot
