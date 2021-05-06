@@ -10,7 +10,7 @@ import scripts.mtl_8fold_config as conf
 
 #TODO: fix the path
 paths = [
-    '/data3/datasets/chords/zweieck/audio/feat_cache_boeck/'
+    '/data3/datasets/chords/queen/audio/'
 ]
 
 DEFAULT_SETTINGS = dict()
@@ -53,11 +53,11 @@ def extract_feature(audiofile, settings=DEFAULT_SETTINGS):
 
 def main():
     for _, feat_path in enumerate(paths):
-        audio_path = os.path.join(feat_path, '..')
+        audio_path = os.path.join(feat_path)
         files = os.listdir(audio_path)
 
         #TODO: fix the path
-        feat_path = '/home/pryab/workspace/python/BeatChord/data/features/common/zweieck'
+        feat_path = '/home/pryab/workspace/python/BeatChord/data/features/common/queen'
 
         for _, f in enumerate(files):
             
