@@ -156,7 +156,7 @@ LAST_CNN_KERNEL_FREQUENCY_SIZE = 2 #9 # 8
 
 TRAIN = False
 TRAIN_EXISTING = False
-PREDICT = True
+PREDICT = False
 PREDICT_PER_DATASET = True
 PREDICT_UNSEEN = True # predict complete unseen dataset, no splits
 FOLD_RANGE = range(0, 8) # maximum 8!!!
