@@ -173,6 +173,7 @@ PREDICT = False
 PREDICT_PER_DATASET = True
 PREDICT_UNSEEN = False # predict complete unseen dataset, no splits
 FOLD_RANGE = range(0, 8) # maximum 8!!!
+DISPLAY_INTERMEDIATE_RESULTS = False
 
 TRAIN_ON_BEAT = True
 TRAIN_ON_CHORD = True

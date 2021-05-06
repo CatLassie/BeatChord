@@ -118,6 +118,7 @@ PREDICT_UNSEEN = tmc.PREDICT_UNSEEN
 TRAIN_ON_BEAT = tmc.TRAIN_ON_BEAT
 TRAIN_ON_CHORD = tmc.TRAIN_ON_CHORD
 FOLD_RANGE = tmc.FOLD_RANGE
+DISPLAY_INTERMEDIATE_RESULTS = tmc.DISPLAY_INTERMEDIATE_RESULTS
 VERBOSE = tmc.VERBOSE
 
 if VERBOSE:
@@ -827,22 +828,23 @@ def evaluate(feats, c_targs, b_annos, fold_number):
     return evals, chord_p_scores_mic, chord_r_scores_mic, chord_f1_scores_mic, chord_p_scores_w, chord_r_scores_w, chord_f1_scores_w, chord_weighted_accuracies
 
 def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
-    write_results('\nBEAT EVALUATION:')
+    if VERBOSE and DISPLAY_INTERMEDIATE_RESULTS:
+        write_results('\nBEAT EVALUATION:')
 
-    mean_beat_eval = madmom.evaluation.beats.BeatMeanEvaluation(beat_eval).tostring() if len(beat_eval) > 0 else 'no annotations provided!'
-    write_results(mean_beat_eval)
+        mean_beat_eval = madmom.evaluation.beats.BeatMeanEvaluation(beat_eval).tostring() if len(beat_eval) > 0 else 'no annotations provided!'
+        write_results(mean_beat_eval)
 
-    write_results('\nCHORD EVALUATION:')
-    
-    #print('Precision (micro):', np.mean(p_m) if len(p_m) > 0 else 'no annotations provided!')
-    #print('Recall (mico):', np.mean(r_m) if len(r_m) > 0 else 'no annotations provided!')
-    write_results('F-measure (micro): ' + str(np.mean(f_m)) if len(f_m) > 0 else 'no annotations provided!')
-    
-    #print('Precision (weighted):', np.mean(p_w) if len(p_w) > 0 else 'no annotations provided!')
-    #print('Recall (weighted):', np.mean(r_w) if len(r_w) > 0 else 'no annotations provided!')
-    write_results('F-measure (weighted): ' +  str(np.mean(f_w)) if len(f_w) > 0 else 'no annotations provided!')
-    
-    write_results('Weighted accuracies (mir_eval): ' + str(np.mean(mireval_acc)) if len(mireval_acc) > 0 else 'no annotations provided!')
+        write_results('\nCHORD EVALUATION:')
+        
+        #print('Precision (micro):', np.mean(p_m) if len(p_m) > 0 else 'no annotations provided!')
+        #print('Recall (mico):', np.mean(r_m) if len(r_m) > 0 else 'no annotations provided!')
+        write_results('F-measure (micro): ' + str(np.mean(f_m)) if len(f_m) > 0 else 'no annotations provided!')
+        
+        #print('Precision (weighted):', np.mean(p_w) if len(p_w) > 0 else 'no annotations provided!')
+        #print('Recall (weighted):', np.mean(r_w) if len(r_w) > 0 else 'no annotations provided!')
+        write_results('F-measure (weighted): ' +  str(np.mean(f_w)) if len(f_w) > 0 else 'no annotations provided!')
+        
+        write_results('Weighted accuracies (mir_eval): ' + str(np.mean(mireval_acc)) if len(mireval_acc) > 0 else 'no annotations provided!')
 
 
 def write_results(line, mode = 'a+'):
