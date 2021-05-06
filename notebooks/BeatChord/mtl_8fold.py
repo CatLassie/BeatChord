@@ -827,23 +827,23 @@ def evaluate(feats, c_targs, b_annos, fold_number):
     return evals, chord_p_scores_mic, chord_r_scores_mic, chord_f1_scores_mic, chord_p_scores_w, chord_r_scores_w, chord_f1_scores_w, chord_weighted_accuracies
 
 def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
-    print('\nCHORD EVALUATION:')
+    write_results('\nBEAT EVALUATION:')
+
+    mean_beat_eval = madmom.evaluation.beats.BeatMeanEvaluation(beat_eval).tostring() if len(beat_eval) > 0 else 'no annotations provided!'
+    write_results(mean_beat_eval)
+
+    write_results('\nCHORD EVALUATION:')
     
     #print('Precision (micro):', np.mean(p_m) if len(p_m) > 0 else 'no annotations provided!')
     #print('Recall (mico):', np.mean(r_m) if len(r_m) > 0 else 'no annotations provided!')
-    print('F-measure (micro):', np.mean(f_m) if len(f_m) > 0 else 'no annotations provided!')
+    write_results('F-measure (micro): ' + str(np.mean(f_m)) if len(f_m) > 0 else 'no annotations provided!')
     
     #print('Precision (weighted):', np.mean(p_w) if len(p_w) > 0 else 'no annotations provided!')
     #print('Recall (weighted):', np.mean(r_w) if len(r_w) > 0 else 'no annotations provided!')
-    print('F-measure (weighted):', np.mean(f_w) if len(f_w) > 0 else 'no annotations provided!')
+    write_results('F-measure (weighted): ' +  str(np.mean(f_w)) if len(f_w) > 0 else 'no annotations provided!')
     
-    print('Weighted accuracies (mir_eval):', np.mean(mireval_acc) if len(mireval_acc) > 0 else 'no annotations provided!')
+    write_results('Weighted accuracies (mir_eval): ' + str(np.mean(mireval_acc)) if len(mireval_acc) > 0 else 'no annotations provided!')
 
-    print('\nBEAT EVALUATION:')
-
-    mean_beat_eval = madmom.evaluation.beats.BeatMeanEvaluation(beat_eval) if len(beat_eval) > 0 else 'no annotations provided!'
-    print(mean_beat_eval)
-    print('')
 
 def write_results(line, mode = 'a+'):
     print(line)
@@ -885,6 +885,8 @@ for i in FOLD_RANGE:
     if TRAIN or TRAIN_EXISTING:
         run_training(i+1)
 
+    write_results('\n\n\n\n\n############ FOLD ' + str(i+1) + ' RESULTS ############')
+
     # HINT: Obsolete method to calculate metrics on all features combined
     if PREDICT:
         pass
@@ -893,11 +895,11 @@ for i in FOLD_RANGE:
         #display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
     if PREDICT_PER_DATASET:
-        #print('\nResults by dataset:')
+        write_results('\nRESULTS FOR DATASET TEST SPLITS:')
         for j, s in enumerate(test_per_dataset):
-            #print('\nDATASET:', s['path'])
+            write_results('\nDATASET: ' + s['path'])
             beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'], i+1)
-            #display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
+            display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
             if len(beat_eval) > 0:
                 dataset_beat_evaluations[j] += beat_eval
@@ -909,11 +911,11 @@ for i in FOLD_RANGE:
                 dataset_mireval_evaluations[j] += np.mean(mireval_acc)
 
     if PREDICT_UNSEEN:
-        #print('\nResults for evaluation only datasets:')
+        write_results('\nRESULTS FOR UNSEEN COMPLETE DATASETS:')
         for j, s in enumerate(evaluation_only_datasets):
-            #print('\nDATASET:', s['path'])
+            write_results('\nDATASET: ' + s['path'])
             beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'], i+1)
-            #display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
+            display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
             if len(beat_eval) > 0:
                 unseen_dataset_beat_evaluations[j] += beat_eval
@@ -925,7 +927,7 @@ for i in FOLD_RANGE:
                 unseen_dataset_mireval_evaluations[j] += np.mean(mireval_acc)
 
 if PREDICT_PER_DATASET:
-    write_results('\n\n\n############ CROSS-VALIDATION RESULTS FOR DATASET TEST SPLITS: ############')
+    write_results('\n\n\n\n\n############ CROSS-VALIDATION RESULTS FOR DATASET TEST SPLITS: ############')
     for i, path in enumerate(FEATURE_PATH):
         write_results('\nDATASET: ' + path + '\n')
         
@@ -944,7 +946,7 @@ if PREDICT_PER_DATASET:
             write_results('no chord annotations provided!')
 
 if PREDICT_UNSEEN:
-    write_results('\n\n\n############ CROSS-VALIDATION RESULTS FOR COMPLETE UNSEEN DATASETS: ############')
+    write_results('\n\n\n\n\n############ CROSS-VALIDATION RESULTS FOR COMPLETE UNSEEN DATASETS: ############')
     for i, path in enumerate(EVAL_FEATURE_PATH):
         write_results('\nDATASET: ' + path + '\n')
 
