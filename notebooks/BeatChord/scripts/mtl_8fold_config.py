@@ -26,7 +26,6 @@ DATASET_NAME = '8fold' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
 MODEL_NAME = 'MTL_experiment' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
 RESULTS_FILE_PATH = os.path.join(RESULTS_PATH, MODEL_NAME + '.txt')
-WRITE_TO_FILE = True
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
 FEATURE_PATH = [
@@ -165,6 +164,8 @@ LAST_CNN_KERNEL_FREQUENCY_SIZE = 2 #9 # 8
 
 
 ######## COMMAND LINE SUPPORT ARGUMENTS ########
+
+WRITE_TO_FILE = True
 
 TRAIN = False
 TRAIN_EXISTING = False
