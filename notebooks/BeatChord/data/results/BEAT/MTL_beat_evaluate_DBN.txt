@@ -1,0 +1,109 @@
+Model name: MTL_beat
+
+
+
+
+
+############ FOLD 1 FINISHED ############
+
+
+
+
+
+############ FOLD 2 FINISHED ############
+
+
+
+
+
+############ FOLD 3 FINISHED ############
+
+
+
+
+
+############ FOLD 4 FINISHED ############
+
+
+
+
+
+############ FOLD 5 FINISHED ############
+
+
+
+
+
+############ FOLD 6 FINISHED ############
+
+
+
+
+
+############ FOLD 7 FINISHED ############
+
+
+
+
+
+############ FOLD 8 FINISHED ############
+
+
+
+
+
+############ CROSS-VALIDATION RESULTS FOR DATASET TEST SPLITS: ############
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 180 files
+  F-measure: 0.916 P-score: 0.887 Cemgil: 0.818 Goto: 0.917 CMLc: 0.764 CMLt: 0.836 AMLc: 0.822 AMLt: 0.897 D: 3.002 Dg: 1.934
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/robbie_williams/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 65 files
+  F-measure: 0.903 P-score: 0.859 Cemgil: 0.830 Goto: 0.831 CMLc: 0.750 CMLt: 0.786 AMLc: 0.840 AMLt: 0.899 D: 3.194 Dg: 2.095
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/ballroom/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 685 files
+  F-measure: 0.917 P-score: 0.889 Cemgil: 0.874 Goto: 0.927 CMLc: 0.839 CMLt: 0.855 AMLc: 0.903 AMLt: 0.919 D: 3.363 Dg: 2.597
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/hainsworth/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 222 files
+  F-measure: 0.882 P-score: 0.880 Cemgil: 0.841 Goto: 0.842 CMLc: 0.773 CMLt: 0.812 AMLc: 0.877 AMLt: 0.924 D: 3.422 Dg: 2.579
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/smc/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 217 files
+  F-measure: 0.538 P-score: 0.631 Cemgil: 0.428 Goto: 0.502 CMLc: 0.315 CMLt: 0.431 AMLc: 0.457 AMLt: 0.625 D: 1.562 Dg: 0.586
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: data/features/common/gtzan
+
+BEAT EVALUATION:
+mean for 999 files
+  F-measure: 0.863 P-score: 0.853 Cemgil: 0.775 Goto: 0.800 CMLc: 0.743 CMLt: 0.767 AMLc: 0.888 AMLt: 0.920 D: 3.080 Dg: 1.715
+
+CHORD EVALUATION:
+no chord annotations provided!

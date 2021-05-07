@@ -1,0 +1,100 @@
+Model name: MTL_beat
+
+
+
+
+
+############ FOLD 1 FINISHED ############
+
+
+
+
+
+############ FOLD 2 FINISHED ############
+
+
+
+
+
+############ FOLD 3 FINISHED ############
+
+
+
+
+
+############ FOLD 4 FINISHED ############
+
+
+
+
+
+############ FOLD 5 FINISHED ############
+
+
+
+
+
+############ FOLD 6 FINISHED ############
+
+
+
+
+
+############ FOLD 7 FINISHED ############
+
+
+
+
+
+############ FOLD 8 FINISHED ############
+
+
+
+
+
+############ CROSS-VALIDATION RESULTS FOR DATASET TEST SPLITS: ############
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 180 files
+  F-measure: 0.900 P-score: 0.863 Cemgil: 0.805 Goto: 0.617 CMLc: 0.449 CMLt: 0.754 AMLc: 0.479 AMLt: 0.814 D: 2.976 Dg: 1.927
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/robbie_williams/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 65 files
+  F-measure: 0.888 P-score: 0.840 Cemgil: 0.819 Goto: 0.569 CMLc: 0.387 CMLt: 0.708 AMLc: 0.411 AMLt: 0.797 D: 3.177 Dg: 2.146
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/ballroom/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 685 files
+  F-measure: 0.905 P-score: 0.873 Cemgil: 0.868 Goto: 0.892 CMLc: 0.666 CMLt: 0.793 AMLc: 0.683 AMLt: 0.822 D: 3.272 Dg: 2.529
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/hainsworth/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 222 files
+  F-measure: 0.767 P-score: 0.724 Cemgil: 0.745 Goto: 0.595 CMLc: 0.436 CMLt: 0.607 AMLc: 0.476 AMLt: 0.673 D: 2.889 Dg: 2.162
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/smc/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 217 files
+  F-measure: 0.371 P-score: 0.348 Cemgil: 0.305 Goto: 0.083 CMLc: 0.086 CMLt: 0.164 AMLc: 0.125 AMLt: 0.228 D: 1.011 Dg: 0.300
+
+CHORD EVALUATION:
+no chord annotations provided!
