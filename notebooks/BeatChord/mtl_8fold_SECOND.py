@@ -16,7 +16,7 @@ import numpy as np
 import madmom
 from madmom.features.onsets import OnsetPeakPickingProcessor
 # from madmom.features.beats import BeatTrackingProcessor
-# from madmom.features.beats import DBNBeatTrackingProcessor # USE THIS!!!!!
+from madmom.features.beats import DBNBeatTrackingProcessor # USE THIS!!!!!
 from madmom.evaluation.beats import BeatEvaluation
 from madmom.evaluation.beats import BeatMeanEvaluation
 
@@ -120,6 +120,7 @@ TRAIN_ON_BEAT = tmc.TRAIN_ON_BEAT
 TRAIN_ON_CHORD = tmc.TRAIN_ON_CHORD
 FOLD_RANGE = tmc.FOLD_RANGE
 DISPLAY_INTERMEDIATE_RESULTS = tmc.DISPLAY_INTERMEDIATE_RESULTS
+USE_DBN_BEAT_TRACKER = tmc.USE_DBN_BEAT_TRACKER
 VERBOSE = tmc.VERBOSE
 
 if VERBOSE:
@@ -132,6 +133,8 @@ if VERBOSE:
     print('Training on beat data:', TRAIN_ON_BEAT, ', training on chord data:', TRAIN_ON_CHORD)
     print('Cross-validation range is:', FOLD_RANGE)
     print('\nSelected model:', MODEL_NAME)
+    if USE_DBN_BEAT_TRACKER:
+        print('\nWARNING: using DBN Beat Tracker!')
     # print('Command line arguments:\n\n', args, '\n')
 
 
@@ -810,8 +813,10 @@ def evaluate(feats, c_targs, b_annos, fold_number):
     
     picked_beats = []
     
-    # beat_picker = BeatTrackingProcessor(fps=FPS) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
-    beat_picker = OnsetPeakPickingProcessor(fps=FPS, threshold=THRESHOLD, pre_avg=PRE_AVG, post_avg=POST_AVG, pre_max=PRE_MAX, post_max=POST_MAX) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
+    if USE_DBN_BEAT_TRACKER:
+        beat_picker = DBNBeatTrackingProcessor(fps=FPS) # TODO: replace with OnsetPeakPickingProcessor(fps=FPS)
+    else:
+        beat_picker = OnsetPeakPickingProcessor(fps=FPS, threshold=THRESHOLD, pre_avg=PRE_AVG, post_avg=POST_AVG, pre_max=PRE_MAX, post_max=POST_MAX)
             
     for i, pred_beat in enumerate(predicted_beats):
 

@@ -207,6 +207,8 @@ VERBOSE = True # args.verbose
 MAJMIN = False
 DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS = False
 
+USE_DBN_BEAT_TRACKER = False
+
 ########
 
 
