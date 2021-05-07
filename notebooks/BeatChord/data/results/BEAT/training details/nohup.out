@@ -1,0 +1,2433 @@
+CURRENT DEVICE: cuda:0
+
+---- EXECUTION STARTED ----
+
+Train: True
+Train existing model: False
+Predict False
+Predict per dataset True
+Predict whole unseen datasets False
+Training on beat data: True , training on chord data: True
+Cross-validation range is: range(0, 8)
+
+Selected model: MTL_beat
+
+Beat datasets selected:
+1 : /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/beatles/annotations/beats
+2 : /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/robbie_williams/annotations/beats
+3 : /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/ballroom/annotations/beats
+4 : /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/hainsworth/annotations/beats
+5 : /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/smc/annotations/beats
+
+Chord datasets selected:
+1 : None
+2 : None
+3 : None
+4 : None
+5 : None
+
+loss weights: [1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 2.] 
+
+Model name: MTL_beat
+
+1369 feature spectrogram files loaded, with example shape: (4000, 91)
+1369 beat feature annotation files loaded, with example shape: (38,)
+1369 beat targets computed, with example shape: (4000,)
+1369 chord feature annotation files loaded, with example shape: None
+1369 chord targets computed, with example shape: (4000,)
+1028 training features 169 validation features and 172 test features
+example of 1-hot-encoded target shape: (30509, 13) 
+
+Training network...
+Train Epoch: 1 [0/22697 (0%)]	Loss: 1.463271, took 0.49s
+Train Epoch: 1 [1600/22697 (7%)]	Loss: 0.464037, took 3.66s
+Train Epoch: 1 [3200/22697 (14%)]	Loss: 0.318199, took 3.64s
+Train Epoch: 1 [4800/22697 (21%)]	Loss: 0.236719, took 3.65s
+Train Epoch: 1 [6400/22697 (28%)]	Loss: 0.265104, took 3.65s
+Train Epoch: 1 [8000/22697 (35%)]	Loss: 0.260147, took 3.65s
+Train Epoch: 1 [9600/22697 (42%)]	Loss: 0.226887, took 3.66s
+Train Epoch: 1 [11200/22697 (49%)]	Loss: 0.217791, took 3.66s
+Train Epoch: 1 [12800/22697 (56%)]	Loss: 0.173490, took 3.66s
+Train Epoch: 1 [14400/22697 (63%)]	Loss: 0.194092, took 3.66s
+Train Epoch: 1 [16000/22697 (70%)]	Loss: 0.190942, took 3.67s
+Train Epoch: 1 [17600/22697 (78%)]	Loss: 0.242050, took 3.67s
+Train Epoch: 1 [19200/22697 (85%)]	Loss: 0.216527, took 3.67s
+Train Epoch: 1 [20800/22697 (92%)]	Loss: 0.183013, took 3.67s
+Train Epoch: 1 [22400/22697 (99%)]	Loss: 0.220353, took 3.67s
+
+Validation Set:
+Average loss: 0.2033
+
+Train Epoch: 2 [0/22697 (0%)]	Loss: 0.196445, took 0.27s
+Train Epoch: 2 [1600/22697 (7%)]	Loss: 0.230935, took 3.69s
+Train Epoch: 2 [3200/22697 (14%)]	Loss: 0.193193, took 3.69s
+Train Epoch: 2 [4800/22697 (21%)]	Loss: 0.244897, took 3.69s
+Train Epoch: 2 [6400/22697 (28%)]	Loss: 0.183596, took 3.69s
+Train Epoch: 2 [8000/22697 (35%)]	Loss: 0.195854, took 3.69s
+Train Epoch: 2 [9600/22697 (42%)]	Loss: 0.218903, took 3.69s
+Train Epoch: 2 [11200/22697 (49%)]	Loss: 0.204140, took 3.69s
+Train Epoch: 2 [12800/22697 (56%)]	Loss: 0.196797, took 3.69s
+Train Epoch: 2 [14400/22697 (63%)]	Loss: 0.212593, took 3.69s
+Train Epoch: 2 [16000/22697 (70%)]	Loss: 0.170721, took 3.69s
+Train Epoch: 2 [17600/22697 (78%)]	Loss: 0.227298, took 3.69s
+Train Epoch: 2 [19200/22697 (85%)]	Loss: 0.217881, took 3.69s
+Train Epoch: 2 [20800/22697 (92%)]	Loss: 0.215075, took 3.70s
+Train Epoch: 2 [22400/22697 (99%)]	Loss: 0.194969, took 3.70s
+
+Validation Set:
+Average loss: 0.1954
+
+Train Epoch: 3 [0/22697 (0%)]	Loss: 0.152283, took 0.27s
+Train Epoch: 3 [1600/22697 (7%)]	Loss: 0.209491, took 3.70s
+Train Epoch: 3 [3200/22697 (14%)]	Loss: 0.176321, took 3.70s
+Train Epoch: 3 [4800/22697 (21%)]	Loss: 0.166397, took 3.71s
+Train Epoch: 3 [6400/22697 (28%)]	Loss: 0.204271, took 3.72s
+Train Epoch: 3 [8000/22697 (35%)]	Loss: 0.160786, took 3.73s
+Train Epoch: 3 [9600/22697 (42%)]	Loss: 0.188422, took 3.73s
+Train Epoch: 3 [11200/22697 (49%)]	Loss: 0.193106, took 3.73s
+Train Epoch: 3 [12800/22697 (56%)]	Loss: 0.166718, took 3.74s
+Train Epoch: 3 [14400/22697 (63%)]	Loss: 0.156963, took 3.74s
+Train Epoch: 3 [16000/22697 (70%)]	Loss: 0.195949, took 3.74s
+Train Epoch: 3 [17600/22697 (78%)]	Loss: 0.175607, took 3.73s
+Train Epoch: 3 [19200/22697 (85%)]	Loss: 0.151602, took 3.73s
+Train Epoch: 3 [20800/22697 (92%)]	Loss: 0.184548, took 3.74s
+Train Epoch: 3 [22400/22697 (99%)]	Loss: 0.208208, took 3.73s
+
+Validation Set:
+Average loss: 0.1967
+
+No improvement, patience: 4
+Train Epoch: 4 [0/22697 (0%)]	Loss: 0.194615, took 0.27s
+Train Epoch: 4 [1600/22697 (7%)]	Loss: 0.186344, took 3.73s
+Train Epoch: 4 [3200/22697 (14%)]	Loss: 0.177581, took 3.74s
+Train Epoch: 4 [4800/22697 (21%)]	Loss: 0.158769, took 3.73s
+Train Epoch: 4 [6400/22697 (28%)]	Loss: 0.172726, took 3.73s
+Train Epoch: 4 [8000/22697 (35%)]	Loss: 0.197596, took 3.73s
+Train Epoch: 4 [9600/22697 (42%)]	Loss: 0.181682, took 3.74s
+Train Epoch: 4 [11200/22697 (49%)]	Loss: 0.172089, took 3.73s
+Train Epoch: 4 [12800/22697 (56%)]	Loss: 0.158585, took 3.74s
+Train Epoch: 4 [14400/22697 (63%)]	Loss: 0.176490, took 3.74s
+Train Epoch: 4 [16000/22697 (70%)]	Loss: 0.173203, took 3.73s
+Train Epoch: 4 [17600/22697 (78%)]	Loss: 0.192125, took 3.74s
+Train Epoch: 4 [19200/22697 (85%)]	Loss: 0.173266, took 3.73s
+Train Epoch: 4 [20800/22697 (92%)]	Loss: 0.171441, took 3.75s
+Train Epoch: 4 [22400/22697 (99%)]	Loss: 0.174692, took 3.74s
+
+Validation Set:
+Average loss: 0.1887
+
+Train Epoch: 5 [0/22697 (0%)]	Loss: 0.157505, took 0.27s
+Train Epoch: 5 [1600/22697 (7%)]	Loss: 0.169039, took 3.73s
+Train Epoch: 5 [3200/22697 (14%)]	Loss: 0.154569, took 3.73s
+Train Epoch: 5 [4800/22697 (21%)]	Loss: 0.157031, took 3.73s
+Train Epoch: 5 [6400/22697 (28%)]	Loss: 0.183319, took 3.73s
+Train Epoch: 5 [8000/22697 (35%)]	Loss: 0.160776, took 3.75s
+Train Epoch: 5 [9600/22697 (42%)]	Loss: 0.181764, took 3.74s
+Train Epoch: 5 [11200/22697 (49%)]	Loss: 0.156396, took 3.73s
+Train Epoch: 5 [12800/22697 (56%)]	Loss: 0.154622, took 3.75s
+Train Epoch: 5 [14400/22697 (63%)]	Loss: 0.202692, took 3.74s
+Train Epoch: 5 [16000/22697 (70%)]	Loss: 0.157802, took 3.74s
+Train Epoch: 5 [17600/22697 (78%)]	Loss: 0.170732, took 3.74s
+Train Epoch: 5 [19200/22697 (85%)]	Loss: 0.183836, took 3.74s
+Train Epoch: 5 [20800/22697 (92%)]	Loss: 0.163741, took 3.74s
+Train Epoch: 5 [22400/22697 (99%)]	Loss: 0.186285, took 3.74s
+
+Validation Set:
+Average loss: 0.1883
+
+Train Epoch: 6 [0/22697 (0%)]	Loss: 0.150487, took 0.27s
+Train Epoch: 6 [1600/22697 (7%)]	Loss: 0.178642, took 3.74s
+Train Epoch: 6 [3200/22697 (14%)]	Loss: 0.166293, took 3.75s
+Train Epoch: 6 [4800/22697 (21%)]	Loss: 0.174902, took 3.74s
+Train Epoch: 6 [6400/22697 (28%)]	Loss: 0.164320, took 3.75s
+Train Epoch: 6 [8000/22697 (35%)]	Loss: 0.179527, took 3.75s
+Train Epoch: 6 [9600/22697 (42%)]	Loss: 0.200334, took 3.74s
+Train Epoch: 6 [11200/22697 (49%)]	Loss: 0.157104, took 3.74s
+Train Epoch: 6 [12800/22697 (56%)]	Loss: 0.142169, took 3.73s
+Train Epoch: 6 [14400/22697 (63%)]	Loss: 0.179080, took 3.74s
+Train Epoch: 6 [16000/22697 (70%)]	Loss: 0.170390, took 3.74s
+Train Epoch: 6 [17600/22697 (78%)]	Loss: 0.161123, took 3.74s
+Train Epoch: 6 [19200/22697 (85%)]	Loss: 0.148105, took 3.74s
+Train Epoch: 6 [20800/22697 (92%)]	Loss: 0.154614, took 3.73s
+Train Epoch: 6 [22400/22697 (99%)]	Loss: 0.154878, took 3.74s
+
+Validation Set:
+Average loss: 0.1902
+
+No improvement, patience: 4
+Train Epoch: 7 [0/22697 (0%)]	Loss: 0.150807, took 0.27s
+Train Epoch: 7 [1600/22697 (7%)]	Loss: 0.166246, took 3.73s
+Train Epoch: 7 [3200/22697 (14%)]	Loss: 0.167636, took 3.73s
+Train Epoch: 7 [4800/22697 (21%)]	Loss: 0.160293, took 3.73s
+Train Epoch: 7 [6400/22697 (28%)]	Loss: 0.160618, took 3.74s
+Train Epoch: 7 [8000/22697 (35%)]	Loss: 0.146486, took 3.73s
+Train Epoch: 7 [9600/22697 (42%)]	Loss: 0.147805, took 3.74s
+Train Epoch: 7 [11200/22697 (49%)]	Loss: 0.147963, took 3.73s
+Train Epoch: 7 [12800/22697 (56%)]	Loss: 0.158810, took 3.73s
+Train Epoch: 7 [14400/22697 (63%)]	Loss: 0.164809, took 3.74s
+Train Epoch: 7 [16000/22697 (70%)]	Loss: 0.153490, took 3.74s
+Train Epoch: 7 [17600/22697 (78%)]	Loss: 0.205400, took 3.74s
+Train Epoch: 7 [19200/22697 (85%)]	Loss: 0.186877, took 3.73s
+Train Epoch: 7 [20800/22697 (92%)]	Loss: 0.163396, took 3.74s
+Train Epoch: 7 [22400/22697 (99%)]	Loss: 0.194584, took 3.73s
+
+Validation Set:
+Average loss: 0.1894
+
+No improvement, patience: 3
+Train Epoch: 8 [0/22697 (0%)]	Loss: 0.151016, took 0.27s
+Train Epoch: 8 [1600/22697 (7%)]	Loss: 0.167404, took 3.72s
+Train Epoch: 8 [3200/22697 (14%)]	Loss: 0.186413, took 3.73s
+Train Epoch: 8 [4800/22697 (21%)]	Loss: 0.170253, took 3.72s
+Train Epoch: 8 [6400/22697 (28%)]	Loss: 0.146025, took 3.72s
+Train Epoch: 8 [8000/22697 (35%)]	Loss: 0.153627, took 3.72s
+Train Epoch: 8 [9600/22697 (42%)]	Loss: 0.161224, took 3.72s
+Train Epoch: 8 [11200/22697 (49%)]	Loss: 0.150651, took 3.73s
+Train Epoch: 8 [12800/22697 (56%)]	Loss: 0.132828, took 3.73s
+Train Epoch: 8 [14400/22697 (63%)]	Loss: 0.167645, took 3.73s
+Train Epoch: 8 [16000/22697 (70%)]	Loss: 0.150502, took 3.73s
+Train Epoch: 8 [17600/22697 (78%)]	Loss: 0.149537, took 3.73s
+Train Epoch: 8 [19200/22697 (85%)]	Loss: 0.175620, took 3.74s
+Train Epoch: 8 [20800/22697 (92%)]	Loss: 0.147570, took 3.72s
+Train Epoch: 8 [22400/22697 (99%)]	Loss: 0.149998, took 3.73s
+
+Validation Set:
+Average loss: 0.1881
+
+Train Epoch: 9 [0/22697 (0%)]	Loss: 0.171607, took 0.27s
+Train Epoch: 9 [1600/22697 (7%)]	Loss: 0.146964, took 3.73s
+Train Epoch: 9 [3200/22697 (14%)]	Loss: 0.143365, took 3.73s
+Train Epoch: 9 [4800/22697 (21%)]	Loss: 0.174525, took 3.72s
+Train Epoch: 9 [6400/22697 (28%)]	Loss: 0.145512, took 3.72s
+Train Epoch: 9 [8000/22697 (35%)]	Loss: 0.157886, took 3.73s
+Train Epoch: 9 [9600/22697 (42%)]	Loss: 0.158159, took 3.72s
+Train Epoch: 9 [11200/22697 (49%)]	Loss: 0.148471, took 3.73s
+Train Epoch: 9 [12800/22697 (56%)]	Loss: 0.131779, took 3.72s
+Train Epoch: 9 [14400/22697 (63%)]	Loss: 0.175190, took 3.73s
+Train Epoch: 9 [16000/22697 (70%)]	Loss: 0.143590, took 3.72s
+Train Epoch: 9 [17600/22697 (78%)]	Loss: 0.148641, took 3.72s
+Train Epoch: 9 [19200/22697 (85%)]	Loss: 0.133773, took 3.73s
+Train Epoch: 9 [20800/22697 (92%)]	Loss: 0.151578, took 3.73s
+Train Epoch: 9 [22400/22697 (99%)]	Loss: 0.154352, took 3.73s
+
+Validation Set:
+Average loss: 0.1876
+
+Train Epoch: 10 [0/22697 (0%)]	Loss: 0.119973, took 0.27s
+Train Epoch: 10 [1600/22697 (7%)]	Loss: 0.125593, took 3.71s
+Train Epoch: 10 [3200/22697 (14%)]	Loss: 0.130161, took 3.72s
+Train Epoch: 10 [4800/22697 (21%)]	Loss: 0.168560, took 3.73s
+Train Epoch: 10 [6400/22697 (28%)]	Loss: 0.147784, took 3.72s
+Train Epoch: 10 [8000/22697 (35%)]	Loss: 0.162658, took 3.72s
+Train Epoch: 10 [9600/22697 (42%)]	Loss: 0.161914, took 3.72s
+Train Epoch: 10 [11200/22697 (49%)]	Loss: 0.156050, took 3.72s
+Train Epoch: 10 [12800/22697 (56%)]	Loss: 0.153078, took 3.73s
+Train Epoch: 10 [14400/22697 (63%)]	Loss: 0.145246, took 3.73s
+Train Epoch: 10 [16000/22697 (70%)]	Loss: 0.149769, took 3.73s
+Train Epoch: 10 [17600/22697 (78%)]	Loss: 0.145282, took 3.73s
+Train Epoch: 10 [19200/22697 (85%)]	Loss: 0.126872, took 3.72s
+Train Epoch: 10 [20800/22697 (92%)]	Loss: 0.158644, took 3.73s
+Train Epoch: 10 [22400/22697 (99%)]	Loss: 0.141273, took 3.72s
+
+Validation Set:
+Average loss: 0.1886
+
+No improvement, patience: 4
+Train Epoch: 11 [0/22697 (0%)]	Loss: 0.159907, took 0.27s
+Train Epoch: 11 [1600/22697 (7%)]	Loss: 0.127171, took 3.72s
+Train Epoch: 11 [3200/22697 (14%)]	Loss: 0.140997, took 3.73s
+Train Epoch: 11 [4800/22697 (21%)]	Loss: 0.166711, took 3.72s
+Train Epoch: 11 [6400/22697 (28%)]	Loss: 0.142312, took 3.72s
+Train Epoch: 11 [8000/22697 (35%)]	Loss: 0.167098, took 3.72s
+Train Epoch: 11 [9600/22697 (42%)]	Loss: 0.149445, took 3.72s
+Train Epoch: 11 [11200/22697 (49%)]	Loss: 0.146567, took 3.72s
+Train Epoch: 11 [12800/22697 (56%)]	Loss: 0.138099, took 3.73s
+Train Epoch: 11 [14400/22697 (63%)]	Loss: 0.143072, took 3.72s
+Train Epoch: 11 [16000/22697 (70%)]	Loss: 0.137468, took 3.73s
+Train Epoch: 11 [17600/22697 (78%)]	Loss: 0.136694, took 3.73s
+Train Epoch: 11 [19200/22697 (85%)]	Loss: 0.161066, took 3.72s
+Train Epoch: 11 [20800/22697 (92%)]	Loss: 0.132510, took 3.72s
+Train Epoch: 11 [22400/22697 (99%)]	Loss: 0.163360, took 3.72s
+
+Validation Set:
+Average loss: 0.1863
+
+Train Epoch: 12 [0/22697 (0%)]	Loss: 0.128654, took 0.27s
+Train Epoch: 12 [1600/22697 (7%)]	Loss: 0.150194, took 3.72s
+Train Epoch: 12 [3200/22697 (14%)]	Loss: 0.146472, took 3.72s
+Train Epoch: 12 [4800/22697 (21%)]	Loss: 0.180230, took 3.73s
+Train Epoch: 12 [6400/22697 (28%)]	Loss: 0.147134, took 3.72s
+Train Epoch: 12 [8000/22697 (35%)]	Loss: 0.135952, took 3.73s
+Train Epoch: 12 [9600/22697 (42%)]	Loss: 0.145891, took 3.72s
+Train Epoch: 12 [11200/22697 (49%)]	Loss: 0.158413, took 3.73s
+Train Epoch: 12 [12800/22697 (56%)]	Loss: 0.151925, took 3.73s
+Train Epoch: 12 [14400/22697 (63%)]	Loss: 0.143246, took 3.72s
+Train Epoch: 12 [16000/22697 (70%)]	Loss: 0.174042, took 3.73s
+Train Epoch: 12 [17600/22697 (78%)]	Loss: 0.150473, took 3.73s
+Train Epoch: 12 [19200/22697 (85%)]	Loss: 0.163861, took 3.72s
+Train Epoch: 12 [20800/22697 (92%)]	Loss: 0.162276, took 3.72s
+Train Epoch: 12 [22400/22697 (99%)]	Loss: 0.124209, took 3.73s
+
+Validation Set:
+Average loss: 0.1881
+
+No improvement, patience: 4
+Train Epoch: 13 [0/22697 (0%)]	Loss: 0.133645, took 0.27s
+Train Epoch: 13 [1600/22697 (7%)]	Loss: 0.147553, took 3.73s
+Train Epoch: 13 [3200/22697 (14%)]	Loss: 0.172303, took 3.72s
+Train Epoch: 13 [4800/22697 (21%)]	Loss: 0.169899, took 3.73s
+Train Epoch: 13 [6400/22697 (28%)]	Loss: 0.179997, took 3.73s
+Train Epoch: 13 [8000/22697 (35%)]	Loss: 0.136374, took 3.72s
+Train Epoch: 13 [9600/22697 (42%)]	Loss: 0.153272, took 3.73s
+Train Epoch: 13 [11200/22697 (49%)]	Loss: 0.173399, took 3.73s
+Train Epoch: 13 [12800/22697 (56%)]	Loss: 0.146266, took 3.73s
+Train Epoch: 13 [14400/22697 (63%)]	Loss: 0.143909, took 3.72s
+Train Epoch: 13 [16000/22697 (70%)]	Loss: 0.152195, took 3.73s
+Train Epoch: 13 [17600/22697 (78%)]	Loss: 0.137559, took 3.72s
+Train Epoch: 13 [19200/22697 (85%)]	Loss: 0.142095, took 3.73s
+Train Epoch: 13 [20800/22697 (92%)]	Loss: 0.146051, took 3.72s
+Train Epoch: 13 [22400/22697 (99%)]	Loss: 0.154988, took 3.73s
+
+Validation Set:
+Average loss: 0.1876
+
+No improvement, patience: 3
+Train Epoch: 14 [0/22697 (0%)]	Loss: 0.128401, took 0.27s
+Train Epoch: 14 [1600/22697 (7%)]	Loss: 0.172472, took 3.72s
+Train Epoch: 14 [3200/22697 (14%)]	Loss: 0.139835, took 3.71s
+Train Epoch: 14 [4800/22697 (21%)]	Loss: 0.124933, took 3.72s
+Train Epoch: 14 [6400/22697 (28%)]	Loss: 0.139677, took 3.72s
+Train Epoch: 14 [8000/22697 (35%)]	Loss: 0.161478, took 3.72s
+Train Epoch: 14 [9600/22697 (42%)]	Loss: 0.143647, took 3.73s
+Train Epoch: 14 [11200/22697 (49%)]	Loss: 0.159220, took 3.72s
+Train Epoch: 14 [12800/22697 (56%)]	Loss: 0.138191, took 3.72s
+Train Epoch: 14 [14400/22697 (63%)]	Loss: 0.156178, took 3.73s
+Train Epoch: 14 [16000/22697 (70%)]	Loss: 0.175396, took 3.72s
+Train Epoch: 14 [17600/22697 (78%)]	Loss: 0.154762, took 3.72s
+Train Epoch: 14 [19200/22697 (85%)]	Loss: 0.138148, took 3.72s
+Train Epoch: 14 [20800/22697 (92%)]	Loss: 0.137225, took 3.73s
+Train Epoch: 14 [22400/22697 (99%)]	Loss: 0.152134, took 3.72s
+
+Validation Set:
+Average loss: 0.1944
+
+No improvement, patience: 2
+Train Epoch: 15 [0/22697 (0%)]	Loss: 0.146175, took 0.27s
+Train Epoch: 15 [1600/22697 (7%)]	Loss: 0.141996, took 3.71s
+Train Epoch: 15 [3200/22697 (14%)]	Loss: 0.169004, took 3.72s
+Train Epoch: 15 [4800/22697 (21%)]	Loss: 0.151217, took 3.72s
+Train Epoch: 15 [6400/22697 (28%)]	Loss: 0.148797, took 3.73s
+Train Epoch: 15 [8000/22697 (35%)]	Loss: 0.140318, took 3.72s
+Train Epoch: 15 [9600/22697 (42%)]	Loss: 0.172787, took 3.73s
+Train Epoch: 15 [11200/22697 (49%)]	Loss: 0.127433, took 3.73s
+Train Epoch: 15 [12800/22697 (56%)]	Loss: 0.143693, took 3.72s
+Train Epoch: 15 [14400/22697 (63%)]	Loss: 0.175980, took 3.72s
+Train Epoch: 15 [16000/22697 (70%)]	Loss: 0.150603, took 3.73s
+Train Epoch: 15 [17600/22697 (78%)]	Loss: 0.117093, took 3.72s
+Train Epoch: 15 [19200/22697 (85%)]	Loss: 0.120087, took 3.73s
+Train Epoch: 15 [20800/22697 (92%)]	Loss: 0.131729, took 3.73s
+Train Epoch: 15 [22400/22697 (99%)]	Loss: 0.166756, took 3.72s
+
+Validation Set:
+Average loss: 0.1888
+
+No improvement, patience: 1
+Train Epoch: 16 [0/22697 (0%)]	Loss: 0.190542, took 0.28s
+Train Epoch: 16 [1600/22697 (7%)]	Loss: 0.161664, took 3.72s
+Train Epoch: 16 [3200/22697 (14%)]	Loss: 0.121501, took 3.73s
+Train Epoch: 16 [4800/22697 (21%)]	Loss: 0.120394, took 3.72s
+Train Epoch: 16 [6400/22697 (28%)]	Loss: 0.114897, took 3.73s
+Train Epoch: 16 [8000/22697 (35%)]	Loss: 0.127679, took 3.72s
+Train Epoch: 16 [9600/22697 (42%)]	Loss: 0.176360, took 3.73s
+Train Epoch: 16 [11200/22697 (49%)]	Loss: 0.142420, took 3.73s
+Train Epoch: 16 [12800/22697 (56%)]	Loss: 0.147691, took 3.72s
+Train Epoch: 16 [14400/22697 (63%)]	Loss: 0.143778, took 3.72s
+Train Epoch: 16 [16000/22697 (70%)]	Loss: 0.151044, took 3.72s
+Train Epoch: 16 [17600/22697 (78%)]	Loss: 0.135970, took 3.73s
+Train Epoch: 16 [19200/22697 (85%)]	Loss: 0.141214, took 3.73s
+Train Epoch: 16 [20800/22697 (92%)]	Loss: 0.137527, took 3.73s
+Train Epoch: 16 [22400/22697 (99%)]	Loss: 0.137829, took 3.73s
+
+Validation Set:
+Average loss: 0.1926
+
+Early stopping, no improvement for 4 epochs...
+Evaluate network...
+Test Set:
+Average loss: 0.1930
+
+
+
+
+
+
+############ FOLD 1 FINISHED ############
+
+1369 feature spectrogram files loaded, with example shape: (4000, 91)
+1369 beat feature annotation files loaded, with example shape: (38,)
+1369 beat targets computed, with example shape: (4000,)
+1369 chord feature annotation files loaded, with example shape: None
+1369 chord targets computed, with example shape: (4000,)
+1027 training features 172 validation features and 170 test features
+example of 1-hot-encoded target shape: (17408, 13) 
+
+Training network...
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (39) for 40 histogram bins.
+  % (len(annotations), num_bins))
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (35) for 40 histogram bins.
+  % (len(annotations), num_bins))
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (36) for 40 histogram bins.
+  % (len(annotations), num_bins))
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (22) for 40 histogram bins.
+  % (len(annotations), num_bins))
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (37) for 40 histogram bins.
+  % (len(annotations), num_bins))
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (27) for 40 histogram bins.
+  % (len(annotations), num_bins))
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (38) for 40 histogram bins.
+  % (len(annotations), num_bins))
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (29) for 40 histogram bins.
+  % (len(annotations), num_bins))
+Train Epoch: 1 [0/22374 (0%)]	Loss: 1.465001, took 0.28s
+Train Epoch: 1 [1600/22374 (7%)]	Loss: 0.465290, took 3.69s
+Train Epoch: 1 [3200/22374 (14%)]	Loss: 0.281813, took 3.67s
+Train Epoch: 1 [4800/22374 (21%)]	Loss: 0.224192, took 3.68s
+Train Epoch: 1 [6400/22374 (29%)]	Loss: 0.204589, took 3.68s
+Train Epoch: 1 [8000/22374 (36%)]	Loss: 0.205653, took 3.69s
+Train Epoch: 1 [9600/22374 (43%)]	Loss: 0.200796, took 3.69s
+Train Epoch: 1 [11200/22374 (50%)]	Loss: 0.175493, took 3.69s
+Train Epoch: 1 [12800/22374 (57%)]	Loss: 0.202622, took 3.69s
+Train Epoch: 1 [14400/22374 (64%)]	Loss: 0.260054, took 3.69s
+Train Epoch: 1 [16000/22374 (71%)]	Loss: 0.186198, took 3.69s
+Train Epoch: 1 [17600/22374 (79%)]	Loss: 0.172250, took 3.69s
+Train Epoch: 1 [19200/22374 (86%)]	Loss: 0.188555, took 3.70s
+Train Epoch: 1 [20800/22374 (93%)]	Loss: 0.225839, took 3.70s
+
+Validation Set:
+Average loss: 0.1958
+
+Train Epoch: 2 [0/22374 (0%)]	Loss: 0.230659, took 0.28s
+Train Epoch: 2 [1600/22374 (7%)]	Loss: 0.178171, took 3.72s
+Train Epoch: 2 [3200/22374 (14%)]	Loss: 0.199662, took 3.74s
+Train Epoch: 2 [4800/22374 (21%)]	Loss: 0.191209, took 3.74s
+Train Epoch: 2 [6400/22374 (29%)]	Loss: 0.195598, took 3.75s
+Train Epoch: 2 [8000/22374 (36%)]	Loss: 0.236724, took 3.74s
+Train Epoch: 2 [9600/22374 (43%)]	Loss: 0.191844, took 3.75s
+Train Epoch: 2 [11200/22374 (50%)]	Loss: 0.188535, took 3.74s
+Train Epoch: 2 [12800/22374 (57%)]	Loss: 0.182711, took 3.74s
+Train Epoch: 2 [14400/22374 (64%)]	Loss: 0.210433, took 3.75s
+Train Epoch: 2 [16000/22374 (71%)]	Loss: 0.225033, took 3.75s
+Train Epoch: 2 [17600/22374 (79%)]	Loss: 0.206379, took 3.75s
+Train Epoch: 2 [19200/22374 (86%)]	Loss: 0.219414, took 3.75s
+Train Epoch: 2 [20800/22374 (93%)]	Loss: 0.196354, took 3.76s
+
+Validation Set:
+Average loss: 0.1934
+
+Train Epoch: 3 [0/22374 (0%)]	Loss: 0.191162, took 0.27s
+Train Epoch: 3 [1600/22374 (7%)]	Loss: 0.178326, took 3.74s
+Train Epoch: 3 [3200/22374 (14%)]	Loss: 0.160209, took 3.74s
+Train Epoch: 3 [4800/22374 (21%)]	Loss: 0.211441, took 3.75s
+Train Epoch: 3 [6400/22374 (29%)]	Loss: 0.183266, took 3.76s
+Train Epoch: 3 [8000/22374 (36%)]	Loss: 0.191343, took 3.75s
+Train Epoch: 3 [9600/22374 (43%)]	Loss: 0.160606, took 3.75s
+Train Epoch: 3 [11200/22374 (50%)]	Loss: 0.178800, took 3.76s
+Train Epoch: 3 [12800/22374 (57%)]	Loss: 0.162290, took 3.74s
+Train Epoch: 3 [14400/22374 (64%)]	Loss: 0.230590, took 3.76s
+Train Epoch: 3 [16000/22374 (71%)]	Loss: 0.192668, took 3.75s
+Train Epoch: 3 [17600/22374 (79%)]	Loss: 0.181673, took 3.75s
+Train Epoch: 3 [19200/22374 (86%)]	Loss: 0.177378, took 3.75s
+Train Epoch: 3 [20800/22374 (93%)]	Loss: 0.169105, took 3.75s
+
+Validation Set:
+Average loss: 0.1887
+
+Train Epoch: 4 [0/22374 (0%)]	Loss: 0.146888, took 0.28s
+Train Epoch: 4 [1600/22374 (7%)]	Loss: 0.181657, took 3.74s
+Train Epoch: 4 [3200/22374 (14%)]	Loss: 0.142542, took 3.75s
+Train Epoch: 4 [4800/22374 (21%)]	Loss: 0.192140, took 3.76s
+Train Epoch: 4 [6400/22374 (29%)]	Loss: 0.181242, took 3.75s
+Train Epoch: 4 [8000/22374 (36%)]	Loss: 0.194605, took 3.75s
+Train Epoch: 4 [9600/22374 (43%)]	Loss: 0.184213, took 3.74s
+Train Epoch: 4 [11200/22374 (50%)]	Loss: 0.213544, took 3.75s
+Train Epoch: 4 [12800/22374 (57%)]	Loss: 0.163486, took 3.76s
+Train Epoch: 4 [14400/22374 (64%)]	Loss: 0.137834, took 3.76s
+Train Epoch: 4 [16000/22374 (71%)]	Loss: 0.187645, took 3.75s
+Train Epoch: 4 [17600/22374 (79%)]	Loss: 0.187144, took 3.75s
+Train Epoch: 4 [19200/22374 (86%)]	Loss: 0.151913, took 3.75s
+Train Epoch: 4 [20800/22374 (93%)]	Loss: 0.176125, took 3.75s
+
+Validation Set:
+Average loss: 0.1899
+
+No improvement, patience: 4
+Train Epoch: 5 [0/22374 (0%)]	Loss: 0.168902, took 0.28s
+Train Epoch: 5 [1600/22374 (7%)]	Loss: 0.180504, took 3.73s
+Train Epoch: 5 [3200/22374 (14%)]	Loss: 0.173554, took 3.73s
+Train Epoch: 5 [4800/22374 (21%)]	Loss: 0.161942, took 3.75s
+Train Epoch: 5 [6400/22374 (29%)]	Loss: 0.201127, took 3.74s
+Train Epoch: 5 [8000/22374 (36%)]	Loss: 0.146652, took 3.74s
+Train Epoch: 5 [9600/22374 (43%)]	Loss: 0.151451, took 3.73s
+Train Epoch: 5 [11200/22374 (50%)]	Loss: 0.150404, took 3.74s
+Train Epoch: 5 [12800/22374 (57%)]	Loss: 0.163368, took 3.75s
+Train Epoch: 5 [14400/22374 (64%)]	Loss: 0.166156, took 3.74s
+Train Epoch: 5 [16000/22374 (71%)]	Loss: 0.163165, took 3.75s
+Train Epoch: 5 [17600/22374 (79%)]	Loss: 0.202973, took 3.74s
+Train Epoch: 5 [19200/22374 (86%)]	Loss: 0.223263, took 3.74s
+Train Epoch: 5 [20800/22374 (93%)]	Loss: 0.177222, took 3.74s
+
+Validation Set:
+Average loss: 0.1839
+
+Train Epoch: 6 [0/22374 (0%)]	Loss: 0.186318, took 0.28s
+Train Epoch: 6 [1600/22374 (7%)]	Loss: 0.168229, took 3.73s
+Train Epoch: 6 [3200/22374 (14%)]	Loss: 0.147914, took 3.74s
+Train Epoch: 6 [4800/22374 (21%)]	Loss: 0.169355, took 3.74s
+Train Epoch: 6 [6400/22374 (29%)]	Loss: 0.145377, took 3.74s
+Train Epoch: 6 [8000/22374 (36%)]	Loss: 0.165055, took 3.74s
+Train Epoch: 6 [9600/22374 (43%)]	Loss: 0.146370, took 3.74s
+Train Epoch: 6 [11200/22374 (50%)]	Loss: 0.176759, took 3.74s
+Train Epoch: 6 [12800/22374 (57%)]	Loss: 0.171666, took 3.73s
+Train Epoch: 6 [14400/22374 (64%)]	Loss: 0.179409, took 3.74s
+Train Epoch: 6 [16000/22374 (71%)]	Loss: 0.223738, took 3.74s
+Train Epoch: 6 [17600/22374 (79%)]	Loss: 0.158620, took 3.74s
+Train Epoch: 6 [19200/22374 (86%)]	Loss: 0.154221, took 3.74s
+Train Epoch: 6 [20800/22374 (93%)]	Loss: 0.150451, took 3.74s
+
+Validation Set:
+Average loss: 0.1839
+
+Train Epoch: 7 [0/22374 (0%)]	Loss: 0.157504, took 0.28s
+Train Epoch: 7 [1600/22374 (7%)]	Loss: 0.169815, took 3.72s
+Train Epoch: 7 [3200/22374 (14%)]	Loss: 0.147306, took 3.74s
+Train Epoch: 7 [4800/22374 (21%)]	Loss: 0.185107, took 3.73s
+Train Epoch: 7 [6400/22374 (29%)]	Loss: 0.152312, took 3.73s
+Train Epoch: 7 [8000/22374 (36%)]	Loss: 0.140844, took 3.73s
+Train Epoch: 7 [9600/22374 (43%)]	Loss: 0.161983, took 3.74s
+Train Epoch: 7 [11200/22374 (50%)]	Loss: 0.120094, took 3.75s
+Train Epoch: 7 [12800/22374 (57%)]	Loss: 0.159895, took 3.74s
+Train Epoch: 7 [14400/22374 (64%)]	Loss: 0.197741, took 3.73s
+Train Epoch: 7 [16000/22374 (71%)]	Loss: 0.140588, took 3.73s
+Train Epoch: 7 [17600/22374 (79%)]	Loss: 0.159142, took 3.73s
+Train Epoch: 7 [19200/22374 (86%)]	Loss: 0.139711, took 3.74s
+Train Epoch: 7 [20800/22374 (93%)]	Loss: 0.211246, took 3.75s
+
+Validation Set:
+Average loss: 0.1829
+
+Train Epoch: 8 [0/22374 (0%)]	Loss: 0.178804, took 0.28s
+Train Epoch: 8 [1600/22374 (7%)]	Loss: 0.146271, took 3.72s
+Train Epoch: 8 [3200/22374 (14%)]	Loss: 0.157577, took 3.72s
+Train Epoch: 8 [4800/22374 (21%)]	Loss: 0.146244, took 3.73s
+Train Epoch: 8 [6400/22374 (29%)]	Loss: 0.177281, took 3.74s
+Train Epoch: 8 [8000/22374 (36%)]	Loss: 0.186075, took 3.73s
+Train Epoch: 8 [9600/22374 (43%)]	Loss: 0.151228, took 3.74s
+Train Epoch: 8 [11200/22374 (50%)]	Loss: 0.140404, took 3.74s
+Train Epoch: 8 [12800/22374 (57%)]	Loss: 0.207016, took 3.73s
+Train Epoch: 8 [14400/22374 (64%)]	Loss: 0.162157, took 3.73s
+Train Epoch: 8 [16000/22374 (71%)]	Loss: 0.148689, took 3.73s
+Train Epoch: 8 [17600/22374 (79%)]	Loss: 0.153992, took 3.72s
+Train Epoch: 8 [19200/22374 (86%)]	Loss: 0.156768, took 3.75s
+Train Epoch: 8 [20800/22374 (93%)]	Loss: 0.160741, took 3.73s
+
+Validation Set:
+Average loss: 0.1825
+
+Train Epoch: 9 [0/22374 (0%)]	Loss: 0.153808, took 0.28s
+Train Epoch: 9 [1600/22374 (7%)]	Loss: 0.154570, took 3.72s
+Train Epoch: 9 [3200/22374 (14%)]	Loss: 0.124531, took 3.73s
+Train Epoch: 9 [4800/22374 (21%)]	Loss: 0.167243, took 3.73s
+Train Epoch: 9 [6400/22374 (29%)]	Loss: 0.176614, took 3.73s
+Train Epoch: 9 [8000/22374 (36%)]	Loss: 0.174602, took 3.72s
+Train Epoch: 9 [9600/22374 (43%)]	Loss: 0.174302, took 3.73s
+Train Epoch: 9 [11200/22374 (50%)]	Loss: 0.144796, took 3.73s
+Train Epoch: 9 [12800/22374 (57%)]	Loss: 0.181978, took 3.73s
+Train Epoch: 9 [14400/22374 (64%)]	Loss: 0.146849, took 3.73s
+Train Epoch: 9 [16000/22374 (71%)]	Loss: 0.137634, took 3.73s
+Train Epoch: 9 [17600/22374 (79%)]	Loss: 0.145831, took 3.74s
+Train Epoch: 9 [19200/22374 (86%)]	Loss: 0.163285, took 3.72s
+Train Epoch: 9 [20800/22374 (93%)]	Loss: 0.147250, took 3.74s
+
+Validation Set:
+Average loss: 0.1887
+
+No improvement, patience: 4
+Train Epoch: 10 [0/22374 (0%)]	Loss: 0.143085, took 0.28s
+Train Epoch: 10 [1600/22374 (7%)]	Loss: 0.162730, took 3.73s
+Train Epoch: 10 [3200/22374 (14%)]	Loss: 0.143382, took 3.72s
+Train Epoch: 10 [4800/22374 (21%)]	Loss: 0.176427, took 3.72s
+Train Epoch: 10 [6400/22374 (29%)]	Loss: 0.183171, took 3.73s
+Train Epoch: 10 [8000/22374 (36%)]	Loss: 0.139354, took 3.73s
+Train Epoch: 10 [9600/22374 (43%)]	Loss: 0.181497, took 3.74s
+Train Epoch: 10 [11200/22374 (50%)]	Loss: 0.168352, took 3.72s
+Train Epoch: 10 [12800/22374 (57%)]	Loss: 0.136782, took 3.72s
+Train Epoch: 10 [14400/22374 (64%)]	Loss: 0.143176, took 3.75s
+Train Epoch: 10 [16000/22374 (71%)]	Loss: 0.135530, took 3.73s
+Train Epoch: 10 [17600/22374 (79%)]	Loss: 0.140193, took 3.74s
+Train Epoch: 10 [19200/22374 (86%)]	Loss: 0.177836, took 3.74s
+Train Epoch: 10 [20800/22374 (93%)]	Loss: 0.190783, took 3.73s
+
+Validation Set:
+Average loss: 0.1875
+
+No improvement, patience: 3
+Train Epoch: 11 [0/22374 (0%)]	Loss: 0.149280, took 0.28s
+Train Epoch: 11 [1600/22374 (7%)]	Loss: 0.169945, took 3.72s
+Train Epoch: 11 [3200/22374 (14%)]	Loss: 0.130207, took 3.72s
+Train Epoch: 11 [4800/22374 (21%)]	Loss: 0.149732, took 3.72s
+Train Epoch: 11 [6400/22374 (29%)]	Loss: 0.131837, took 3.73s
+Train Epoch: 11 [8000/22374 (36%)]	Loss: 0.156881, took 3.73s
+Train Epoch: 11 [9600/22374 (43%)]	Loss: 0.128201, took 3.73s
+Train Epoch: 11 [11200/22374 (50%)]	Loss: 0.153193, took 3.72s
+Train Epoch: 11 [12800/22374 (57%)]	Loss: 0.142012, took 3.72s
+Train Epoch: 11 [14400/22374 (64%)]	Loss: 0.165297, took 3.73s
+Train Epoch: 11 [16000/22374 (71%)]	Loss: 0.153177, took 3.73s
+Train Epoch: 11 [17600/22374 (79%)]	Loss: 0.184997, took 3.73s
+Train Epoch: 11 [19200/22374 (86%)]	Loss: 0.154542, took 3.72s
+Train Epoch: 11 [20800/22374 (93%)]	Loss: 0.136804, took 3.72s
+
+Validation Set:
+Average loss: 0.1827
+
+No improvement, patience: 2
+Train Epoch: 12 [0/22374 (0%)]	Loss: 0.145709, took 0.27s
+Train Epoch: 12 [1600/22374 (7%)]	Loss: 0.151953, took 3.72s
+Train Epoch: 12 [3200/22374 (14%)]	Loss: 0.165836, took 3.73s
+Train Epoch: 12 [4800/22374 (21%)]	Loss: 0.169354, took 3.72s
+Train Epoch: 12 [6400/22374 (29%)]	Loss: 0.137523, took 3.73s
+Train Epoch: 12 [8000/22374 (36%)]	Loss: 0.122389, took 3.74s
+Train Epoch: 12 [9600/22374 (43%)]	Loss: 0.188590, took 3.71s
+Train Epoch: 12 [11200/22374 (50%)]	Loss: 0.152467, took 3.73s
+Train Epoch: 12 [12800/22374 (57%)]	Loss: 0.120570, took 3.72s
+Train Epoch: 12 [14400/22374 (64%)]	Loss: 0.188615, took 3.73s
+Train Epoch: 12 [16000/22374 (71%)]	Loss: 0.148473, took 3.73s
+Train Epoch: 12 [17600/22374 (79%)]	Loss: 0.156851, took 3.73s
+Train Epoch: 12 [19200/22374 (86%)]	Loss: 0.155138, took 3.74s
+Train Epoch: 12 [20800/22374 (93%)]	Loss: 0.139942, took 3.73s
+
+Validation Set:
+Average loss: 0.1862
+
+No improvement, patience: 1
+Train Epoch: 13 [0/22374 (0%)]	Loss: 0.145941, took 0.27s
+Train Epoch: 13 [1600/22374 (7%)]	Loss: 0.136306, took 3.72s
+Train Epoch: 13 [3200/22374 (14%)]	Loss: 0.143691, took 3.73s
+Train Epoch: 13 [4800/22374 (21%)]	Loss: 0.140469, took 3.73s
+Train Epoch: 13 [6400/22374 (29%)]	Loss: 0.162433, took 3.72s
+Train Epoch: 13 [8000/22374 (36%)]	Loss: 0.145280, took 3.72s
+Train Epoch: 13 [9600/22374 (43%)]	Loss: 0.170996, took 3.72s
+Train Epoch: 13 [11200/22374 (50%)]	Loss: 0.128666, took 3.73s
+Train Epoch: 13 [12800/22374 (57%)]	Loss: 0.127405, took 3.74s
+Train Epoch: 13 [14400/22374 (64%)]	Loss: 0.133941, took 3.72s
+Train Epoch: 13 [16000/22374 (71%)]	Loss: 0.141123, took 3.74s
+Train Epoch: 13 [17600/22374 (79%)]	Loss: 0.153263, took 3.73s
+Train Epoch: 13 [19200/22374 (86%)]	Loss: 0.147227, took 3.73s
+Train Epoch: 13 [20800/22374 (93%)]	Loss: 0.149691, took 3.73s
+
+Validation Set:
+Average loss: 0.1898
+
+Early stopping, no improvement for 4 epochs...
+Evaluate network...
+Test Set:
+Average loss: 0.1975
+
+
+
+
+
+
+############ FOLD 2 FINISHED ############
+
+1369 feature spectrogram files loaded, with example shape: (4000, 91)
+1369 beat feature annotation files loaded, with example shape: (38,)
+1369 beat targets computed, with example shape: (4000,)
+1369 chord feature annotation files loaded, with example shape: None
+1369 chord targets computed, with example shape: (4000,)
+1027 training features 170 validation features and 172 test features
+example of 1-hot-encoded target shape: (17408, 13) 
+
+Training network...
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (25) for 40 histogram bins.
+  % (len(annotations), num_bins))
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (34) for 40 histogram bins.
+  % (len(annotations), num_bins))
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (13) for 40 histogram bins.
+  % (len(annotations), num_bins))
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (32) for 40 histogram bins.
+  % (len(annotations), num_bins))
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (26) for 40 histogram bins.
+  % (len(annotations), num_bins))
+Train Epoch: 1 [0/22368 (0%)]	Loss: 1.465629, took 0.28s
+Train Epoch: 1 [1600/22368 (7%)]	Loss: 0.446507, took 3.68s
+Train Epoch: 1 [3200/22368 (14%)]	Loss: 0.268360, took 3.68s
+Train Epoch: 1 [4800/22368 (21%)]	Loss: 0.254896, took 3.68s
+Train Epoch: 1 [6400/22368 (29%)]	Loss: 0.221564, took 3.68s
+Train Epoch: 1 [8000/22368 (36%)]	Loss: 0.204795, took 3.69s
+Train Epoch: 1 [9600/22368 (43%)]	Loss: 0.185691, took 3.69s
+Train Epoch: 1 [11200/22368 (50%)]	Loss: 0.233307, took 3.69s
+Train Epoch: 1 [12800/22368 (57%)]	Loss: 0.199532, took 3.69s
+Train Epoch: 1 [14400/22368 (64%)]	Loss: 0.197552, took 3.69s
+Train Epoch: 1 [16000/22368 (72%)]	Loss: 0.203982, took 3.69s
+Train Epoch: 1 [17600/22368 (79%)]	Loss: 0.194640, took 3.70s
+Train Epoch: 1 [19200/22368 (86%)]	Loss: 0.210872, took 3.70s
+Train Epoch: 1 [20800/22368 (93%)]	Loss: 0.196516, took 3.70s
+
+Validation Set:
+Average loss: 0.2025
+
+Train Epoch: 2 [0/22368 (0%)]	Loss: 0.186586, took 0.28s
+Train Epoch: 2 [1600/22368 (7%)]	Loss: 0.204979, took 3.73s
+Train Epoch: 2 [3200/22368 (14%)]	Loss: 0.211456, took 3.74s
+Train Epoch: 2 [4800/22368 (21%)]	Loss: 0.191285, took 3.74s
+Train Epoch: 2 [6400/22368 (29%)]	Loss: 0.162359, took 3.74s
+Train Epoch: 2 [8000/22368 (36%)]	Loss: 0.181831, took 3.74s
+Train Epoch: 2 [9600/22368 (43%)]	Loss: 0.192933, took 3.76s
+Train Epoch: 2 [11200/22368 (50%)]	Loss: 0.218072, took 3.76s
+Train Epoch: 2 [12800/22368 (57%)]	Loss: 0.215295, took 3.75s
+Train Epoch: 2 [14400/22368 (64%)]	Loss: 0.216511, took 3.75s
+Train Epoch: 2 [16000/22368 (72%)]	Loss: 0.203224, took 3.75s
+Train Epoch: 2 [17600/22368 (79%)]	Loss: 0.195213, took 3.76s
+Train Epoch: 2 [19200/22368 (86%)]	Loss: 0.207353, took 3.76s
+Train Epoch: 2 [20800/22368 (93%)]	Loss: 0.180283, took 3.74s
+
+Validation Set:
+Average loss: 0.1950
+
+Train Epoch: 3 [0/22368 (0%)]	Loss: 0.191020, took 0.27s
+Train Epoch: 3 [1600/22368 (7%)]	Loss: 0.187813, took 3.75s
+Train Epoch: 3 [3200/22368 (14%)]	Loss: 0.192669, took 3.76s
+Train Epoch: 3 [4800/22368 (21%)]	Loss: 0.209863, took 3.75s
+Train Epoch: 3 [6400/22368 (29%)]	Loss: 0.186398, took 3.75s
+Train Epoch: 3 [8000/22368 (36%)]	Loss: 0.188760, took 3.74s
+Train Epoch: 3 [9600/22368 (43%)]	Loss: 0.186732, took 3.75s
+Train Epoch: 3 [11200/22368 (50%)]	Loss: 0.153110, took 3.75s
+Train Epoch: 3 [12800/22368 (57%)]	Loss: 0.175355, took 3.74s
+Train Epoch: 3 [14400/22368 (64%)]	Loss: 0.189944, took 3.75s
+Train Epoch: 3 [16000/22368 (72%)]	Loss: 0.187931, took 3.75s
+Train Epoch: 3 [17600/22368 (79%)]	Loss: 0.200158, took 3.76s
+Train Epoch: 3 [19200/22368 (86%)]	Loss: 0.164252, took 3.74s
+Train Epoch: 3 [20800/22368 (93%)]	Loss: 0.193569, took 3.76s
+
+Validation Set:
+Average loss: 0.1934
+
+Train Epoch: 4 [0/22368 (0%)]	Loss: 0.163915, took 0.28s
+Train Epoch: 4 [1600/22368 (7%)]	Loss: 0.243479, took 3.75s
+Train Epoch: 4 [3200/22368 (14%)]	Loss: 0.201403, took 3.75s
+Train Epoch: 4 [4800/22368 (21%)]	Loss: 0.179375, took 3.75s
+Train Epoch: 4 [6400/22368 (29%)]	Loss: 0.172619, took 3.75s
+Train Epoch: 4 [8000/22368 (36%)]	Loss: 0.169003, took 3.75s
+Train Epoch: 4 [9600/22368 (43%)]	Loss: 0.177388, took 3.76s
+Train Epoch: 4 [11200/22368 (50%)]	Loss: 0.186033, took 3.76s
+Train Epoch: 4 [12800/22368 (57%)]	Loss: 0.172927, took 3.75s
+Train Epoch: 4 [14400/22368 (64%)]	Loss: 0.168842, took 3.76s
+Train Epoch: 4 [16000/22368 (72%)]	Loss: 0.157289, took 3.76s
+Train Epoch: 4 [17600/22368 (79%)]	Loss: 0.190860, took 3.76s
+Train Epoch: 4 [19200/22368 (86%)]	Loss: 0.219538, took 3.75s
+Train Epoch: 4 [20800/22368 (93%)]	Loss: 0.179399, took 3.75s
+
+Validation Set:
+Average loss: 0.2011
+
+No improvement, patience: 4
+Train Epoch: 5 [0/22368 (0%)]	Loss: 0.130445, took 0.28s
+Train Epoch: 5 [1600/22368 (7%)]	Loss: 0.177104, took 3.74s
+Train Epoch: 5 [3200/22368 (14%)]	Loss: 0.164710, took 3.75s
+Train Epoch: 5 [4800/22368 (21%)]	Loss: 0.178510, took 3.75s
+Train Epoch: 5 [6400/22368 (29%)]	Loss: 0.180799, took 3.75s
+Train Epoch: 5 [8000/22368 (36%)]	Loss: 0.182136, took 3.75s
+Train Epoch: 5 [9600/22368 (43%)]	Loss: 0.193732, took 3.75s
+Train Epoch: 5 [11200/22368 (50%)]	Loss: 0.197226, took 3.75s
+Train Epoch: 5 [12800/22368 (57%)]	Loss: 0.155586, took 3.75s
+Train Epoch: 5 [14400/22368 (64%)]	Loss: 0.185997, took 3.75s
+Train Epoch: 5 [16000/22368 (72%)]	Loss: 0.150496, took 3.74s
+Train Epoch: 5 [17600/22368 (79%)]	Loss: 0.174542, took 3.75s
+Train Epoch: 5 [19200/22368 (86%)]	Loss: 0.180238, took 3.75s
+Train Epoch: 5 [20800/22368 (93%)]	Loss: 0.173189, took 3.75s
+
+Validation Set:
+Average loss: 0.1921
+
+Train Epoch: 6 [0/22368 (0%)]	Loss: 0.163208, took 0.28s
+Train Epoch: 6 [1600/22368 (7%)]	Loss: 0.193683, took 3.73s
+Train Epoch: 6 [3200/22368 (14%)]	Loss: 0.176513, took 3.73s
+Train Epoch: 6 [4800/22368 (21%)]	Loss: 0.226336, took 3.73s
+Train Epoch: 6 [6400/22368 (29%)]	Loss: 0.210850, took 3.73s
+Train Epoch: 6 [8000/22368 (36%)]	Loss: 0.165922, took 3.73s
+Train Epoch: 6 [9600/22368 (43%)]	Loss: 0.146497, took 3.74s
+Train Epoch: 6 [11200/22368 (50%)]	Loss: 0.161973, took 3.74s
+Train Epoch: 6 [12800/22368 (57%)]	Loss: 0.144870, took 3.74s
+Train Epoch: 6 [14400/22368 (64%)]	Loss: 0.158014, took 3.75s
+Train Epoch: 6 [16000/22368 (72%)]	Loss: 0.140507, took 3.74s
+Train Epoch: 6 [17600/22368 (79%)]	Loss: 0.191214, took 3.74s
+Train Epoch: 6 [19200/22368 (86%)]	Loss: 0.138847, took 3.74s
+Train Epoch: 6 [20800/22368 (93%)]	Loss: 0.171292, took 3.74s
+
+Validation Set:
+Average loss: 0.1977
+
+No improvement, patience: 4
+Train Epoch: 7 [0/22368 (0%)]	Loss: 0.154057, took 0.28s
+Train Epoch: 7 [1600/22368 (7%)]	Loss: 0.184471, took 3.73s
+Train Epoch: 7 [3200/22368 (14%)]	Loss: 0.165546, took 3.74s
+Train Epoch: 7 [4800/22368 (21%)]	Loss: 0.157034, took 3.74s
+Train Epoch: 7 [6400/22368 (29%)]	Loss: 0.141268, took 3.74s
+Train Epoch: 7 [8000/22368 (36%)]	Loss: 0.181535, took 3.74s
+Train Epoch: 7 [9600/22368 (43%)]	Loss: 0.167766, took 3.73s
+Train Epoch: 7 [11200/22368 (50%)]	Loss: 0.177563, took 3.74s
+Train Epoch: 7 [12800/22368 (57%)]	Loss: 0.155594, took 3.74s
+Train Epoch: 7 [14400/22368 (64%)]	Loss: 0.165501, took 3.74s
+Train Epoch: 7 [16000/22368 (72%)]	Loss: 0.180715, took 3.74s
+Train Epoch: 7 [17600/22368 (79%)]	Loss: 0.188435, took 3.75s
+Train Epoch: 7 [19200/22368 (86%)]	Loss: 0.136684, took 3.73s
+Train Epoch: 7 [20800/22368 (93%)]	Loss: 0.188318, took 3.74s
+
+Validation Set:
+Average loss: 0.1890
+
+Train Epoch: 8 [0/22368 (0%)]	Loss: 0.164257, took 0.27s
+Train Epoch: 8 [1600/22368 (7%)]	Loss: 0.155432, took 3.72s
+Train Epoch: 8 [3200/22368 (14%)]	Loss: 0.183352, took 3.73s
+Train Epoch: 8 [4800/22368 (21%)]	Loss: 0.159281, took 3.74s
+Train Epoch: 8 [6400/22368 (29%)]	Loss: 0.177988, took 3.73s
+Train Epoch: 8 [8000/22368 (36%)]	Loss: 0.151811, took 3.74s
+Train Epoch: 8 [9600/22368 (43%)]	Loss: 0.160176, took 3.73s
+Train Epoch: 8 [11200/22368 (50%)]	Loss: 0.143511, took 3.74s
+Train Epoch: 8 [12800/22368 (57%)]	Loss: 0.141331, took 3.73s
+Train Epoch: 8 [14400/22368 (64%)]	Loss: 0.158252, took 3.73s
+Train Epoch: 8 [16000/22368 (72%)]	Loss: 0.187257, took 3.74s
+Train Epoch: 8 [17600/22368 (79%)]	Loss: 0.157780, took 3.74s
+Train Epoch: 8 [19200/22368 (86%)]	Loss: 0.140649, took 3.74s
+Train Epoch: 8 [20800/22368 (93%)]	Loss: 0.141147, took 3.74s
+
+Validation Set:
+Average loss: 0.1983
+
+No improvement, patience: 4
+Train Epoch: 9 [0/22368 (0%)]	Loss: 0.149759, took 0.28s
+Train Epoch: 9 [1600/22368 (7%)]	Loss: 0.175114, took 3.73s
+Train Epoch: 9 [3200/22368 (14%)]	Loss: 0.169642, took 3.72s
+Train Epoch: 9 [4800/22368 (21%)]	Loss: 0.152255, took 3.74s
+Train Epoch: 9 [6400/22368 (29%)]	Loss: 0.154578, took 3.74s
+Train Epoch: 9 [8000/22368 (36%)]	Loss: 0.179549, took 3.74s
+Train Epoch: 9 [9600/22368 (43%)]	Loss: 0.169567, took 3.72s
+Train Epoch: 9 [11200/22368 (50%)]	Loss: 0.161837, took 3.73s
+Train Epoch: 9 [12800/22368 (57%)]	Loss: 0.136939, took 3.73s
+Train Epoch: 9 [14400/22368 (64%)]	Loss: 0.174311, took 3.75s
+Train Epoch: 9 [16000/22368 (72%)]	Loss: 0.145885, took 3.74s
+Train Epoch: 9 [17600/22368 (79%)]	Loss: 0.142271, took 3.74s
+Train Epoch: 9 [19200/22368 (86%)]	Loss: 0.148126, took 3.74s
+Train Epoch: 9 [20800/22368 (93%)]	Loss: 0.187534, took 3.74s
+
+Validation Set:
+Average loss: 0.1966
+
+No improvement, patience: 3
+Train Epoch: 10 [0/22368 (0%)]	Loss: 0.154129, took 0.28s
+Train Epoch: 10 [1600/22368 (7%)]	Loss: 0.161334, took 3.71s
+Train Epoch: 10 [3200/22368 (14%)]	Loss: 0.151825, took 3.72s
+Train Epoch: 10 [4800/22368 (21%)]	Loss: 0.146324, took 3.73s
+Train Epoch: 10 [6400/22368 (29%)]	Loss: 0.143347, took 3.73s
+Train Epoch: 10 [8000/22368 (36%)]	Loss: 0.190096, took 3.74s
+Train Epoch: 10 [9600/22368 (43%)]	Loss: 0.155703, took 3.73s
+Train Epoch: 10 [11200/22368 (50%)]	Loss: 0.159413, took 3.73s
+Train Epoch: 10 [12800/22368 (57%)]	Loss: 0.158059, took 3.73s
+Train Epoch: 10 [14400/22368 (64%)]	Loss: 0.147948, took 3.75s
+Train Epoch: 10 [16000/22368 (72%)]	Loss: 0.153499, took 3.74s
+Train Epoch: 10 [17600/22368 (79%)]	Loss: 0.144083, took 3.74s
+Train Epoch: 10 [19200/22368 (86%)]	Loss: 0.151529, took 3.73s
+Train Epoch: 10 [20800/22368 (93%)]	Loss: 0.148811, took 3.73s
+
+Validation Set:
+Average loss: 0.1895
+
+No improvement, patience: 2
+Train Epoch: 11 [0/22368 (0%)]	Loss: 0.153049, took 0.28s
+Train Epoch: 11 [1600/22368 (7%)]	Loss: 0.171635, took 3.72s
+Train Epoch: 11 [3200/22368 (14%)]	Loss: 0.187153, took 3.73s
+Train Epoch: 11 [4800/22368 (21%)]	Loss: 0.146987, took 3.72s
+Train Epoch: 11 [6400/22368 (29%)]	Loss: 0.185658, took 3.72s
+Train Epoch: 11 [8000/22368 (36%)]	Loss: 0.149754, took 3.72s
+Train Epoch: 11 [9600/22368 (43%)]	Loss: 0.128024, took 3.73s
+Train Epoch: 11 [11200/22368 (50%)]	Loss: 0.171420, took 3.74s
+Train Epoch: 11 [12800/22368 (57%)]	Loss: 0.174518, took 3.73s
+Train Epoch: 11 [14400/22368 (64%)]	Loss: 0.145552, took 3.74s
+Train Epoch: 11 [16000/22368 (72%)]	Loss: 0.129816, took 3.73s
+Train Epoch: 11 [17600/22368 (79%)]	Loss: 0.147251, took 3.74s
+Train Epoch: 11 [19200/22368 (86%)]	Loss: 0.162563, took 3.73s
+Train Epoch: 11 [20800/22368 (93%)]	Loss: 0.163107, took 3.73s
+
+Validation Set:
+Average loss: 0.1920
+
+No improvement, patience: 1
+Train Epoch: 12 [0/22368 (0%)]	Loss: 0.135856, took 0.28s
+Train Epoch: 12 [1600/22368 (7%)]	Loss: 0.137725, took 3.72s
+Train Epoch: 12 [3200/22368 (14%)]	Loss: 0.147177, took 3.72s
+Train Epoch: 12 [4800/22368 (21%)]	Loss: 0.155685, took 3.73s
+Train Epoch: 12 [6400/22368 (29%)]	Loss: 0.134147, took 3.72s
+Train Epoch: 12 [8000/22368 (36%)]	Loss: 0.149559, took 3.73s
+Train Epoch: 12 [9600/22368 (43%)]	Loss: 0.159510, took 3.74s
+Train Epoch: 12 [11200/22368 (50%)]	Loss: 0.142027, took 3.72s
+Train Epoch: 12 [12800/22368 (57%)]	Loss: 0.169364, took 3.73s
+Train Epoch: 12 [14400/22368 (64%)]	Loss: 0.168681, took 3.73s
+Train Epoch: 12 [16000/22368 (72%)]	Loss: 0.129642, took 3.73s
+Train Epoch: 12 [17600/22368 (79%)]	Loss: 0.125500, took 3.73s
+Train Epoch: 12 [19200/22368 (86%)]	Loss: 0.156885, took 3.74s
+Train Epoch: 12 [20800/22368 (93%)]	Loss: 0.127769, took 3.73s
+
+Validation Set:
+Average loss: 0.1906
+
+Early stopping, no improvement for 4 epochs...
+Evaluate network...
+Test Set:
+Average loss: 0.1776
+
+
+
+
+
+
+############ FOLD 3 FINISHED ############
+
+1369 feature spectrogram files loaded, with example shape: (4000, 91)
+1369 beat feature annotation files loaded, with example shape: (38,)
+1369 beat targets computed, with example shape: (4000,)
+1369 chord feature annotation files loaded, with example shape: None
+1369 chord targets computed, with example shape: (4000,)
+1027 training features 172 validation features and 170 test features
+example of 1-hot-encoded target shape: (17408, 13) 
+
+Training network...
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (28) for 40 histogram bins.
+  % (len(annotations), num_bins))
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (31) for 40 histogram bins.
+  % (len(annotations), num_bins))
+Train Epoch: 1 [0/22608 (0%)]	Loss: 1.463576, took 0.28s
+Train Epoch: 1 [1600/22608 (7%)]	Loss: 0.465600, took 3.68s
+Train Epoch: 1 [3200/22608 (14%)]	Loss: 0.289619, took 3.67s
+Train Epoch: 1 [4800/22608 (21%)]	Loss: 0.237873, took 3.68s
+Train Epoch: 1 [6400/22608 (28%)]	Loss: 0.202295, took 3.68s
+Train Epoch: 1 [8000/22608 (35%)]	Loss: 0.215090, took 3.69s
+Train Epoch: 1 [9600/22608 (42%)]	Loss: 0.199942, took 3.69s
+Train Epoch: 1 [11200/22608 (50%)]	Loss: 0.267708, took 3.69s
+Train Epoch: 1 [12800/22608 (57%)]	Loss: 0.202859, took 3.69s
+Train Epoch: 1 [14400/22608 (64%)]	Loss: 0.253383, took 3.69s
+Train Epoch: 1 [16000/22608 (71%)]	Loss: 0.216143, took 3.69s
+Train Epoch: 1 [17600/22608 (78%)]	Loss: 0.225596, took 3.69s
+Train Epoch: 1 [19200/22608 (85%)]	Loss: 0.175578, took 3.70s
+Train Epoch: 1 [20800/22608 (92%)]	Loss: 0.196728, took 3.70s
+Train Epoch: 1 [22400/22608 (99%)]	Loss: 0.213509, took 3.73s
+
+Validation Set:
+Average loss: 0.1941
+
+Train Epoch: 2 [0/22608 (0%)]	Loss: 0.199915, took 0.27s
+Train Epoch: 2 [1600/22608 (7%)]	Loss: 0.222290, took 3.73s
+Train Epoch: 2 [3200/22608 (14%)]	Loss: 0.166982, took 3.75s
+Train Epoch: 2 [4800/22608 (21%)]	Loss: 0.210543, took 3.74s
+Train Epoch: 2 [6400/22608 (28%)]	Loss: 0.190234, took 3.74s
+Train Epoch: 2 [8000/22608 (35%)]	Loss: 0.228230, took 3.74s
+Train Epoch: 2 [9600/22608 (42%)]	Loss: 0.209469, took 3.75s
+Train Epoch: 2 [11200/22608 (50%)]	Loss: 0.207974, took 3.75s
+Train Epoch: 2 [12800/22608 (57%)]	Loss: 0.194900, took 3.75s
+Train Epoch: 2 [14400/22608 (64%)]	Loss: 0.183644, took 3.76s
+Train Epoch: 2 [16000/22608 (71%)]	Loss: 0.207651, took 3.76s
+Train Epoch: 2 [17600/22608 (78%)]	Loss: 0.184254, took 3.76s
+Train Epoch: 2 [19200/22608 (85%)]	Loss: 0.172329, took 3.75s
+Train Epoch: 2 [20800/22608 (92%)]	Loss: 0.179395, took 3.76s
+Train Epoch: 2 [22400/22608 (99%)]	Loss: 0.200084, took 3.76s
+
+Validation Set:
+Average loss: 0.1851
+
+Train Epoch: 3 [0/22608 (0%)]	Loss: 0.142328, took 0.28s
+Train Epoch: 3 [1600/22608 (7%)]	Loss: 0.165195, took 3.75s
+Train Epoch: 3 [3200/22608 (14%)]	Loss: 0.168748, took 3.75s
+Train Epoch: 3 [4800/22608 (21%)]	Loss: 0.169735, took 3.75s
+Train Epoch: 3 [6400/22608 (28%)]	Loss: 0.191899, took 3.75s
+Train Epoch: 3 [8000/22608 (35%)]	Loss: 0.204355, took 3.75s
+Train Epoch: 3 [9600/22608 (42%)]	Loss: 0.184925, took 3.76s
+Train Epoch: 3 [11200/22608 (50%)]	Loss: 0.162241, took 3.75s
+Train Epoch: 3 [12800/22608 (57%)]	Loss: 0.180676, took 3.76s
+Train Epoch: 3 [14400/22608 (64%)]	Loss: 0.170197, took 3.77s
+Train Epoch: 3 [16000/22608 (71%)]	Loss: 0.187211, took 3.75s
+Train Epoch: 3 [17600/22608 (78%)]	Loss: 0.216594, took 3.75s
+Train Epoch: 3 [19200/22608 (85%)]	Loss: 0.172470, took 3.76s
+Train Epoch: 3 [20800/22608 (92%)]	Loss: 0.166994, took 3.76s
+Train Epoch: 3 [22400/22608 (99%)]	Loss: 0.192237, took 3.76s
+
+Validation Set:
+Average loss: 0.1813
+
+Train Epoch: 4 [0/22608 (0%)]	Loss: 0.151521, took 0.28s
+Train Epoch: 4 [1600/22608 (7%)]	Loss: 0.179055, took 3.74s
+Train Epoch: 4 [3200/22608 (14%)]	Loss: 0.183371, took 3.75s
+Train Epoch: 4 [4800/22608 (21%)]	Loss: 0.164767, took 3.75s
+Train Epoch: 4 [6400/22608 (28%)]	Loss: 0.156899, took 3.75s
+Train Epoch: 4 [8000/22608 (35%)]	Loss: 0.189335, took 3.76s
+Train Epoch: 4 [9600/22608 (42%)]	Loss: 0.175323, took 3.75s
+Train Epoch: 4 [11200/22608 (50%)]	Loss: 0.162874, took 3.75s
+Train Epoch: 4 [12800/22608 (57%)]	Loss: 0.184090, took 3.75s
+Train Epoch: 4 [14400/22608 (64%)]	Loss: 0.197688, took 3.75s
+Train Epoch: 4 [16000/22608 (71%)]	Loss: 0.180982, took 3.76s
+Train Epoch: 4 [17600/22608 (78%)]	Loss: 0.160777, took 3.74s
+Train Epoch: 4 [19200/22608 (85%)]	Loss: 0.159906, took 3.76s
+Train Epoch: 4 [20800/22608 (92%)]	Loss: 0.211320, took 3.75s
+Train Epoch: 4 [22400/22608 (99%)]	Loss: 0.199450, took 3.75s
+
+Validation Set:
+Average loss: 0.1790
+
+Train Epoch: 5 [0/22608 (0%)]	Loss: 0.185859, took 0.28s
+Train Epoch: 5 [1600/22608 (7%)]	Loss: 0.206822, took 3.74s
+Train Epoch: 5 [3200/22608 (14%)]	Loss: 0.176593, took 3.74s
+Train Epoch: 5 [4800/22608 (21%)]	Loss: 0.179345, took 3.74s
+Train Epoch: 5 [6400/22608 (28%)]	Loss: 0.126245, took 3.74s
+Train Epoch: 5 [8000/22608 (35%)]	Loss: 0.147352, took 3.75s
+Train Epoch: 5 [9600/22608 (42%)]	Loss: 0.176892, took 3.74s
+Train Epoch: 5 [11200/22608 (50%)]	Loss: 0.174275, took 3.75s
+Train Epoch: 5 [12800/22608 (57%)]	Loss: 0.150754, took 3.75s
+Train Epoch: 5 [14400/22608 (64%)]	Loss: 0.142047, took 3.74s
+Train Epoch: 5 [16000/22608 (71%)]	Loss: 0.171657, took 3.74s
+Train Epoch: 5 [17600/22608 (78%)]	Loss: 0.176060, took 3.74s
+Train Epoch: 5 [19200/22608 (85%)]	Loss: 0.183763, took 3.74s
+Train Epoch: 5 [20800/22608 (92%)]	Loss: 0.166959, took 3.74s
+Train Epoch: 5 [22400/22608 (99%)]	Loss: 0.184534, took 3.74s
+
+Validation Set:
+Average loss: 0.1779
+
+Train Epoch: 6 [0/22608 (0%)]	Loss: 0.196992, took 0.28s
+Train Epoch: 6 [1600/22608 (7%)]	Loss: 0.193501, took 3.74s
+Train Epoch: 6 [3200/22608 (14%)]	Loss: 0.188503, took 3.74s
+Train Epoch: 6 [4800/22608 (21%)]	Loss: 0.139311, took 3.74s
+Train Epoch: 6 [6400/22608 (28%)]	Loss: 0.170177, took 3.75s
+Train Epoch: 6 [8000/22608 (35%)]	Loss: 0.160280, took 3.74s
+Train Epoch: 6 [9600/22608 (42%)]	Loss: 0.179738, took 3.74s
+Train Epoch: 6 [11200/22608 (50%)]	Loss: 0.173232, took 3.74s
+Train Epoch: 6 [12800/22608 (57%)]	Loss: 0.146546, took 3.74s
+Train Epoch: 6 [14400/22608 (64%)]	Loss: 0.150902, took 3.75s
+Train Epoch: 6 [16000/22608 (71%)]	Loss: 0.164224, took 3.74s
+Train Epoch: 6 [17600/22608 (78%)]	Loss: 0.190891, took 3.75s
+Train Epoch: 6 [19200/22608 (85%)]	Loss: 0.185903, took 3.75s
+Train Epoch: 6 [20800/22608 (92%)]	Loss: 0.180793, took 3.75s
+Train Epoch: 6 [22400/22608 (99%)]	Loss: 0.153859, took 3.73s
+
+Validation Set:
+Average loss: 0.1760
+
+Train Epoch: 7 [0/22608 (0%)]	Loss: 0.160508, took 0.27s
+Train Epoch: 7 [1600/22608 (7%)]	Loss: 0.186321, took 3.73s
+Train Epoch: 7 [3200/22608 (14%)]	Loss: 0.174502, took 3.74s
+Train Epoch: 7 [4800/22608 (21%)]	Loss: 0.189664, took 3.73s
+Train Epoch: 7 [6400/22608 (28%)]	Loss: 0.182956, took 3.75s
+Train Epoch: 7 [8000/22608 (35%)]	Loss: 0.168857, took 3.73s
+Train Epoch: 7 [9600/22608 (42%)]	Loss: 0.179641, took 3.73s
+Train Epoch: 7 [11200/22608 (50%)]	Loss: 0.147844, took 3.73s
+Train Epoch: 7 [12800/22608 (57%)]	Loss: 0.160050, took 3.74s
+Train Epoch: 7 [14400/22608 (64%)]	Loss: 0.163160, took 3.73s
+Train Epoch: 7 [16000/22608 (71%)]	Loss: 0.161536, took 3.74s
+Train Epoch: 7 [17600/22608 (78%)]	Loss: 0.147795, took 3.74s
+Train Epoch: 7 [19200/22608 (85%)]	Loss: 0.177100, took 3.73s
+Train Epoch: 7 [20800/22608 (92%)]	Loss: 0.157317, took 3.74s
+Train Epoch: 7 [22400/22608 (99%)]	Loss: 0.143829, took 3.73s
+
+Validation Set:
+Average loss: 0.1777
+
+No improvement, patience: 4
+Train Epoch: 8 [0/22608 (0%)]	Loss: 0.161064, took 0.28s
+Train Epoch: 8 [1600/22608 (7%)]	Loss: 0.170634, took 3.72s
+Train Epoch: 8 [3200/22608 (14%)]	Loss: 0.181270, took 3.73s
+Train Epoch: 8 [4800/22608 (21%)]	Loss: 0.154122, took 3.74s
+Train Epoch: 8 [6400/22608 (28%)]	Loss: 0.180869, took 3.73s
+Train Epoch: 8 [8000/22608 (35%)]	Loss: 0.162131, took 3.74s
+Train Epoch: 8 [9600/22608 (42%)]	Loss: 0.187628, took 3.74s
+Train Epoch: 8 [11200/22608 (50%)]	Loss: 0.145987, took 3.74s
+Train Epoch: 8 [12800/22608 (57%)]	Loss: 0.165374, took 3.74s
+Train Epoch: 8 [14400/22608 (64%)]	Loss: 0.157940, took 3.74s
+Train Epoch: 8 [16000/22608 (71%)]	Loss: 0.207434, took 3.73s
+Train Epoch: 8 [17600/22608 (78%)]	Loss: 0.184198, took 3.74s
+Train Epoch: 8 [19200/22608 (85%)]	Loss: 0.148755, took 3.73s
+Train Epoch: 8 [20800/22608 (92%)]	Loss: 0.173827, took 3.73s
+Train Epoch: 8 [22400/22608 (99%)]	Loss: 0.136340, took 3.74s
+
+Validation Set:
+Average loss: 0.1736
+
+Train Epoch: 9 [0/22608 (0%)]	Loss: 0.135004, took 0.27s
+Train Epoch: 9 [1600/22608 (7%)]	Loss: 0.141380, took 3.72s
+Train Epoch: 9 [3200/22608 (14%)]	Loss: 0.166836, took 3.72s
+Train Epoch: 9 [4800/22608 (21%)]	Loss: 0.149881, took 3.72s
+Train Epoch: 9 [6400/22608 (28%)]	Loss: 0.159701, took 3.72s
+Train Epoch: 9 [8000/22608 (35%)]	Loss: 0.136012, took 3.72s
+Train Epoch: 9 [9600/22608 (42%)]	Loss: 0.165091, took 3.73s
+Train Epoch: 9 [11200/22608 (50%)]	Loss: 0.163583, took 3.72s
+Train Epoch: 9 [12800/22608 (57%)]	Loss: 0.171238, took 3.73s
+Train Epoch: 9 [14400/22608 (64%)]	Loss: 0.165765, took 3.73s
+Train Epoch: 9 [16000/22608 (71%)]	Loss: 0.152510, took 3.73s
+Train Epoch: 9 [17600/22608 (78%)]	Loss: 0.155248, took 3.74s
+Train Epoch: 9 [19200/22608 (85%)]	Loss: 0.144199, took 3.74s
+Train Epoch: 9 [20800/22608 (92%)]	Loss: 0.187827, took 3.73s
+Train Epoch: 9 [22400/22608 (99%)]	Loss: 0.153184, took 3.74s
+
+Validation Set:
+Average loss: 0.1776
+
+No improvement, patience: 4
+Train Epoch: 10 [0/22608 (0%)]	Loss: 0.146705, took 0.28s
+Train Epoch: 10 [1600/22608 (7%)]	Loss: 0.150841, took 3.72s
+Train Epoch: 10 [3200/22608 (14%)]	Loss: 0.139746, took 3.72s
+Train Epoch: 10 [4800/22608 (21%)]	Loss: 0.165535, took 3.73s
+Train Epoch: 10 [6400/22608 (28%)]	Loss: 0.159798, took 3.73s
+Train Epoch: 10 [8000/22608 (35%)]	Loss: 0.173046, took 3.73s
+Train Epoch: 10 [9600/22608 (42%)]	Loss: 0.154702, took 3.73s
+Train Epoch: 10 [11200/22608 (50%)]	Loss: 0.166360, took 3.73s
+Train Epoch: 10 [12800/22608 (57%)]	Loss: 0.139774, took 3.74s
+Train Epoch: 10 [14400/22608 (64%)]	Loss: 0.168181, took 3.74s
+Train Epoch: 10 [16000/22608 (71%)]	Loss: 0.151403, took 3.74s
+Train Epoch: 10 [17600/22608 (78%)]	Loss: 0.138652, took 3.73s
+Train Epoch: 10 [19200/22608 (85%)]	Loss: 0.143451, took 3.74s
+Train Epoch: 10 [20800/22608 (92%)]	Loss: 0.129894, took 3.73s
+Train Epoch: 10 [22400/22608 (99%)]	Loss: 0.150622, took 3.73s
+
+Validation Set:
+Average loss: 0.1763
+
+No improvement, patience: 3
+Train Epoch: 11 [0/22608 (0%)]	Loss: 0.170472, took 0.28s
+Train Epoch: 11 [1600/22608 (7%)]	Loss: 0.137157, took 3.72s
+Train Epoch: 11 [3200/22608 (14%)]	Loss: 0.141400, took 3.71s
+Train Epoch: 11 [4800/22608 (21%)]	Loss: 0.157715, took 3.72s
+Train Epoch: 11 [6400/22608 (28%)]	Loss: 0.140043, took 3.73s
+Train Epoch: 11 [8000/22608 (35%)]	Loss: 0.149520, took 3.73s
+Train Epoch: 11 [9600/22608 (42%)]	Loss: 0.128057, took 3.73s
+Train Epoch: 11 [11200/22608 (50%)]	Loss: 0.162002, took 3.74s
+Train Epoch: 11 [12800/22608 (57%)]	Loss: 0.155837, took 3.74s
+Train Epoch: 11 [14400/22608 (64%)]	Loss: 0.185848, took 3.73s
+Train Epoch: 11 [16000/22608 (71%)]	Loss: 0.163684, took 3.73s
+Train Epoch: 11 [17600/22608 (78%)]	Loss: 0.148982, took 3.74s
+Train Epoch: 11 [19200/22608 (85%)]	Loss: 0.144311, took 3.73s
+Train Epoch: 11 [20800/22608 (92%)]	Loss: 0.156886, took 3.73s
+Train Epoch: 11 [22400/22608 (99%)]	Loss: 0.133504, took 3.74s
+
+Validation Set:
+Average loss: 0.1730
+
+Train Epoch: 12 [0/22608 (0%)]	Loss: 0.148080, took 0.28s
+Train Epoch: 12 [1600/22608 (7%)]	Loss: 0.138157, took 3.72s
+Train Epoch: 12 [3200/22608 (14%)]	Loss: 0.166925, took 3.73s
+Train Epoch: 12 [4800/22608 (21%)]	Loss: 0.141192, took 3.73s
+Train Epoch: 12 [6400/22608 (28%)]	Loss: 0.191368, took 3.73s
+Train Epoch: 12 [8000/22608 (35%)]	Loss: 0.153141, took 3.72s
+Train Epoch: 12 [9600/22608 (42%)]	Loss: 0.145766, took 3.73s
+Train Epoch: 12 [11200/22608 (50%)]	Loss: 0.150027, took 3.73s
+Train Epoch: 12 [12800/22608 (57%)]	Loss: 0.152280, took 3.72s
+Train Epoch: 12 [14400/22608 (64%)]	Loss: 0.155852, took 3.74s
+Train Epoch: 12 [16000/22608 (71%)]	Loss: 0.141486, took 3.73s
+Train Epoch: 12 [17600/22608 (78%)]	Loss: 0.137776, took 3.74s
+Train Epoch: 12 [19200/22608 (85%)]	Loss: 0.144390, took 3.73s
+Train Epoch: 12 [20800/22608 (92%)]	Loss: 0.148866, took 3.73s
+Train Epoch: 12 [22400/22608 (99%)]	Loss: 0.124709, took 3.74s
+
+Validation Set:
+Average loss: 0.1784
+
+No improvement, patience: 4
+Train Epoch: 13 [0/22608 (0%)]	Loss: 0.179741, took 0.27s
+Train Epoch: 13 [1600/22608 (7%)]	Loss: 0.184073, took 3.71s
+Train Epoch: 13 [3200/22608 (14%)]	Loss: 0.157178, took 3.73s
+Train Epoch: 13 [4800/22608 (21%)]	Loss: 0.133970, took 3.73s
+Train Epoch: 13 [6400/22608 (28%)]	Loss: 0.148359, took 3.72s
+Train Epoch: 13 [8000/22608 (35%)]	Loss: 0.124591, took 3.73s
+Train Epoch: 13 [9600/22608 (42%)]	Loss: 0.136358, took 3.74s
+Train Epoch: 13 [11200/22608 (50%)]	Loss: 0.121899, took 3.74s
+Train Epoch: 13 [12800/22608 (57%)]	Loss: 0.160828, took 3.72s
+Train Epoch: 13 [14400/22608 (64%)]	Loss: 0.150665, took 3.72s
+Train Epoch: 13 [16000/22608 (71%)]	Loss: 0.140159, took 3.72s
+Train Epoch: 13 [17600/22608 (78%)]	Loss: 0.154861, took 3.72s
+Train Epoch: 13 [19200/22608 (85%)]	Loss: 0.137429, took 3.73s
+Train Epoch: 13 [20800/22608 (92%)]	Loss: 0.145061, took 3.72s
+Train Epoch: 13 [22400/22608 (99%)]	Loss: 0.145348, took 3.73s
+
+Validation Set:
+Average loss: 0.1738
+
+No improvement, patience: 3
+Train Epoch: 14 [0/22608 (0%)]	Loss: 0.149733, took 0.28s
+Train Epoch: 14 [1600/22608 (7%)]	Loss: 0.154993, took 3.73s
+Train Epoch: 14 [3200/22608 (14%)]	Loss: 0.146249, took 3.73s
+Train Epoch: 14 [4800/22608 (21%)]	Loss: 0.138632, took 3.74s
+Train Epoch: 14 [6400/22608 (28%)]	Loss: 0.126041, took 3.74s
+Train Epoch: 14 [8000/22608 (35%)]	Loss: 0.159615, took 3.74s
+Train Epoch: 14 [9600/22608 (42%)]	Loss: 0.144053, took 3.74s
+Train Epoch: 14 [11200/22608 (50%)]	Loss: 0.152409, took 3.74s
+Train Epoch: 14 [12800/22608 (57%)]	Loss: 0.145508, took 3.74s
+Train Epoch: 14 [14400/22608 (64%)]	Loss: 0.142316, took 3.73s
+Train Epoch: 14 [16000/22608 (71%)]	Loss: 0.177738, took 3.73s
+Train Epoch: 14 [17600/22608 (78%)]	Loss: 0.167308, took 3.74s
+Train Epoch: 14 [19200/22608 (85%)]	Loss: 0.129266, took 3.73s
+Train Epoch: 14 [20800/22608 (92%)]	Loss: 0.163295, took 3.73s
+Train Epoch: 14 [22400/22608 (99%)]	Loss: 0.128191, took 3.73s
+
+Validation Set:
+Average loss: 0.1744
+
+No improvement, patience: 2
+Train Epoch: 15 [0/22608 (0%)]	Loss: 0.133696, took 0.28s
+Train Epoch: 15 [1600/22608 (7%)]	Loss: 0.189089, took 3.72s
+Train Epoch: 15 [3200/22608 (14%)]	Loss: 0.154200, took 3.73s
+Train Epoch: 15 [4800/22608 (21%)]	Loss: 0.137852, took 3.73s
+Train Epoch: 15 [6400/22608 (28%)]	Loss: 0.139992, took 3.73s
+Train Epoch: 15 [8000/22608 (35%)]	Loss: 0.140769, took 3.74s
+Train Epoch: 15 [9600/22608 (42%)]	Loss: 0.146718, took 3.73s
+Train Epoch: 15 [11200/22608 (50%)]	Loss: 0.119811, took 3.74s
+Train Epoch: 15 [12800/22608 (57%)]	Loss: 0.125017, took 3.73s
+Train Epoch: 15 [14400/22608 (64%)]	Loss: 0.141547, took 3.73s
+Train Epoch: 15 [16000/22608 (71%)]	Loss: 0.161589, took 3.73s
+Train Epoch: 15 [17600/22608 (78%)]	Loss: 0.145637, took 3.73s
+Train Epoch: 15 [19200/22608 (85%)]	Loss: 0.133652, took 3.73s
+Train Epoch: 15 [20800/22608 (92%)]	Loss: 0.142410, took 3.73s
+Train Epoch: 15 [22400/22608 (99%)]	Loss: 0.162501, took 3.74s
+
+Validation Set:
+Average loss: 0.1767
+
+No improvement, patience: 1
+Train Epoch: 16 [0/22608 (0%)]	Loss: 0.162268, took 0.28s
+Train Epoch: 16 [1600/22608 (7%)]	Loss: 0.153403, took 3.71s
+Train Epoch: 16 [3200/22608 (14%)]	Loss: 0.158217, took 3.72s
+Train Epoch: 16 [4800/22608 (21%)]	Loss: 0.133630, took 3.72s
+Train Epoch: 16 [6400/22608 (28%)]	Loss: 0.144259, took 3.73s
+Train Epoch: 16 [8000/22608 (35%)]	Loss: 0.160134, took 3.72s
+Train Epoch: 16 [9600/22608 (42%)]	Loss: 0.151003, took 3.74s
+Train Epoch: 16 [11200/22608 (50%)]	Loss: 0.165401, took 3.72s
+Train Epoch: 16 [12800/22608 (57%)]	Loss: 0.146721, took 3.73s
+Train Epoch: 16 [14400/22608 (64%)]	Loss: 0.161092, took 3.73s
+Train Epoch: 16 [16000/22608 (71%)]	Loss: 0.116998, took 3.74s
+Train Epoch: 16 [17600/22608 (78%)]	Loss: 0.129335, took 3.73s
+Train Epoch: 16 [19200/22608 (85%)]	Loss: 0.136052, took 3.74s
+Train Epoch: 16 [20800/22608 (92%)]	Loss: 0.117280, took 3.73s
+Train Epoch: 16 [22400/22608 (99%)]	Loss: 0.147258, took 3.73s
+
+Validation Set:
+Average loss: 0.1747
+
+Early stopping, no improvement for 4 epochs...
+Evaluate network...
+Test Set:
+Average loss: 0.1760
+
+
+
+
+
+
+############ FOLD 4 FINISHED ############
+
+1369 feature spectrogram files loaded, with example shape: (4000, 91)
+1369 beat feature annotation files loaded, with example shape: (38,)
+1369 beat targets computed, with example shape: (4000,)
+1369 chord feature annotation files loaded, with example shape: None
+1369 chord targets computed, with example shape: (4000,)
+1028 training features 170 validation features and 171 test features
+example of 1-hot-encoded target shape: (17408, 13) 
+
+Training network...
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (23) for 40 histogram bins.
+  % (len(annotations), num_bins))
+Train Epoch: 1 [0/22301 (0%)]	Loss: 1.469188, took 0.28s
+Train Epoch: 1 [1600/22301 (7%)]	Loss: 0.422033, took 3.70s
+Train Epoch: 1 [3200/22301 (14%)]	Loss: 0.279580, took 3.67s
+Train Epoch: 1 [4800/22301 (22%)]	Loss: 0.239901, took 3.68s
+Train Epoch: 1 [6400/22301 (29%)]	Loss: 0.232111, took 3.68s
+Train Epoch: 1 [8000/22301 (36%)]	Loss: 0.224806, took 3.69s
+Train Epoch: 1 [9600/22301 (43%)]	Loss: 0.232962, took 3.69s
+Train Epoch: 1 [11200/22301 (50%)]	Loss: 0.210288, took 3.69s
+Train Epoch: 1 [12800/22301 (57%)]	Loss: 0.196089, took 3.70s
+Train Epoch: 1 [14400/22301 (65%)]	Loss: 0.189817, took 3.69s
+Train Epoch: 1 [16000/22301 (72%)]	Loss: 0.198846, took 3.70s
+Train Epoch: 1 [17600/22301 (79%)]	Loss: 0.238313, took 3.70s
+Train Epoch: 1 [19200/22301 (86%)]	Loss: 0.202741, took 3.71s
+Train Epoch: 1 [20800/22301 (93%)]	Loss: 0.192917, took 3.71s
+
+Validation Set:
+Average loss: 0.2095
+
+Train Epoch: 2 [0/22301 (0%)]	Loss: 0.202677, took 0.28s
+Train Epoch: 2 [1600/22301 (7%)]	Loss: 0.185974, took 3.73s
+Train Epoch: 2 [3200/22301 (14%)]	Loss: 0.204073, took 3.74s
+Train Epoch: 2 [4800/22301 (22%)]	Loss: 0.212688, took 3.75s
+Train Epoch: 2 [6400/22301 (29%)]	Loss: 0.196287, took 3.75s
+Train Epoch: 2 [8000/22301 (36%)]	Loss: 0.223031, took 3.76s
+Train Epoch: 2 [9600/22301 (43%)]	Loss: 0.197004, took 3.75s
+Train Epoch: 2 [11200/22301 (50%)]	Loss: 0.199052, took 3.75s
+Train Epoch: 2 [12800/22301 (57%)]	Loss: 0.210537, took 3.75s
+Train Epoch: 2 [14400/22301 (65%)]	Loss: 0.163227, took 3.77s
+Train Epoch: 2 [16000/22301 (72%)]	Loss: 0.174041, took 3.76s
+Train Epoch: 2 [17600/22301 (79%)]	Loss: 0.215451, took 3.75s
+Train Epoch: 2 [19200/22301 (86%)]	Loss: 0.175256, took 3.77s
+Train Epoch: 2 [20800/22301 (93%)]	Loss: 0.189567, took 3.77s
+
+Validation Set:
+Average loss: 0.1915
+
+Train Epoch: 3 [0/22301 (0%)]	Loss: 0.173679, took 0.28s
+Train Epoch: 3 [1600/22301 (7%)]	Loss: 0.177180, took 3.74s
+Train Epoch: 3 [3200/22301 (14%)]	Loss: 0.167019, took 3.75s
+Train Epoch: 3 [4800/22301 (22%)]	Loss: 0.189600, took 3.75s
+Train Epoch: 3 [6400/22301 (29%)]	Loss: 0.158303, took 3.76s
+Train Epoch: 3 [8000/22301 (36%)]	Loss: 0.187781, took 3.75s
+Train Epoch: 3 [9600/22301 (43%)]	Loss: 0.197757, took 3.76s
+Train Epoch: 3 [11200/22301 (50%)]	Loss: 0.221137, took 3.75s
+Train Epoch: 3 [12800/22301 (57%)]	Loss: 0.188395, took 3.75s
+Train Epoch: 3 [14400/22301 (65%)]	Loss: 0.171312, took 3.76s
+Train Epoch: 3 [16000/22301 (72%)]	Loss: 0.177077, took 3.75s
+Train Epoch: 3 [17600/22301 (79%)]	Loss: 0.147272, took 3.77s
+Train Epoch: 3 [19200/22301 (86%)]	Loss: 0.206997, took 3.76s
+Train Epoch: 3 [20800/22301 (93%)]	Loss: 0.173130, took 3.76s
+
+Validation Set:
+Average loss: 0.1868
+
+Train Epoch: 4 [0/22301 (0%)]	Loss: 0.184529, took 0.28s
+Train Epoch: 4 [1600/22301 (7%)]	Loss: 0.160106, took 3.75s
+Train Epoch: 4 [3200/22301 (14%)]	Loss: 0.216737, took 3.76s
+Train Epoch: 4 [4800/22301 (22%)]	Loss: 0.229021, took 3.75s
+Train Epoch: 4 [6400/22301 (29%)]	Loss: 0.165353, took 3.75s
+Train Epoch: 4 [8000/22301 (36%)]	Loss: 0.167722, took 3.75s
+Train Epoch: 4 [9600/22301 (43%)]	Loss: 0.190502, took 3.76s
+Train Epoch: 4 [11200/22301 (50%)]	Loss: 0.192509, took 3.75s
+Train Epoch: 4 [12800/22301 (57%)]	Loss: 0.173436, took 3.76s
+Train Epoch: 4 [14400/22301 (65%)]	Loss: 0.169906, took 3.76s
+Train Epoch: 4 [16000/22301 (72%)]	Loss: 0.160745, took 3.75s
+Train Epoch: 4 [17600/22301 (79%)]	Loss: 0.207207, took 3.76s
+Train Epoch: 4 [19200/22301 (86%)]	Loss: 0.140601, took 3.76s
+Train Epoch: 4 [20800/22301 (93%)]	Loss: 0.167226, took 3.75s
+
+Validation Set:
+Average loss: 0.1857
+
+Train Epoch: 5 [0/22301 (0%)]	Loss: 0.165634, took 0.28s
+Train Epoch: 5 [1600/22301 (7%)]	Loss: 0.183642, took 3.74s
+Train Epoch: 5 [3200/22301 (14%)]	Loss: 0.162720, took 3.75s
+Train Epoch: 5 [4800/22301 (22%)]	Loss: 0.176035, took 3.75s
+Train Epoch: 5 [6400/22301 (29%)]	Loss: 0.146048, took 3.74s
+Train Epoch: 5 [8000/22301 (36%)]	Loss: 0.149475, took 3.75s
+Train Epoch: 5 [9600/22301 (43%)]	Loss: 0.163018, took 3.74s
+Train Epoch: 5 [11200/22301 (50%)]	Loss: 0.190481, took 3.75s
+Train Epoch: 5 [12800/22301 (57%)]	Loss: 0.212188, took 3.75s
+Train Epoch: 5 [14400/22301 (65%)]	Loss: 0.148856, took 3.74s
+Train Epoch: 5 [16000/22301 (72%)]	Loss: 0.202566, took 3.74s
+Train Epoch: 5 [17600/22301 (79%)]	Loss: 0.224457, took 3.75s
+Train Epoch: 5 [19200/22301 (86%)]	Loss: 0.152286, took 3.74s
+Train Epoch: 5 [20800/22301 (93%)]	Loss: 0.166868, took 3.75s
+
+Validation Set:
+Average loss: 0.1809
+
+Train Epoch: 6 [0/22301 (0%)]	Loss: 0.166808, took 0.28s
+Train Epoch: 6 [1600/22301 (7%)]	Loss: 0.162724, took 3.73s
+Train Epoch: 6 [3200/22301 (14%)]	Loss: 0.181963, took 3.74s
+Train Epoch: 6 [4800/22301 (22%)]	Loss: 0.145586, took 3.73s
+Train Epoch: 6 [6400/22301 (29%)]	Loss: 0.177225, took 3.74s
+Train Epoch: 6 [8000/22301 (36%)]	Loss: 0.197332, took 3.73s
+Train Epoch: 6 [9600/22301 (43%)]	Loss: 0.154590, took 3.74s
+Train Epoch: 6 [11200/22301 (50%)]	Loss: 0.153304, took 3.74s
+Train Epoch: 6 [12800/22301 (57%)]	Loss: 0.169624, took 3.74s
+Train Epoch: 6 [14400/22301 (65%)]	Loss: 0.172129, took 3.73s
+Train Epoch: 6 [16000/22301 (72%)]	Loss: 0.185482, took 3.74s
+Train Epoch: 6 [17600/22301 (79%)]	Loss: 0.162862, took 3.74s
+Train Epoch: 6 [19200/22301 (86%)]	Loss: 0.181843, took 3.75s
+Train Epoch: 6 [20800/22301 (93%)]	Loss: 0.155344, took 3.73s
+
+Validation Set:
+Average loss: 0.1778
+
+Train Epoch: 7 [0/22301 (0%)]	Loss: 0.134492, took 0.27s
+Train Epoch: 7 [1600/22301 (7%)]	Loss: 0.162974, took 3.73s
+Train Epoch: 7 [3200/22301 (14%)]	Loss: 0.186538, took 3.73s
+Train Epoch: 7 [4800/22301 (22%)]	Loss: 0.162688, took 3.73s
+Train Epoch: 7 [6400/22301 (29%)]	Loss: 0.132055, took 3.73s
+Train Epoch: 7 [8000/22301 (36%)]	Loss: 0.174736, took 3.74s
+Train Epoch: 7 [9600/22301 (43%)]	Loss: 0.182684, took 3.74s
+Train Epoch: 7 [11200/22301 (50%)]	Loss: 0.155639, took 3.74s
+Train Epoch: 7 [12800/22301 (57%)]	Loss: 0.166690, took 3.74s
+Train Epoch: 7 [14400/22301 (65%)]	Loss: 0.186245, took 3.73s
+Train Epoch: 7 [16000/22301 (72%)]	Loss: 0.185574, took 3.74s
+Train Epoch: 7 [17600/22301 (79%)]	Loss: 0.166445, took 3.74s
+Train Epoch: 7 [19200/22301 (86%)]	Loss: 0.167901, took 3.74s
+Train Epoch: 7 [20800/22301 (93%)]	Loss: 0.115718, took 3.74s
+
+Validation Set:
+Average loss: 0.1850
+
+No improvement, patience: 4
+Train Epoch: 8 [0/22301 (0%)]	Loss: 0.152749, took 0.29s
+Train Epoch: 8 [1600/22301 (7%)]	Loss: 0.160108, took 3.72s
+Train Epoch: 8 [3200/22301 (14%)]	Loss: 0.174860, took 3.73s
+Train Epoch: 8 [4800/22301 (22%)]	Loss: 0.140747, took 3.74s
+Train Epoch: 8 [6400/22301 (29%)]	Loss: 0.133747, took 3.74s
+Train Epoch: 8 [8000/22301 (36%)]	Loss: 0.177265, took 3.74s
+Train Epoch: 8 [9600/22301 (43%)]	Loss: 0.178335, took 3.73s
+Train Epoch: 8 [11200/22301 (50%)]	Loss: 0.145416, took 3.74s
+Train Epoch: 8 [12800/22301 (57%)]	Loss: 0.156271, took 3.74s
+Train Epoch: 8 [14400/22301 (65%)]	Loss: 0.170489, took 3.73s
+Train Epoch: 8 [16000/22301 (72%)]	Loss: 0.151577, took 3.74s
+Train Epoch: 8 [17600/22301 (79%)]	Loss: 0.163516, took 3.73s
+Train Epoch: 8 [19200/22301 (86%)]	Loss: 0.138670, took 3.74s
+Train Epoch: 8 [20800/22301 (93%)]	Loss: 0.161585, took 3.75s
+
+Validation Set:
+Average loss: 0.1741
+
+Train Epoch: 9 [0/22301 (0%)]	Loss: 0.185542, took 0.27s
+Train Epoch: 9 [1600/22301 (7%)]	Loss: 0.162879, took 3.73s
+Train Epoch: 9 [3200/22301 (14%)]	Loss: 0.155719, took 3.73s
+Train Epoch: 9 [4800/22301 (22%)]	Loss: 0.133126, took 3.74s
+Train Epoch: 9 [6400/22301 (29%)]	Loss: 0.149083, took 3.74s
+Train Epoch: 9 [8000/22301 (36%)]	Loss: 0.157333, took 3.73s
+Train Epoch: 9 [9600/22301 (43%)]	Loss: 0.140951, took 3.73s
+Train Epoch: 9 [11200/22301 (50%)]	Loss: 0.156027, took 3.73s
+Train Epoch: 9 [12800/22301 (57%)]	Loss: 0.185901, took 3.74s
+Train Epoch: 9 [14400/22301 (65%)]	Loss: 0.158013, took 3.74s
+Train Epoch: 9 [16000/22301 (72%)]	Loss: 0.145753, took 3.73s
+Train Epoch: 9 [17600/22301 (79%)]	Loss: 0.158516, took 3.74s
+Train Epoch: 9 [19200/22301 (86%)]	Loss: 0.168105, took 3.74s
+Train Epoch: 9 [20800/22301 (93%)]	Loss: 0.213816, took 3.73s
+
+Validation Set:
+Average loss: 0.1816
+
+No improvement, patience: 4
+Train Epoch: 10 [0/22301 (0%)]	Loss: 0.146115, took 0.28s
+Train Epoch: 10 [1600/22301 (7%)]	Loss: 0.149180, took 3.72s
+Train Epoch: 10 [3200/22301 (14%)]	Loss: 0.135844, took 3.73s
+Train Epoch: 10 [4800/22301 (22%)]	Loss: 0.161644, took 3.73s
+Train Epoch: 10 [6400/22301 (29%)]	Loss: 0.154119, took 3.74s
+Train Epoch: 10 [8000/22301 (36%)]	Loss: 0.171320, took 3.74s
+Train Epoch: 10 [9600/22301 (43%)]	Loss: 0.146423, took 3.73s
+Train Epoch: 10 [11200/22301 (50%)]	Loss: 0.141363, took 3.73s
+Train Epoch: 10 [12800/22301 (57%)]	Loss: 0.130525, took 3.73s
+Train Epoch: 10 [14400/22301 (65%)]	Loss: 0.143565, took 3.75s
+Train Epoch: 10 [16000/22301 (72%)]	Loss: 0.178457, took 3.73s
+Train Epoch: 10 [17600/22301 (79%)]	Loss: 0.164181, took 3.74s
+Train Epoch: 10 [19200/22301 (86%)]	Loss: 0.217598, took 3.73s
+Train Epoch: 10 [20800/22301 (93%)]	Loss: 0.149179, took 3.74s
+
+Validation Set:
+Average loss: 0.1835
+
+No improvement, patience: 3
+Train Epoch: 11 [0/22301 (0%)]	Loss: 0.172093, took 0.28s
+Train Epoch: 11 [1600/22301 (7%)]	Loss: 0.160829, took 3.73s
+Train Epoch: 11 [3200/22301 (14%)]	Loss: 0.147212, took 3.73s
+Train Epoch: 11 [4800/22301 (22%)]	Loss: 0.147914, took 3.73s
+Train Epoch: 11 [6400/22301 (29%)]	Loss: 0.122901, took 3.72s
+Train Epoch: 11 [8000/22301 (36%)]	Loss: 0.161741, took 3.74s
+Train Epoch: 11 [9600/22301 (43%)]	Loss: 0.136106, took 3.73s
+Train Epoch: 11 [11200/22301 (50%)]	Loss: 0.136060, took 3.74s
+Train Epoch: 11 [12800/22301 (57%)]	Loss: 0.157836, took 3.74s
+Train Epoch: 11 [14400/22301 (65%)]	Loss: 0.139695, took 3.75s
+Train Epoch: 11 [16000/22301 (72%)]	Loss: 0.151847, took 3.73s
+Train Epoch: 11 [17600/22301 (79%)]	Loss: 0.165073, took 3.74s
+Train Epoch: 11 [19200/22301 (86%)]	Loss: 0.175754, took 3.74s
+Train Epoch: 11 [20800/22301 (93%)]	Loss: 0.135390, took 3.73s
+
+Validation Set:
+Average loss: 0.1761
+
+No improvement, patience: 2
+Train Epoch: 12 [0/22301 (0%)]	Loss: 0.160997, took 0.28s
+Train Epoch: 12 [1600/22301 (7%)]	Loss: 0.180504, took 3.71s
+Train Epoch: 12 [3200/22301 (14%)]	Loss: 0.140738, took 3.73s
+Train Epoch: 12 [4800/22301 (22%)]	Loss: 0.137856, took 3.73s
+Train Epoch: 12 [6400/22301 (29%)]	Loss: 0.146040, took 3.73s
+Train Epoch: 12 [8000/22301 (36%)]	Loss: 0.163403, took 3.74s
+Train Epoch: 12 [9600/22301 (43%)]	Loss: 0.140736, took 3.73s
+Train Epoch: 12 [11200/22301 (50%)]	Loss: 0.143913, took 3.73s
+Train Epoch: 12 [12800/22301 (57%)]	Loss: 0.160726, took 3.72s
+Train Epoch: 12 [14400/22301 (65%)]	Loss: 0.144065, took 3.72s
+Train Epoch: 12 [16000/22301 (72%)]	Loss: 0.180259, took 3.73s
+Train Epoch: 12 [17600/22301 (79%)]	Loss: 0.141724, took 3.73s
+Train Epoch: 12 [19200/22301 (86%)]	Loss: 0.136893, took 3.73s
+Train Epoch: 12 [20800/22301 (93%)]	Loss: 0.131088, took 3.73s
+
+Validation Set:
+Average loss: 0.1778
+
+No improvement, patience: 1
+Train Epoch: 13 [0/22301 (0%)]	Loss: 0.162044, took 0.28s
+Train Epoch: 13 [1600/22301 (7%)]	Loss: 0.162574, took 3.73s
+Train Epoch: 13 [3200/22301 (14%)]	Loss: 0.130477, took 3.73s
+Train Epoch: 13 [4800/22301 (22%)]	Loss: 0.136870, took 3.73s
+Train Epoch: 13 [6400/22301 (29%)]	Loss: 0.154022, took 3.73s
+Train Epoch: 13 [8000/22301 (36%)]	Loss: 0.160048, took 3.73s
+Train Epoch: 13 [9600/22301 (43%)]	Loss: 0.139753, took 3.73s
+Train Epoch: 13 [11200/22301 (50%)]	Loss: 0.146556, took 3.73s
+Train Epoch: 13 [12800/22301 (57%)]	Loss: 0.168379, took 3.74s
+Train Epoch: 13 [14400/22301 (65%)]	Loss: 0.133735, took 3.73s
+Train Epoch: 13 [16000/22301 (72%)]	Loss: 0.136288, took 3.74s
+Train Epoch: 13 [17600/22301 (79%)]	Loss: 0.141343, took 3.74s
+Train Epoch: 13 [19200/22301 (86%)]	Loss: 0.178171, took 3.73s
+Train Epoch: 13 [20800/22301 (93%)]	Loss: 0.140748, took 3.73s
+
+Validation Set:
+Average loss: 0.1757
+
+Early stopping, no improvement for 4 epochs...
+Evaluate network...
+Test Set:
+Average loss: 0.1717
+
+
+
+
+
+
+############ FOLD 5 FINISHED ############
+
+1369 feature spectrogram files loaded, with example shape: (4000, 91)
+1369 beat feature annotation files loaded, with example shape: (38,)
+1369 beat targets computed, with example shape: (4000,)
+1369 chord feature annotation files loaded, with example shape: None
+1369 chord targets computed, with example shape: (4000,)
+1027 training features 171 validation features and 171 test features
+example of 1-hot-encoded target shape: (17408, 13) 
+
+Training network...
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (33) for 40 histogram bins.
+  % (len(annotations), num_bins))
+Train Epoch: 1 [0/22376 (0%)]	Loss: 1.466304, took 0.28s
+Train Epoch: 1 [1600/22376 (7%)]	Loss: 0.461036, took 3.69s
+Train Epoch: 1 [3200/22376 (14%)]	Loss: 0.251568, took 3.68s
+Train Epoch: 1 [4800/22376 (21%)]	Loss: 0.218622, took 3.68s
+Train Epoch: 1 [6400/22376 (29%)]	Loss: 0.287909, took 3.68s
+Train Epoch: 1 [8000/22376 (36%)]	Loss: 0.230418, took 3.69s
+Train Epoch: 1 [9600/22376 (43%)]	Loss: 0.222002, took 3.69s
+Train Epoch: 1 [11200/22376 (50%)]	Loss: 0.227132, took 3.69s
+Train Epoch: 1 [12800/22376 (57%)]	Loss: 0.176567, took 3.69s
+Train Epoch: 1 [14400/22376 (64%)]	Loss: 0.218373, took 3.69s
+Train Epoch: 1 [16000/22376 (71%)]	Loss: 0.224598, took 3.69s
+Train Epoch: 1 [17600/22376 (79%)]	Loss: 0.208755, took 3.70s
+Train Epoch: 1 [19200/22376 (86%)]	Loss: 0.200482, took 3.70s
+Train Epoch: 1 [20800/22376 (93%)]	Loss: 0.208063, took 3.71s
+
+Validation Set:
+Average loss: 0.1912
+
+Train Epoch: 2 [0/22376 (0%)]	Loss: 0.194496, took 0.28s
+Train Epoch: 2 [1600/22376 (7%)]	Loss: 0.224076, took 3.74s
+Train Epoch: 2 [3200/22376 (14%)]	Loss: 0.177616, took 3.74s
+Train Epoch: 2 [4800/22376 (21%)]	Loss: 0.237175, took 3.74s
+Train Epoch: 2 [6400/22376 (29%)]	Loss: 0.199602, took 3.74s
+Train Epoch: 2 [8000/22376 (36%)]	Loss: 0.194011, took 3.75s
+Train Epoch: 2 [9600/22376 (43%)]	Loss: 0.210807, took 3.75s
+Train Epoch: 2 [11200/22376 (50%)]	Loss: 0.171251, took 3.77s
+Train Epoch: 2 [12800/22376 (57%)]	Loss: 0.181047, took 3.76s
+Train Epoch: 2 [14400/22376 (64%)]	Loss: 0.183542, took 3.76s
+Train Epoch: 2 [16000/22376 (71%)]	Loss: 0.185337, took 3.75s
+Train Epoch: 2 [17600/22376 (79%)]	Loss: 0.203192, took 3.76s
+Train Epoch: 2 [19200/22376 (86%)]	Loss: 0.193666, took 3.77s
+Train Epoch: 2 [20800/22376 (93%)]	Loss: 0.222383, took 3.76s
+
+Validation Set:
+Average loss: 0.1840
+
+Train Epoch: 3 [0/22376 (0%)]	Loss: 0.183583, took 0.28s
+Train Epoch: 3 [1600/22376 (7%)]	Loss: 0.161198, took 3.75s
+Train Epoch: 3 [3200/22376 (14%)]	Loss: 0.192489, took 3.75s
+Train Epoch: 3 [4800/22376 (21%)]	Loss: 0.186700, took 3.75s
+Train Epoch: 3 [6400/22376 (29%)]	Loss: 0.184584, took 3.76s
+Train Epoch: 3 [8000/22376 (36%)]	Loss: 0.185857, took 3.76s
+Train Epoch: 3 [9600/22376 (43%)]	Loss: 0.176588, took 3.75s
+Train Epoch: 3 [11200/22376 (50%)]	Loss: 0.166748, took 3.76s
+Train Epoch: 3 [12800/22376 (57%)]	Loss: 0.214624, took 3.77s
+Train Epoch: 3 [14400/22376 (64%)]	Loss: 0.188230, took 3.76s
+Train Epoch: 3 [16000/22376 (71%)]	Loss: 0.153715, took 3.76s
+Train Epoch: 3 [17600/22376 (79%)]	Loss: 0.190748, took 3.77s
+Train Epoch: 3 [19200/22376 (86%)]	Loss: 0.153995, took 3.76s
+Train Epoch: 3 [20800/22376 (93%)]	Loss: 0.186280, took 3.75s
+
+Validation Set:
+Average loss: 0.1810
+
+Train Epoch: 4 [0/22376 (0%)]	Loss: 0.188314, took 0.28s
+Train Epoch: 4 [1600/22376 (7%)]	Loss: 0.192503, took 3.74s
+Train Epoch: 4 [3200/22376 (14%)]	Loss: 0.205357, took 3.75s
+Train Epoch: 4 [4800/22376 (21%)]	Loss: 0.206860, took 3.75s
+Train Epoch: 4 [6400/22376 (29%)]	Loss: 0.160233, took 3.75s
+Train Epoch: 4 [8000/22376 (36%)]	Loss: 0.180757, took 3.74s
+Train Epoch: 4 [9600/22376 (43%)]	Loss: 0.173534, took 3.76s
+Train Epoch: 4 [11200/22376 (50%)]	Loss: 0.176558, took 3.75s
+Train Epoch: 4 [12800/22376 (57%)]	Loss: 0.169261, took 3.76s
+Train Epoch: 4 [14400/22376 (64%)]	Loss: 0.205184, took 3.76s
+Train Epoch: 4 [16000/22376 (71%)]	Loss: 0.203251, took 3.76s
+Train Epoch: 4 [17600/22376 (79%)]	Loss: 0.198031, took 3.76s
+Train Epoch: 4 [19200/22376 (86%)]	Loss: 0.174246, took 3.75s
+Train Epoch: 4 [20800/22376 (93%)]	Loss: 0.210251, took 3.75s
+
+Validation Set:
+Average loss: 0.1784
+
+Train Epoch: 5 [0/22376 (0%)]	Loss: 0.192818, took 0.28s
+Train Epoch: 5 [1600/22376 (7%)]	Loss: 0.208564, took 3.74s
+Train Epoch: 5 [3200/22376 (14%)]	Loss: 0.162320, took 3.74s
+Train Epoch: 5 [4800/22376 (21%)]	Loss: 0.160924, took 3.74s
+Train Epoch: 5 [6400/22376 (29%)]	Loss: 0.188061, took 3.75s
+Train Epoch: 5 [8000/22376 (36%)]	Loss: 0.171012, took 3.73s
+Train Epoch: 5 [9600/22376 (43%)]	Loss: 0.206068, took 3.74s
+Train Epoch: 5 [11200/22376 (50%)]	Loss: 0.174430, took 3.73s
+Train Epoch: 5 [12800/22376 (57%)]	Loss: 0.138555, took 3.75s
+Train Epoch: 5 [14400/22376 (64%)]	Loss: 0.179139, took 3.75s
+Train Epoch: 5 [16000/22376 (71%)]	Loss: 0.173003, took 3.74s
+Train Epoch: 5 [17600/22376 (79%)]	Loss: 0.172642, took 3.74s
+Train Epoch: 5 [19200/22376 (86%)]	Loss: 0.170582, took 3.75s
+Train Epoch: 5 [20800/22376 (93%)]	Loss: 0.163080, took 3.73s
+
+Validation Set:
+Average loss: 0.1750
+
+Train Epoch: 6 [0/22376 (0%)]	Loss: 0.184826, took 0.28s
+Train Epoch: 6 [1600/22376 (7%)]	Loss: 0.150343, took 3.73s
+Train Epoch: 6 [3200/22376 (14%)]	Loss: 0.179124, took 3.74s
+Train Epoch: 6 [4800/22376 (21%)]	Loss: 0.179124, took 3.74s
+Train Epoch: 6 [6400/22376 (29%)]	Loss: 0.160900, took 3.74s
+Train Epoch: 6 [8000/22376 (36%)]	Loss: 0.205600, took 3.73s
+Train Epoch: 6 [9600/22376 (43%)]	Loss: 0.180406, took 3.74s
+Train Epoch: 6 [11200/22376 (50%)]	Loss: 0.173412, took 3.73s
+Train Epoch: 6 [12800/22376 (57%)]	Loss: 0.215547, took 3.74s
+Train Epoch: 6 [14400/22376 (64%)]	Loss: 0.176951, took 3.74s
+Train Epoch: 6 [16000/22376 (71%)]	Loss: 0.152162, took 3.73s
+Train Epoch: 6 [17600/22376 (79%)]	Loss: 0.168025, took 3.75s
+Train Epoch: 6 [19200/22376 (86%)]	Loss: 0.153118, took 3.73s
+Train Epoch: 6 [20800/22376 (93%)]	Loss: 0.158426, took 3.74s
+
+Validation Set:
+Average loss: 0.1724
+
+Train Epoch: 7 [0/22376 (0%)]	Loss: 0.152744, took 0.28s
+Train Epoch: 7 [1600/22376 (7%)]	Loss: 0.197904, took 3.73s
+Train Epoch: 7 [3200/22376 (14%)]	Loss: 0.164361, took 3.74s
+Train Epoch: 7 [4800/22376 (21%)]	Loss: 0.183177, took 3.74s
+Train Epoch: 7 [6400/22376 (29%)]	Loss: 0.166937, took 3.74s
+Train Epoch: 7 [8000/22376 (36%)]	Loss: 0.163315, took 3.73s
+Train Epoch: 7 [9600/22376 (43%)]	Loss: 0.181502, took 3.74s
+Train Epoch: 7 [11200/22376 (50%)]	Loss: 0.174330, took 3.75s
+Train Epoch: 7 [12800/22376 (57%)]	Loss: 0.169856, took 3.75s
+Train Epoch: 7 [14400/22376 (64%)]	Loss: 0.173997, took 3.75s
+Train Epoch: 7 [16000/22376 (71%)]	Loss: 0.171945, took 3.74s
+Train Epoch: 7 [17600/22376 (79%)]	Loss: 0.162169, took 3.74s
+Train Epoch: 7 [19200/22376 (86%)]	Loss: 0.161830, took 3.75s
+Train Epoch: 7 [20800/22376 (93%)]	Loss: 0.163982, took 3.73s
+
+Validation Set:
+Average loss: 0.1707
+
+Train Epoch: 8 [0/22376 (0%)]	Loss: 0.162232, took 0.29s
+Train Epoch: 8 [1600/22376 (7%)]	Loss: 0.151904, took 3.73s
+Train Epoch: 8 [3200/22376 (14%)]	Loss: 0.156941, took 3.73s
+Train Epoch: 8 [4800/22376 (21%)]	Loss: 0.128768, took 3.74s
+Train Epoch: 8 [6400/22376 (29%)]	Loss: 0.152881, took 3.73s
+Train Epoch: 8 [8000/22376 (36%)]	Loss: 0.138082, took 3.74s
+Train Epoch: 8 [9600/22376 (43%)]	Loss: 0.145945, took 3.74s
+Train Epoch: 8 [11200/22376 (50%)]	Loss: 0.133760, took 3.74s
+Train Epoch: 8 [12800/22376 (57%)]	Loss: 0.146680, took 3.74s
+Train Epoch: 8 [14400/22376 (64%)]	Loss: 0.150992, took 3.74s
+Train Epoch: 8 [16000/22376 (71%)]	Loss: 0.147950, took 3.74s
+Train Epoch: 8 [17600/22376 (79%)]	Loss: 0.164758, took 3.74s
+Train Epoch: 8 [19200/22376 (86%)]	Loss: 0.136117, took 3.73s
+Train Epoch: 8 [20800/22376 (93%)]	Loss: 0.122906, took 3.74s
+
+Validation Set:
+Average loss: 0.1719
+
+No improvement, patience: 4
+Train Epoch: 9 [0/22376 (0%)]	Loss: 0.169766, took 0.29s
+Train Epoch: 9 [1600/22376 (7%)]	Loss: 0.155429, took 3.72s
+Train Epoch: 9 [3200/22376 (14%)]	Loss: 0.167839, took 3.74s
+Train Epoch: 9 [4800/22376 (21%)]	Loss: 0.137359, took 3.74s
+Train Epoch: 9 [6400/22376 (29%)]	Loss: 0.160118, took 3.74s
+Train Epoch: 9 [8000/22376 (36%)]	Loss: 0.156732, took 3.74s
+Train Epoch: 9 [9600/22376 (43%)]	Loss: 0.139583, took 3.74s
+Train Epoch: 9 [11200/22376 (50%)]	Loss: 0.147508, took 3.74s
+Train Epoch: 9 [12800/22376 (57%)]	Loss: 0.179043, took 3.74s
+Train Epoch: 9 [14400/22376 (64%)]	Loss: 0.142822, took 3.74s
+Train Epoch: 9 [16000/22376 (71%)]	Loss: 0.159754, took 3.73s
+Train Epoch: 9 [17600/22376 (79%)]	Loss: 0.147594, took 3.74s
+Train Epoch: 9 [19200/22376 (86%)]	Loss: 0.139127, took 3.74s
+Train Epoch: 9 [20800/22376 (93%)]	Loss: 0.193125, took 3.73s
+
+Validation Set:
+Average loss: 0.1715
+
+No improvement, patience: 3
+Train Epoch: 10 [0/22376 (0%)]	Loss: 0.146150, took 0.28s
+Train Epoch: 10 [1600/22376 (7%)]	Loss: 0.148989, took 3.71s
+Train Epoch: 10 [3200/22376 (14%)]	Loss: 0.146840, took 3.73s
+Train Epoch: 10 [4800/22376 (21%)]	Loss: 0.170136, took 3.72s
+Train Epoch: 10 [6400/22376 (29%)]	Loss: 0.177456, took 3.75s
+Train Epoch: 10 [8000/22376 (36%)]	Loss: 0.164739, took 3.73s
+Train Epoch: 10 [9600/22376 (43%)]	Loss: 0.142541, took 3.74s
+Train Epoch: 10 [11200/22376 (50%)]	Loss: 0.134379, took 3.74s
+Train Epoch: 10 [12800/22376 (57%)]	Loss: 0.171066, took 3.74s
+Train Epoch: 10 [14400/22376 (64%)]	Loss: 0.163663, took 3.74s
+Train Epoch: 10 [16000/22376 (71%)]	Loss: 0.137598, took 3.74s
+Train Epoch: 10 [17600/22376 (79%)]	Loss: 0.159165, took 3.73s
+Train Epoch: 10 [19200/22376 (86%)]	Loss: 0.155142, took 3.73s
+Train Epoch: 10 [20800/22376 (93%)]	Loss: 0.143511, took 3.74s
+
+Validation Set:
+Average loss: 0.1731
+
+No improvement, patience: 2
+Train Epoch: 11 [0/22376 (0%)]	Loss: 0.134640, took 0.28s
+Train Epoch: 11 [1600/22376 (7%)]	Loss: 0.141192, took 3.72s
+Train Epoch: 11 [3200/22376 (14%)]	Loss: 0.151555, took 3.73s
+Train Epoch: 11 [4800/22376 (21%)]	Loss: 0.195454, took 3.74s
+Train Epoch: 11 [6400/22376 (29%)]	Loss: 0.174377, took 3.74s
+Train Epoch: 11 [8000/22376 (36%)]	Loss: 0.171927, took 3.73s
+Train Epoch: 11 [9600/22376 (43%)]	Loss: 0.148172, took 3.74s
+Train Epoch: 11 [11200/22376 (50%)]	Loss: 0.153081, took 3.74s
+Train Epoch: 11 [12800/22376 (57%)]	Loss: 0.141907, took 3.74s
+Train Epoch: 11 [14400/22376 (64%)]	Loss: 0.134501, took 3.73s
+Train Epoch: 11 [16000/22376 (71%)]	Loss: 0.161573, took 3.74s
+Train Epoch: 11 [17600/22376 (79%)]	Loss: 0.165864, took 3.73s
+Train Epoch: 11 [19200/22376 (86%)]	Loss: 0.167733, took 3.73s
+Train Epoch: 11 [20800/22376 (93%)]	Loss: 0.163006, took 3.74s
+
+Validation Set:
+Average loss: 0.1730
+
+No improvement, patience: 1
+Train Epoch: 12 [0/22376 (0%)]	Loss: 0.163952, took 0.28s
+Train Epoch: 12 [1600/22376 (7%)]	Loss: 0.160310, took 3.73s
+Train Epoch: 12 [3200/22376 (14%)]	Loss: 0.170749, took 3.73s
+Train Epoch: 12 [4800/22376 (21%)]	Loss: 0.156687, took 3.73s
+Train Epoch: 12 [6400/22376 (29%)]	Loss: 0.148234, took 3.73s
+Train Epoch: 12 [8000/22376 (36%)]	Loss: 0.155867, took 3.73s
+Train Epoch: 12 [9600/22376 (43%)]	Loss: 0.132312, took 3.73s
+Train Epoch: 12 [11200/22376 (50%)]	Loss: 0.116076, took 3.74s
+Train Epoch: 12 [12800/22376 (57%)]	Loss: 0.142822, took 3.72s
+Train Epoch: 12 [14400/22376 (64%)]	Loss: 0.142655, took 3.75s
+Train Epoch: 12 [16000/22376 (71%)]	Loss: 0.163493, took 3.74s
+Train Epoch: 12 [17600/22376 (79%)]	Loss: 0.142379, took 3.74s
+Train Epoch: 12 [19200/22376 (86%)]	Loss: 0.130712, took 3.73s
+Train Epoch: 12 [20800/22376 (93%)]	Loss: 0.160124, took 3.74s
+
+Validation Set:
+Average loss: 0.1723
+
+Early stopping, no improvement for 4 epochs...
+Evaluate network...
+Test Set:
+Average loss: 0.1833
+
+
+
+
+
+
+############ FOLD 6 FINISHED ############
+
+1369 feature spectrogram files loaded, with example shape: (4000, 91)
+1369 beat feature annotation files loaded, with example shape: (38,)
+1369 beat targets computed, with example shape: (4000,)
+1369 chord feature annotation files loaded, with example shape: None
+1369 chord targets computed, with example shape: (4000,)
+1024 training features 171 validation features and 174 test features
+example of 1-hot-encoded target shape: (17408, 13) 
+
+Training network...
+Train Epoch: 1 [0/22427 (0%)]	Loss: 1.463200, took 0.29s
+Train Epoch: 1 [1600/22427 (7%)]	Loss: 0.434803, took 3.69s
+Train Epoch: 1 [3200/22427 (14%)]	Loss: 0.287649, took 3.68s
+Train Epoch: 1 [4800/22427 (21%)]	Loss: 0.236083, took 3.67s
+Train Epoch: 1 [6400/22427 (29%)]	Loss: 0.236164, took 3.68s
+Train Epoch: 1 [8000/22427 (36%)]	Loss: 0.200598, took 3.68s
+Train Epoch: 1 [9600/22427 (43%)]	Loss: 0.199412, took 3.69s
+Train Epoch: 1 [11200/22427 (50%)]	Loss: 0.216045, took 3.69s
+Train Epoch: 1 [12800/22427 (57%)]	Loss: 0.211918, took 3.69s
+Train Epoch: 1 [14400/22427 (64%)]	Loss: 0.206995, took 3.69s
+Train Epoch: 1 [16000/22427 (71%)]	Loss: 0.199650, took 3.69s
+Train Epoch: 1 [17600/22427 (78%)]	Loss: 0.246421, took 3.69s
+Train Epoch: 1 [19200/22427 (86%)]	Loss: 0.171482, took 3.70s
+Train Epoch: 1 [20800/22427 (93%)]	Loss: 0.218001, took 3.70s
+Train Epoch: 1 [22400/22427 (100%)]	Loss: 0.178889, took 3.73s
+
+Validation Set:
+Average loss: 0.1972
+
+Train Epoch: 2 [0/22427 (0%)]	Loss: 0.184722, took 0.29s
+Train Epoch: 2 [1600/22427 (7%)]	Loss: 0.190634, took 3.73s
+Train Epoch: 2 [3200/22427 (14%)]	Loss: 0.190990, took 3.74s
+Train Epoch: 2 [4800/22427 (21%)]	Loss: 0.201127, took 3.74s
+Train Epoch: 2 [6400/22427 (29%)]	Loss: 0.232690, took 3.75s
+Train Epoch: 2 [8000/22427 (36%)]	Loss: 0.191647, took 3.75s
+Train Epoch: 2 [9600/22427 (43%)]	Loss: 0.207947, took 3.75s
+Train Epoch: 2 [11200/22427 (50%)]	Loss: 0.208309, took 3.75s
+Train Epoch: 2 [12800/22427 (57%)]	Loss: 0.201596, took 3.75s
+Train Epoch: 2 [14400/22427 (64%)]	Loss: 0.199301, took 3.76s
+Train Epoch: 2 [16000/22427 (71%)]	Loss: 0.189142, took 3.75s
+Train Epoch: 2 [17600/22427 (78%)]	Loss: 0.175622, took 3.76s
+Train Epoch: 2 [19200/22427 (86%)]	Loss: 0.195728, took 3.75s
+Train Epoch: 2 [20800/22427 (93%)]	Loss: 0.168178, took 3.75s
+Train Epoch: 2 [22400/22427 (100%)]	Loss: 0.201967, took 3.75s
+
+Validation Set:
+Average loss: 0.1894
+
+Train Epoch: 3 [0/22427 (0%)]	Loss: 0.203681, took 0.27s
+Train Epoch: 3 [1600/22427 (7%)]	Loss: 0.199044, took 3.74s
+Train Epoch: 3 [3200/22427 (14%)]	Loss: 0.178821, took 3.75s
+Train Epoch: 3 [4800/22427 (21%)]	Loss: 0.173062, took 3.76s
+Train Epoch: 3 [6400/22427 (29%)]	Loss: 0.156573, took 3.76s
+Train Epoch: 3 [8000/22427 (36%)]	Loss: 0.154169, took 3.77s
+Train Epoch: 3 [9600/22427 (43%)]	Loss: 0.177953, took 3.75s
+Train Epoch: 3 [11200/22427 (50%)]	Loss: 0.154797, took 3.76s
+Train Epoch: 3 [12800/22427 (57%)]	Loss: 0.177982, took 3.77s
+Train Epoch: 3 [14400/22427 (64%)]	Loss: 0.190511, took 3.76s
+Train Epoch: 3 [16000/22427 (71%)]	Loss: 0.174615, took 3.76s
+Train Epoch: 3 [17600/22427 (78%)]	Loss: 0.204025, took 3.76s
+Train Epoch: 3 [19200/22427 (86%)]	Loss: 0.200452, took 3.76s
+Train Epoch: 3 [20800/22427 (93%)]	Loss: 0.201791, took 3.77s
+Train Epoch: 3 [22400/22427 (100%)]	Loss: 0.195248, took 3.76s
+
+Validation Set:
+Average loss: 0.1882
+
+Train Epoch: 4 [0/22427 (0%)]	Loss: 0.180347, took 0.28s
+Train Epoch: 4 [1600/22427 (7%)]	Loss: 0.166320, took 3.75s
+Train Epoch: 4 [3200/22427 (14%)]	Loss: 0.149597, took 3.77s
+Train Epoch: 4 [4800/22427 (21%)]	Loss: 0.206948, took 3.75s
+Train Epoch: 4 [6400/22427 (29%)]	Loss: 0.169341, took 3.76s
+Train Epoch: 4 [8000/22427 (36%)]	Loss: 0.165702, took 3.76s
+Train Epoch: 4 [9600/22427 (43%)]	Loss: 0.169787, took 3.76s
+Train Epoch: 4 [11200/22427 (50%)]	Loss: 0.167447, took 3.76s
+Train Epoch: 4 [12800/22427 (57%)]	Loss: 0.150155, took 3.76s
+Train Epoch: 4 [14400/22427 (64%)]	Loss: 0.181774, took 3.74s
+Train Epoch: 4 [16000/22427 (71%)]	Loss: 0.174697, took 3.74s
+Train Epoch: 4 [17600/22427 (78%)]	Loss: 0.170659, took 3.76s
+Train Epoch: 4 [19200/22427 (86%)]	Loss: 0.194059, took 3.75s
+Train Epoch: 4 [20800/22427 (93%)]	Loss: 0.196207, took 3.74s
+Train Epoch: 4 [22400/22427 (100%)]	Loss: 0.186584, took 3.76s
+
+Validation Set:
+Average loss: 0.1868
+
+Train Epoch: 5 [0/22427 (0%)]	Loss: 0.156423, took 0.28s
+Train Epoch: 5 [1600/22427 (7%)]	Loss: 0.154630, took 3.74s
+Train Epoch: 5 [3200/22427 (14%)]	Loss: 0.195674, took 3.74s
+Train Epoch: 5 [4800/22427 (21%)]	Loss: 0.191773, took 3.76s
+Train Epoch: 5 [6400/22427 (29%)]	Loss: 0.215460, took 3.74s
+Train Epoch: 5 [8000/22427 (36%)]	Loss: 0.181700, took 3.74s
+Train Epoch: 5 [9600/22427 (43%)]	Loss: 0.173629, took 3.74s
+Train Epoch: 5 [11200/22427 (50%)]	Loss: 0.162444, took 3.74s
+Train Epoch: 5 [12800/22427 (57%)]	Loss: 0.152982, took 3.74s
+Train Epoch: 5 [14400/22427 (64%)]	Loss: 0.181404, took 3.74s
+Train Epoch: 5 [16000/22427 (71%)]	Loss: 0.156024, took 3.75s
+Train Epoch: 5 [17600/22427 (78%)]	Loss: 0.166294, took 3.74s
+Train Epoch: 5 [19200/22427 (86%)]	Loss: 0.160763, took 3.75s
+Train Epoch: 5 [20800/22427 (93%)]	Loss: 0.138277, took 3.74s
+Train Epoch: 5 [22400/22427 (100%)]	Loss: 0.166585, took 3.75s
+
+Validation Set:
+Average loss: 0.1854
+
+Train Epoch: 6 [0/22427 (0%)]	Loss: 0.189159, took 0.28s
+Train Epoch: 6 [1600/22427 (7%)]	Loss: 0.137434, took 3.74s
+Train Epoch: 6 [3200/22427 (14%)]	Loss: 0.174359, took 3.75s
+Train Epoch: 6 [4800/22427 (21%)]	Loss: 0.182282, took 3.75s
+Train Epoch: 6 [6400/22427 (29%)]	Loss: 0.156667, took 3.75s
+Train Epoch: 6 [8000/22427 (36%)]	Loss: 0.143545, took 3.74s
+Train Epoch: 6 [9600/22427 (43%)]	Loss: 0.170821, took 3.75s
+Train Epoch: 6 [11200/22427 (50%)]	Loss: 0.162239, took 3.75s
+Train Epoch: 6 [12800/22427 (57%)]	Loss: 0.167850, took 3.74s
+Train Epoch: 6 [14400/22427 (64%)]	Loss: 0.146167, took 3.74s
+Train Epoch: 6 [16000/22427 (71%)]	Loss: 0.157991, took 3.73s
+Train Epoch: 6 [17600/22427 (78%)]	Loss: 0.168463, took 3.74s
+Train Epoch: 6 [19200/22427 (86%)]	Loss: 0.153063, took 3.74s
+Train Epoch: 6 [20800/22427 (93%)]	Loss: 0.153961, took 3.74s
+Train Epoch: 6 [22400/22427 (100%)]	Loss: 0.162795, took 3.74s
+
+Validation Set:
+Average loss: 0.1826
+
+Train Epoch: 7 [0/22427 (0%)]	Loss: 0.159865, took 0.29s
+Train Epoch: 7 [1600/22427 (7%)]	Loss: 0.163179, took 3.73s
+Train Epoch: 7 [3200/22427 (14%)]	Loss: 0.164301, took 3.74s
+Train Epoch: 7 [4800/22427 (21%)]	Loss: 0.179691, took 3.73s
+Train Epoch: 7 [6400/22427 (29%)]	Loss: 0.165392, took 3.75s
+Train Epoch: 7 [8000/22427 (36%)]	Loss: 0.170330, took 3.74s
+Train Epoch: 7 [9600/22427 (43%)]	Loss: 0.178567, took 3.73s
+Train Epoch: 7 [11200/22427 (50%)]	Loss: 0.148993, took 3.74s
+Train Epoch: 7 [12800/22427 (57%)]	Loss: 0.145711, took 3.74s
+Train Epoch: 7 [14400/22427 (64%)]	Loss: 0.214025, took 3.75s
+Train Epoch: 7 [16000/22427 (71%)]	Loss: 0.152885, took 3.76s
+Train Epoch: 7 [17600/22427 (78%)]	Loss: 0.203770, took 3.75s
+Train Epoch: 7 [19200/22427 (86%)]	Loss: 0.154249, took 3.74s
+Train Epoch: 7 [20800/22427 (93%)]	Loss: 0.145451, took 3.73s
+Train Epoch: 7 [22400/22427 (100%)]	Loss: 0.156420, took 3.72s
+
+Validation Set:
+Average loss: 0.1835
+
+No improvement, patience: 4
+Train Epoch: 8 [0/22427 (0%)]	Loss: 0.169246, took 0.28s
+Train Epoch: 8 [1600/22427 (7%)]	Loss: 0.166326, took 3.73s
+Train Epoch: 8 [3200/22427 (14%)]	Loss: 0.173361, took 3.74s
+Train Epoch: 8 [4800/22427 (21%)]	Loss: 0.159380, took 3.75s
+Train Epoch: 8 [6400/22427 (29%)]	Loss: 0.185705, took 3.74s
+Train Epoch: 8 [8000/22427 (36%)]	Loss: 0.165170, took 3.74s
+Train Epoch: 8 [9600/22427 (43%)]	Loss: 0.140137, took 3.75s
+Train Epoch: 8 [11200/22427 (50%)]	Loss: 0.160918, took 3.74s
+Train Epoch: 8 [12800/22427 (57%)]	Loss: 0.133975, took 3.74s
+Train Epoch: 8 [14400/22427 (64%)]	Loss: 0.168414, took 3.73s
+Train Epoch: 8 [16000/22427 (71%)]	Loss: 0.162761, took 3.73s
+Train Epoch: 8 [17600/22427 (78%)]	Loss: 0.150355, took 3.74s
+Train Epoch: 8 [19200/22427 (86%)]	Loss: 0.183151, took 3.74s
+Train Epoch: 8 [20800/22427 (93%)]	Loss: 0.160248, took 3.73s
+Train Epoch: 8 [22400/22427 (100%)]	Loss: 0.145190, took 3.73s
+
+Validation Set:
+Average loss: 0.1808
+
+Train Epoch: 9 [0/22427 (0%)]	Loss: 0.136900, took 0.28s
+Train Epoch: 9 [1600/22427 (7%)]	Loss: 0.128718, took 3.72s
+Train Epoch: 9 [3200/22427 (14%)]	Loss: 0.161423, took 3.73s
+Train Epoch: 9 [4800/22427 (21%)]	Loss: 0.118801, took 3.73s
+Train Epoch: 9 [6400/22427 (29%)]	Loss: 0.146047, took 3.73s
+Train Epoch: 9 [8000/22427 (36%)]	Loss: 0.134859, took 3.73s
+Train Epoch: 9 [9600/22427 (43%)]	Loss: 0.155088, took 3.75s
+Train Epoch: 9 [11200/22427 (50%)]	Loss: 0.179043, took 3.73s
+Train Epoch: 9 [12800/22427 (57%)]	Loss: 0.131995, took 3.74s
+Train Epoch: 9 [14400/22427 (64%)]	Loss: 0.138030, took 3.73s
+Train Epoch: 9 [16000/22427 (71%)]	Loss: 0.141187, took 3.74s
+Train Epoch: 9 [17600/22427 (78%)]	Loss: 0.131169, took 3.74s
+Train Epoch: 9 [19200/22427 (86%)]	Loss: 0.167371, took 3.73s
+Train Epoch: 9 [20800/22427 (93%)]	Loss: 0.154895, took 3.73s
+Train Epoch: 9 [22400/22427 (100%)]	Loss: 0.177662, took 3.74s
+
+Validation Set:
+Average loss: 0.1831
+
+No improvement, patience: 4
+Train Epoch: 10 [0/22427 (0%)]	Loss: 0.150235, took 0.27s
+Train Epoch: 10 [1600/22427 (7%)]	Loss: 0.145611, took 3.72s
+Train Epoch: 10 [3200/22427 (14%)]	Loss: 0.149627, took 3.73s
+Train Epoch: 10 [4800/22427 (21%)]	Loss: 0.155917, took 3.73s
+Train Epoch: 10 [6400/22427 (29%)]	Loss: 0.157292, took 3.75s
+Train Epoch: 10 [8000/22427 (36%)]	Loss: 0.164541, took 3.75s
+Train Epoch: 10 [9600/22427 (43%)]	Loss: 0.154640, took 3.73s
+Train Epoch: 10 [11200/22427 (50%)]	Loss: 0.174331, took 3.73s
+Train Epoch: 10 [12800/22427 (57%)]	Loss: 0.173705, took 3.74s
+Train Epoch: 10 [14400/22427 (64%)]	Loss: 0.157888, took 3.74s
+Train Epoch: 10 [16000/22427 (71%)]	Loss: 0.139163, took 3.74s
+Train Epoch: 10 [17600/22427 (78%)]	Loss: 0.198837, took 3.75s
+Train Epoch: 10 [19200/22427 (86%)]	Loss: 0.152600, took 3.73s
+Train Epoch: 10 [20800/22427 (93%)]	Loss: 0.155145, took 3.73s
+Train Epoch: 10 [22400/22427 (100%)]	Loss: 0.117943, took 3.73s
+
+Validation Set:
+Average loss: 0.1823
+
+No improvement, patience: 3
+Train Epoch: 11 [0/22427 (0%)]	Loss: 0.161667, took 0.28s
+Train Epoch: 11 [1600/22427 (7%)]	Loss: 0.149242, took 3.72s
+Train Epoch: 11 [3200/22427 (14%)]	Loss: 0.164534, took 3.73s
+Train Epoch: 11 [4800/22427 (21%)]	Loss: 0.163659, took 3.74s
+Train Epoch: 11 [6400/22427 (29%)]	Loss: 0.162290, took 3.73s
+Train Epoch: 11 [8000/22427 (36%)]	Loss: 0.142443, took 3.74s
+Train Epoch: 11 [9600/22427 (43%)]	Loss: 0.146320, took 3.74s
+Train Epoch: 11 [11200/22427 (50%)]	Loss: 0.155002, took 3.73s
+Train Epoch: 11 [12800/22427 (57%)]	Loss: 0.140456, took 3.74s
+Train Epoch: 11 [14400/22427 (64%)]	Loss: 0.143168, took 3.74s
+Train Epoch: 11 [16000/22427 (71%)]	Loss: 0.174389, took 3.74s
+Train Epoch: 11 [17600/22427 (78%)]	Loss: 0.147252, took 3.74s
+Train Epoch: 11 [19200/22427 (86%)]	Loss: 0.178346, took 3.73s
+Train Epoch: 11 [20800/22427 (93%)]	Loss: 0.154722, took 3.74s
+Train Epoch: 11 [22400/22427 (100%)]	Loss: 0.139935, took 3.73s
+
+Validation Set:
+Average loss: 0.1834
+
+No improvement, patience: 2
+Train Epoch: 12 [0/22427 (0%)]	Loss: 0.162687, took 0.27s
+Train Epoch: 12 [1600/22427 (7%)]	Loss: 0.142578, took 3.72s
+Train Epoch: 12 [3200/22427 (14%)]	Loss: 0.138583, took 3.73s
+Train Epoch: 12 [4800/22427 (21%)]	Loss: 0.147330, took 3.74s
+Train Epoch: 12 [6400/22427 (29%)]	Loss: 0.130421, took 3.74s
+Train Epoch: 12 [8000/22427 (36%)]	Loss: 0.159684, took 3.73s
+Train Epoch: 12 [9600/22427 (43%)]	Loss: 0.174959, took 3.74s
+Train Epoch: 12 [11200/22427 (50%)]	Loss: 0.168551, took 3.73s
+Train Epoch: 12 [12800/22427 (57%)]	Loss: 0.157666, took 3.73s
+Train Epoch: 12 [14400/22427 (64%)]	Loss: 0.165894, took 3.75s
+Train Epoch: 12 [16000/22427 (71%)]	Loss: 0.151946, took 3.74s
+Train Epoch: 12 [17600/22427 (78%)]	Loss: 0.172785, took 3.73s
+Train Epoch: 12 [19200/22427 (86%)]	Loss: 0.140051, took 3.74s
+Train Epoch: 12 [20800/22427 (93%)]	Loss: 0.139535, took 3.73s
+Train Epoch: 12 [22400/22427 (100%)]	Loss: 0.162696, took 3.74s
+
+Validation Set:
+Average loss: 0.1838
+
+No improvement, patience: 1
+Train Epoch: 13 [0/22427 (0%)]	Loss: 0.125426, took 0.27s
+Train Epoch: 13 [1600/22427 (7%)]	Loss: 0.139841, took 3.72s
+Train Epoch: 13 [3200/22427 (14%)]	Loss: 0.116695, took 3.73s
+Train Epoch: 13 [4800/22427 (21%)]	Loss: 0.126822, took 3.73s
+Train Epoch: 13 [6400/22427 (29%)]	Loss: 0.134412, took 3.73s
+Train Epoch: 13 [8000/22427 (36%)]	Loss: 0.140208, took 3.74s
+Train Epoch: 13 [9600/22427 (43%)]	Loss: 0.150650, took 3.74s
+Train Epoch: 13 [11200/22427 (50%)]	Loss: 0.130264, took 3.74s
+Train Epoch: 13 [12800/22427 (57%)]	Loss: 0.136208, took 3.75s
+Train Epoch: 13 [14400/22427 (64%)]	Loss: 0.182190, took 3.73s
+Train Epoch: 13 [16000/22427 (71%)]	Loss: 0.136871, took 3.74s
+Train Epoch: 13 [17600/22427 (78%)]	Loss: 0.164800, took 3.73s
+Train Epoch: 13 [19200/22427 (86%)]	Loss: 0.167717, took 3.74s
+Train Epoch: 13 [20800/22427 (93%)]	Loss: 0.127847, took 3.73s
+Train Epoch: 13 [22400/22427 (100%)]	Loss: 0.158737, took 3.74s
+
+Validation Set:
+Average loss: 0.1820
+
+Early stopping, no improvement for 4 epochs...
+Evaluate network...
+Test Set:
+Average loss: 0.2037
+
+
+
+
+
+
+############ FOLD 7 FINISHED ############
+
+1369 feature spectrogram files loaded, with example shape: (4000, 91)
+1369 beat feature annotation files loaded, with example shape: (38,)
+1369 beat targets computed, with example shape: (4000,)
+1369 chord feature annotation files loaded, with example shape: None
+1369 chord targets computed, with example shape: (4000,)
+1026 training features 174 validation features and 169 test features
+example of 1-hot-encoded target shape: (15256, 13) 
+
+Training network...
+Train Epoch: 1 [0/22435 (0%)]	Loss: 1.466617, took 0.29s
+Train Epoch: 1 [1600/22435 (7%)]	Loss: 0.458670, took 3.70s
+Train Epoch: 1 [3200/22435 (14%)]	Loss: 0.252396, took 3.68s
+Train Epoch: 1 [4800/22435 (21%)]	Loss: 0.238993, took 3.68s
+Train Epoch: 1 [6400/22435 (29%)]	Loss: 0.222100, took 3.68s
+Train Epoch: 1 [8000/22435 (36%)]	Loss: 0.199342, took 3.69s
+Train Epoch: 1 [9600/22435 (43%)]	Loss: 0.219565, took 3.69s
+Train Epoch: 1 [11200/22435 (50%)]	Loss: 0.235713, took 3.69s
+Train Epoch: 1 [12800/22435 (57%)]	Loss: 0.201021, took 3.70s
+Train Epoch: 1 [14400/22435 (64%)]	Loss: 0.208301, took 3.70s
+Train Epoch: 1 [16000/22435 (71%)]	Loss: 0.247324, took 3.70s
+Train Epoch: 1 [17600/22435 (78%)]	Loss: 0.207521, took 3.70s
+Train Epoch: 1 [19200/22435 (86%)]	Loss: 0.195884, took 3.71s
+Train Epoch: 1 [20800/22435 (93%)]	Loss: 0.191517, took 3.70s
+Train Epoch: 1 [22400/22435 (100%)]	Loss: 0.193127, took 3.72s
+
+Validation Set:
+Average loss: 0.2089
+
+Train Epoch: 2 [0/22435 (0%)]	Loss: 0.180237, took 0.28s
+Train Epoch: 2 [1600/22435 (7%)]	Loss: 0.216055, took 3.73s
+Train Epoch: 2 [3200/22435 (14%)]	Loss: 0.205266, took 3.73s
+Train Epoch: 2 [4800/22435 (21%)]	Loss: 0.216291, took 3.74s
+Train Epoch: 2 [6400/22435 (29%)]	Loss: 0.182160, took 3.75s
+Train Epoch: 2 [8000/22435 (36%)]	Loss: 0.205798, took 3.77s
+Train Epoch: 2 [9600/22435 (43%)]	Loss: 0.218638, took 3.75s
+Train Epoch: 2 [11200/22435 (50%)]	Loss: 0.160774, took 3.76s
+Train Epoch: 2 [12800/22435 (57%)]	Loss: 0.180352, took 3.75s
+Train Epoch: 2 [14400/22435 (64%)]	Loss: 0.186742, took 3.75s
+Train Epoch: 2 [16000/22435 (71%)]	Loss: 0.186718, took 3.76s
+Train Epoch: 2 [17600/22435 (78%)]	Loss: 0.213352, took 3.76s
+Train Epoch: 2 [19200/22435 (86%)]	Loss: 0.226986, took 3.76s
+Train Epoch: 2 [20800/22435 (93%)]	Loss: 0.175402, took 3.76s
+Train Epoch: 2 [22400/22435 (100%)]	Loss: 0.188458, took 3.76s
+
+Validation Set:
+Average loss: 0.2061
+
+Train Epoch: 3 [0/22435 (0%)]	Loss: 0.170779, took 0.28s
+Train Epoch: 3 [1600/22435 (7%)]	Loss: 0.201369, took 3.74s
+Train Epoch: 3 [3200/22435 (14%)]	Loss: 0.228791, took 3.76s
+Train Epoch: 3 [4800/22435 (21%)]	Loss: 0.202649, took 3.74s
+Train Epoch: 3 [6400/22435 (29%)]	Loss: 0.183183, took 3.76s
+Train Epoch: 3 [8000/22435 (36%)]	Loss: 0.158047, took 3.75s
+Train Epoch: 3 [9600/22435 (43%)]	Loss: 0.184737, took 3.75s
+Train Epoch: 3 [11200/22435 (50%)]	Loss: 0.169560, took 3.75s
+Train Epoch: 3 [12800/22435 (57%)]	Loss: 0.168280, took 3.75s
+Train Epoch: 3 [14400/22435 (64%)]	Loss: 0.165010, took 3.76s
+Train Epoch: 3 [16000/22435 (71%)]	Loss: 0.207365, took 3.75s
+Train Epoch: 3 [17600/22435 (78%)]	Loss: 0.172783, took 3.75s
+Train Epoch: 3 [19200/22435 (86%)]	Loss: 0.159245, took 3.76s
+Train Epoch: 3 [20800/22435 (93%)]	Loss: 0.165838, took 3.75s
+Train Epoch: 3 [22400/22435 (100%)]	Loss: 0.202000, took 3.76s
+
+Validation Set:
+Average loss: 0.2046
+
+Train Epoch: 4 [0/22435 (0%)]	Loss: 0.189119, took 0.28s
+Train Epoch: 4 [1600/22435 (7%)]	Loss: 0.158829, took 3.75s
+Train Epoch: 4 [3200/22435 (14%)]	Loss: 0.146170, took 3.76s
+Train Epoch: 4 [4800/22435 (21%)]	Loss: 0.180803, took 3.76s
+Train Epoch: 4 [6400/22435 (29%)]	Loss: 0.143346, took 3.76s
+Train Epoch: 4 [8000/22435 (36%)]	Loss: 0.180547, took 3.75s
+Train Epoch: 4 [9600/22435 (43%)]	Loss: 0.149961, took 3.76s
+Train Epoch: 4 [11200/22435 (50%)]	Loss: 0.165290, took 3.75s
+Train Epoch: 4 [12800/22435 (57%)]	Loss: 0.178349, took 3.75s
+Train Epoch: 4 [14400/22435 (64%)]	Loss: 0.169552, took 3.77s
+Train Epoch: 4 [16000/22435 (71%)]	Loss: 0.188125, took 3.76s
+Train Epoch: 4 [17600/22435 (78%)]	Loss: 0.161127, took 3.75s
+Train Epoch: 4 [19200/22435 (86%)]	Loss: 0.181796, took 3.76s
+Train Epoch: 4 [20800/22435 (93%)]	Loss: 0.167593, took 3.74s
+Train Epoch: 4 [22400/22435 (100%)]	Loss: 0.144040, took 3.75s
+
+Validation Set:
+Average loss: 0.1991
+
+Train Epoch: 5 [0/22435 (0%)]	Loss: 0.179915, took 0.28s
+Train Epoch: 5 [1600/22435 (7%)]	Loss: 0.151447, took 3.75s
+Train Epoch: 5 [3200/22435 (14%)]	Loss: 0.163729, took 3.74s
+Train Epoch: 5 [4800/22435 (21%)]	Loss: 0.171387, took 3.74s
+Train Epoch: 5 [6400/22435 (29%)]	Loss: 0.166123, took 3.75s
+Train Epoch: 5 [8000/22435 (36%)]	Loss: 0.182000, took 3.75s
+Train Epoch: 5 [9600/22435 (43%)]	Loss: 0.179234, took 3.75s
+Train Epoch: 5 [11200/22435 (50%)]	Loss: 0.153704, took 3.75s
+Train Epoch: 5 [12800/22435 (57%)]	Loss: 0.179142, took 3.75s
+Train Epoch: 5 [14400/22435 (64%)]	Loss: 0.154820, took 3.74s
+Train Epoch: 5 [16000/22435 (71%)]	Loss: 0.203074, took 3.74s
+Train Epoch: 5 [17600/22435 (78%)]	Loss: 0.153864, took 3.75s
+Train Epoch: 5 [19200/22435 (86%)]	Loss: 0.155747, took 3.74s
+Train Epoch: 5 [20800/22435 (93%)]	Loss: 0.160501, took 3.74s
+Train Epoch: 5 [22400/22435 (100%)]	Loss: 0.137569, took 3.73s
+
+Validation Set:
+Average loss: 0.2014
+
+No improvement, patience: 4
+Train Epoch: 6 [0/22435 (0%)]	Loss: 0.174084, took 0.27s
+Train Epoch: 6 [1600/22435 (7%)]	Loss: 0.180163, took 3.74s
+Train Epoch: 6 [3200/22435 (14%)]	Loss: 0.155028, took 3.74s
+Train Epoch: 6 [4800/22435 (21%)]	Loss: 0.142481, took 3.75s
+Train Epoch: 6 [6400/22435 (29%)]	Loss: 0.178642, took 3.74s
+Train Epoch: 6 [8000/22435 (36%)]	Loss: 0.156503, took 3.74s
+Train Epoch: 6 [9600/22435 (43%)]	Loss: 0.170634, took 3.74s
+Train Epoch: 6 [11200/22435 (50%)]	Loss: 0.182511, took 3.75s
+Train Epoch: 6 [12800/22435 (57%)]	Loss: 0.144407, took 3.74s
+Train Epoch: 6 [14400/22435 (64%)]	Loss: 0.179489, took 3.75s
+Train Epoch: 6 [16000/22435 (71%)]	Loss: 0.157949, took 3.75s
+Train Epoch: 6 [17600/22435 (78%)]	Loss: 0.166411, took 3.74s
+Train Epoch: 6 [19200/22435 (86%)]	Loss: 0.160318, took 3.74s
+Train Epoch: 6 [20800/22435 (93%)]	Loss: 0.158124, took 3.75s
+Train Epoch: 6 [22400/22435 (100%)]	Loss: 0.155668, took 3.74s
+
+Validation Set:
+Average loss: 0.1974
+
+Train Epoch: 7 [0/22435 (0%)]	Loss: 0.143241, took 0.27s
+Train Epoch: 7 [1600/22435 (7%)]	Loss: 0.176914, took 3.73s
+Train Epoch: 7 [3200/22435 (14%)]	Loss: 0.186809, took 3.74s
+Train Epoch: 7 [4800/22435 (21%)]	Loss: 0.149222, took 3.73s
+Train Epoch: 7 [6400/22435 (29%)]	Loss: 0.152047, took 3.74s
+Train Epoch: 7 [8000/22435 (36%)]	Loss: 0.153701, took 3.74s
+Train Epoch: 7 [9600/22435 (43%)]	Loss: 0.145934, took 3.74s
+Train Epoch: 7 [11200/22435 (50%)]	Loss: 0.172862, took 3.73s
+Train Epoch: 7 [12800/22435 (57%)]	Loss: 0.151478, took 3.74s
+Train Epoch: 7 [14400/22435 (64%)]	Loss: 0.157374, took 3.74s
+Train Epoch: 7 [16000/22435 (71%)]	Loss: 0.149330, took 3.73s
+Train Epoch: 7 [17600/22435 (78%)]	Loss: 0.152120, took 3.74s
+Train Epoch: 7 [19200/22435 (86%)]	Loss: 0.193776, took 3.75s
+Train Epoch: 7 [20800/22435 (93%)]	Loss: 0.156001, took 3.74s
+Train Epoch: 7 [22400/22435 (100%)]	Loss: 0.144309, took 3.75s
+
+Validation Set:
+Average loss: 0.1995
+
+No improvement, patience: 4
+Train Epoch: 8 [0/22435 (0%)]	Loss: 0.186641, took 0.28s
+Train Epoch: 8 [1600/22435 (7%)]	Loss: 0.156831, took 3.72s
+Train Epoch: 8 [3200/22435 (14%)]	Loss: 0.148611, took 3.74s
+Train Epoch: 8 [4800/22435 (21%)]	Loss: 0.165125, took 3.75s
+Train Epoch: 8 [6400/22435 (29%)]	Loss: 0.167271, took 3.73s
+Train Epoch: 8 [8000/22435 (36%)]	Loss: 0.144365, took 3.74s
+Train Epoch: 8 [9600/22435 (43%)]	Loss: 0.177802, took 3.74s
+Train Epoch: 8 [11200/22435 (50%)]	Loss: 0.174378, took 3.74s
+Train Epoch: 8 [12800/22435 (57%)]	Loss: 0.151391, took 3.75s
+Train Epoch: 8 [14400/22435 (64%)]	Loss: 0.153301, took 3.75s
+Train Epoch: 8 [16000/22435 (71%)]	Loss: 0.134275, took 3.73s
+Train Epoch: 8 [17600/22435 (78%)]	Loss: 0.181200, took 3.74s
+Train Epoch: 8 [19200/22435 (86%)]	Loss: 0.147880, took 3.74s
+Train Epoch: 8 [20800/22435 (93%)]	Loss: 0.161099, took 3.73s
+Train Epoch: 8 [22400/22435 (100%)]	Loss: 0.147871, took 3.74s
+
+Validation Set:
+Average loss: 0.1969
+
+Train Epoch: 9 [0/22435 (0%)]	Loss: 0.136669, took 0.28s
+Train Epoch: 9 [1600/22435 (7%)]	Loss: 0.170147, took 3.72s
+Train Epoch: 9 [3200/22435 (14%)]	Loss: 0.151016, took 3.73s
+Train Epoch: 9 [4800/22435 (21%)]	Loss: 0.138037, took 3.74s
+Train Epoch: 9 [6400/22435 (29%)]	Loss: 0.150317, took 3.73s
+Train Epoch: 9 [8000/22435 (36%)]	Loss: 0.144873, took 3.74s
+Train Epoch: 9 [9600/22435 (43%)]	Loss: 0.160036, took 3.73s
+Train Epoch: 9 [11200/22435 (50%)]	Loss: 0.166254, took 3.73s
+Train Epoch: 9 [12800/22435 (57%)]	Loss: 0.198807, took 3.74s
+Train Epoch: 9 [14400/22435 (64%)]	Loss: 0.156029, took 3.74s
+Train Epoch: 9 [16000/22435 (71%)]	Loss: 0.142673, took 3.74s
+Train Epoch: 9 [17600/22435 (78%)]	Loss: 0.169086, took 3.74s
+Train Epoch: 9 [19200/22435 (86%)]	Loss: 0.187720, took 3.73s
+Train Epoch: 9 [20800/22435 (93%)]	Loss: 0.150512, took 3.74s
+Train Epoch: 9 [22400/22435 (100%)]	Loss: 0.165330, took 3.74s
+
+Validation Set:
+Average loss: 0.2032
+
+No improvement, patience: 4
+Train Epoch: 10 [0/22435 (0%)]	Loss: 0.131881, took 0.28s
+Train Epoch: 10 [1600/22435 (7%)]	Loss: 0.157045, took 3.71s
+Train Epoch: 10 [3200/22435 (14%)]	Loss: 0.178323, took 3.73s
+Train Epoch: 10 [4800/22435 (21%)]	Loss: 0.149462, took 3.74s
+Train Epoch: 10 [6400/22435 (29%)]	Loss: 0.153465, took 3.74s
+Train Epoch: 10 [8000/22435 (36%)]	Loss: 0.154175, took 3.74s
+Train Epoch: 10 [9600/22435 (43%)]	Loss: 0.128506, took 3.73s
+Train Epoch: 10 [11200/22435 (50%)]	Loss: 0.131235, took 3.74s
+Train Epoch: 10 [12800/22435 (57%)]	Loss: 0.138228, took 3.74s
+Train Epoch: 10 [14400/22435 (64%)]	Loss: 0.149774, took 3.74s
+Train Epoch: 10 [16000/22435 (71%)]	Loss: 0.187137, took 3.74s
+Train Epoch: 10 [17600/22435 (78%)]	Loss: 0.145451, took 3.74s
+Train Epoch: 10 [19200/22435 (86%)]	Loss: 0.159673, took 3.74s
+Train Epoch: 10 [20800/22435 (93%)]	Loss: 0.162056, took 3.73s
+Train Epoch: 10 [22400/22435 (100%)]	Loss: 0.136950, took 3.73s
+
+Validation Set:
+Average loss: 0.1988
+
+No improvement, patience: 3
+Train Epoch: 11 [0/22435 (0%)]	Loss: 0.149591, took 0.28s
+Train Epoch: 11 [1600/22435 (7%)]	Loss: 0.157205, took 3.72s
+Train Epoch: 11 [3200/22435 (14%)]	Loss: 0.178440, took 3.73s
+Train Epoch: 11 [4800/22435 (21%)]	Loss: 0.171400, took 3.73s
+Train Epoch: 11 [6400/22435 (29%)]	Loss: 0.147300, took 3.72s
+Train Epoch: 11 [8000/22435 (36%)]	Loss: 0.174126, took 3.74s
+Train Epoch: 11 [9600/22435 (43%)]	Loss: 0.139536, took 3.74s
+Train Epoch: 11 [11200/22435 (50%)]	Loss: 0.161814, took 3.74s
+Train Epoch: 11 [12800/22435 (57%)]	Loss: 0.147579, took 3.72s
+Train Epoch: 11 [14400/22435 (64%)]	Loss: 0.136369, took 3.73s
+Train Epoch: 11 [16000/22435 (71%)]	Loss: 0.143457, took 3.74s
+Train Epoch: 11 [17600/22435 (78%)]	Loss: 0.176236, took 3.74s
+Train Epoch: 11 [19200/22435 (86%)]	Loss: 0.158478, took 3.75s
+Train Epoch: 11 [20800/22435 (93%)]	Loss: 0.215587, took 3.74s
+Train Epoch: 11 [22400/22435 (100%)]	Loss: 0.147493, took 3.73s
+
+Validation Set:
+Average loss: 0.1992
+
+No improvement, patience: 2
+Train Epoch: 12 [0/22435 (0%)]	Loss: 0.161896, took 0.27s
+Train Epoch: 12 [1600/22435 (7%)]	Loss: 0.130028, took 3.71s
+Train Epoch: 12 [3200/22435 (14%)]	Loss: 0.149626, took 3.72s
+Train Epoch: 12 [4800/22435 (21%)]	Loss: 0.135708, took 3.72s
+Train Epoch: 12 [6400/22435 (29%)]	Loss: 0.159406, took 3.73s
+Train Epoch: 12 [8000/22435 (36%)]	Loss: 0.133429, took 3.74s
+Train Epoch: 12 [9600/22435 (43%)]	Loss: 0.166660, took 3.73s
+Train Epoch: 12 [11200/22435 (50%)]	Loss: 0.138445, took 3.73s
+Train Epoch: 12 [12800/22435 (57%)]	Loss: 0.126614, took 3.74s
+Train Epoch: 12 [14400/22435 (64%)]	Loss: 0.156363, took 3.73s
+Train Epoch: 12 [16000/22435 (71%)]	Loss: 0.141746, took 3.74s
+Train Epoch: 12 [17600/22435 (78%)]	Loss: 0.149619, took 3.74s
+Train Epoch: 12 [19200/22435 (86%)]	Loss: 0.163790, took 3.73s
+Train Epoch: 12 [20800/22435 (93%)]	Loss: 0.133549, took 3.73s
+Train Epoch: 12 [22400/22435 (100%)]	Loss: 0.172944, took 3.73s
+
+Validation Set:
+Average loss: 0.1991
+
+No improvement, patience: 1
+Train Epoch: 13 [0/22435 (0%)]	Loss: 0.135309, took 0.28s
+Train Epoch: 13 [1600/22435 (7%)]	Loss: 0.137351, took 3.72s
+Train Epoch: 13 [3200/22435 (14%)]	Loss: 0.127033, took 3.74s
+Train Epoch: 13 [4800/22435 (21%)]	Loss: 0.143208, took 3.72s
+Train Epoch: 13 [6400/22435 (29%)]	Loss: 0.139327, took 3.73s
+Train Epoch: 13 [8000/22435 (36%)]	Loss: 0.139912, took 3.74s
+Train Epoch: 13 [9600/22435 (43%)]	Loss: 0.126944, took 3.74s
+Train Epoch: 13 [11200/22435 (50%)]	Loss: 0.152652, took 3.73s
+Train Epoch: 13 [12800/22435 (57%)]	Loss: 0.128390, took 3.73s
+Train Epoch: 13 [14400/22435 (64%)]	Loss: 0.132576, took 3.73s
+Train Epoch: 13 [16000/22435 (71%)]	Loss: 0.145924, took 3.73s
+Train Epoch: 13 [17600/22435 (78%)]	Loss: 0.139288, took 3.72s
+Train Epoch: 13 [19200/22435 (86%)]	Loss: 0.128213, took 3.73s
+Train Epoch: 13 [20800/22435 (93%)]	Loss: 0.122695, took 3.73s
+Train Epoch: 13 [22400/22435 (100%)]	Loss: 0.156929, took 3.74s
+
+Validation Set:
+Average loss: 0.1960
+
+Train Epoch: 14 [0/22435 (0%)]	Loss: 0.142453, took 0.29s
+Train Epoch: 14 [1600/22435 (7%)]	Loss: 0.189537, took 3.73s
+Train Epoch: 14 [3200/22435 (14%)]	Loss: 0.174227, took 3.73s
+Train Epoch: 14 [4800/22435 (21%)]	Loss: 0.166475, took 3.73s
+Train Epoch: 14 [6400/22435 (29%)]	Loss: 0.164614, took 3.73s
+Train Epoch: 14 [8000/22435 (36%)]	Loss: 0.144713, took 3.73s
+Train Epoch: 14 [9600/22435 (43%)]	Loss: 0.133827, took 3.74s
+Train Epoch: 14 [11200/22435 (50%)]	Loss: 0.151447, took 3.73s
+Train Epoch: 14 [12800/22435 (57%)]	Loss: 0.142979, took 3.74s
+Train Epoch: 14 [14400/22435 (64%)]	Loss: 0.169239, took 3.74s
+Train Epoch: 14 [16000/22435 (71%)]	Loss: 0.149085, took 3.73s
+Train Epoch: 14 [17600/22435 (78%)]	Loss: 0.123397, took 3.74s
+Train Epoch: 14 [19200/22435 (86%)]	Loss: 0.134113, took 3.74s
+Train Epoch: 14 [20800/22435 (93%)]	Loss: 0.157335, took 3.73s
+Train Epoch: 14 [22400/22435 (100%)]	Loss: 0.171072, took 3.74s
+
+Validation Set:
+Average loss: 0.1995
+
+No improvement, patience: 4
+Train Epoch: 15 [0/22435 (0%)]	Loss: 0.130761, took 0.28s
+Train Epoch: 15 [1600/22435 (7%)]	Loss: 0.104691, took 3.71s
+Train Epoch: 15 [3200/22435 (14%)]	Loss: 0.151006, took 3.73s
+Train Epoch: 15 [4800/22435 (21%)]	Loss: 0.154301, took 3.73s
+Train Epoch: 15 [6400/22435 (29%)]	Loss: 0.158595, took 3.74s
+Train Epoch: 15 [8000/22435 (36%)]	Loss: 0.156455, took 3.73s
+Train Epoch: 15 [9600/22435 (43%)]	Loss: 0.121713, took 3.73s
+Train Epoch: 15 [11200/22435 (50%)]	Loss: 0.162827, took 3.73s
+Train Epoch: 15 [12800/22435 (57%)]	Loss: 0.139116, took 3.73s
+Train Epoch: 15 [14400/22435 (64%)]	Loss: 0.127511, took 3.73s
+Train Epoch: 15 [16000/22435 (71%)]	Loss: 0.170336, took 3.74s
+Train Epoch: 15 [17600/22435 (78%)]	Loss: 0.167325, took 3.73s
+Train Epoch: 15 [19200/22435 (86%)]	Loss: 0.158620, took 3.74s
+Train Epoch: 15 [20800/22435 (93%)]	Loss: 0.141012, took 3.73s
+Train Epoch: 15 [22400/22435 (100%)]	Loss: 0.161479, took 3.73s
+
+Validation Set:
+Average loss: 0.1969
+
+No improvement, patience: 3
+Train Epoch: 16 [0/22435 (0%)]	Loss: 0.142149, took 0.29s
+Train Epoch: 16 [1600/22435 (7%)]	Loss: 0.177614, took 3.72s
+Train Epoch: 16 [3200/22435 (14%)]	Loss: 0.139546, took 3.73s
+Train Epoch: 16 [4800/22435 (21%)]	Loss: 0.126287, took 3.73s
+Train Epoch: 16 [6400/22435 (29%)]	Loss: 0.132034, took 3.72s
+Train Epoch: 16 [8000/22435 (36%)]	Loss: 0.125798, took 3.73s
+Train Epoch: 16 [9600/22435 (43%)]	Loss: 0.156223, took 3.74s
+Train Epoch: 16 [11200/22435 (50%)]	Loss: 0.139503, took 3.73s
+Train Epoch: 16 [12800/22435 (57%)]	Loss: 0.137179, took 3.73s
+Train Epoch: 16 [14400/22435 (64%)]	Loss: 0.144107, took 3.75s
+Train Epoch: 16 [16000/22435 (71%)]	Loss: 0.159339, took 3.73s
+Train Epoch: 16 [17600/22435 (78%)]	Loss: 0.151182, took 3.74s
+Train Epoch: 16 [19200/22435 (86%)]	Loss: 0.162714, took 3.74s
+Train Epoch: 16 [20800/22435 (93%)]	Loss: 0.145273, took 3.73s
+Train Epoch: 16 [22400/22435 (100%)]	Loss: 0.171566, took 3.74s
+
+Validation Set:
+Average loss: 0.1982
+
+No improvement, patience: 2
+Train Epoch: 17 [0/22435 (0%)]	Loss: 0.149980, took 0.28s
+Train Epoch: 17 [1600/22435 (7%)]	Loss: 0.141716, took 3.72s
+Train Epoch: 17 [3200/22435 (14%)]	Loss: 0.127046, took 3.73s
+Train Epoch: 17 [4800/22435 (21%)]	Loss: 0.140369, took 3.74s
+Train Epoch: 17 [6400/22435 (29%)]	Loss: 0.157267, took 3.73s
+Train Epoch: 17 [8000/22435 (36%)]	Loss: 0.153779, took 3.73s
+Train Epoch: 17 [9600/22435 (43%)]	Loss: 0.137681, took 3.73s
+Train Epoch: 17 [11200/22435 (50%)]	Loss: 0.142664, took 3.73s
+Train Epoch: 17 [12800/22435 (57%)]	Loss: 0.130047, took 3.73s
+Train Epoch: 17 [14400/22435 (64%)]	Loss: 0.163982, took 3.74s
+Train Epoch: 17 [16000/22435 (71%)]	Loss: 0.138613, took 3.73s
+Train Epoch: 17 [17600/22435 (78%)]	Loss: 0.138543, took 3.74s
+Train Epoch: 17 [19200/22435 (86%)]	Loss: 0.159888, took 3.74s
+Train Epoch: 17 [20800/22435 (93%)]	Loss: 0.159732, took 3.73s
+Train Epoch: 17 [22400/22435 (100%)]	Loss: 0.125595, took 3.74s
+
+Validation Set:
+Average loss: 0.1988
+
+No improvement, patience: 1
+Train Epoch: 18 [0/22435 (0%)]	Loss: 0.154592, took 0.28s
+Train Epoch: 18 [1600/22435 (7%)]	Loss: 0.149994, took 3.71s
+Train Epoch: 18 [3200/22435 (14%)]	Loss: 0.152039, took 3.73s
+Train Epoch: 18 [4800/22435 (21%)]	Loss: 0.148154, took 3.73s
+Train Epoch: 18 [6400/22435 (29%)]	Loss: 0.132703, took 3.74s
+Train Epoch: 18 [8000/22435 (36%)]	Loss: 0.123727, took 3.74s
+Train Epoch: 18 [9600/22435 (43%)]	Loss: 0.137919, took 3.73s
+Train Epoch: 18 [11200/22435 (50%)]	Loss: 0.137817, took 3.73s
+Train Epoch: 18 [12800/22435 (57%)]	Loss: 0.145894, took 3.73s
+Train Epoch: 18 [14400/22435 (64%)]	Loss: 0.141452, took 3.73s
+Train Epoch: 18 [16000/22435 (71%)]	Loss: 0.143280, took 3.73s
+Train Epoch: 18 [17600/22435 (78%)]	Loss: 0.147557, took 3.73s
+Train Epoch: 18 [19200/22435 (86%)]	Loss: 0.137062, took 3.73s
+Train Epoch: 18 [20800/22435 (93%)]	Loss: 0.137572, took 3.73s
+Train Epoch: 18 [22400/22435 (100%)]	Loss: 0.118630, took 3.72s
+
+Validation Set:
+Average loss: 0.2024
+
+Early stopping, no improvement for 4 epochs...
+Evaluate network...
+Test Set:
+/usr/local/lib/python3.6/dist-packages/madmom/evaluation/beats.py:918: UserWarning: Not enough beat annotations (24) for 40 histogram bins.
+  % (len(annotations), num_bins))
+Average loss: 0.1934
+
+
+
+
+
+
+############ FOLD 8 FINISHED ############
+
+
+
+
+
+############ CROSS-VALIDATION RESULTS FOR DATASET TEST SPLITS: ############
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 180 files
+  F-measure: 0.900 P-score: 0.863 Cemgil: 0.805 Goto: 0.617 CMLc: 0.449 CMLt: 0.754 AMLc: 0.479 AMLt: 0.814 D: 2.976 Dg: 1.927
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/robbie_williams/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 65 files
+  F-measure: 0.888 P-score: 0.840 Cemgil: 0.819 Goto: 0.569 CMLc: 0.387 CMLt: 0.708 AMLc: 0.411 AMLt: 0.797 D: 3.177 Dg: 2.146
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/ballroom/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 685 files
+  F-measure: 0.905 P-score: 0.873 Cemgil: 0.868 Goto: 0.892 CMLc: 0.666 CMLt: 0.793 AMLc: 0.683 AMLt: 0.822 D: 3.272 Dg: 2.529
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/hainsworth/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 222 files
+  F-measure: 0.767 P-score: 0.724 Cemgil: 0.745 Goto: 0.595 CMLc: 0.436 CMLt: 0.607 AMLc: 0.476 AMLt: 0.673 D: 2.889 Dg: 2.162
+
+CHORD EVALUATION:
+no chord annotations provided!
+
+DATASET: /home/pryab/workspace/python/BeatChord/../../../../../data2/datasets/downbeat/smc/audio/feat_cache_boeck
+
+BEAT EVALUATION:
+mean for 217 files
+  F-measure: 0.371 P-score: 0.348 Cemgil: 0.305 Goto: 0.083 CMLc: 0.086 CMLt: 0.164 AMLc: 0.125 AMLt: 0.228 D: 1.011 Dg: 0.300
+
+CHORD EVALUATION:
+no chord annotations provided!
