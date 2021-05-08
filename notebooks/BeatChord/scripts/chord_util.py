@@ -3,6 +3,8 @@ from madmom.utils import search_files
 import numpy as np
 import mir_eval
 
+import scripts.mtl_8fold_config as tmc
+CHORD_OUT_NUM = tmc.CHORD_OUT_NUM
 
 note_labels = {
     'C': 0,
@@ -208,10 +210,10 @@ def majmin_to_target(majmin):
 
 def target_to_one_hot(targ):
     if targ == -1:
-        dummy_one_hot_target = np.full(25, -1, np.float32)
+        dummy_one_hot_target = np.full(CHORD_OUT_NUM, -1, np.float32)
         return dummy_one_hot_target
 
-    one_hot_target = np.zeros(25, np.float32)
+    one_hot_target = np.zeros(CHORD_OUT_NUM, np.float32)
     one_hot_target[targ] = 1
     return one_hot_target
 

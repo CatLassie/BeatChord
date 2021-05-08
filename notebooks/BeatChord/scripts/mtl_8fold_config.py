@@ -168,6 +168,8 @@ CHORD_BCE_LOSS_WEIGHT = 1
 # value 9 is needed based on server features (1,9): 91 -> 89 -> 29 -> 27 -> 9 -> 1
 LAST_CNN_KERNEL_FREQUENCY_SIZE = 2 #9 # 8
 
+CHORD_OUT_NUM = 25
+
 ######################################################
 
 
