@@ -726,7 +726,10 @@ def run_prediction(test_features, fold_number):
     
     # load model
     model = TCNMTLNet().to(DEVICE)
-    model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '_split' + str(fold_number) + '.model')))
+    if DEVICE == 'CPU':
+        model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '_split' + str(fold_number) + '.model'), map_location=torch.device('cpu')))
+    else:
+        model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '_split' + str(fold_number) + '.model')))
     #print('model loaded...')
     
     # calculate actual output for the test data
