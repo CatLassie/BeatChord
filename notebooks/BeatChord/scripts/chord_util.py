@@ -1,7 +1,7 @@
 import os
 from madmom.utils import search_files
 import numpy as np
-
+import mir_eval
 
 
 note_labels = {
@@ -32,9 +32,37 @@ labels_to_letters = {
     12: 'N'
 }
 
+labels_to_majmin = {
+    0: 'C:maj',
+    1: 'C#:maj',
+    2: 'D:maj',
+    3: 'D#:maj',
+    4: 'E:maj',
+    5: 'F:maj',
+    6: 'F#:maj',
+    7: 'G:maj',
+    8: 'G#:maj',
+    9: 'A:maj',
+    10: 'A#:maj',
+    11: 'B:maj',
+    12: 'N',
+    13: 'C:min',
+    14: 'C#:min',
+    15: 'D:min',
+    16: 'D#:min',
+    17: 'E:min',
+    18: 'F:min',
+    19: 'F#:min',
+    20: 'G:min',
+    21: 'G#:min',
+    22: 'A:min',
+    23: 'A#:min',
+    24: 'B:min',
+}
+
 def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_chords_and_chord_configs = False):
     if anno_path_root == None:
-        return None
+        return None, None
 
     anno_paths = search_files(anno_path_root, anno_ext)
     annotations = [load_chords(p) for p in anno_paths]
@@ -72,7 +100,9 @@ def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_c
     else:
         mapped_annotations = [np.array([[line[0], root_to_target(chord_to_root(line[1]))] for line in anno]) for anno in annotations]
 
-    return mapped_annotations
+    original_annotations = [np.array([[line[0], line[1]] for line in anno]) for anno in annotations]
+
+    return mapped_annotations, original_annotations
 
 # FUNCTIONS FOR PARSING CHORD ANNOTATIONS
 
@@ -126,9 +156,17 @@ def chord_to_majmin(label):
     if(label == 'N'):
         return label
 
+    # check if label contains a major third
+    maj_semitones = np.array(mir_eval.chord.QUALITIES['maj'])
+    _, label_semitones, _ = mir_eval.chord.encode_many([label], False)
+    is_maj = np.all(np.equal(label_semitones[0][4:5], maj_semitones[4:5]))
+
     root = chord_to_root(label)
     majmin = root
+    # every chord that has no major third in it is mapped to a minor chord
+    majmin = majmin + (':maj' if is_maj else ':min')
 
+    '''
     if(':' not in label):
         majmin +=  ':maj'
     else:
@@ -144,6 +182,8 @@ def chord_to_majmin(label):
             majmin = 'N'
         else:
             majmin += ':maj'
+
+    '''
 
     return majmin
 
@@ -168,10 +208,10 @@ def majmin_to_target(majmin):
 
 def target_to_one_hot(targ):
     if targ == -1:
-        dummy_one_hot_target = np.full(13, -1, np.float32)
+        dummy_one_hot_target = np.full(25, -1, np.float32)
         return dummy_one_hot_target
 
-    one_hot_target = np.zeros(13, np.float32)
+    one_hot_target = np.zeros(25, np.float32)
     one_hot_target[targ] = 1
     return one_hot_target
 
@@ -185,11 +225,14 @@ def targets_to_one_hot(targ_list):
 
 # FUNCTIONS FOR MAPPING OUTPUT LABELS TO NOTES AND INTERVALS (for mir_eval evaluation)
 
-def labels_to_notataion_and_intervals(labels):
+def labels_to_notataion_and_intervals(labels, majmin = False):
     curr_label = labels[0]
 
     out_labels = np.empty(0)
-    out_labels = np.append(out_labels, labels_to_letters.get(curr_label))
+    if majmin:
+        out_labels = np.append(out_labels, labels_to_majmin.get(curr_label))
+    else:
+        out_labels = np.append(out_labels, labels_to_letters.get(curr_label))
 
     out_intervals = np.empty((0, 2))
     out_intervals = np.append(out_intervals, [[0,0]], axis=0)
@@ -200,8 +243,11 @@ def labels_to_notataion_and_intervals(labels):
             time = i / 100
             out_intervals[len(out_intervals) - 1][1] = time
             out_intervals = np.append(out_intervals, [[time, 0]], axis=0)
-            
-            out_labels = np.append(out_labels, labels_to_letters.get(l))
+
+            if majmin:
+                out_labels = np.append(out_labels, labels_to_majmin.get(curr_label))
+            else:
+                out_labels = np.append(out_labels, labels_to_letters.get(l))
 
             curr_label = l
 
@@ -210,3 +256,19 @@ def labels_to_notataion_and_intervals(labels):
             out_intervals[len(out_intervals) - 1][1] = end_time
     
     return out_labels, out_intervals
+
+# format annot intervals for mir_eval
+def annos_to_labels_and_intervals(annos, predicted_labels):
+    end_time = len(predicted_labels) - 1
+
+    out_labels = np.empty(0)
+    out_intervals = np.empty((0, 2))
+    
+    for i, _ in enumerate(annos):
+        out_labels = np.append(out_labels, annos[i][1])
+        if i  < len(annos) - 1:
+            out_intervals = np.append(out_intervals, [[annos[i][0], annos[i+1][0]]], axis=0)
+        else:
+            out_intervals = np.append(out_intervals, [[annos[i][0], end_time/100]], axis=0)
+
+    return out_labels, np.around(out_intervals.astype(np.float64), 2)

@@ -34,7 +34,7 @@ import scripts.mtl_8fold_config as tmc
 # feature, target, annotation initializer
 from scripts.mtl_8fold_feat import init_data, datasets_to_splits, init_data_for_evaluation_only
 
-from scripts.chord_util import labels_to_notataion_and_intervals
+from scripts.chord_util import labels_to_notataion_and_intervals, annos_to_labels_and_intervals
 from scripts.chord_util import targets_to_one_hot
 
 import mir_eval
@@ -118,6 +118,7 @@ PREDICT_PER_DATASET = tmc.PREDICT_PER_DATASET
 PREDICT_UNSEEN = tmc.PREDICT_UNSEEN
 TRAIN_ON_BEAT = tmc.TRAIN_ON_BEAT
 TRAIN_ON_CHORD = tmc.TRAIN_ON_CHORD
+MAJMIN = tmc.MAJMIN
 FOLD_RANGE = tmc.FOLD_RANGE
 DISPLAY_INTERMEDIATE_RESULTS = tmc.DISPLAY_INTERMEDIATE_RESULTS
 USE_DBN_BEAT_TRACKER = tmc.USE_DBN_BEAT_TRACKER
@@ -251,14 +252,14 @@ tcn_dropout_rate = 0.1
 
 # filters
 fc_h_size = 64
-fc_out_size = 14
+fc_out_size = 26
 
 # kernels
 fc_k_size = 1
 
 # loss functions
-class_weight = np.full(14, chord_loss_weight, np.float32)
-class_weight[13] = beat_loss_weight
+class_weight = np.full(26, chord_loss_weight, np.float32)
+class_weight[25] = beat_loss_weight
 
 print('loss weights:', class_weight, '\n')
 
@@ -506,7 +507,7 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         optimizer.zero_grad()
         # forward pass (calculate output of network for input)
         output = model(data.float())
-        b_output, c_output = output[:, 13:].squeeze(1), output[:, :13]
+        b_output, c_output = output[:, 25:].squeeze(1), output[:, :25]
         # calculate loss
         loss = 0
         if TRAIN_ON_BEAT:
@@ -574,7 +575,7 @@ def calculate_unseen_loss(model, device, unseen_loader):
             data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
             # forward pass (calculate output of network for input)
             output = model(data.float())
-            b_output, c_output = output[:, 13:].squeeze(1), output[:, :13]
+            b_output, c_output = output[:, 25:].squeeze(1), output[:, :25]
             # claculate loss and add it to our cumulative loss
             sum_unseen_loss = 0
             if TRAIN_ON_BEAT:
@@ -633,8 +634,8 @@ def predict(model, device, data, context):
         #smx = nn.Softmax(dim=1)
         output = sgm(output)
 
-        output_beat = output[:, 13:]
-        output_chord = output[:, :13]
+        output_beat = output[:, 25:]
+        output_chord = output[:, :25]
         
         _, out_chord_val = torch.max(output_chord.data, 1) # 0 -> batch, 1 -> 13 output neurons, 2 -> data size
     return output_beat, out_chord_val
@@ -750,7 +751,7 @@ def run_prediction(test_features, fold_number):
 # In[ ]:
 
 
-def evaluate(feats, c_targs, b_annos, fold_number):
+def evaluate(feats, c_targs, c_annos, b_annos, fold_number):
     # predict beats and chords
     if VERBOSE:
         #print('predicting...')
@@ -789,8 +790,9 @@ def evaluate(feats, c_targs, b_annos, fold_number):
             
             # mir_eval score (weighted accuracy)
 
-            ref_labels, ref_intervals = labels_to_notataion_and_intervals(c_targs[i])
-            est_labels, est_intervals = labels_to_notataion_and_intervals(pred_chord)
+            #ref_labels, ref_intervals = labels_to_notataion_and_intervals(c_targs[i])
+            ref_labels, ref_intervals = annos_to_labels_and_intervals(c_annos[i], pred_chord)
+            est_labels, est_intervals = labels_to_notataion_and_intervals(pred_chord, MAJMIN)
 
             est_intervals, est_labels = mir_eval.util.adjust_intervals(
                 est_intervals, est_labels, ref_intervals.min(),
@@ -804,7 +806,7 @@ def evaluate(feats, c_targs, b_annos, fold_number):
             # print('interval length after merge', len(merged_intervals))
 
             durations = mir_eval.util.intervals_to_durations(merged_intervals)
-            comparison = mir_eval.chord.root(ref_labels, est_labels)
+            comparison = mir_eval.chord.majmin(ref_labels, est_labels)
             score = mir_eval.chord.weighted_accuracy(comparison, durations)
 
             chord_weighted_accuracies.append(score)
@@ -885,10 +887,10 @@ for i in FOLD_RANGE:
     if VERBOSE and TRAIN and len(train_c_t_1hot) > 0:
         print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape, '\n')
 
-    beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1))
-    unseen_beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1), reduction="sum")
-    chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13])
-    unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13], reduction="sum")
+    beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[25:].squeeze(1))
+    unseen_beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[25:].squeeze(1), reduction="sum")
+    chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:25])
+    unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:25], reduction="sum")
 
     if TRAIN or TRAIN_EXISTING:
         run_training(i+1)
@@ -910,7 +912,7 @@ for i in FOLD_RANGE:
             if DISPLAY_INTERMEDIATE_RESULTS:
                 write_results('\nDATASET: ' + s['path'])
 
-            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'], i+1)
+            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['c_anno'], s['b_anno'], i+1)
             display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
             if len(beat_eval) > 0:
@@ -930,7 +932,7 @@ for i in FOLD_RANGE:
             if DISPLAY_INTERMEDIATE_RESULTS:
                 write_results('\nDATASET: ' + s['path'])
 
-            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'], i+1)
+            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['c_anno'], s['b_anno'], i+1)
             display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
             if len(beat_eval) > 0:

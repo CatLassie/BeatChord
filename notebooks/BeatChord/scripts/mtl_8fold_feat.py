@@ -187,16 +187,16 @@ def init_feats_annos_targets(feat_path_root, beat_anno_path_root, chord_anno_pat
     if b_annotations == None:
         b_annotations = [None for f in features]
 
-    c_annotations = parse_annotations(chord_anno_path_root, CHORD_ANNOTATION_EXT, MAJMIN, DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS) if chord_anno_path_root is not None else None
+    c_annotations, unmapped_c_annotations = parse_annotations(chord_anno_path_root, CHORD_ANNOTATION_EXT, MAJMIN, DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS) if chord_anno_path_root is not None else None
     c_targets = init_chord_targets(c_annotations, features)
-    if c_annotations == None:
-        c_annotations = [None for f in features]
+    if unmapped_c_annotations == None:
+        unmapped_c_annotations = [None for f in features]
 
     assert len(features) == len(b_targets)
     assert len(features) == len(c_targets)
     assert len(features) == len(b_annotations)
-    assert len(features) == len(c_annotations)
-    return features, b_annotations, b_targets, c_annotations, c_targets
+    assert len(features) == len(unmapped_c_annotations)
+    return features, b_annotations, b_targets, unmapped_c_annotations, c_targets
 
 def shuffle_data(features, b_annotations, b_targets, c_annotations, c_targets):
     idxs = list(range(0, len(features)))
