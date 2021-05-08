@@ -692,7 +692,7 @@ def run_training(fold_number):
         validation_loss = calculate_unseen_loss(model, DEVICE, valid_loader)
         # check for early stopping
         if validation_loss < best_validation_loss:
-            torch.save(model.state_dict(), os.path.join(MODEL_PATH, MODEL_NAME + '_fold' + str(fold_number) + '.model'))
+            torch.save(model.state_dict(), os.path.join(MODEL_PATH, MODEL_NAME + '_split' + str(fold_number) + '.model'))
             best_validation_loss = validation_loss
             cur_patience = args.patience
         else:
@@ -725,7 +725,7 @@ def run_prediction(test_features, fold_number):
     
     # load model
     model = TCNMTLNet().to(DEVICE)
-    model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '_fold' + str(fold_number) + '.model')))
+    model.load_state_dict(torch.load(os.path.join(MODEL_PATH, MODEL_NAME + '_split' + str(fold_number) + '.model')))
     #print('model loaded...')
     
     # calculate actual output for the test data
