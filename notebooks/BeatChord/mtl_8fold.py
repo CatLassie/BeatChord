@@ -118,6 +118,8 @@ PREDICT_PER_DATASET = tmc.PREDICT_PER_DATASET
 PREDICT_UNSEEN = tmc.PREDICT_UNSEEN
 TRAIN_ON_BEAT = tmc.TRAIN_ON_BEAT
 TRAIN_ON_CHORD = tmc.TRAIN_ON_CHORD
+ROOT_OUT_NUM = tmc.ROOT_OUT_NUM
+QUALITY_OUT_NUM = tmc.QUALITY_OUT_NUM
 FOLD_RANGE = tmc.FOLD_RANGE
 DISPLAY_INTERMEDIATE_RESULTS = tmc.DISPLAY_INTERMEDIATE_RESULTS
 USE_DBN_BEAT_TRACKER = tmc.USE_DBN_BEAT_TRACKER
@@ -251,14 +253,14 @@ tcn_dropout_rate = 0.1
 
 # filters
 fc_h_size = 64
-fc_out_size = 14
+fc_out_size = ROOT_OUT_NUM + 1
 
 # kernels
 fc_k_size = 1
 
 # loss functions
-class_weight = np.full(14, chord_loss_weight, np.float32)
-class_weight[13] = beat_loss_weight
+class_weight = np.full(ROOT_OUT_NUM + 1, chord_loss_weight, np.float32)
+class_weight[ROOT_OUT_NUM] = beat_loss_weight
 
 print('loss weights:', class_weight, '\n')
 
@@ -506,7 +508,7 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
         optimizer.zero_grad()
         # forward pass (calculate output of network for input)
         output = model(data.float())
-        b_output, c_output = output[:, 13:].squeeze(1), output[:, :13]
+        b_output, c_output = output[:, ROOT_OUT_NUM:].squeeze(1), output[:, :ROOT_OUT_NUM]
         # calculate loss
         loss = 0
         if TRAIN_ON_BEAT:
@@ -574,7 +576,7 @@ def calculate_unseen_loss(model, device, unseen_loader):
             data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
             # forward pass (calculate output of network for input)
             output = model(data.float())
-            b_output, c_output = output[:, 13:].squeeze(1), output[:, :13]
+            b_output, c_output = output[:,ROOT_OUT_NUM:].squeeze(1), output[:, :ROOT_OUT_NUM]
             # claculate loss and add it to our cumulative loss
             sum_unseen_loss = 0
             if TRAIN_ON_BEAT:
@@ -633,8 +635,8 @@ def predict(model, device, data, context):
         #smx = nn.Softmax(dim=1)
         output = sgm(output)
 
-        output_beat = output[:, 13:]
-        output_chord = output[:, :13]
+        output_beat = output[:, ROOT_OUT_NUM:]
+        output_chord = output[:, :ROOT_OUT_NUM]
         
         _, out_chord_val = torch.max(output_chord.data, 1) # 0 -> batch, 1 -> 13 output neurons, 2 -> data size
     return output_beat, out_chord_val
@@ -879,17 +881,17 @@ for i in FOLD_RANGE:
     train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, i)
 
     if TRAIN:
-        train_c_t_1hot = targets_to_one_hot(train_c_t)
-        valid_c_t_1hot = targets_to_one_hot(valid_c_t)
-        test_c_t_1hot = targets_to_one_hot(test_c_t)
+        train_c_t_1hot = targets_to_one_hot(train_c_t, ROOT_OUT_NUM)
+        valid_c_t_1hot = targets_to_one_hot(valid_c_t, ROOT_OUT_NUM)
+        test_c_t_1hot = targets_to_one_hot(test_c_t, ROOT_OUT_NUM)
 
     if VERBOSE and TRAIN and len(train_c_t_1hot) > 0:
         print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape, '\n')
 
-    beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1))
-    unseen_beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:].squeeze(1), reduction="sum")
-    chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13])
-    unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13], reduction="sum")
+    beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[ROOT_OUT_NUM:].squeeze(1))
+    unseen_beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[ROOT_OUT_NUM:].squeeze(1), reduction="sum")
+    chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:ROOT_OUT_NUM])
+    unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:ROOT_OUT_NUM], reduction="sum")
 
     if TRAIN or TRAIN_EXISTING:
         run_training(i+1)

@@ -169,19 +169,19 @@ def majmin_to_target(majmin):
 
 # FUNCTIONS FOR 1-hot encoding
 
-def target_to_one_hot(targ):
+def target_to_one_hot(targ, out_size):
     if targ == -1:
-        dummy_one_hot_target = np.full(13, -1, np.float32)
+        dummy_one_hot_target = np.full(out_size, -1, np.float32)
         return dummy_one_hot_target
 
-    one_hot_target = np.zeros(13, np.float32)
+    one_hot_target = np.zeros(out_size, np.float32)
     one_hot_target[targ] = 1
     return one_hot_target
 
-def targets_to_one_hot(targ_list):
+def targets_to_one_hot(targ_list, out_size):
     one_hot_list = []
     for _, targ in enumerate(targ_list):
-        one_hot_targ = np.array([target_to_one_hot(t) for t in targ])
+        one_hot_targ = np.array([target_to_one_hot(t, out_size) for t in targ])
         one_hot_list.append(one_hot_targ)
 
     return one_hot_list 
