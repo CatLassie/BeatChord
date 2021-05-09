@@ -810,7 +810,10 @@ def evaluate(feats, c_targs, c_annos, b_annos, fold_number):
             # print('interval length after merge', len(merged_intervals))
 
             durations = mir_eval.util.intervals_to_durations(merged_intervals)
-            comparison = mir_eval.chord.majmin(ref_labels, est_labels)
+            if MAJMIN:
+                comparison = mir_eval.chord.majmin(ref_labels, est_labels)
+            else:
+                comparison = mir_eval.chord.root(ref_labels, est_labels)
             score = mir_eval.chord.weighted_accuracy(comparison, durations)
 
             chord_weighted_accuracies.append(score)
