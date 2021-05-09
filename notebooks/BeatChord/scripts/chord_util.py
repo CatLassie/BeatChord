@@ -76,7 +76,6 @@ def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_c
 
     return mapped_annotations, original_annotations
 
-
 # FUNCTIONS FOR PARSING CHORD ANNOTATIONS
 
 def load_chords(path):
