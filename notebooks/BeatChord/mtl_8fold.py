@@ -815,7 +815,6 @@ def evaluate(feats, c_targs, c_annos, b_annos, fold_number):
                 comparison = mir_eval.chord.majmin(ref_labels, est_labels)
             else:
                 comparison = mir_eval.chord.root(ref_labels, est_labels)
-
             score = mir_eval.chord.weighted_accuracy(comparison, durations)
 
             chord_weighted_accuracies.append(score)
