@@ -34,32 +34,16 @@ labels_to_letters = {
     12: 'N'
 }
 
-labels_to_majmin = {
-    0: 'C:maj',
-    1: 'C#:maj',
-    2: 'D:maj',
-    3: 'D#:maj',
-    4: 'E:maj',
-    5: 'F:maj',
-    6: 'F#:maj',
-    7: 'G:maj',
-    8: 'G#:maj',
-    9: 'A:maj',
-    10: 'A#:maj',
-    11: 'B:maj',
-    12: 'N',
-    13: 'C:min',
-    14: 'C#:min',
-    15: 'D:min',
-    16: 'D#:min',
-    17: 'E:min',
-    18: 'F:min',
-    19: 'F#:min',
-    20: 'G:min',
-    21: 'G#:min',
-    22: 'A:min',
-    23: 'A#:min',
-    24: 'B:min',
+quality_labels = {
+    ':maj': 0,
+    ':min': 1,
+    'N': 2
+}
+
+labels_to_quality = {
+    0: ':maj',
+    1: ':min',
+    2: 'N'
 }
 
 def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_chords_and_chord_configs = False):
@@ -78,7 +62,7 @@ def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_c
 
         print('All unique chords:\n')
         if majmin:
-            [print(l, ' ==> ', majmin_to_target(chord_to_majmin(l))) for l in sorted(unique_labels)]
+            [print(l, ' ==> ', majmin_to_target(*chord_to_majmin(l))) for l in sorted(unique_labels)]
         else:
             [print(l, ' ==> ', root_to_target(chord_to_root(l))) for l in sorted(unique_labels)]
         print('\n')
@@ -98,7 +82,7 @@ def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_c
 
     mapped_annotations = None
     if majmin:
-        mapped_annotations = [np.array([[line[0], majmin_to_target(chord_to_majmin(line[1]))] for line in anno]) for anno in annotations]
+        mapped_annotations = [np.array([[line[0], majmin_to_target(*chord_to_majmin(line[1]))] for line in anno]) for anno in annotations]
     else:
         mapped_annotations = [np.array([[line[0], root_to_target(chord_to_root(line[1]))] for line in anno]) for anno in annotations]
 
@@ -152,21 +136,44 @@ def root_to_target(root):
 
     return target
 
+def quality_to_target(quality):
+    target = quality_labels.get(quality, 'NOT_FOUND')
+
+    if(target == 'NOT_FOUND'):
+        raise Exception('Invalid quality label!')
+
+    return target
+
 # FUNCTIONS FOR MAPPING CHORDS TO MAJOR/MINOR
 
 def chord_to_majmin(label):
     if(label == 'N'):
-        return label
+        return 'N', 'N'
 
     # check if label contains a major third
     maj_semitones = np.array(mir_eval.chord.QUALITIES['maj'])
+    min_semitones = np.array(mir_eval.chord.QUALITIES['min'])
     _, label_semitones, _ = mir_eval.chord.encode_many([label], False)
-    is_maj = np.all(np.equal(label_semitones[0][4:5], maj_semitones[4:5]))
+
+    #is_maj = np.all(np.equal(label_semitones[0][4:5], maj_semitones[4:5]))
+    #is_min = np.all(np.equal(label_semitones[0][3:4], min_semitones[3:4]))
+
+    is_maj = np.all(np.equal(label_semitones[0][:8], maj_semitones[:8]))
+    is_min = np.all(np.equal(label_semitones[0][:8], min_semitones[:8]))
 
     root = chord_to_root(label)
-    majmin = root
+    #majmin = root
     # every chord that has no major third in it is mapped to a minor chord
-    majmin = majmin + (':maj' if is_maj else ':min')
+    quality = ':maj' if is_maj else ':min'
+    '''
+    if is_maj:
+        majmin += ':maj'
+    else: 
+        if is_min:
+            majmin += ':min'
+        else:
+            majmin += ':(5)'
+    '''
 
     '''
     if(':' not in label):
@@ -187,40 +194,44 @@ def chord_to_majmin(label):
 
     '''
 
-    return majmin
+    return root, quality
 
-def majmin_to_target(majmin):
-    if(majmin == 'N'):
-        return root_to_target(majmin)
-
+def majmin_to_target(root, quality):
+    if(root == 'N'):
+        return root_to_target(root), quality_to_target(quality)
+    '''
     majminsplit = majmin.split(':')
     if(len(majminsplit) != 2):
+        print('MISSHAPED LABEL:', majmin)
         raise Exception('Invalid chord label format! Must be of the form "<root>:<maj/min>"')
+    '''
 
-    root = majminsplit[0]
-    affix = majminsplit[1]
     target = root_to_target(root)
-
+    target_q = quality_to_target(quality)
+    '''
     if(affix == 'min'):
         target += 13
 
-    return target
+    if(affix == '(5)'):
+        target += 25
+    '''
+    return target, target_q
 
 # FUNCTIONS FOR 1-hot encoding
 
-def target_to_one_hot(targ):
+def target_to_one_hot(targ, size):
     if targ == -1:
-        dummy_one_hot_target = np.full(CHORD_OUT_NUM, -1, np.float32)
+        dummy_one_hot_target = np.full(size, -1, np.float32)
         return dummy_one_hot_target
 
-    one_hot_target = np.zeros(CHORD_OUT_NUM, np.float32)
+    one_hot_target = np.zeros(size, np.float32)
     one_hot_target[targ] = 1
     return one_hot_target
 
-def targets_to_one_hot(targ_list):
+def targets_to_one_hot(targ_list, size):
     one_hot_list = []
     for _, targ in enumerate(targ_list):
-        one_hot_targ = np.array([target_to_one_hot(t) for t in targ])
+        one_hot_targ = np.array([target_to_one_hot(t, size) for t in targ])
         one_hot_list.append(one_hot_targ)
 
     return one_hot_list 
@@ -232,7 +243,7 @@ def labels_to_notataion_and_intervals(labels, majmin = False):
 
     out_labels = np.empty(0)
     if majmin:
-        out_labels = np.append(out_labels, labels_to_majmin.get(curr_label))
+        out_labels = np.append(out_labels, labels_to_letters.get(curr_label))
     else:
         out_labels = np.append(out_labels, labels_to_letters.get(curr_label))
 
@@ -247,7 +258,7 @@ def labels_to_notataion_and_intervals(labels, majmin = False):
             out_intervals = np.append(out_intervals, [[time, 0]], axis=0)
 
             if majmin:
-                out_labels = np.append(out_labels, labels_to_majmin.get(curr_label))
+                out_labels = np.append(out_labels, labels_to_letters.get(curr_label))
             else:
                 out_labels = np.append(out_labels, labels_to_letters.get(l))
 
@@ -274,3 +285,57 @@ def annos_to_labels_and_intervals(annos, predicted_labels):
             out_intervals = np.append(out_intervals, [[annos[i][0], end_time/100]], axis=0)
 
     return out_labels, np.around(out_intervals.astype(np.float64), 2)
+
+
+
+
+
+
+def labels_to_majmin_and_intervals(labels, q_labels,  majmin = False, root_only = False):
+    curr_label = labels[0]
+    curr_q_label = q_labels[0]
+
+    out_labels = np.empty(0)
+    if majmin:
+        c_letter = labels_to_letters.get(curr_label)
+        q_letter = labels_to_quality.get(curr_q_label)
+
+        out_labels = np.append(out_labels, c_letter)
+        if not root_only:
+            if c_letter !='N' and q_letter !='N':
+                out_labels[0] = out_labels[0] + q_letter
+            elif c_letter !='N' and q_letter =='N':
+                out_labels[0] = out_labels[0] + ':(5)'
+    else:
+        out_labels = np.append(out_labels, labels_to_letters.get(curr_label))
+
+    out_intervals = np.empty((0, 2))
+    out_intervals = np.append(out_intervals, [[0,0]], axis=0)
+
+    for i, l in enumerate(labels):
+
+        if l != curr_label:
+            time = i / 100
+            out_intervals[len(out_intervals) - 1][1] = time
+            out_intervals = np.append(out_intervals, [[time, 0]], axis=0)
+
+            if majmin:
+                c_letter = labels_to_letters.get(curr_label)
+                q_letter = labels_to_quality.get(curr_q_label)
+
+                out_labels = np.append(out_labels, c_letter)
+                if not root_only:
+                    if c_letter != 'N' and q_letter !='N':
+                        out_labels[len(out_labels) - 1] = out_labels[len(out_labels) - 1] + q_letter
+                    elif c_letter !='N' and q_letter =='N':
+                        out_labels[len(out_labels) - 1] = out_labels[len(out_labels) - 1] + ':(5)'
+            else:
+                out_labels = np.append(out_labels, labels_to_letters.get(l))
+
+            curr_label = l
+
+        if i == len(labels) - 1:
+            end_time = i/100
+            out_intervals[len(out_intervals) - 1][1] = end_time
+    
+    return out_labels, out_intervals

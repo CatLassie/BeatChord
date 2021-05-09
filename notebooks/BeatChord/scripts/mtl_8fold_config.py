@@ -21,54 +21,54 @@ FEATURE_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/do
 BEAT_ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/annotations')
 CHORD_ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat') # os.path.join(CURRENT_PATH, 'data/annotations')
 
-DATASET_NAME = '8fold' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
+DATASET_NAME = 'chord25' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
 
 MODEL_NAME = 'MTL_experiment' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
 FEATURE_PATH = [
-    os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck'), # os.path.join(FEATURE_BASE_PATH, 'beatles'),
+    #os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck'), # os.path.join(FEATURE_BASE_PATH, 'beatles'),
     os.path.join(FEATURE_BASE_PATH, 'robbie_williams/audio/feat_cache_boeck'),
-    os.path.join(FEATURE_BASE_PATH, 'ballroom/audio/feat_cache_boeck'),
-    os.path.join(FEATURE_BASE_PATH, 'rock/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'ballroom/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'rock/audio/feat_cache_boeck'),
     #os.path.join(FEATURE_BASE_PATH, 'rwc/audio/feat_cache_boeck'), NOT POP!!!
-    os.path.join(FEATURE_BASE_PATH, 'hainsworth/audio/feat_cache_boeck'),
-    'data/features/common/rwc',
-    os.path.join(FEATURE_BASE_PATH, 'hjdb/audio/feat_cache_boeck'),
-    'data/features/common/queen',
-    'data/features/common/zweieck',
-    os.path.join(FEATURE_BASE_PATH, 'smc/audio/feat_cache_boeck'),
-    'data/features/common/gtzan',
+    #os.path.join(FEATURE_BASE_PATH, 'hainsworth/audio/feat_cache_boeck'),
+    #'data/features/common/rwc',
+    #os.path.join(FEATURE_BASE_PATH, 'hjdb/audio/feat_cache_boeck'),
+    #'data/features/common/queen',
+    #'data/features/common/zweieck',
+    #os.path.join(FEATURE_BASE_PATH, 'smc/audio/feat_cache_boeck'),
+    #'data/features/common/gtzan',
 ] # os.path.join(FEATURE_BASE_PATH, DATASET_NAME) # os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck') # os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck')
 BEAT_ANNOTATION_EXT = '.beats'
 BEAT_ANNOTATION_PATH = [
-    os.path.join(BEAT_ANNOTATION_BASE_PATH, 'beatles/annotations/beats'),
-    os.path.join(BEAT_ANNOTATION_BASE_PATH, 'robbie_williams/annotations/beats'),
-    os.path.join(BEAT_ANNOTATION_BASE_PATH, 'ballroom/annotations/beats'),
-    os.path.join(BEAT_ANNOTATION_BASE_PATH, 'rock/annotations/beats'),
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'beatles/annotations/beats'),
+    None,#os.path.join(BEAT_ANNOTATION_BASE_PATH, 'robbie_williams/annotations/beats'),
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'ballroom/annotations/beats'),
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'rock/annotations/beats'),
     #os.path.join(ANNOTATION_BASE_PATH, 'rwc/annotations/beats'), NOT POP!!!
-    os.path.join(BEAT_ANNOTATION_BASE_PATH, 'hainsworth/annotations/beats'),
-    'data/annotations/beat/rwc',
-    os.path.join(BEAT_ANNOTATION_BASE_PATH, 'hjdb/annotations/beats'),
-    None,
-    None,
-    os.path.join(FEATURE_BASE_PATH, 'smc/annotations/beats'),
-    'data/annotations/beat/gtzan',
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'hainsworth/annotations/beats'),
+    #None,#'data/annotations/beat/rwc',
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'hjdb/annotations/beats'),
+    #None,
+    #None,
+    #os.path.join(FEATURE_BASE_PATH, 'smc/annotations/beats'),
+    #'data/annotations/beat/gtzan',
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 CHORD_ANNOTATION_EXT = '.chords'
 CHORD_ANNOTATION_PATH = [
-    os.path.join(CHORD_ANNOTATION_BASE_PATH, 'beatles/annotations/chords'), # os.path.join(ANNOTATION_BASE_PATH, 'beatles'),
-    os.path.join(CHORD_ANNOTATION_BASE_PATH, 'robbie_williams/annotations/original/chords'),
-    None,
-    None,
-    None,
-    'data/annotations/chord/rwc',
-    None,
-    'data/annotations/chord/queen',
-    'data/annotations/chord/zweieck',
-    None,
-    None,
+    #None,#os.path.join(CHORD_ANNOTATION_BASE_PATH, 'beatles/annotations/chords'), # os.path.join(ANNOTATION_BASE_PATH, 'beatles'),
+    '/data3/datasets/chords/robbie_williams/annotations/chords',
+    #None,
+    #None,
+    #None,
+    #'data/annotations/chord/rwc',
+    #None,
+    #'data/annotations/chord/queen',
+    #'data/annotations/chord/zweieck',
+    #None,
+    #None,
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 
 DATASET_NUM = len(FEATURE_PATH)
@@ -155,10 +155,11 @@ FEATURE_CONTEXT = 1025 #8193 #800 #1000
 TRAINING_HOP_SIZE = 250 #512 #40 #100
 
 BATCH_SIZE = 16
-PATIENCE = 4 #9999
+PATIENCE = 5 #9999
 
-BEAT_BCE_LOSS_WEIGHT = 2 #27 #16
+BEAT_BCE_LOSS_WEIGHT = 0 #27 #16
 CHORD_BCE_LOSS_WEIGHT = 1
+QUALITY_BCE_LOSS_WEIGHT = 0
 
 
 
@@ -168,7 +169,7 @@ CHORD_BCE_LOSS_WEIGHT = 1
 # value 9 is needed based on server features (1,9): 91 -> 89 -> 29 -> 27 -> 9 -> 1
 LAST_CNN_KERNEL_FREQUENCY_SIZE = 2 #9 # 8
 
-CHORD_OUT_NUM = 25
+CHORD_OUT_NUM = 16
 
 ######################################################
 
@@ -185,7 +186,7 @@ TRAIN_EXISTING = False
 PREDICT = False
 PREDICT_PER_DATASET = True
 PREDICT_UNSEEN = False # predict complete unseen dataset, no splits
-FOLD_RANGE = range(0, 8) # maximum 8!!!
+FOLD_RANGE = range(0, 1) # maximum 8!!!
 DISPLAY_INTERMEDIATE_RESULTS = False
 
 TRAIN_ON_BEAT = True
@@ -207,7 +208,7 @@ UPPER_FILTER_IDX = 223
 VERBOSE = True # args.verbose
 
 MAJMIN = True
-DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS = False
+DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS = True
 
 USE_DBN_BEAT_TRACKER = False
 

@@ -139,31 +139,38 @@ def init_beat_targets(annos, feats):
 # NOTE: if there is an annotation that is after the last frame, ignore it
 def compute_chord_target(time_labels, num_frames):
     target = np.zeros(num_frames, np.int64)
+    target_q = np.zeros(num_frames, np.int64)
     for i, time_label in enumerate(time_labels):
         time_idx_start = int(np.rint(time_label[0]*FPS))
         time_idx_end = int(np.rint(time_labels[i+1][0]*FPS)) if i < len(time_labels) - 1 else num_frames
 
         if time_idx_end <= num_frames:
             for j in range(time_idx_start, time_idx_end):
-                target[j] = time_label[1]
+                target[j] = time_label[1][0]
+                target_q[j] = time_label[1][1]
         else:
             print('WARNING: annotation after last frame detected!', time_idx_end)
 
-    return target
+    return target, target_q
 
 def init_chord_targets(annos, feats):
     if annos == None:
         dummy_targs = []
+        dummy_targs_q = []
         for _, feat in enumerate(feats):
             targ = np.full(len(feat), -1, np.int64)
+            targ_q = np.full(len(feat), -1, np.int64)
             dummy_targs.append(targ)
-        return dummy_targs
+            dummy_targs_q.append(targ)
+        return dummy_targs, dummy_targs_q
 
     targs = []
+    targs_q = []
     for anno, feat in zip(annos, feats):
-        targ = compute_chord_target(anno, len(feat)) # time axis for length!
+        targ, targ_q = compute_chord_target(anno, len(feat)) # time axis for length!
         targs.append(targ)
-    return targs
+        targs_q.append(targ_q)
+    return targs, targs_q
 
 
 
@@ -188,7 +195,7 @@ def init_feats_annos_targets(feat_path_root, beat_anno_path_root, chord_anno_pat
         b_annotations = [None for f in features]
 
     c_annotations, unmapped_c_annotations = parse_annotations(chord_anno_path_root, CHORD_ANNOTATION_EXT, MAJMIN, DISPLAY_UNIQUE_CHORDS_AND_CHORD_CONFIGS) if chord_anno_path_root is not None else None
-    c_targets = init_chord_targets(c_annotations, features)
+    c_targets, c_q_targets = init_chord_targets(c_annotations, features)
     if unmapped_c_annotations == None:
         unmapped_c_annotations = [None for f in features]
 
@@ -196,9 +203,9 @@ def init_feats_annos_targets(feat_path_root, beat_anno_path_root, chord_anno_pat
     assert len(features) == len(c_targets)
     assert len(features) == len(b_annotations)
     assert len(features) == len(unmapped_c_annotations)
-    return features, b_annotations, b_targets, unmapped_c_annotations, c_targets
+    return features, b_annotations, b_targets, unmapped_c_annotations, c_targets, c_q_targets
 
-def shuffle_data(features, b_annotations, b_targets, c_annotations, c_targets):
+def shuffle_data(features, b_annotations, b_targets, c_annotations, c_targets, c_q_targets):
     idxs = list(range(0, len(features)))
 
     # shuffle indices
@@ -210,9 +217,10 @@ def shuffle_data(features, b_annotations, b_targets, c_annotations, c_targets):
     b_targets_rand = [b_targets[i] for i in idxs]
     b_annotations_rand = [b_annotations[i] for i in idxs]
     c_targets_rand = [c_targets[i] for i in idxs]
+    c_q_targets_rand = [c_q_targets[i] for i in idxs]
     c_annotations_rand = [c_annotations[i] for i in idxs]
 
-    return features_rand, b_annotations_rand, b_targets_rand, c_annotations_rand, c_targets_rand
+    return features_rand, b_annotations_rand, b_targets_rand, c_annotations_rand, c_targets_rand, c_q_targets_rand
 
 
 
@@ -239,7 +247,7 @@ def init_data():
 
     for idx, _ in enumerate(datasets):
 
-        # indices: 0 - features, 1 - b-annotations, 2 - b-targets, 3 - c-annotations, 4 - c-targets
+        # indices: 0 - features, 1 - b-annotations, 2 - b-targets, 3 - c-annotations, 4 - c-targets, 5 - c-q-targets
 
         # 0 pad all features to start from frame 1
         if FRAME_ONE_START:
@@ -262,7 +270,7 @@ def init_data():
             pass
             
         # shuffle data
-        datasets[idx][0], datasets[idx][1], datasets[idx][2], datasets[idx][3], datasets[idx][4] = shuffle_data(datasets[idx][0], datasets[idx][1], datasets[idx][2], datasets[idx][3], datasets[idx][4])
+        datasets[idx][0], datasets[idx][1], datasets[idx][2], datasets[idx][3], datasets[idx][4], datasets[idx][5] = shuffle_data(datasets[idx][0], datasets[idx][1], datasets[idx][2], datasets[idx][3], datasets[idx][4], datasets[idx][5])
         
     return datasets, test_per_dataset
 
@@ -273,16 +281,19 @@ def datasets_to_splits(datasets, test_per_dataset, fold_idx):
     train_b_t = []
     train_b_anno = []
     train_c_t = []
+    train_q_t = []
     train_c_anno = []
     valid_f = []
     valid_b_t = []
     valid_b_anno = []
     valid_c_t = []
+    valid_q_t = []
     valid_c_anno = []
     test_f = []
     test_b_t = []
     test_b_anno = []
     test_c_t = []
+    test_q_t = []
     test_c_anno = []
 
     data_length = 0
@@ -305,12 +316,15 @@ def datasets_to_splits(datasets, test_per_dataset, fold_idx):
         train_f = train_f + (datasets[idx][0][: vsi] + datasets[idx][0][tei :] if vsi < tei else datasets[idx][0][tei:vsi])
         train_b_t = train_b_t + (datasets[idx][2][: vsi] + datasets[idx][2][tei :] if vsi < tei else datasets[idx][2][tei:vsi])
         train_c_t = train_c_t + (datasets[idx][4][: vsi] + datasets[idx][4][tei :] if vsi < tei else datasets[idx][4][tei:vsi])
+        train_q_t = train_q_t + (datasets[idx][5][: vsi] + datasets[idx][5][tei :] if vsi < tei else datasets[idx][5][tei:vsi])
         valid_f = valid_f + datasets[idx][0][vsi : vei]
         valid_b_t = valid_b_t + datasets[idx][2][vsi : vei]
         valid_c_t = valid_c_t + datasets[idx][4][vsi : vei]
+        valid_q_t = valid_q_t + datasets[idx][5][vsi : vei]
         test_f = test_f + datasets[idx][0][tsi : tei]
         test_b_t = test_b_t + datasets[idx][2][tsi : tei]
         test_c_t = test_c_t + datasets[idx][4][tsi : tei]
+        test_q_t = test_q_t + datasets[idx][5][tsi : tei]
 
         train_b_anno = train_b_anno + (datasets[idx][1][: vsi] + datasets[idx][1][tei :] if vsi < tei else datasets[idx][1][tei:vsi])
         valid_b_anno = valid_b_anno + datasets[idx][1][vsi : vei]
@@ -326,6 +340,7 @@ def datasets_to_splits(datasets, test_per_dataset, fold_idx):
         test_per_dataset[idx]['b_targ'] = datasets[idx][2][tsi : tei]
         test_per_dataset[idx]['b_anno'] = datasets[idx][1][tsi : tei]
         test_per_dataset[idx]['c_targ'] = datasets[idx][4][tsi : tei]
+        test_per_dataset[idx]['q_targ'] = datasets[idx][5][tsi : tei]
         test_per_dataset[idx]['c_anno'] = datasets[idx][3][tsi : tei]
 
     if VERBOSE and len(datasets) > 0:
@@ -335,9 +350,10 @@ def datasets_to_splits(datasets, test_per_dataset, fold_idx):
         print(data_length, 'beat targets computed, with example shape:', datasets[idx][2][0].shape)
         print(data_length, 'chord feature annotation files loaded, with example shape:', datasets[idx][3][0].shape if datasets[idx][3][0] is not None else datasets[idx][3][0])
         print(data_length, 'chord targets computed, with example shape:', datasets[idx][4][0].shape)
+        print(data_length, 'chord quality targets computed, with example shape:', datasets[idx][5][0].shape)
         print(len(train_f), 'training features', len(valid_f), 'validation features and', len(test_f), 'test features')
         
-    return train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset
+    return train_f, train_b_t, train_b_anno, train_c_t, train_q_t , train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_q_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_q_t, test_c_anno, test_per_dataset
 
 
 

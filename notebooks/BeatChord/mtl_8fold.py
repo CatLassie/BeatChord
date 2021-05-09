@@ -34,7 +34,7 @@ import scripts.mtl_8fold_config as tmc
 # feature, target, annotation initializer
 from scripts.mtl_8fold_feat import init_data, datasets_to_splits, init_data_for_evaluation_only
 
-from scripts.chord_util import labels_to_notataion_and_intervals, annos_to_labels_and_intervals
+from scripts.chord_util import labels_to_notataion_and_intervals, annos_to_labels_and_intervals, labels_to_majmin_and_intervals
 from scripts.chord_util import targets_to_one_hot
 
 import mir_eval
@@ -102,6 +102,7 @@ patience = tmc.PATIENCE
 
 beat_loss_weight = tmc.BEAT_BCE_LOSS_WEIGHT
 chord_loss_weight = tmc.CHORD_BCE_LOSS_WEIGHT
+quality_loss_weight = tmc.QUALITY_BCE_LOSS_WEIGHT
 
 
 # In[ ]:
@@ -261,6 +262,8 @@ fc_k_size = 1
 # loss functions
 class_weight = np.full(CHORD_OUT_NUM + 1, chord_loss_weight, np.float32)
 class_weight[CHORD_OUT_NUM] = beat_loss_weight
+for i in range(13,CHORD_OUT_NUM):
+    class_weight[i] = quality_loss_weight
 
 print('loss weights:', class_weight, '\n')
 
@@ -419,10 +422,11 @@ class TCNMTLNet(nn.Module):
 
 # Dataset for DataLoader (items are pairs of Context x 81 (time x freq.) spectrogram snippets and 0-1 (0.5) target values)
 class TCNMTLSet(Dataset):
-    def __init__(self, feat_list, targ_b_list, targ_c_list, context, hop_size):
+    def __init__(self, feat_list, targ_b_list, targ_c_list, targ_q_list, context, hop_size):
         self.features = feat_list
         self.b_targets = targ_b_list
         self.c_targets = targ_c_list
+        self.q_targets = targ_q_list
         self.context = context
         self.hop_size = hop_size
  
@@ -468,17 +472,19 @@ class TCNMTLSet(Dataset):
         sample = self.features[idx][position : position+self.context]
         b_target = self.b_targets[idx][position : position+self.context]
         c_target = self.c_targets[idx][position : position+self.context]
+        q_target = self.q_targets[idx][position : position+self.context]
         
         # probably will need to be removed when beat 2nd neuron is used
         # also b_target will need to be transposed like chord?
         #b_target_2d = np.expand_dims(b_target, axis=0)
 
         transposed_c_target = np.transpose(np.asarray(c_target))
+        transposed_q_target = np.transpose(np.asarray(q_target))
 
         #joint_target = np.concatenate((transposed_c_target, b_target_2d))
 
         # convert to PyTorch tensor and return (unsqueeze is for extra dimension, asarray is cause target is scalar)
-        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(b_target)), torch.from_numpy(transposed_c_target)
+        return torch.from_numpy(sample).unsqueeze_(0), torch.from_numpy(np.asarray(b_target)), torch.from_numpy(transposed_c_target), torch.from_numpy(transposed_q_target)
 
 
 
@@ -500,15 +506,15 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
     model.train()
     t = time.time()
     # iterate through all data using the loader
-    for batch_idx, (data, b_target, c_target) in enumerate(train_loader):
+    for batch_idx, (data, b_target, c_target, q_target) in enumerate(train_loader):
         # move data to device
-        data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
+        data, b_target, c_target, q_target = data.to(device), b_target.to(device), c_target.to(device), q_target.to(device)
         
         # reset optimizer (clear previous gradients)
         optimizer.zero_grad()
         # forward pass (calculate output of network for input)
         output = model(data.float())
-        b_output, c_output = output[:, CHORD_OUT_NUM:].squeeze(1), output[:, :CHORD_OUT_NUM]
+        b_output, c_output, q_output = output[:, CHORD_OUT_NUM:].squeeze(1), output[:, :13], output[:, 13:CHORD_OUT_NUM]
         # calculate loss
         loss = 0
         if TRAIN_ON_BEAT:
@@ -544,6 +550,21 @@ def train_one_epoch(args, model, device, train_loader, optimizer, epoch):
             c_loss_arr = [chord_loss_func(el[0], el[1]) for el in c_list]
             c_loss_mean = sum(c_loss_arr) / batch_size
             loss = loss + c_loss_mean
+
+
+        ########### QUALITY
+            mask = [(t[0][0].item() >= 0) for t in q_target]
+            q_output = q_output[mask]
+            q_target = q_target[mask]
+
+            q_zip = zip(q_output, q_target)
+            q_list = list(q_zip)
+            q_loss_arr = [quality_loss_func(el[0], el[1]) for el in q_list]
+            q_loss_mean = sum(q_loss_arr) / batch_size
+            loss = loss + q_loss_mean
+
+
+
                
         # do a backward pass (calculate gradients using automatic differentiation and backpropagation)
         loss.backward()
@@ -571,12 +592,12 @@ def calculate_unseen_loss(model, device, unseen_loader):
     # no gradient calculation    
     with torch.no_grad():
         # iterate over test data
-        for data, b_target, c_target in unseen_loader:
+        for data, b_target, c_target, q_target in unseen_loader:
             # move data to device
-            data, b_target, c_target = data.to(device), b_target.to(device), c_target.to(device)
+            data, b_target, c_target, q_target = data.to(device), b_target.to(device), c_target.to(device), q_target.to(device)
             # forward pass (calculate output of network for input)
             output = model(data.float())
-            b_output, c_output = output[:, CHORD_OUT_NUM:].squeeze(1), output[:, :CHORD_OUT_NUM]
+            b_output, c_output, q_output = output[:, CHORD_OUT_NUM:].squeeze(1), output[:, :13], output[:, 13:CHORD_OUT_NUM]
             # claculate loss and add it to our cumulative loss
             sum_unseen_loss = 0
             if TRAIN_ON_BEAT:
@@ -605,6 +626,19 @@ def calculate_unseen_loss(model, device, unseen_loader):
                 c_loss_sum = sum(c_loss_arr)
                 sum_unseen_loss = sum_unseen_loss + c_loss_sum
                 
+            ######## QUALITY
+                mask = [(t[0][0].item() >= 0) for t in q_target]
+                q_output = q_output[mask]
+                q_target = q_target[mask]
+
+                q_zip = zip(q_output, q_target)
+                q_list = list(q_zip)
+                q_loss_arr = [quality_loss_func(el[0], el[1]) for el in q_list]
+                q_loss_sum = sum(q_loss_arr)
+                sum_unseen_loss = sum_unseen_loss + q_loss_sum
+
+
+
             unseen_loss += sum_unseen_loss.item() # sum up batch loss
 
     # output results of test run
@@ -636,10 +670,12 @@ def predict(model, device, data, context):
         output = sgm(output)
 
         output_beat = output[:, CHORD_OUT_NUM:]
-        output_chord = output[:, :CHORD_OUT_NUM]
+        output_chord = output[:, :13]
+        output_quality = output[:, 13:CHORD_OUT_NUM]
         
         _, out_chord_val = torch.max(output_chord.data, 1) # 0 -> batch, 1 -> 13 output neurons, 2 -> data size
-    return output_beat, out_chord_val
+        _, out_quality_val = torch.max(output_quality.data, 1) # 0 -> batch, 1 -> 13 output neurons, 2 -> data size
+    return output_beat, out_chord_val, out_quality_val
 
 
 # In[ ]:
@@ -671,11 +707,11 @@ def run_training(fold_number):
 
     # setup our datasets for training, evaluation and testing
     kwargs = {'num_workers': 4, 'pin_memory': True} if USE_CUDA else {'num_workers': 4}
-    train_loader = torch.utils.data.DataLoader(TCNMTLSet(train_f, train_b_t, train_c_t_1hot, args.context, args.hop_size),
+    train_loader = torch.utils.data.DataLoader(TCNMTLSet(train_f, train_b_t, train_c_t_1hot, train_q_t_1hot, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=True, **kwargs)
-    valid_loader = torch.utils.data.DataLoader(TCNMTLSet(valid_f, valid_b_t, valid_c_t_1hot, args.context, args.hop_size),
+    valid_loader = torch.utils.data.DataLoader(TCNMTLSet(valid_f, valid_b_t, valid_c_t_1hot, valid_q_t_1hot, args.context, args.hop_size),
                                                batch_size=args.batch_size, shuffle=False, **kwargs)
-    test_loader = torch.utils.data.DataLoader(TCNMTLSet(test_f, test_b_t, test_c_t_1hot, args.context, args.hop_size),
+    test_loader = torch.utils.data.DataLoader(TCNMTLSet(test_f, test_b_t, test_c_t_1hot, test_q_t_1hot, args.context, args.hop_size),
                                               batch_size=args.batch_size, shuffle=False, **kwargs)
 
     # main training loop
@@ -735,6 +771,7 @@ def run_prediction(test_features, fold_number):
     # calculate actual output for the test data
     b_results_cnn = [None for _ in range(len(test_features))]
     c_results_cnn = [None for _ in range(len(test_features))]
+    q_results_cnn = [None for _ in range(len(test_features))]
     # iterate over test tracks
     for test_idx, cur_test_feat in enumerate(test_features):
         if test_idx % 100 == 0:
@@ -745,22 +782,23 @@ def run_prediction(test_features, fold_number):
             pass
         
         # run the inference method
-        b_result, c_result = predict(model, DEVICE, cur_test_feat, args.context)
+        b_result, c_result, q_result = predict(model, DEVICE, cur_test_feat, args.context)
         b_results_cnn[test_idx] = b_result.cpu().numpy()
         c_results_cnn[test_idx] = c_result.cpu().numpy()
+        q_results_cnn[test_idx] = q_result.cpu().numpy()
 
-    return b_results_cnn, c_results_cnn
+    return b_results_cnn, c_results_cnn, q_results_cnn
 
 
 # In[ ]:
 
 
-def evaluate(feats, c_targs, c_annos, b_annos, fold_number):
+def evaluate(feats, c_targs, q_targs, c_annos, b_annos, fold_number):
     # predict beats and chords
     if VERBOSE:
         #print('predicting...')
         pass
-    predicted_beats, predicted_chords = run_prediction(feats, fold_number) #[test_t[0], test_t[1]]
+    predicted_beats, predicted_chords, predicted_qs = run_prediction(feats, fold_number) #[test_t[0], test_t[1]]
                     
     # evaluate results
     if VERBOSE:
@@ -775,14 +813,23 @@ def evaluate(feats, c_targs, c_annos, b_annos, fold_number):
     chord_p_scores_w = []
     chord_r_scores_w = []
     chord_f1_scores_w = []
+
+    q_p_scores_mic = []
+    q_r_scores_mic = []
+    q_f1_scores_mic = []
+    q_p_scores_w = []
+    q_r_scores_w = []
+    q_f1_scores_w = []
     
     chord_weighted_accuracies = []
+    root_weighted_accuracies = []
     
     for i, pred_chord in enumerate(predicted_chords):        
         
         if c_targs[i][0] != -1:
 
             pred_chord = pred_chord.squeeze(0) # squeeze cause the dimensions are (1, frame_num, cause of the batch)!!!
+            pred_q = predicted_qs[i].squeeze(0)
             
             chord_p_scores_mic.append(precision_score(c_targs[i], pred_chord, average='micro'))
             chord_r_scores_mic.append(recall_score(c_targs[i], pred_chord, average='micro'))
@@ -791,12 +838,27 @@ def evaluate(feats, c_targs, c_annos, b_annos, fold_number):
             chord_p_scores_w.append(precision_score(c_targs[i], pred_chord, average='weighted'))
             chord_r_scores_w.append(recall_score(c_targs[i], pred_chord, average='weighted'))
             chord_f1_scores_w.append(f1_score(c_targs[i], pred_chord, average='weighted'))
+
+            #print('ASD', len(pred_chord))
+            #print('ASD', len(c_targs[i]))
+            #print('ASD', len(pred_q))
+            #print('ASD', len(q_targs[i]))
+
+            q_p_scores_mic.append(precision_score(q_targs[i], pred_q, average='micro'))
+            q_r_scores_mic.append(recall_score(q_targs[i], pred_q, average='micro'))
+            q_f1_scores_mic.append(f1_score(q_targs[i], pred_q, average='micro'))
+
+            q_p_scores_w.append(precision_score(q_targs[i], pred_q, average='weighted'))
+            q_r_scores_w.append(recall_score(q_targs[i], pred_q, average='weighted'))
+            q_f1_scores_w.append(f1_score(q_targs[i], pred_q, average='weighted'))
             
             # mir_eval score (weighted accuracy)
 
             #ref_labels, ref_intervals = labels_to_notataion_and_intervals(c_targs[i])
             ref_labels, ref_intervals = annos_to_labels_and_intervals(c_annos[i], pred_chord)
-            est_labels, est_intervals = labels_to_notataion_and_intervals(pred_chord, MAJMIN)
+
+            #est_labels, est_intervals = labels_to_notataion_and_intervals(pred_chord, MAJMIN)
+            est_labels, est_intervals = labels_to_majmin_and_intervals(pred_chord, pred_q, MAJMIN, True)
 
             est_intervals, est_labels = mir_eval.util.adjust_intervals(
                 est_intervals, est_labels, ref_intervals.min(),
@@ -812,11 +874,14 @@ def evaluate(feats, c_targs, c_annos, b_annos, fold_number):
             durations = mir_eval.util.intervals_to_durations(merged_intervals)
             if MAJMIN:
                 comparison = mir_eval.chord.majmin(ref_labels, est_labels)
+                comparison_root = mir_eval.chord.root(ref_labels, est_labels)
             else:
                 comparison = mir_eval.chord.root(ref_labels, est_labels)
             score = mir_eval.chord.weighted_accuracy(comparison, durations)
+            root_score = mir_eval.chord.weighted_accuracy(comparison_root, durations)
 
             chord_weighted_accuracies.append(score)
+            root_weighted_accuracies.append(root_score)
     
     #### BEATS ################    
     
@@ -840,9 +905,9 @@ def evaluate(feats, c_targs, c_annos, b_annos, fold_number):
             e = madmom.evaluation.beats.BeatEvaluation(beat, b_annos[i])
             evals.append(e)
             
-    return evals, chord_p_scores_mic, chord_r_scores_mic, chord_f1_scores_mic, chord_p_scores_w, chord_r_scores_w, chord_f1_scores_w, chord_weighted_accuracies
+    return evals, chord_p_scores_mic, chord_r_scores_mic, chord_f1_scores_mic, chord_p_scores_w, chord_r_scores_w, chord_f1_scores_w, chord_weighted_accuracies, q_f1_scores_mic, q_f1_scores_w, root_weighted_accuracies
 
-def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
+def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc, f_q_m, f_q_w, root_mireval_acc):
     if VERBOSE and DISPLAY_INTERMEDIATE_RESULTS:
         write_results('\nBEAT EVALUATION:')
 
@@ -858,8 +923,12 @@ def display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc):
         #print('Precision (weighted):', np.mean(p_w) if len(p_w) > 0 else 'no annotations provided!')
         #print('Recall (weighted):', np.mean(r_w) if len(r_w) > 0 else 'no annotations provided!')
         write_results('F-measure (weighted): ' +  str(np.mean(f_w)) if len(f_w) > 0 else 'no annotations provided!')
+
+        write_results('Quality F-measure (micro): ' + str(np.mean(f_q_m)) if len(f_q_m) > 0 else 'no annotations provided!')
+        write_results('Quality F-measure (weighted): ' +  str(np.mean(f_q_w)) if len(f_q_w) > 0 else 'no annotations provided!')
         
         write_results('Weighted accuracies (mir_eval): ' + str(np.mean(mireval_acc)) if len(mireval_acc) > 0 else 'no annotations provided!')
+        write_results('root weighted accuracies (mir_eval): ' + str(np.mean(root_mireval_acc)) if len(root_mireval_acc) > 0 else 'no annotations provided!')
 
 
 def write_results(line, mode = 'a+'):
@@ -875,6 +944,9 @@ dataset_beat_evaluations = [[] for p in FEATURE_PATH]
 dataset_f_micro_evaluations = np.zeros(DATASET_NUM, np.float32)
 dataset_f_weighted_evaluations = np.zeros(DATASET_NUM, np.float32)
 dataset_mireval_evaluations = np.zeros(DATASET_NUM, np.float32)
+dataset_f_q_micro_evaluations = np.zeros(DATASET_NUM, np.float32)
+dataset_f_q_weighted_evaluations = np.zeros(DATASET_NUM, np.float32)
+dataset_root_mireval_evaluations = np.zeros(DATASET_NUM, np.float32)
 
 unseen_dataset_beat_evaluations = [[] for p in EVAL_FEATURE_PATH]
 unseen_dataset_f_micro_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
@@ -884,20 +956,31 @@ unseen_dataset_mireval_evaluations = np.zeros(EVAL_DATASET_NUM, np.float32)
 write_results('Model name: ' + MODEL_NAME, 'w+')
 
 for i in FOLD_RANGE:
-    train_f, train_b_t, train_b_anno, train_c_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, i)
+    train_f, train_b_t, train_b_anno, train_c_t, train_q_t, train_c_anno, valid_f, valid_b_t, valid_b_anno, valid_c_t, valid_q_t, valid_c_anno, test_f, test_b_t, test_b_anno, test_c_t, test_q_t, test_c_anno, test_per_dataset = datasets_to_splits(datasets, test_per_dataset, i)
 
     if TRAIN:
-        train_c_t_1hot = targets_to_one_hot(train_c_t)
-        valid_c_t_1hot = targets_to_one_hot(valid_c_t)
-        test_c_t_1hot = targets_to_one_hot(test_c_t)
+        #print(train_c_t[0][300:310])
+        #print(train_q_t[0][300:310])
+        train_c_t_1hot = targets_to_one_hot(train_c_t, 13)
+        valid_c_t_1hot = targets_to_one_hot(valid_c_t, 13)
+        test_c_t_1hot = targets_to_one_hot(test_c_t, 13)
+        train_q_t_1hot = targets_to_one_hot(train_q_t, 3)
+        valid_q_t_1hot = targets_to_one_hot(valid_q_t, 3)
+        test_q_t_1hot = targets_to_one_hot(test_q_t, 3)
 
     if VERBOSE and TRAIN and len(train_c_t_1hot) > 0:
         print('example of 1-hot-encoded target shape:', train_c_t_1hot[0].shape, '\n')
+        #print(train_c_t_1hot[0][300:310])
+    if VERBOSE and TRAIN and len(train_q_t_1hot) > 0:
+        print('example of 1-hot-encoded quality target shape:', train_q_t_1hot[0].shape, '\n')
+        #print(train_q_t_1hot[0][300:310])
 
     beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[CHORD_OUT_NUM:].squeeze(1))
     unseen_beat_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[CHORD_OUT_NUM:].squeeze(1), reduction="sum")
-    chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:CHORD_OUT_NUM])
-    unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:CHORD_OUT_NUM], reduction="sum")
+    chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13])
+    unseen_chord_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[:13], reduction="sum")
+    quality_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:CHORD_OUT_NUM])
+    unseen_quality_loss_func = nn.BCEWithLogitsLoss(weight=class_weight[13:CHORD_OUT_NUM], reduction="sum")
 
     if TRAIN or TRAIN_EXISTING:
         run_training(i+1)
@@ -919,17 +1002,20 @@ for i in FOLD_RANGE:
             if DISPLAY_INTERMEDIATE_RESULTS:
                 write_results('\nDATASET: ' + s['path'])
 
-            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['c_anno'], s['b_anno'], i+1)
-            display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
+            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc, f_q_m, f_q_w, root_mireval_acc = evaluate(s['feat'], s['c_targ'], s['q_targ'], s['c_anno'], s['b_anno'], i+1)
+            display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc, f_q_m, f_q_w, root_mireval_acc)
 
             if len(beat_eval) > 0:
                 dataset_beat_evaluations[j] += beat_eval
             if len(f_m) > 0:
                 dataset_f_micro_evaluations[j] += np.mean(f_m)
+                dataset_f_q_micro_evaluations[j] += np.mean(f_q_m)
             if len(f_w) > 0:
                 dataset_f_weighted_evaluations[j] += np.mean(f_w)
+                dataset_f_q_weighted_evaluations[j] += np.mean(f_q_w)
             if len(mireval_acc) > 0:
                 dataset_mireval_evaluations[j] += np.mean(mireval_acc)
+                dataset_root_mireval_evaluations[j] += np.mean(root_mireval_acc)
 
     if PREDICT_UNSEEN:
         if DISPLAY_INTERMEDIATE_RESULTS:
@@ -939,8 +1025,8 @@ for i in FOLD_RANGE:
             if DISPLAY_INTERMEDIATE_RESULTS:
                 write_results('\nDATASET: ' + s['path'])
 
-            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['c_anno'], s['b_anno'], i+1)
-            display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
+            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc, f_q_m, f_q_w, root_mireval_acc = evaluate(s['feat'], s['c_targ'], s['q_targ'], s['c_anno'], s['b_anno'], i+1)
+            display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc, f_q_m, f_q_w, root_mireval_acc)
 
             if len(beat_eval) > 0:
                 unseen_dataset_beat_evaluations[j] += beat_eval
@@ -966,7 +1052,10 @@ if PREDICT_PER_DATASET:
         if CHORD_ANNOTATION_PATH[i] != None:
             write_results('F-measure (micro): ' + str(dataset_f_micro_evaluations[i]/len(FOLD_RANGE)))
             write_results('F-measure (weighted): ' + str(dataset_f_weighted_evaluations[i]/len(FOLD_RANGE)))
+            write_results('Quality F-measure (micro): ' + str(dataset_f_q_micro_evaluations[i]/len(FOLD_RANGE)))
+            write_results('Quality F-measure (weighted): ' + str(dataset_f_q_weighted_evaluations[i]/len(FOLD_RANGE)))
             write_results('Weighted accuracies (mir_eval): ' + str(dataset_mireval_evaluations[i]/len(FOLD_RANGE)))
+            write_results('Root weighted accuracies (mir_eval): ' + str(dataset_root_mireval_evaluations[i]/len(FOLD_RANGE)))
         else:
             write_results('no chord annotations provided!')
 
