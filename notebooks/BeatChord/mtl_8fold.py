@@ -34,7 +34,7 @@ import scripts.mtl_8fold_config as tmc
 # feature, target, annotation initializer
 from scripts.mtl_8fold_feat import init_data, datasets_to_splits, init_data_for_evaluation_only
 
-from scripts.chord_util import labels_to_notataion_and_intervals
+from scripts.chord_util import labels_to_notataion_and_intervals, annos_to_labels_and_intervals
 from scripts.chord_util import targets_to_one_hot
 
 import mir_eval
@@ -750,7 +750,7 @@ def run_prediction(test_features, fold_number):
 # In[ ]:
 
 
-def evaluate(feats, c_targs, b_annos, fold_number):
+def evaluate(feats, c_targs, c_annos, b_annos, fold_number):
     # predict beats and chords
     if VERBOSE:
         #print('predicting...')
@@ -789,7 +789,8 @@ def evaluate(feats, c_targs, b_annos, fold_number):
             
             # mir_eval score (weighted accuracy)
 
-            ref_labels, ref_intervals = labels_to_notataion_and_intervals(c_targs[i])
+            #ref_labels, ref_intervals = labels_to_notataion_and_intervals(c_targs[i])
+            ref_labels, ref_intervals = annos_to_labels_and_intervals(c_annos[i], pred_chord)
             est_labels, est_intervals = labels_to_notataion_and_intervals(pred_chord)
 
             est_intervals, est_labels = mir_eval.util.adjust_intervals(
@@ -910,7 +911,7 @@ for i in FOLD_RANGE:
             if DISPLAY_INTERMEDIATE_RESULTS:
                 write_results('\nDATASET: ' + s['path'])
 
-            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'], i+1)
+            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['c_anno'], s['b_anno'], i+1)
             display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
             if len(beat_eval) > 0:
@@ -930,7 +931,7 @@ for i in FOLD_RANGE:
             if DISPLAY_INTERMEDIATE_RESULTS:
                 write_results('\nDATASET: ' + s['path'])
 
-            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['b_anno'], i+1)
+            beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc = evaluate(s['feat'], s['c_targ'], s['c_anno'], s['b_anno'], i+1)
             display_results(beat_eval, p_m, r_m, f_m, p_w, r_w, f_w, mireval_acc)
 
             if len(beat_eval) > 0:

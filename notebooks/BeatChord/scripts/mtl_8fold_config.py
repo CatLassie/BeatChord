@@ -30,45 +30,45 @@ FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
 FEATURE_PATH = [
     os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck'), # os.path.join(FEATURE_BASE_PATH, 'beatles'),
     os.path.join(FEATURE_BASE_PATH, 'robbie_williams/audio/feat_cache_boeck'),
-    os.path.join(FEATURE_BASE_PATH, 'ballroom/audio/feat_cache_boeck'),
-    os.path.join(FEATURE_BASE_PATH, 'rock/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'ballroom/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'rock/audio/feat_cache_boeck'),
     #os.path.join(FEATURE_BASE_PATH, 'rwc/audio/feat_cache_boeck'), NOT POP!!!
-    os.path.join(FEATURE_BASE_PATH, 'hainsworth/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'hainsworth/audio/feat_cache_boeck'),
     'data/features/common/rwc',
-    os.path.join(FEATURE_BASE_PATH, 'hjdb/audio/feat_cache_boeck'),
+    #os.path.join(FEATURE_BASE_PATH, 'hjdb/audio/feat_cache_boeck'),
     'data/features/common/queen',
     'data/features/common/zweieck',
-    os.path.join(FEATURE_BASE_PATH, 'smc/audio/feat_cache_boeck'),
-    'data/features/common/gtzan',
+    #os.path.join(FEATURE_BASE_PATH, 'smc/audio/feat_cache_boeck'),
+    #'data/features/common/gtzan',
 ] # os.path.join(FEATURE_BASE_PATH, DATASET_NAME) # os.path.join(FEATURE_BASE_PATH, 'beatles/audio/feat_cache_boeck') # os.path.join(CURRENT_PATH, '../../../../../data2/datasets/downbeat/beatles/audio/feat_cache_boeck')
 BEAT_ANNOTATION_EXT = '.beats'
 BEAT_ANNOTATION_PATH = [
-    os.path.join(BEAT_ANNOTATION_BASE_PATH, 'beatles/annotations/beats'),
-    os.path.join(BEAT_ANNOTATION_BASE_PATH, 'robbie_williams/annotations/beats'),
-    os.path.join(BEAT_ANNOTATION_BASE_PATH, 'ballroom/annotations/beats'),
-    os.path.join(BEAT_ANNOTATION_BASE_PATH, 'rock/annotations/beats'),
+    None,#os.path.join(BEAT_ANNOTATION_BASE_PATH, 'beatles/annotations/beats'),
+    None,#os.path.join(BEAT_ANNOTATION_BASE_PATH, 'robbie_williams/annotations/beats'),
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'ballroom/annotations/beats'),
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'rock/annotations/beats'),
     #os.path.join(ANNOTATION_BASE_PATH, 'rwc/annotations/beats'), NOT POP!!!
-    os.path.join(BEAT_ANNOTATION_BASE_PATH, 'hainsworth/annotations/beats'),
-    'data/annotations/beat/rwc',
-    os.path.join(BEAT_ANNOTATION_BASE_PATH, 'hjdb/annotations/beats'),
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'hainsworth/annotations/beats'),
+    None,#'data/annotations/beat/rwc',
+    #os.path.join(BEAT_ANNOTATION_BASE_PATH, 'hjdb/annotations/beats'),
     None,
     None,
-    os.path.join(FEATURE_BASE_PATH, 'smc/annotations/beats'),
-    'data/annotations/beat/gtzan',
+    #os.path.join(FEATURE_BASE_PATH, 'smc/annotations/beats'),
+    #'data/annotations/beat/gtzan',
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 CHORD_ANNOTATION_EXT = '.chords'
 CHORD_ANNOTATION_PATH = [
     os.path.join(CHORD_ANNOTATION_BASE_PATH, 'beatles/annotations/chords'), # os.path.join(ANNOTATION_BASE_PATH, 'beatles'),
     os.path.join(CHORD_ANNOTATION_BASE_PATH, 'robbie_williams/annotations/original/chords'),
-    None,
-    None,
-    None,
+    #None,
+    #None,
+    #None,
     'data/annotations/chord/rwc',
-    None,
+    #None,
     'data/annotations/chord/queen',
     'data/annotations/chord/zweieck',
-    None,
-    None,
+    #None,
+    #None,
 ] # os.path.join(ANNOTATION_BASE_PATH, DATASET_NAME) # os.path.join(ANNOTATION_BASE_PATH, 'beatles/annotations/beats')
 
 DATASET_NUM = len(FEATURE_PATH)
@@ -155,9 +155,9 @@ FEATURE_CONTEXT = 1025 #8193 #800 #1000
 TRAINING_HOP_SIZE = 250 #512 #40 #100
 
 BATCH_SIZE = 16
-PATIENCE = 4 #9999
+PATIENCE = 5 #9999
 
-BEAT_BCE_LOSS_WEIGHT = 2 #27 #16
+BEAT_BCE_LOSS_WEIGHT = 0 #27 #16
 CHORD_BCE_LOSS_WEIGHT = 1
 
 

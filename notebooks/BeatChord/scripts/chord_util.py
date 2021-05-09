@@ -17,24 +17,24 @@ note_labels = {
 }
 
 labels_to_letters = {
-    0: 'C',
-    1: 'C#',
-    2: 'D',
-    3: 'D#',
-    4: 'E',
-    5: 'F',
-    6: 'F#',
-    7: 'G',
-    8: 'G#',
-    9: 'A',
-    10: 'A#',
-    11: 'B',
+    0: 'C:(5)',
+    1: 'C#:(5)',
+    2: 'D:(5)',
+    3: 'D#:(5)',
+    4: 'E:(5)',
+    5: 'F:(5)',
+    6: 'F#:(5)',
+    7: 'G:(5)',
+    8: 'G#:(5)',
+    9: 'A:(5)',
+    10: 'A#:(5)',
+    11: 'B:(5)',
     12: 'N'
 }
 
 def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_chords_and_chord_configs = False):
     if anno_path_root == None:
-        return None
+        return None, None
 
     anno_paths = search_files(anno_path_root, anno_ext)
     annotations = [load_chords(p) for p in anno_paths]
@@ -72,7 +72,10 @@ def parse_annotations(anno_path_root, anno_ext, majmin = False, display_unique_c
     else:
         mapped_annotations = [np.array([[line[0], root_to_target(chord_to_root(line[1]))] for line in anno]) for anno in annotations]
 
-    return mapped_annotations
+    original_annotations = [np.array([[line[0], line[1]] for line in anno]) for anno in annotations]
+
+    return mapped_annotations, original_annotations
+
 
 # FUNCTIONS FOR PARSING CHORD ANNOTATIONS
 
@@ -210,3 +213,19 @@ def labels_to_notataion_and_intervals(labels):
             out_intervals[len(out_intervals) - 1][1] = end_time
     
     return out_labels, out_intervals
+
+# format annot intervals for mir_eval
+def annos_to_labels_and_intervals(annos, predicted_labels):
+    end_time = len(predicted_labels) - 1
+
+    out_labels = np.empty(0)
+    out_intervals = np.empty((0, 2))
+    
+    for i, _ in enumerate(annos):
+        out_labels = np.append(out_labels, annos[i][1])
+        if i  < len(annos) - 1:
+            out_intervals = np.append(out_intervals, [[annos[i][0], annos[i+1][0]]], axis=0)
+        else:
+            out_intervals = np.append(out_intervals, [[annos[i][0], end_time/100]], axis=0)
+
+    return out_labels, np.around(out_intervals.astype(np.float64), 2)
