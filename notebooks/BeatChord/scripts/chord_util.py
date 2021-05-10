@@ -1,7 +1,7 @@
 import os
 from madmom.utils import search_files
 import numpy as np
-
+import mir_eval
 
 
 note_labels = {
@@ -128,24 +128,15 @@ def chord_to_majmin(label):
     if(label == 'N'):
         return label
 
+    # check if label contains a major third
+    maj_semitones = np.array(mir_eval.chord.QUALITIES['maj'])
+    _, label_semitones, _ = mir_eval.chord.encode_many([label], False)
+    is_maj = np.all(np.equal(label_semitones[0][4:5], maj_semitones[4:5]))
+
     root = chord_to_root(label)
     majmin = root
-
-    if(':' not in label):
-        majmin +=  ':maj'
-    else:
-        affix = label.split(':')[1]
-        affix_3 = affix[:3]
-        affix_4 = affix[:4]
-        
-        if(affix_3 == 'min' or affix_3 == 'dim' or affix_4 == 'hdim'):
-            majmin += ':min'
-        elif(affix_3 == 'maj' or affix_3 == 'aug'):
-            majmin += ':maj'
-        elif(affix_3 == 'sus'):
-            majmin = 'N'
-        else:
-            majmin += ':maj'
+    # every chord that has no major third in it is mapped to a minor chord
+    majmin = majmin + (':maj' if is_maj else ':min')
 
     return majmin
 
