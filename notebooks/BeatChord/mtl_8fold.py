@@ -890,7 +890,19 @@ def evaluate(feats, r_targs, q_targs, c_annos, b_annos, fold_number):
             qual_weighted_accuracies.append(q_score)
 
             # MAJMIN
-            #mm_est_labels, mm_est_intervals = labels_to_majmin_and_intervals(pred_r, pred_q)
+            mm_est_labels, mm_est_intervals = labels_to_majmin_and_intervals(pred_r, pred_q)
+
+            mm_est_intervals, mm_est_labels = mir_eval.util.adjust_intervals(
+                mm_est_intervals, mm_est_labels, ref_intervals.min(),
+                ref_intervals.max(), mir_eval.chord.NO_CHORD,
+                mir_eval.chord.NO_CHORD)
+
+            mm_merged_intervals, mm_ref_labels, mm_est_labels = mir_eval.util.merge_labeled_intervals(ref_intervals, ref_labels, mm_est_intervals, mm_est_labels)
+            mm_durations = mir_eval.util.intervals_to_durations(mm_merged_intervals)
+            mm_comparison = mir_eval.chord.majmin(mm_ref_labels, mm_est_labels)
+            mm_score = mir_eval.chord.weighted_accuracy(mm_comparison, mm_durations)
+
+            majmin_weighted_accuracies.append(mm_score)
     
     #### BEATS ################    
     
