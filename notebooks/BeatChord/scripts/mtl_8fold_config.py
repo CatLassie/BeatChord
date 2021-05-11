@@ -59,7 +59,7 @@ BEAT_ANNOTATION_PATH = [
 CHORD_ANNOTATION_EXT = '.chords'
 CHORD_ANNOTATION_PATH = [
     os.path.join(CHORD_ANNOTATION_BASE_PATH, 'beatles/annotations/chords'), # os.path.join(ANNOTATION_BASE_PATH, 'beatles'),
-    os.path.join(CHORD_ANNOTATION_BASE_PATH, 'robbie_williams/annotations/original/chords'),
+    os.path.join(CHORD_ANNOTATION_BASE_PATH, 'robbie_williams/annotations/chords'),
     #None,
     #None,
     #None,
