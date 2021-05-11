@@ -1068,11 +1068,11 @@ if PREDICT_PER_DATASET:
             write_results('Root F-measure (micro): ' + str(dataset_f_r_micro_evaluations[i]/len(FOLD_RANGE)))
             write_results('Root F-measure (weighted): ' + str(dataset_f_r_weighted_evaluations[i]/len(FOLD_RANGE)))
             write_results('Root Weighted accuracies (mir_eval): ' + str(dataset_r_mireval_evaluations[i]/len(FOLD_RANGE)))
-
+            write_results('')
             write_results('Quality F-measure (micro): ' + str(dataset_f_q_micro_evaluations[i]/len(FOLD_RANGE)))
             write_results('Quality F-measure (weighted): ' + str(dataset_f_q_weighted_evaluations[i]/len(FOLD_RANGE)))
             write_results('Quality Weighted accuracies (mir_eval): ' + str(dataset_q_mireval_evaluations[i]/len(FOLD_RANGE)))
-
+            write_results('')
             write_results('Maj/min Weighted accuracies (mir_eval): ' + str(dataset_mm_mireval_evaluations[i]/len(FOLD_RANGE)))
         else:
             write_results('no chord annotations provided!')
