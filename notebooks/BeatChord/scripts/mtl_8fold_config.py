@@ -171,6 +171,7 @@ LAST_CNN_KERNEL_FREQUENCY_SIZE = 2 #9 # 8
 
 ROOT_OUT_NUM = 13
 QUALITY_OUT_NUM = 3
+CHORD_OUT_NUM = ROOT_OUT_NUM + QUALITY_OUT_NUM
 
 ######################################################
 
