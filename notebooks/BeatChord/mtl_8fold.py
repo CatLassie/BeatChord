@@ -851,8 +851,6 @@ def evaluate(feats, r_targs, q_targs, c_annos, b_annos, fold_number):
 
             # ROOTS
             r_est_labels, r_est_intervals = labels_to_notataion_and_intervals(pred_r)
-            # QUALITIES
-            #q_est_labels, q_est_intervals = labels_to_qualities_and_intervals(pred_r)
             # MAJMIN
 
             r_est_intervals, r_est_labels = mir_eval.util.adjust_intervals(
@@ -862,19 +860,34 @@ def evaluate(feats, r_targs, q_targs, c_annos, b_annos, fold_number):
 
             # print('label length before merge', len(ref_labels), len(est_labels))
             # print('interval length before merge', len(ref_intervals), len(est_intervals))
-            r_merged_intervals, ref_labels, r_est_labels = mir_eval.util.merge_labeled_intervals(ref_intervals, ref_labels, r_est_intervals, r_est_labels)
+            r_merged_intervals, r_ref_labels, r_est_labels = mir_eval.util.merge_labeled_intervals(ref_intervals, ref_labels, r_est_intervals, r_est_labels)
             # print('label length after merge', len(ref_labels), len(est_labels))
             # print('interval length after merge', len(merged_intervals))
 
             r_durations = mir_eval.util.intervals_to_durations(r_merged_intervals)
             
             # TODO: 1 comparison for root, 1 for quality with set root (majmin), 1 for majmin
-            r_comparison = mir_eval.chord.root(ref_labels, r_est_labels)
+            r_comparison = mir_eval.chord.root(r_ref_labels, r_est_labels)
             # comparison = mir_eval.chord.majmin(ref_labels, est_labels)
 
             r_score = mir_eval.chord.weighted_accuracy(r_comparison, r_durations)
 
             root_weighted_accuracies.append(r_score)
+
+            # QUALITIES
+            q_est_labels, q_est_intervals = labels_to_qualities_and_intervals(pred_q)
+
+            q_est_intervals, q_est_labels = mir_eval.util.adjust_intervals(
+                q_est_intervals, q_est_labels, ref_intervals.min(),
+                ref_intervals.max(), mir_eval.chord.NO_CHORD,
+                mir_eval.chord.NO_CHORD)
+
+            q_merged_intervals, q_ref_labels, q_est_labels = mir_eval.util.merge_labeled_intervals(ref_intervals, ref_labels, q_est_intervals, q_est_labels)
+            q_durations = mir_eval.util.intervals_to_durations(q_merged_intervals)
+            q_comparison = mir_eval.chord.majmin(q_ref_labels, q_est_labels)
+            q_score = mir_eval.chord.weighted_accuracy(q_comparison, q_durations)
+
+            qual_weighted_accuracies.append(q_score)
     
     #### BEATS ################    
     
