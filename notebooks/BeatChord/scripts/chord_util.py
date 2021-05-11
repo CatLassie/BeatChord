@@ -306,3 +306,25 @@ def annos_to_labels_and_intervals(annos, predicted_labels):
             out_intervals = np.append(out_intervals, [[annos[i][0], end_time/100]], axis=0)
 
     return out_labels, np.around(out_intervals.astype(np.float64), 2)
+
+# format annot quality intervals for mir_eval
+def annos_to_qualities_and_intervals(annos, predicted_labels):
+    end_time = len(predicted_labels) - 1
+
+    out_labels = np.empty(0)
+    out_intervals = np.empty((0, 2))
+    
+    for i, _ in enumerate(annos):
+        label = annos[i][1]
+        if label != 'N':
+            root = chord_to_root(label)
+            label = label.split(root)
+            label = 'C' + label[1]
+
+        out_labels = np.append(out_labels, label)
+        if i  < len(annos) - 1:
+            out_intervals = np.append(out_intervals, [[annos[i][0], annos[i+1][0]]], axis=0)
+        else:
+            out_intervals = np.append(out_intervals, [[annos[i][0], end_time/100]], axis=0)
+
+    return out_labels, np.around(out_intervals.astype(np.float64), 2)

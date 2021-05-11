@@ -35,7 +35,7 @@ import scripts.mtl_8fold_config as tmc
 from scripts.mtl_8fold_feat import init_data, datasets_to_splits, init_data_for_evaluation_only
 
 from scripts.chord_util import labels_to_notataion_and_intervals, annos_to_labels_and_intervals
-from scripts.chord_util import labels_to_qualities_and_intervals, labels_to_majmin_and_intervals
+from scripts.chord_util import labels_to_qualities_and_intervals, labels_to_majmin_and_intervals, annos_to_qualities_and_intervals
 from scripts.chord_util import targets_to_one_hot
 
 import mir_eval
@@ -851,7 +851,6 @@ def evaluate(feats, r_targs, q_targs, c_annos, b_annos, fold_number):
 
             # ROOTS
             r_est_labels, r_est_intervals = labels_to_notataion_and_intervals(pred_r)
-            # MAJMIN
 
             r_est_intervals, r_est_labels = mir_eval.util.adjust_intervals(
                 r_est_intervals, r_est_labels, ref_intervals.min(),
@@ -875,19 +874,23 @@ def evaluate(feats, r_targs, q_targs, c_annos, b_annos, fold_number):
             root_weighted_accuracies.append(r_score)
 
             # QUALITIES
+            q_ref_labels, q_ref_intervals = annos_to_qualities_and_intervals(c_annos[i], pred_r)
             q_est_labels, q_est_intervals = labels_to_qualities_and_intervals(pred_q)
 
             q_est_intervals, q_est_labels = mir_eval.util.adjust_intervals(
-                q_est_intervals, q_est_labels, ref_intervals.min(),
-                ref_intervals.max(), mir_eval.chord.NO_CHORD,
+                q_est_intervals, q_est_labels, q_ref_intervals.min(),
+                q_ref_intervals.max(), mir_eval.chord.NO_CHORD,
                 mir_eval.chord.NO_CHORD)
 
-            q_merged_intervals, q_ref_labels, q_est_labels = mir_eval.util.merge_labeled_intervals(ref_intervals, ref_labels, q_est_intervals, q_est_labels)
+            q_merged_intervals, q_ref_labels, q_est_labels = mir_eval.util.merge_labeled_intervals(q_ref_intervals, q_ref_labels, q_est_intervals, q_est_labels)
             q_durations = mir_eval.util.intervals_to_durations(q_merged_intervals)
             q_comparison = mir_eval.chord.majmin(q_ref_labels, q_est_labels)
             q_score = mir_eval.chord.weighted_accuracy(q_comparison, q_durations)
 
             qual_weighted_accuracies.append(q_score)
+
+            # MAJMIN
+            #mm_est_labels, mm_est_intervals = labels_to_majmin_and_intervals(pred_r, pred_q)
     
     #### BEATS ################    
     
