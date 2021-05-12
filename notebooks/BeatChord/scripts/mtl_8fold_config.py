@@ -23,7 +23,7 @@ CHORD_ANNOTATION_BASE_PATH = os.path.join(CURRENT_PATH, '../../../../../data2/da
 
 DATASET_NAME = '8fold' # '<DATASET_FOLDER_NAME>' # e.g. 'bealtes'
 
-MODEL_NAME = 'MTL_experiment' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
+MODEL_NAME = 'MTL_Root_Qual' # '<MODEL_NAME>' # e.g. 'beat_sota_beatles_1025c_250h_0z_1b_16l_4p' (context, hop size, 0pad, batch size, conv. layer num., patience)
 MODEL_PATH = os.path.join(MODEL_BASE_PATH, DATASET_NAME)
     
 FEATURE_EXT = '.npy' # e.g. .feat.npy or .npy
@@ -158,7 +158,7 @@ BATCH_SIZE = 16
 PATIENCE = 5 #9999
 
 BEAT_BCE_LOSS_WEIGHT = 0 #27 #16
-CHORD_BCE_LOSS_WEIGHT = 1
+CHORD_BCE_LOSS_WEIGHT = 2
 QUALITY_BCE_LOSS_WEIGHT = 1
 
 

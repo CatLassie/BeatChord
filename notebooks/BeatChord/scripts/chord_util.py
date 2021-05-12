@@ -147,15 +147,29 @@ def chord_to_majmin(label):
     min_semitones = np.array(mir_eval.chord.QUALITIES['min'])
     _, label_semitones, _ = mir_eval.chord.encode_many([label], False)
 
-    is_maj = np.all(np.equal(label_semitones[0][4:5], maj_semitones[4:5]))
-    is_min = np.all(np.equal(label_semitones[0][3:4], min_semitones[3:4]))
+    #is_maj = np.all(np.equal(label_semitones[0][4:5], maj_semitones[4:5]))
+    #is_min = np.all(np.equal(label_semitones[0][3:4], min_semitones[3:4]))
 
     #is_maj = np.all(np.equal(label_semitones[0][:8], maj_semitones[:8]))
     #is_min = np.all(np.equal(label_semitones[0][:8], min_semitones[:8]))
 
     root = chord_to_root(label)
-    # every chord that has no major third in it is mapped to a minor chord
+
+
+    '''
+    # OG every chord that has no major third in it is mapped to a minor chord
+    is_maj = np.all(np.equal(label_semitones[0][4:5], maj_semitones[4:5]))
+    is_min = np.all(np.equal(label_semitones[0][3:4], min_semitones[3:4]))
     quality = ':maj' if is_maj else ':min'
+    '''
+    
+    # ONLY EXACTLY MAJ OR MIN CHORDS COUNT
+    is_maj = np.all(np.equal(label_semitones[0][:8], maj_semitones[:8]))
+    is_min = np.all(np.equal(label_semitones[0][:8], min_semitones[:8]))
+    quality = ':maj' if is_maj else (':min' if is_min else 'N')
+    
+
+
 
     return root, quality
 
