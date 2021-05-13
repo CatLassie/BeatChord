@@ -36,7 +36,7 @@ from scripts.mtl_8fold_feat import init_data, datasets_to_splits, init_data_for_
 
 from scripts.chord_util import labels_to_notataion_and_intervals, annos_to_labels_and_intervals
 from scripts.chord_util import labels_to_qualities_and_intervals, labels_to_majmin_and_intervals, annos_to_qualities_and_intervals
-from scripts.chord_util import targets_to_one_hot
+from scripts.chord_util import targets_to_one_hot, merge_labels_and_intervals
 
 import mir_eval
 
@@ -818,6 +818,8 @@ def evaluate(feats, r_targs, q_targs, c_annos, b_annos, fold_number):
     root_weighted_accuracies = []
     qual_weighted_accuracies = []
     majmin_weighted_accuracies = []
+
+    madmom_chord_evaluations = []
     
     for i, _ in enumerate(predicted_roots):        
         
@@ -890,6 +892,13 @@ def evaluate(feats, r_targs, q_targs, c_annos, b_annos, fold_number):
             # MAJMIN
             mm_est_labels, mm_est_intervals = labels_to_majmin_and_intervals(pred_r, pred_q)
 
+            ############ MADMOM EVALUATION ############
+            est_merged = merge_labels_and_intervals(mm_est_labels, mm_est_intervals)
+            ref_merged = merge_labels_and_intervals(ref_labels, ref_intervals)
+            madmom_chord_eval = madmom.evaluation.chords.ChordEvaluation(est_merged, ref_merged)
+            madmom_chord_evaluations.append(madmom_chord_eval)
+            ###########################################
+
             mm_est_intervals, mm_est_labels = mir_eval.util.adjust_intervals(
                 mm_est_intervals, mm_est_labels, ref_intervals.min(),
                 ref_intervals.max(), mir_eval.chord.NO_CHORD,
@@ -924,7 +933,7 @@ def evaluate(feats, r_targs, q_targs, c_annos, b_annos, fold_number):
             e = madmom.evaluation.beats.BeatEvaluation(beat, b_annos[i])
             evals.append(e)
             
-    return evals, root_f1_scores_mic, root_f1_scores_w, root_weighted_accuracies, qual_f1_scores_mic, qual_f1_scores_w, qual_weighted_accuracies, majmin_weighted_accuracies
+    return evals, root_f1_scores_mic, root_f1_scores_w, root_weighted_accuracies, qual_f1_scores_mic, qual_f1_scores_w, qual_weighted_accuracies, majmin_weighted_accuracies, madmom_chord_evaluations
 
 def display_results(beat_eval, root_f1_m, root_f1_w, root_acc, qual_f1_m, qual_f1_w, qual_acc, majmin_acc):
     if VERBOSE and DISPLAY_INTERMEDIATE_RESULTS:
@@ -956,6 +965,7 @@ def write_results(line, mode = 'a+'):
         f.close()
 
 dataset_beat_evaluations = [[] for p in FEATURE_PATH]
+dataset_chord_evaluations = [[] for p in FEATURE_PATH]
 dataset_f_r_micro_evaluations = np.zeros(DATASET_NUM, np.float32)
 dataset_f_r_weighted_evaluations = np.zeros(DATASET_NUM, np.float32)
 dataset_r_mireval_evaluations = np.zeros(DATASET_NUM, np.float32)
@@ -1014,11 +1024,13 @@ for i in FOLD_RANGE:
             if DISPLAY_INTERMEDIATE_RESULTS:
                 write_results('\nDATASET: ' + s['path'])
 
-            beat_eval, root_f1_m, root_f1_w, root_acc, qual_f1_m, qual_f1_w, qual_acc, majmin_acc = evaluate(s['feat'], s['r_targ'], s['q_targ'], s['c_anno'], s['b_anno'], i+1)
+            beat_eval, root_f1_m, root_f1_w, root_acc, qual_f1_m, qual_f1_w, qual_acc, majmin_acc, madmom_chord = evaluate(s['feat'], s['r_targ'], s['q_targ'], s['c_anno'], s['b_anno'], i+1)
             display_results(beat_eval, root_f1_m, root_f1_w, root_acc, qual_f1_m, qual_f1_w, qual_acc, majmin_acc)
 
             if len(beat_eval) > 0:
                 dataset_beat_evaluations[j] += beat_eval
+            if len(madmom_chord) > 0:
+                dataset_chord_evaluations[j] += madmom_chord
             if len(root_f1_m) > 0:
                 dataset_f_r_micro_evaluations[j] += np.mean(root_f1_m)
                 dataset_f_q_micro_evaluations[j] += np.mean(qual_f1_m)
@@ -1038,7 +1050,7 @@ for i in FOLD_RANGE:
             if DISPLAY_INTERMEDIATE_RESULTS:
                 write_results('\nDATASET: ' + s['path'])
 
-            beat_eval, root_f1_m, root_f1_w, root_acc, qual_f1_m, qual_f1_w, qual_acc, majmin_acc = evaluate(s['feat'], s['r_targ'], s['q_targ'], s['c_anno'], s['b_anno'], i+1)
+            beat_eval, root_f1_m, root_f1_w, root_acc, qual_f1_m, qual_f1_w, qual_acc, majmin_acc, madmom_chord = evaluate(s['feat'], s['r_targ'], s['q_targ'], s['c_anno'], s['b_anno'], i+1)
             display_results(beat_eval, root_f1_m, root_f1_w, root_acc, qual_f1_m, qual_f1_w, qual_acc, majmin_acc)
 
             if len(beat_eval) > 0:
@@ -1072,6 +1084,10 @@ if PREDICT_PER_DATASET:
             write_results('Quality Weighted accuracies (mir_eval): ' + str(dataset_q_mireval_evaluations[i]/len(FOLD_RANGE)))
             write_results('')
             write_results('Maj/min Weighted accuracies (mir_eval): ' + str(dataset_mm_mireval_evaluations[i]/len(FOLD_RANGE)))
+            write_results('')
+            write_results('Madmom chord evaluation (sum): ' + madmom.evaluation.chords.ChordSumEvaluation(dataset_chord_evaluations[i]).tostring())
+            write_results('')
+            write_results('Madmom chord evaluation (mean): ' + madmom.evaluation.chords.ChordMeanEvaluation(dataset_chord_evaluations[i]).tostring())
         else:
             write_results('no chord annotations provided!')
 

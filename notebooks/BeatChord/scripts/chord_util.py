@@ -342,3 +342,10 @@ def annos_to_qualities_and_intervals(annos, predicted_labels):
             out_intervals = np.append(out_intervals, [[annos[i][0], end_time/100]], axis=0)
 
     return out_labels, np.around(out_intervals.astype(np.float64), 2)
+
+# function for merging labels and intervals for madmom chord evaluation input format
+def merge_labels_and_intervals(labels, intervals):
+    merged = np.empty(len(labels), [('start', '<f8'), ('end', '<f8'), ('label', 'O')])
+    for idx, (l, i) in enumerate(zip(labels, intervals)):
+        merged[idx] = (i[0], i[1], l)
+    return merged
