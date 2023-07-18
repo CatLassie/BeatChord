@@ -18,3 +18,28 @@ r3 = receptive_field(11, 5, 8) # BeatChordMTLDCNN
 print(r1)
 print(r2)
 print(r3)
+
+
+
+import numpy as np
+
+# DEMONSTRATE PITCH SHIFTING
+def pitch_shift():
+  shift = 3
+  n_shift = -3
+  x = np.array([1,2,3,4,5,6,7,8,9,10])
+  y = np.array([1,2,3,4,5,6,7,8,9,10])
+
+  print('sequence:', x)
+
+  print('part to replace (shift up):', y[shift:])
+  print('by part:', y[:-shift])
+  y[shift:] = y[:-shift]
+  print('shifted up sequence:', y)
+
+  print('part to replace (shift down):', x[:n_shift])
+  print('by part:', x[-n_shift:])
+  x[:n_shift] = x[-n_shift:]
+  print('shifted down sequence:', x)
+
+pitch_shift()
